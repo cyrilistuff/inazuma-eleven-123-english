@@ -1,0 +1,935 @@
+event_id,idx,japones,es_final,estado
+10040001,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040001,1,Dお　%2F円堂！\nおまえが　ここに%1F来るなんて\nめずらしいな。,"¡Eh, Mark! Vaya, qué raro se me\nhace verte por aquí.",oficial
+10040001,2,Tまさか…　もう１%1F度\nサッカー%1F部へ%1F入れって\n%1F言うんじゃないだろうな？,"No vendrás a darme otra vez\nla murga con eso de que me\nuna al Raimon, ¿no?",oficial
+10040001,3,\ふぅ…　しょうがないな。\nおまえは　１%1F度%1F言い%1F出したら\n%1F止まらないからな。,"En fin, tú ganas... Una vez se\nte mete algo en la cabeza, ya\nnada te hace cambiar de idea...",oficial
+10040001,4,(サッカー%1F部に%1F入ってやるよ。,"Jugaré contigo, va.",oficial
+10040001,5,4ゼッタイ　そう%1F言うと\n%1F思ったんだけどな。,Sabía que dirías eso.,oficial
+10040002,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040002,1,lよくオレを%1F見つけることができたな。\nほうびとして　おまえのねがいを\nひとつだけ　かなえてやろう。,"Muy bien, me has encontrado...\nComo recompensa, te concederé\nun deseo.",oficial
+10040002,2,$さあ　%1F何でも%1F言うのだ。,"Venga, soy todo oídos.",oficial
+10040002,3,`オレにサッカー%1F部へ%1F入れ…　か。\nうむ　いいだろう。\nその%1F願い　かなえてやろう！,"Así que quieres que me apunte\na tu equipo... Bueno, vale.\nTe haré el favor.",oficial
+10040002,4,Pならば　またオレを%1F見つけたときに\nおまえの%1F願いを　かなえてやろう。,"La próxima vez que nos veamos,\nsi todo va bien, te concederé\ntu deseo.",oficial
+10040003,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040003,1,Pうわっ！　な　なんだおまえは…！\n…えっ？　オレが%1F何をしているかって？,¡Uah! ¿Qué quieres?...\n¿Que qué estoy haciendo?...,oficial
+10040003,2,t…べ　べつに%1F女の%1F子の%1F着がえを\nのぞこうとなんてしてないぞ。\nう　ウソじゃないからな！　%2F本当だぞ！,No... No te vayas a pensar que\nestoy mirando en los vestuarios\nde las chicas. ¡De verdad!,oficial
+10040003,3,pでも　みんなにはナイショにしてくれ。\nそのかわり　おまえの%1F言うことをひとつ\n%1F聞いてやるからさ。　な？,"No se lo digas a nadie. A cambio,\nte haré el favor que me pidas.\n¡Pero solo uno!",oficial
+10040003,4,\…サッカー%1F部に%1F入れ？\nえっ？　そんなのでいいのか？\nだったら　%1F入ってやるよ。,¿Que juegue en tu equipo? ¿Va\nen serio? Por mí vale...,oficial
+10040003,5,8だから　ミンナには\nヒミツにしておいてくれよな。,"Ni mu de esto, ¿eh?",oficial
+10040003,6,T%1F何でも%1F言うことを%1F聞いてやるからさ\nミンナには　ナイショにしてくれよ！,"¡Haré lo que tú me pidas, pero\nno se lo digas a nadie, por favor!",oficial
+10040004,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040004,1,Dんっ？　キミはダレだい？\nテニス%1F部に%1F何か%1F用なのかい？,¿Eh? ¿Quién eres? ¿Qué se te\nha perdido en el club de tenis?,oficial
+10040004,2,@…オレをサッカー%1F部にさそいたい？\nうーん　サッカーね…,"¿Me quieres en tu equipo?\nHmm, así que fútbol...",oficial
+10040004,3,Pオレって　テニスっぽい%1F顔だと%1F思うけど\nサッカーも　%2F似合うかな？,"Creo que me pega más jugar al\ntenis, pero a lo mejor el fútbol\nno se me da tan mal.",oficial
+10040004,4,@それだったら　やってみてもいいよ。\nこれから　よろしくね。,A ver qué tal se me da.,oficial
+10040004,5,0やっぱりオレは　テニス%1F顔なんだよな。,Yo es que soy más de tenis...,oficial
+10040005,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040005,1,<なんだい　あんた！\n%2F柔道%1F部に%1F何か%1F用かい？,¿Ya estamos otra vez?\n¿Qué es lo que quieres\ndel club de judo?,oficial
+10040005,2,@…オレをサッカー%1F部にさそいたい？\nうーん　サッカーね…,"¿Me quieres en tu equipo?\nHmm, así que fútbol...",oficial
+10040005,3,Tオレは　%2F柔道っぽい%2F体型だと%1F思うけど\nサッカーも　いけると%1F思うかい？,"Creo que mi cuerpo pega más\ncon el judo, pero si tú me\ndices que valdría para el fútbol...",oficial
+10040005,4,Lそれだったら　%1F入ってやるよ。\nこれから　よろしくたのむよ　あんた！,"Pues entonces, jugaré contigo.\n¡Vamos a arrasar, chico!",oficial
+10040005,5,<やっぱり　オレには%2F柔道が\n１%1F番あってるんだよな。,Está visto que lo mío es el judo.,oficial
+10040006,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10040006,1,<ふっふっふ…\nキミが%1F来ることは　わかっていたよ。,"Ju, ju... Sabía que vendrías.",oficial
+10040006,2,4オレを　サッカー%1F部に\nさそいたいのだろう？,"Quieres invitarme a jugar\nen tu equipo, ¿me equivoco?",oficial
+10040006,3,Lふっふっふ…\nそうだと%1F思ったよ。\nだから　ここで%1F待っていたのさ。,"Ja, ja... Me lo veía venir.\nPor eso te estaba esperando aquí.",oficial
+10040006,4,(えっ　ちがう？\nそんなはずは…。,"Ah, ¿no? No me digas...",oficial
+10050001,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10050001,1,8お　%2F円堂！\nなんか　%1F久しぶりな%1F感じだな！,¡Mark! ¿Cuánto hacía que\nno nos veíamos?,oficial
+10050001,2,D%1F何？\nサッカー%1F部に　もどらないかって？\nそれはつまり…,¿Eh? ¿Cómo que si vuelvo\nal equipo de fútbol?\nNo será que...,oficial
+10050001,3,(オレの%1F力が　%2F必要ってことか？,¿Dices que me necesitas?,oficial
+10050001,4,",よっしゃ！\nこれから　またよろしくな！",¡Muy bien!\n¡Tenemos que ser los mejores!,oficial
+10050001,5,(そうか。\nそれは　%2F残念だな…。,Ya veo. Lástima...,oficial
+10050004,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10050004,1,<キャ　キャプテン！\nオ　オレに%1F何か%1F用なんですか？,¡Ca... capitán!\n¿Pasa algo?,oficial
+10050004,2,tえっ？　サッカー%1F部にもどれって？\n…でも　オレなんかが%1F入っても\nみんなの%2F足手まといになるだけですよ。,¿Qué? ¿Que vuelva al equipo?\nSolo me convertiré en\nun estorbo para vosotros...,oficial
+10050004,3,",それでもいいって　%1F言うんですか？",¿Dices que no te importa?,oficial
+10050004,4,Lそ　そうですか…！\nだったら　もう１%1F度\nサッカーをやってみますよ！,"¡Oh, qué bien! ¡Vamos\na jugar otra vez!",oficial
+10050004,5,$また　よろしくおねがいします。,¡A ver si nos va bien!,oficial
+10050004,6,<そうですよね…。\nどうせ　オレなんか　オレなんか…。,Ya... Si es que yo... Yo...,oficial
+10050005,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10050005,1,0お　%2F円堂！\nなんか　%1F久しぶりだな！,"¡Hola, Mark! Cuánto tiempo, ¿no?",oficial
+10050005,2,\サッカーあきちゃったから　やめたけど\n%2F最近　またサッカーが\nしたくなったんだよね。,"Me cansé del fútbol y dejé de\njugar, pero últimamente me\napetece volver a tocar balón...",oficial
+10050005,3,0だから…\nまたサッカーをやらせてくれない？,Entonces... ¿me dejas jugar\nen tu equipo?,oficial
+10050005,4,Hあきたら　またやめるかもしれないけど\nこれから　またよろしくね！,"Si me aburro quizás salga del\nequipo, pero de momento jugaré\ncon vosotros.",oficial
+10050005,5,Pそうか。\nそれは　ざんねんだな…。\n%1F気が%1F向いたら　またさそってよね。,"Anda, pues qué pena...\nBueno, si cambias de opinión,\navísame.",oficial
+10050006,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10050006,1,dおう　%2F円堂！\nなんか　ずいぶん%1F会っていなかった\n%1F気がするぜ。\nオレに%1F何か%1F用か？,"¡Buenas, Mark! Vaya, me da la\nimpresión de que llevaba mucho\ntiempo sin verte. ¿Querías algo?",oficial
+10050006,2,L…%1F何？　オレにまたサッカーしろと？\nつまり　%3F豪炎寺なんかより…,¿Qué? ¿Que juegue otra vez\ncon vosotros? Entonces no\ntenéis suficiente con Axel...,oficial
+10050006,3,0このオレの%1F力が\n%2F必要ってことだな？,"O sea, que soy imprescindible\npara tu equipo, ¿no?",oficial
+10050006,4,pふんっ！　しょうがないな。\nオレがいないと　ダメみたいだしな。\nそこまで%1F言うのなら　もどってやるよ。,"Hmm, qué se le va a hacer...\nParece que sin mí no sois nada.\nVenga, vale, volveré al equipo.",oficial
+10050006,5,また　よろしくたのむぜ！,¡A ver si nos va bien!,oficial
+10050006,6,4ふんっ！\nそれなら　オレは%2F必要ないだろ！,"¡Puf! ¿Para qué te hago falta,\nsi puede saberse?",oficial
+10050007,0,%s\nが%2F仲間になった！,¡%s se te ha unido!,oficial
+10050007,1,Dなんだい？　またキミか…\nいったい　ボクに%1F何の%1F用だい？,¿Qué? ¿Otra vez tú?\n¿Qué diablos quieres de mí?,oficial
+10050007,2,\…えっ？　またサッカー%1F部に%1F入れって？\nボクもそんなに\nヒマじゃないんだけどね…,"¿Eh? ¿Otra vez me vienes con\nlas mismas? Que no me aburro\ntanto, oye...",oficial
+10050007,3,dまあ　どうしてもって%1F言うのなら\n%2F天才と%1F言われるこのボクが\n%1F入ってあげてもいいよ。,"Si estás desesperado, no tendré\nmás remedio que ayudarte con\nmi fútbol magistral.",oficial
+10050007,4,Pふふん！\nそこまで%1F言うのなら　この%2F天才のボクが\n%1F入ってあげるよ。,"¡Ju, ju, ju! ¡Si tantas ganas\ntienes de que juegue contigo,\nte dejaré disfrutar de mi magia!",oficial
+10050007,5,(ボクのやさしさに　%2F感謝しなよ。,"Has tenido suerte de que\nsea tan amable, cualquier otro\nhabría pasado de ti.",oficial
+10050007,6,<ふんっ！\nあとでコウカイしても\n%1F知らないからな。,Nada de arrepentirse luego.,oficial
+61010001,0,Lここは%2F受付です。　\n%2F名前をお%1F書きになって\nお%1F待ちください。,Hola. Esta es la recepción.\n¿En qué puedo ayudarte?,oficial
+62000080,0,(%1F他に　%1F何か%1F用はあるかい？,¿Algo más?,oficial
+62000080,1,4いらっしゃい。\n%2F今日は　どうするんだい？,"Hola, ¿en qué puedo servirte?",oficial
+62000080,2,まいど　どうもねー。,Muchas gracias.,oficial
+62000080,3,そうかい　またおいでねー。,De acuerdo. ¡Hasta pronto!,oficial
+62000080,4,まいど　どうもねー。,Muchas gracias.,oficial
+62000080,5,そうかい　またおいでねー。,De acuerdo. ¡Hasta pronto!,oficial
+62000250,0,%1F他　%1F用はあるかい？,¿Algo más?,oficial
+62000250,1,$ほっほっほ。\nいらっしゃい。,"Jo, jo, jo.\nBienvenido.",oficial
+62000250,2,また　おいでね。,Hasta otra.,oficial
+62000480,0,Hいらっしゃいま〜しぇ〜。\n%2F看板ムスメのトメで〜しゅ\nうふっ。,"¡Hola! ¡Me llamo Tome! Ji, ji.",oficial
+62000490,0,4いらっしゃい！\n%2F雷神%2F模型へ　ようこそ！,¡Hola! ¡Bienvenido a la tienda\nde maquetas Raijin!,oficial
+62000500,0,4らっしゃい！\nめんのかたさは　どうしやすかい？,¡Buenas! ¿Cómo de duros quieres\nlos fideos?,oficial
+62000510,0,�いらっしゃいまーせー。\fゲームは　クリアしてから\n%1F新しいものを　%1F買う！\nこれが　%1F正しいゲームの%1F遊び%1F方だよ。,"Buenos días.\fHasta que no se termina un juego,\nno se compra otro nuevo.\nEsa es la mejor manera de jugar.",oficial
+62000530,0,dおかえりなさいませ　ご%3F主人様♪\nメイド%2F喫茶は　\nただ%1F今　%2F営業%2F停止%1F中で〜す♪,¡Bienvenido a la cafetería!\nAhora mismo el bar temático\nestá cerrado.,oficial
+62000530,1,рｻして　%3F真二屋%2F店長も\n%1F今は　お%2F部屋で\nお%3F昼寝中で〜っす♪\fまたのお%1F帰りを\nお%1F待ちしてま〜っす　うふっ♪,"El jefe está durmiendo en\nla habitación.\fEspero que vuelva a visitarnos\npronto. Ji, ji.",oficial
+62000530,2,L…%1F今は%1F誰もおりません。\nお%1F帰り%1F下さいませ　ご%2F主人%1F様。,"Ahora no podemos atenderle.\nVuelva otro día, por favor.",oficial
+62000530,3,",おかえりなさいませ。　ご%2F主人%1F様♪","Me alegro de volver a verle, señor.",oficial
+62000563,0,Dウチの%1F薬は%2F効果バツグン！\nさあ　%1F見てってくれよな！,"¡Nuestros medicamentos son\nmuy efectivos! ¡Adelante,\neche un vistazo!",oficial
+81000060,0,Pこの%1F先は　オレたちの\nアジトだ！\nケガしたくなきゃ　あっちへ%1F行きな！,"¡A partir de aquí es nuestra\nguarida! Si no quieres que te\nhagamos daño, date media vuelta.",oficial
+81000060,1,Tなんだ　%3F警察官が%1F入って%1F行ったぞ！？\nオレたち　%1F何もしてないよー！,¡¿Ha venido la policía?!\n¡Nosotros no hemos hecho nada!,oficial
+81000060,2,0あ　ど　どうもっ\nこんにちはっ　へへへ…。,"Ah, hola... Buenos días, je, je.",oficial
+81000060,3,4アーん？\nなんか　モンクあんのか？\nアーん？,¿Mm? ¿Tienes algún problema?,oficial
+81000060,4,4あ　%2F円堂さん！\nおっ　おつかれさまです！,"Hola, Mark.\n¡Buen trabajo!",oficial
+81000060,5,きゃっ　つめたーい。,"Uah, qué fría...",oficial
+81000060,6,あーん　おなかいたーいっ！,Ay... Me duele la barriga.,oficial
+81000060,7,きゃっ　つめたーい。,"Uah, qué fría...",oficial
+81000060,8,4あははっ　まったく\nオッチョコチョイさんめー。,"Ja, ja, ja.\nQué patosa.",oficial
+81000060,9,$あははっ\nぼくも　いたーいっ！,"Ay, ay, ay.\nA mí también me duele.",oficial
+81000060,10,4あははっ　まったく\nオッチョコチョイさんめー。,"Ja, ja, ja.\nQué patosa.",oficial
+81000060,11,垂ｿょっと！\nぼーっと　%1F見てないで\nてつだってよ。\fそこに%1F見える　%1F青い%2F屋根の\n%4F体育倉庫に　%2F荷物を\n%1F運んでいるんだっ。,¡Oye! ¡No te quedes ahí en medio!\fTengo que llevar trastos al almacén\ndel gimnasio que tiene el techo de\ncolor azul.,oficial
+81000060,12,|%3F体育館の%1F裏は　%2F不良たちの\nたまり%1F場になっているのだ…。\fああっ　わたしに\n%2F注意をする%2F勇気があれば…！,Los gamberros del insti se reúnen\ndetrás del gimnasio.\fOjalá tuviera valor para llamarles\nla atención...,oficial
+81000060,13,�%2F不良たちを　%2F注意しに\n%2F先生が%2F１人で「%1F負け%1F犬のたまり%1F場」へ\n%1F行ってしまった…！\fああっ　わたしに\nもっと%2F勇気があったら…！,Una profesora ha ido sola a echar\nla bronca a los gamberros de\nhla cueva de los fracasadosh.\fOjalá fuese valiente como ella...,oficial
+81000060,14,рｦ　%3F理科室はどこかって？\nおいおい　しっかりしてくれよ。\f%2F正門から　%1F左に%1F見える\n%2F校舎の１%1F階に　あるだろうが。,"¿Cómo? ¿Que dónde está el aula de\nciencias? Qué memoria más mala\ntienes...\fDesde la puerta principal, verás\nun edificio a la izquierda. El aula\nde ciencias está en la planta baja.",oficial
+81000060,15,",%2F銅像の%1F中って　どうなってたんだ？",¿Qué está ocurriendo bajo\nla estatua?,oficial
+81000060,16,�%3F体育館の%1F裏にいる%2F不良たち\nだいぶん%1F少なくなったなぁ。\fきっと　わたしの%2F熱意が\n%1F伝わったんだな。\nはははっ。,"Cada vez hay menos gamberros\ndetrás del gimnasio.\fSeguro que mi discurso lleno\nde entusiasmo los ha convencido.\nJa, ja, ja.",oficial
+81000060,17,|%3F体育館の%1F裏は　%2F不良たちの\nたまり%1F場になっているのだ…。\fああっ　わたしに\n%2F注意をする%2F勇気があれば…！,La parte trasera del gimnasio es\nel escondrijo de los gamberros.\fOjalá tuviese valor para llamarles\nla atención...,oficial
+81000060,18,Tここは　%3F体育館よ。\nバスケ%1F部が　%2F試合をしてるから\n%1F入っちゃだめよ！,"Esto es el gimnasio. El club\nde baloncesto está jugando\nun partido, así que no entres.",oficial
+81000060,19,Hこの%1F先は　%3F体育館よ。\nバスケ%1F部たちが　%2F練習してるのよ。,Por aquí se va al gimnasio.\nEl club de baloncesto se está\nentrenando.,oficial
+81000060,20,",この%1F先は\n%1F行かせないんだなっ。",No te dejaré seguir adelante.,oficial
+81000060,21,Pこの%1F先は　\nオレたちの　アジトなんだな。\n%1F気をつけていくんだなっ。,Aquí empieza nuestro territorio.\nVe con cuidado.,oficial
+81000060,22,8%3F体育館%1F裏のみんな　\nちょっとヘンなんだなっ。,Los que acuden a la parte trasera\ndel gimnasio son un poco raros.,oficial
+81000060,23,8ずっと%2F見張りしてるのも\nたいくつなんだなっ。,Estar vigilando constantemente\nes agotador.,oficial
+81000070,0,0まったく　いったい\nなんのさわぎなの！？,¡¿Qué es todo este alboroto?!,oficial
+81000070,1,`みんな　いっせいに\n%1F体の%2F調子がおかしくなるなんて…\nいったい　どうしたのかしら…。,Es muy extraño que todos se hayan\nempezado a sentir mal a la vez.\n¿Qué habrá pasado?...,oficial
+81000070,2,@ここは%2F病院よ。　\nだれかの　お%1F見まいにきたのかしら？,Este es el hospital.\n¿Has venido a visitar a alguien?,oficial
+81000070,3,ﾘあら　あなた%3F雷門中の%2F生徒さん？\nいえね　ウチによくお%1F見まいにくる\n%1F男の%1F子も　%3F雷門中の%1F子だったから。\f%1F妹さんが%2F入院しているらしいけど\n%2F毎日　お%1F見まいにくるなんて\nかんしんよね。,"Anda, ¿estudias en el Raimon? Hay\nun chico del mismo instituto que\nviene por aquí a menudo.\fSe ve que su hermana pequeña está\ningresada aquí y la visita todos\nlos días.",oficial
+81000070,4,0ならんでくださーいっ！\n%1F押さないでー！,"¡Poneos en fila, por favor!\n¡No empujéis!",oficial
+81000070,5,ﾘあら　あなた%3F雷門中の%2F生徒さん？\nいえね　ウチによくお%1F見まいにくる\n%1F男の%1F子も　%3F雷門中の%1F子だったから。\f%1F妹さんが%2F入院しているらしいけど\n%2F毎日　お%1F見まいに%1F来るなんて\nかんしんよね。,"Anda, ¿estudias en el Raimon? Hay\nun chico del mismo instituto que\nviene por aquí a menudo.\fSe ve que su hermana pequeña está\ningresada aquí y la visita todos\nlos días.",oficial
+81000070,6,",ああ…　\nアタマが　われそうじゃ…。",Aah... La cabeza me va a estallar.,oficial
+81000070,7,0きゃんきゃんっ！\n（たすけてくれーっ！）,"¡Chi, chi!\ni¡Que alguien me ayude!j",oficial
+81000070,8,Dマゴのためにも　%2F病気なんぞに\n%1F負けていられませんわい！,¡Lucharé contra esta enfermedad!\n¡Lo haré por mi nieta!,oficial
+81000070,9,カミノ…　テンバツヲ…！,¡Castigo... divino...!,oficial
+81000070,10,Dマゴのためにも　%2F病気なんぞに\n%1F負けていられませんわい！,¡Lucharé contra esta enfermedad!\n¡Lo haré por mi nieta!,oficial
+81000070,11,0おじーちゃん　はやく\nげんきになってねっ。,"Ponte bueno pronto, abuelo.",oficial
+81000070,12,0あーん　おにーちゃん\nあたまいたーいっ。,Ayyy... Me duele la cabeza.,oficial
+81000070,13,0おじーちゃん　はやく\nげんきになってねっ。,"Ponte bueno pronto, abuelo.",oficial
+81000070,14,H%2F入院してみて\nはじめて%2F健康の \nありがたみが　わかるよね。,"Cuando me ingresaron, me di\ncuenta de lo importante que\nes la salud.",oficial
+81000070,15,ジャマモノ…　ハイジョ！,¡No molestes! ¡Fuera!,oficial
+81000070,16,H%2F入院してみて\nはじめて%2F健康の \nありがたみが　わかるよね。,"Cuando me ingresaron, me di\ncuenta de lo importante que\nes la salud.",oficial
+81000070,17,$なんだ　なんだ！\nケンカか！？,¡¿Qué pasa?! ¿Una pelea?,oficial
+81000070,18,アタマ…　イ…タイ…。,Me duele la cabeza...,oficial
+81000070,19,Tああ　カツ%1F丼たべたいなぁ…。\n%2F病院のゴハンって\nうす%1F味なんだよね。,Aah... Quiero comer filete\nempanado... La comida del\nhospital no sabe a nada.,oficial
+81000070,20,lわたしは%2F医者であ〜る。\n%2F元気になった%2F患者の%2F笑顔をみるのが\nわたしの%1F生きがいであ〜る！,Soy doctor. Ver la sonrisa de\nlos pacientes recuperados es lo\nque me da fuerzas para vivir.,oficial
+81000070,21,Dわたしは…%2F医者であ〜る…。\nこれしきのことっ…　ウウ…。,Soy médico. Esto no es nada...\nUgh...,oficial
+81000070,22,lわたしは%2F医者であ〜る。\n%2F元気になった%2F患者の%2F笑顔をみるのが\nわたしの%1F生きがいであ〜る！,Soy doctor. Ver la sonrisa de\nlos pacientes recuperados es lo\nque me da fuerzas para vivir.,oficial
+81000070,23,@ぴーぽー　ぴーぽー\nきゅうきゅうしゃって\nかっこいいよね！,"Niinoo, niinoo.\n¡Las ambulancias son muy chulas!",oficial
+81000070,24,うわーん　ママー！,¡Uah! ¡Mamá!,oficial
+81000070,25,@ぴーぽー　ぴーぽー\nきゅうきゅうしゃって\nかっこいいよね！,"Niinoo, niinoo.\n¡Las ambulancias son muy chulas!",oficial
+81000120,0,4ねえキミ　%1F絵のモデルに\nなってくれない？,"Oye, ¿te gustaría posar\npara un cuadro?",oficial
+81000120,1,0あら　おねーさんに\nなにか　%1F用かしら？,"Hola, ¿quieres algo?",oficial
+81000120,2,Dあーん？　\nここは【３%2F年生の%2F教室】が\nある%2F校舎だぜ。,¿Mm? Las clases de los alumnos\nde tercer curso están en este\nedificio.,oficial
+81000120,3,l１%1F階には【%3F美術室】と【%3F音楽室】も\nあるんだが　%1F用がないなら\n%3F下級生は%1F出ていきなっ。,En la planta baja están el aula de\narte y el aula de música. No tenéis\nnada que hacer aquí. Marchaos.,oficial
+81000120,4,Dあーん？　\nここは【３%2F年生の%2F教室】が\nある%2F校舎だぜ。,¿Mm? Las clases de los alumnos\nde tercero están en este edificio.,oficial
+81000120,5,l１%1F階には【%3F美術室】と【%3F音楽室】も\nあるんだが　%1F用がないなら\n%3F下級生は%1F出ていきなっ。,En la planta baja están el aula de\narte y el aula de música. No tenéis\nnada que hacer aquí. Marchaos.,oficial
+81000120,6,0%2F自信をもって！\nあなたなら　できるわ！,¡Confía en ti!\n¡Seguro que lo logras!,oficial
+81000120,7,Dもうすぐ　ピアノのコンクールなの。\nはあ　ドキドキするわっ。,"Queda poco para el concurso de\npiano. Ah, qué nervios...",oficial
+81000120,8,Lぶるぶるっ！\nこの　%3F音楽室の%3F肖像画\n%1F化けてでそうだよねぇ…。,¡Grr! Parece que vaya a salir\nun fantasma del retrato\ndel aula de música.,oficial
+81000120,9,8うーん　イマイチッ！\nうまく%1F描けないなぁ…。,Uhm... No me convence.\nNo sé por qué no me sale bien...,oficial
+81000120,10,<よしっ　イイかんじ！\n%1F次の%3F展覧会は　いただきね！,¡Bien! ¡Me gusta!\n¡Seguro que gano el premio\nde la próxima exposición!,oficial
+81000130,0,8はあ　%2F毎日テストばっかりで\nうんざりだよ…。,Estoy harto de hacer exámenes\ntodos los días. Aaaah...,oficial
+81000130,1,D３%2F年生は　%2F勉強でいそがしいんだから\nジャマしないように！,Los estudiantes de tercero\nestán ocupados estudiando.\nNo los molestéis.,oficial
+81000130,2,0いいなぁ　オレも\nサッカーやりたいよ…。,"Qué envidia, yo también\nquiero jugar al fútbol.",oficial
+81000130,3,@ゼッタイ　あこがれの%2F高校に　\n%2F合格してみせるわっ！,¡Tengo que aprobar los exámenes\npara el instituto de bachillerato\nque tanto me gusta!,oficial
+81000130,4,怩ｱの%1F間　じゅくのテストで\n『せみまる』くんに%1F負けちゃった！\fかれって　まだ１%2F年生なのに\nすっごく%1F頭がいいのよね…。\nうー　くやしいっ！！,"¡En los últimos exámenes de la\nacademia, Sol Stiss sacó mejores\nnotas que yo!\fAún va a primero, pero es muy\ninteligente. Arg, ¡qué rabia!",oficial
+81000130,5,@ゼッタイ　あこがれの%2F高校に　\n%2F合格してみせるわっ！,¡Tengo que aprobar los exámenes\ndel instituto de bachillerato\nque tanto me gusta!,oficial
+81000130,6,0お%1F花があると　\nココロがなごむでしょ？,Las flores sosiegan el corazón\nde las personas.,oficial
+81000130,7,Pかのじょ　イイ%1F子だよなぁ…。\n%2F卒業までに　ゼッタイ%2F告白するんだ！,"Es una chica excepcional. Antes\nde graduarme, me declararé.",oficial
+81000140,0,0うおおーっ！\n%1F答えが　わからんっ！！,¡Arg! ¡No sé la respuesta!,oficial
+81000140,1,@%2F高校にはいったら　ゼッタイ\n%1F遊びまくってやるぞっ！,"Cuando empiece el bachillerato,\nme pasaré el día de juerga.",oficial
+81000140,2,4%2F来年は　オマエらの%1F番だぜ…。\nへへっ…。,"El año que viene os tocará\na vosotros estudiar a saco.\nJe, je.",oficial
+81000140,3,pとなりのクラス　いのこり%1F中なの。\nキミも%1F今のうちから　ちゃんと　\n%2F勉強しておいた%1F方がいいわよ。,En la clase de al lado están\nlos repetidores. Estudia si no\nquieres acabar como ellos.,oficial
+81000140,4,8えーっと　これをたして\nこれをひいて……　あれ？,A ver... Si sumo esto y le\nresto lo otro... ¿Eh?...,oficial
+81000140,5,0こらー　もっとマジメに\n%2F勉強せんかっ！,¡Tú! ¿Por qué no te tomas más en\nserio los estudios?,oficial
+81000140,6,hはぁ　%2F毎日　%2F勉強ばっかり…。\n３%2F年生になるまえに　もっと\n%1F遊んでおけばよかったなぁ。,No hago más que estudiar...\nTendría que haber disfrutado más\nde mi tiempo libre el año pasado.,oficial
+81000150,0,@おクスリは　%1F出しといたけど\nあんまりムリしちゃダメよ。,"Aunque te he dado medicamentos\npara todos, intenta que no hagan\nningún esfuerzo.",oficial
+81000150,1,",もう！\n%1F寝てなくちゃダメでしょっ。","Venga, ¡a dormir!",oficial
+81000150,2,Hさいきん　%2F具合がわるい%1F人が%1F多いの。\nどうしたのかしら…。,"ltimamente, vienen muchas\npersonas que se encuentran mal.\nEstá pasando algo raro...",oficial
+81000150,3,0あら　\nどこか　%2F具合がわるいのかしら？,"Hola, ¿te duele algo?",oficial
+81000150,4,`あいたたたたっ　\nおなか　いたーいっ。\f…なんだ　%2F円堂か。\nお%2F芝居して　ソンしたよ。,"Ay, ay, ay. ¡Me duele la barriga!\fAh, eres tú, Mark. Tanto teatro\npara nada.",oficial
+81000150,5,",こんにちは。\nここは　%3F保健室よ。",Buenos días.\nEsta es la enfermería.,oficial
+81000150,6,Dうげーっ　\nお%2F弁当のタマゴ%1F焼きに　\nあたったかなぁ…。,"Ugh, creo que los huevos de\nla comida me han sentado mal...",oficial
+81000150,7,$あれ　%1F寝てなくていいの？,¿No vas a descansar?,oficial
+81000150,8,�%2F保健の%2F先生に　\nなやみを　%1F聞いてもらいにきたんだ。\nどんな　なやみかって？\fなやみがないのが　\nなやみなのさ…。,He venido a contarle mis\npreocupaciones a la enfermera.\n¿Que qué me preocupa?\fPues estoy preocupado porque no\ntengo ninguna preocupación.,oficial
+81000150,9,tこんにちは！\nここは%3F西校舎です。\f%1F今　ボクたちがいる１%1F階には\n【%3F保健室】と\n【%3F理科室】があって,¡Hola!\nEste es el edificio oeste.\fEn esta planta encontrarás la enfermería\ny el aula de ciencias.,oficial
+81000150,10,H２%1F階と３%1F階は【１%2F年生の%2F教室】に\nなっているんですよ。,En el primer y segundo piso\nestán las aulas para los de\nprimer curso.,oficial
+81000150,11,tこんにちは！\nここは%3F西校舎です。\f%1F今　ボクたちがいる１%1F階には\n【%3F保健室】と\n【%3F理科室】があって,¡Hola!\nEste es el edificio oeste.\fEn esta planta encontrarás la enfermería\ny el aula de ciencias.,oficial
+81000150,12,H２%1F階と３%1F階は【１%2F年生の%2F教室】に\nなっているんですよ。,En el primer y segundo piso\nestán las aulas para los de\nprimer curso.,oficial
+81000150,13,h%3F理科室で　%3F科学部が\nあやしい%2F実験を　してるんです。\nこわくて　%1F逃げてきちゃいました。,El club de ciencias está llevando\na cabo un extraño experimento en\nsu aula. Qué miedo.,oficial
+81000150,14,T%3F理科室で　%3F科学部が\n%2F今日も　あやしい%2F実験\nしてるみたいですね…。,Hoy el club de ciencias también\nestá realizando un extraño\nexperimento en su aula.,oficial
+81000150,15,lいま　%2F世界をゆるがす%3F大発明の\n%1F第１%1F歩を　ふみだすところであーる。\n%1F話しかけるでないっ。,Estamos a punto de dar con un gran\ndescubrimiento que revolucionará\nel mundo. No nos hables.,oficial
+81000150,16,Pフフフ…　この%1F赤いクスリと\n%1F青いクスリを　まぜてっと…\nフフフフ…。,"Je, je. Si mezclo este elemento\nrojo con este elemento azul...\nJe, je.",oficial
+81000150,17,Dキミ　ボクの%2F発明の\n%3F実験台になってくれない？\nフフフ…。,"¿Te gustaría ser el conejillo\nde indias de mi experimento?\nJo, jo.",oficial
+81000150,18,T…ぶつぶつぶつ。\fん　なんじゃ？　ワシは%1F今\n%2F大事な%3F研究中なんじゃよ。,"Grñ, ñññ.\f¿Qué queréis? Ahora estoy en medio\nde una investigación importante.",oficial
+81000150,19,d%2F息子に%1F会ったら\n「%2F正月くらいは　%1F帰ってこんかい！」\nと　%1F伝えておいておくれ。,"Si ves a mi hijo, dile que por lo\nmenos venga a casa en Año Nuevo,\npor favor.",oficial
+81000150,20,4おや　めずらしい\n%2F今日は%2F１人なのかね？,"Uy, qué raro. ¿Hoy estás solo?",oficial
+81000150,21,Pなんだか　%2F大変なことに\nなっているようだ…\n%2F息子は%3F大丈夫かの…。,Parece que la cosa no pinta bien.\nEspero que no le haya pasado nada\na mi hijo.,oficial
+81000150,22,�%2F息子から　ひさしぶりに\n%2F電話があったのだ。\fナマイキにも　わしの%2F研究に\n%2F口出しをしてきおった！\nあいかわらずじゃよ　…ふっ。,Hacía mucho que mi hijo\nno me llamaba.\f¡Se ha metido con mi investigación!\n¡Qué impertinente! No ha cambiado\nnada... Hum.,oficial
+81000160,0,0オレのプラモの%1F方が\nカッコいいぞっ！,¡Mi maqueta mola más!,oficial
+81000160,1,",オレの%1F方が\nゲーム　%2F上手だぜっ！",¡Yo juego mejor que tú!,oficial
+81000160,2,Pなにを%1F言う！　\nオレのプラモの%1F方が　\n１００%1F倍カッコいいぞっ！,¡¿Qué dices?! ¡Mi maqueta es 100\nveces mejor que la tuya!,oficial
+81000160,3,Dなにを%1F言う！　オレの%1F方が\n%2F上手に%1F決まってるだろ！,¡¿Qué dices?! ¡Yo soy más bueno!\n¡Está más claro que el agua!,oficial
+81000160,4,<%1F男のコって　いくつになっても　\nコドモなんだから。,"Da igual cuántos años tengan, los\nhombres nunca dejan de ser niños.",oficial
+81000160,5,撃ﾍー　つかれた…。\n%2F昨日は　%3F寝不足なんです。\f『ほてい』のヤツも　あんまり\n%1F寝てないハズなのに\nあいつ　%2F体力あるよなあ…。,"Aah... Estoy reventado.\nHe dormido muy poco.\fSacks tampoco ha dormido mucho,\npero está fresco como una rosa...",oficial
+81000160,6,@あれ　センパイ。\n１%2F年生のクラスに　なにか%1F用ですか？,"Hola, Mark. ¿Qué te trae por\nlas clases de primero?",oficial
+81000160,7,|みてくださいっ　\nこのケータイストラップ！　\nわたしが　つくったんですよ。\fこんど　センパイにも\nつくってあげますね！,¡Mira el colgante que llevo en\nel móvil! Lo he hecho yo.\fLa próxima vez te haré uno a ti.,oficial
+81000160,8,垂�　%2F円堂センパイ。\n%2F音無さんって　サッカー%1F部の\nマネージャーなんですよね。\f…うらやましい。\nい　いえっ！　なんでもないですっ！,"Hola, Mark.\nCelia es gerente del club\nde fútbol, ¿verdad?\fQué envidia...\nEhm, no he dicho nada.",oficial
+81000160,9,Dはぁ…。\fボクって　どうしてこんなに\nカッコイイんだろう…。,Aaah...\f¿Por qué molo tanto?...,oficial
+81000170,0,H…………じーっ。\n（%2F非常ベルを\nじっとみつめているようだ…。）,Pche...\niEstá mirando fijamente\nel timbre de emergencia.j,oficial
+81000170,1,0%2F黒板に　ラクガキしちゃ\nいかんっっ！,¡No dibujes tonterías en la pizarra!,oficial
+81000170,2,L%3F商店街の%1F奥って\nなんだか　オ・ト・ナ　な\nフンイキですよねぇ。,La zona que está al fondo del\nbarrio de tiendas tiene un aire\nasí como adulto.,oficial
+81000170,3,Tわわっ\n%1F話しかけないでくださいっ。\n%2F時計の%2F電池を　かえてるんですっ。,"¡Ay! No me hables, por favor.\nEstoy cambiando la pila de un reloj.",oficial
+81000170,4,<センパイ！　%1F次の%2F試合も\nがんばってくださいね！,¡Mark! ¡Suerte en el próximo\npartido!,oficial
+81000170,5,",あぶなっかしくて　%1F見てられないわ。",No aguanto ver escenas peligrosas.,oficial
+81000170,6,Xあっ　%2F円堂センパイ！\n%2F壁山くんや　%2F栗松くんたち\n%2F元気にやってますか？,"¡Hola, Mark! ¿Cómo les va a Jack,\na Tod y a todos los demás?",oficial
+81000170,7,Pきゃっ　%2F円堂センパイ！\n%1F次の%2F試合も\nチョー　おうえんしてますっ！,"¡Hola, Mark! ¡Que sepas que en\nel próximo partido también te\nestaré animando a tope!",oficial
+81000180,0,`キャプテン　オレたち７%1F人しか\nいないんですよ。\f%2F練習する%2F意味なんて　あるんスか？,"Capitán, solo somos 7 jugadores.\fNi siquiera tiene sentido que\nentrenemos.",oficial
+81000180,1,`お%1F腹がすいてきたッスよ…。\nこりゃ　%4F冬海先生につきあってる\n%2F場合じゃないッスね。,Tengo tanta hambre que me comería\nun elefante. No es momento de\nhacerle compañía a Wintersea.,oficial
+81000180,2,@%2F帝国と%2F試合だなんて…。\nそんなの　%1F怖いッスよ！,¡Me da mucho miedo jugar un\npartido contra la Royal Academy!,oficial
+81000180,3,@%2F毎日サッカーしたいなんて\nだれもいってないでやんすよ。,Aquí nadie ha dicho que queramos\njugar al fútbol todos los días.,oficial
+81000180,4,H%2F冬海のくせに　%1F人を%1F呼びつけるなんて\nなまいきでやんすね。,¿Qué se ha creído el profesor\nWintersea? ¿Para qué nos llama?,oficial
+81000180,5,8これはめんどうなことに\nなってきたでやんすよ〜。,Esto empieza a darme mucha pereza.,oficial
+81000180,6,0どうせ　%2F廃部になる%2F運命でやんすよ。,Este club está destinado\na desaparecer de todas maneras.,oficial
+81000180,7,D%2F試合も%2F練習も\nこの%2F人数じゃ　やるだけムダですって。,"Con tan poca gente, entrenar o\njugar partidos es una pérdida\nde tiempo.",oficial
+81000180,8,Hなんだよ　%2F冬海のやつ。\n%1F急に%2F集合なんて　かけやがって。,¿Qué le pasa a Wintersea? No es\nnormal que nos quiera reunir así\nde repente.,oficial
+81000180,9,@ついに%2F廃部か。\nいつかこうなるとは%1F思ってたけど…。,"Al final, van a cerrar el club...\nYa sabía que este día llegaría.",oficial
+81000180,10,`キャプテン！\n１１%1F人%1F集まったとしても\n%2F帝国%2F相手じゃ　%2F試合になんないですよ。,"¡Capitán! Aunque tengamos\n11 jugadores, no somos rival para\nun equipo como la Royal Academy.",oficial
+81000180,11,|ここは　%3F居心地がいいんだ。\n%2F廃部になってしまっても　この%2F部室の\n%2F出入りだけは　%1F許してほしいもんだぜ。,"Aquí se está la mar de bien. Aunque\ncierren el club, espero que nos\npermitan seguir usando la caseta.",oficial
+81000180,12,`%2F冬海に%1F会うのもずいぶん\n%1F久しぶりな%1F気がするな。\nまったく%3F無責任なやつだ。,Me da la sensación de que hace\nsiglos que no vemos a Wintersea.\n,oficial
+81000180,13,<%2F部員を%1F集めるって\nそんな%2F生徒　まだいるのか？,¿Reclutar miembros?... Pero\n¿todavía hay gente que hace eso?,oficial
+81000180,14,%2F部員は%1F集まりそうか？,¿Crees que podrás reclutar\na nuevos miembros?,oficial
+81000180,15,4ふわあ…。\n%2F部室ってねむくなっちゃうな。,Buwaah...\nEstar en el club me da sueño...,oficial
+81000180,16,Xふわあ…。\nこんな%1F時に%4F冬海先生の%1F話なんて\nぜったい　いねむりしちゃうな。,Buwaah...\nSeguro que la charla de Wintersea\nme da aún más sueño...,oficial
+81000180,17,L%2F帝国と%2F試合だなんて%1F言われて\nいっきに　ねむけが%1F覚めたよ！,"¡Cuando nos han dicho lo del\npartido contra la Royal,\nme he despertado de golpe!",oficial
+81000180,18,",おちおち　%2F昼寝もしてられないよ。",Ya no puedo echarme\nla siesta tranquilamente.,oficial
+81000180,19,4プロのサッカー%2F選手って\nあこがれるよなぁ。,Los jugadores profesionales de\nfútbol son dignos de admiración.,oficial
+81000180,20,H%1F足りない%2F部員はどうするんだよ？\n%3F大丈夫なのか？　%2F円堂。,"¿Qué vas a hacer con lo de la falta\nde jugadores? ¿Crees que se\nsolucionará, Mark?",oficial
+81000180,21,@%2F部員になってくれそうな\n%2F生徒なんて　まだいるのか？,¿Queda alguien dispuesto a unirse\na nuestro club?,oficial
+81000180,22,$%3F豪炎寺くんは%1F見つかった？,No entiendo por qué Axel no quiere\nunirse al club. Espero que podamos\nganar sin su ayuda.,oficial
+81000190,0,tぼくは　いつか\n%2F特大ホームランをうつのが\nユメなんだ！\f…そのまえに　まずは\nレギュラーにならなきゃね。,¡Mi sueño en esta vida es\nlanzar un home run algún día!\fPero primero tengo que conseguir\nser titular del equipo...,oficial
+81000190,1,\んもーっ　\nこんなに　ちらかして！\fこのサークル%1F棟には\nこの【%4F野球部室】のほかに,"¡Jolín con el club de béisbol!\n¡Está todo desperdigado!\fEl club de tenis, el de ciclismo\ny el de atletismo también tienen\nuna sala en este edificio.",oficial
+81000190,2,пyテニス%2F部室】　と\n【サイクリング%2F部室】　　　\n【%4F陸上部室】が　あるんだけど\fどこも　こんなにキタないの\nかしらっ？,Espero que el resto de clubes\nestén un poco más ordenados...,oficial
+81000200,0,Dちょっとちょっと\nでてってよ！\n%1F着がえられないじゃない。,"¡Oye, oye! ¡Sal de aquí, que\nnos tenemos que cambiar de ropa!",oficial
+81000200,1,ネットをふんじゃ\nダメよ！,¡No pises la red!,oficial
+81000200,2,\あら　テニス%1F部に%2F入部したいの？\nでもウチは　%2F部員がいっぱいなの。\nごめんね！,¿Quieres entrar en el club de\ntenis?,oficial
+81000210,0,Xここは　サークル%1F棟だぞ。\nここには　オレたち\n【%2F陸上%1F部】の%2F部室のほかに,Este es el edificio de los clubes.\nLos del club de atletismo tenemos\nuna sala aquí.,oficial
+81000210,1,T【サイクリング%2F部室】\n【%2F野球%2F部室】\n【テニス%2F部室】が　あるんだぜ。,"Compartimos el edificio con los\nclubes de ciclismo, béisbol y\ntenis.",oficial
+81000210,2,狽�たし　%2F風丸センパイにあこがれて　\n%3F陸上部に%1F入ったんです！\f…でも　センパイはサッカー%1F部に\nとられちゃいましたけどね…\nぐすんっ。,Yo entré en el club de atletismo\nporque admiro a Nathan.\fPero los del club de fútbol nos\nlo habéis robado... Jo...,oficial
+81000220,0,�カチャカチャカチャッ\n%3F自転車の%2F修理をしてるんだ。\fなおせば　まだまだ%1F乗れるのに\n%1F新しく%1F買っちゃう%1F人も　いるんだから\nもったいないよねぇ。,"iClanc, clanc, clonc.j\nEstoy reparando la bicicleta.\fHay mucha gente que, aunque podría\narreglarla y seguir usándola,\nprefiere comprarse una nueva.",oficial
+81000220,1,h%1F次は　どこへ%1F行こうかなぁ。\n%3F自転車で　%1F風をきって%1F走るのって\nキモチいいんだよね。,¿Adónde podría ir la próxima vez?\nSentir el viento en la cara mientras\nvas en bici es muy agradable.,oficial
+81000220,2,…………でかっ！！,¡Es enorme!...,oficial
+81000250,0,Xクソーッ！　またハズレだ！\nこのクジって　ホントに\n%1F当たり%1F入ってるのかなぁ。,¡Maldita sea! ¡He vuelto a perder!\n¿Seguro que dentro de la bola\nhay algún premio?,oficial
+81000250,1,$えへへっ\nどれにしようかなー。,"Je, je... No sé qué elegir...",oficial
+81000250,2,(はううー　\nぽんぽん　いたい…。,"¡Ay, ay! ¡Me duele!",oficial
+81000250,3,$えへへっ\nどれにしようかなー。,"Je, je... No sé qué elegir...",oficial
+81000250,4,dなつかしいですなぁ。\nわたしも　%1F子どものころは\nビー%1F玉やメンコで　%1F遊んだものです。,"Ay, qué recuerdos...\nDe pequeño, yo también jugaba\na las canicas y a las cartas.",oficial
+81000250,5,0かわいそうに\n…%1F急にどうしたんだろう。,Pobrecilla. ¿Qué le habrá pasado?,oficial
+81000250,6,dなつかしいですなぁ。\nわたしも　%1F子どものころは\nビー%1F玉やメンコで　%1F遊んだものです。,"Ay, qué recuerdos...\nDe pequeño, yo también jugaba\na las canicas y a las cartas.",oficial
+81000250,7,%1F他に　%1F用はあるかい？,¿Algo más?,oficial
+81000250,8,$ほっほっほ。\nいらっしゃい。,"Jo, jo, jo.\nBienvenido.",oficial
+81000250,9,また　おいでね。,Hasta otra.,oficial
+81000270,0,8どすこーいっ　どすこーいっ！\n…で　ごわすっ！！,¡Viva el sumo! ¡Viva el sumo!,oficial
+81000270,1,X%4F相撲部屋から　\nスカウトされたでごわす！\nゼッタイ　%2F横綱になるでごわすよっ！,Me han reclutado del club de sumo.\n¡Seré el mejor luchador orondo\ndel mundo!,oficial
+81000270,2,lオッス！\nここは%3F武道館ッス！\f１%1F階は【%3F相撲部】の%2F部室で\n２%1F階は【%3F柔道部】の%3F練習場,"¡Este es el pabellón\nde artes marciales!\fLa planta baja pertenece al club\nde sumo, y el club de judo entrena\nen el primer piso.",oficial
+81000270,3,Dそして　３%1F階は　\n【%3F剣道部】の%2F部室ッス！\nオスッ！,El club de kendo tiene su sala\nen el segundo piso.,oficial
+81000280,0,hぼくの%1F夢は　%1F大きな%2F大会で\n%1F金メダルを　とることなんだ！\nゼッタイ　かなえてみせるぞ！,¡Mi sueño es ganar una medalla de\noro en un campeonato importante!\n¡Ya veréis como lo consigo!,oficial
+81000280,1,X%2F柔能く%1F剛を%1F制し\n%2F剛能く%1F柔を%1F断つ！\nこれ　%2F柔道のしんずいナリ！,"¡Lo flexible vence a lo rígido,\nlo rígido corta lo flexible!\n¡Este es el principio del judo!",oficial
+81000280,2,pあっ　%2F円堂くん！　\nわたしの　%3F関節技の\n%4F練習相手になってくれない？\f%3F大丈夫　%1F痛くないから！,"¡Hola, Mark!\n¿Me ayudas a ejercitar\nlas articulaciones?\fTranquilo, no te dolerá.",oficial
+81000290,0,H%2F剣道は %2F精神%2F修行にピッタリさ。\nキミも　やってみないかい？,El kendo es perfecto para cultivar\nel cuerpo y el alma.\n¿No te apetece probar?,oficial
+81000290,1,めーんっ！\nスキありっ！,¡Oh! ¡Por ahí puedo atacar!,oficial
+81000290,2,0%2F剣道の%2F防具って\nカッコいいよねえ。,La armadura de kendo es\nsuperguapa...,oficial
+81000310,0,T%3F新聞部へようこそ。\n%1F次の%2F試合も　バッチリ\n%2F取材させてもらうからね！,Bienvenido al club de periodismo.\n¡También cubriremos vuestro\npróximo partido de principio a fin!,oficial
+81000310,1,Xインチキ%2F記事を　のせるなんて　\n%4F新聞記者の　カザカミにも\nおけないわねっ！,¡Publicar artículos falsos es\nuna deshonra para el resto de\nperiodistas!,oficial
+81000310,2,Pいったい　%1F町で\n%1F何がおこっているのかしら…\n%2F取材しなくちゃっ！,Parece que está ocurriendo algo\nextraño en la ciudad... ¡Tenemos\nque cubrir la noticia!,oficial
+81000310,3,H%2F円堂くん\nいい%2F記事に　なるような%2F試合\nキタイしてるわよ！,"¡Espero que juegues de forma que\npodamos escribir un buen artículo,\nMark!",oficial
+81000310,4,xウチの%2F部長　ねらったネタは\nゼッタイ　のがさないんだ！\f%2F別名「%2F雷門のスッポン」って\nよばれてるんだぜ。,¡El encargado de nuestro club\nnunca deja escapar la noticia\nque persigue!\fSu apodo es\nhel tiburón del Raimonh.,oficial
+81000310,5,L%2F音無さんって　\nあんまり%1F昔のこと\n%1F話したがらないんだよね。,A Celia no le gusta hablar sobre\nsu pasado.,oficial
+81000310,6,\%2F音無さんって\n%2F最近　さらに%1F明るくなったよね。\n%1F何かイイことあったのかな？,Celia está mucho más alegre\núltimamente. Seguro que le ha\npasado algo bueno.,oficial
+81000310,7,L%2F音無さんって　\nあんまり%1F昔のこと\n%1F話したがらないんだよね。,A Celia no le gusta hablar sobre\nsu pasado.,oficial
+81000310,8,р､ーん　%1F次の%2F新聞のテーマは…\f「%3F稲妻町のラーメン%1F屋！\nあなたは%1F塩？　それともしょうゆ%1F派？」\nよしっ　これだ！,El próximo número del periódico\nhablará de...\f¡Los restaurantes de fideos chinos\nde Inazuma! ¿Mejor salados o con\nsalsa de soja?,oficial
+81000310,9,�うーん　%1F次の%2F新聞のテーマは…\f「%3F商店街の%3F雷寿司！\nあなたは%2F白身？　それとも%3F赤身派？」\nよしっ　これだ！,El próximo número del periódico\nhablará de...\f¡El restaurante de sushi del\nbarrio de tiendas! ¿Qué gusta más?\n¿El pescado blanco o el azul?,oficial
+81000310,10,@うーん　%1F次の%2F新聞のテーマは\nなににしようかなぁ…。,Hum... ¿De qué podríamos hablar\nen el próximo número?,oficial
+81000310,11,tうーん　%1F次の%2F新聞のテーマは…\f「%3F商店街のいやしの%1F場！\nあなたは%3F居酒屋？\nそれともメイド%1F派？」,El próximo número del periódico\nhablará de...\f¡Lugares acogedores de la calle\ncomercial! ¿Prefieres los bares\no las cafeterías con doncellas?,oficial
+81000310,12,8うーん　これは\n%2F先生に　%1F怒られるかなぁ…。,Puede que el profesor se enfade.,oficial
+81000310,13,�うーん　%1F次の%2F新聞のテーマは…\f「サッカー%1F部のイイ%1F男！\nあなたは%3F豪炎寺？\nそれとも%2F鬼道？　まさかの%2F栗松！？」,El próximo número del periódico\nhablará de...\f¡Los más guapos del equipo de\nfútbol! ¿Cuál es el preferido?\n¿Axel? ¿Jude? O quizás... ¿Tod?,oficial
+81000310,14,0よーし　これは\n%2F女子に　ウケるぞっ！,"Bien, seguro que esto les encanta\na las chicas.",oficial
+81000310,15,@うーん　%1F次の%2F新聞のテーマは\nなににしようかなぁ…。,Hum... ¿De qué podríamos hablar\nen el próximo número?,oficial
+81000310,16,h%2F夏未さん　サッカー%1F部の\nマネージャーになったのね。\nさっそく　%2F記事にさせてもらったわ！,Nelly se ha convertido en gerente\ndel club de fútbol. He publicado\nun artículo sobre ello.,oficial
+81000310,17,\えへへっ　いいでしょ。\nあたらしい　カメラなの。\nお%2F年玉をためて　%1F買ったのよ！,"Je, je. Te gusta, ¿eh? La cámara\nes nueva. He estado ahorrando los\naguinaldos para comprarla.",oficial
+81000310,18,\%2F風丸くんって　%1F足も%1F速いし\n%2F熱心だし…\n%3F新聞部に%1F来てくれないかしら。,Nathan es rápido y apasionado.\nOjalá se viniera al club\nde periodismo...,oficial
+81000310,19,\ウチの%2F部長　あれでも\nアタマが%1F痛いんですって…\nちゃんと%1F寝てればいいのに。,"Aunque no lo parezca, el encargado\ndice que le duele la cabeza.\nDebería irse a casa a descansar.",oficial
+81000310,20,4ああっ　%1F何か　\n%2F面白いネタ　ないかしら！,Aaah... ¿Es que no hay\nninguna noticia interesante?...,oficial
+81000320,0,Lぶるぶるっ　\nうーっ　サムいっ！！\nプールなんて%1F入りたくないよ…。,"Hum, mmm, hum...\nBrrr... ¡Qué frío!\n¡No me quiero meter en la piscina!",oficial
+81000340,0,d%2F夕香くんは　１%2F年前の%4F交通事故から\nずっと　ねむったままなのだ。\nかわいそうになぁ。,Julia sufrió un accidente de\ntráfico hace un año y está en \ncoma. Pobrecilla...,oficial
+81000340,1,ｸこの%1F子　%2F夕香ちゃんっていって\n%3F外科医の　%3F豪炎寺%2F先生の\nムスメさんなの。\fご%2F自分の%1F手で　ムスメさんを\n%2F看病していらっしゃるなんて\nりっぱなお%1F父さまよね。,"Esta niña se llama Julia. Es hija\ndel doctor Blaze, un cirujano.\fÍl mismo la está tratando.\nSe nota que es un buen padre.",oficial
+81000341,0,Hこらっ　ご%2F家族%2F以外は\n%2F面会しゃぜつだ。\n%1F帰りたまえっ。,"¡Oye! ¡Solo los familiares\nestán autorizados a entrar!\nMárchate, por favor.",oficial
+81000341,1,Hなんだね　きみたちは。\n%2F病院は　%1F遊び%1F場じゃないんだぞ。,"¿Qué hacéis aquí, chicos?\nEl hospital no es un sitio para\njugar.",oficial
+81000341,2,@この%2F患者さん　%3F雷門中の\n%3F理事長さんなんですって。,Este paciente dice que es el\npresidente de la Junta escolar\ndel Raimon.,oficial
+81000341,3,lなんだか　%1F町が%2F大変みたいだけど…\n%2F患者さんのためにも\nこんな%1F時こそ　%2F笑顔でいないとね！,"Algo grave está ocurriendo en la\nciudad. Pero por el bien de los\npacientes, tenemos que sonreír.",oficial
+81000341,4,Pスマイル　スマイルっ\n%2F患者さんのためにも\nいつも　%2F笑顔でいないとね！,"¡Sonríe, sonríe! ¡Tenemos que\nsonreír para que los pacientes\nse sientan bien!",oficial
+81000342,0,8こんにちは。　\n%2F今日は　どこが%1F悪いのかしら？,Buenos días.\n¿Qué te duele?,oficial
+81000342,1,(みんな　\nいったいどうしたの…！？,¡¿Qué le está pasando a todo\nel mundo?!,oficial
+81000342,2,8こんにちは。　\n%2F今日は　どこが%1F悪いのかしら？,Buenos días.\n¿Qué te duele?,oficial
+81000342,3,Dここは%2F受付です。　\n%2F名前を%1F書いて　お%1F待ちください。,Hola. Esta es la recepción.\n¿En qué puedo ayudarte?,oficial
+81000342,4,(ウ…　ココハ…\nウケツケデス……。,Ugh... Esto es...\nla recepción... Argh...,oficial
+81000342,5,Dここは%2F受付です。　\n%2F名前を%1F書いて　お%1F待ちください。,Hola. Esta es la recepción.\n¿En qué puedo ayudarte?,oficial
+81000342,6,Lふうー　いそがしい…。\nこれじゃあ　わたしが\nたおれちゃいそうだわっ！,"Uff... Cuánto trabajo...\n¡A este paso, yo también\ncaeré enferma!",oficial
+81000342,7,Tまったく　ワシは%2F病人じゃぞ。\nいつまで%1F待たせれば\n%1F気がすむんじゃい！,Hay que ver... ¡Yo también soy\nuna paciente! ¡¿Hasta cuándo me\nvan a hacer esperar?!,oficial
+81000342,8,ウ…　ウウ…。,Ugh... Ugh...,oficial
+81000342,9,Tまったく　ワシは%2F病人じゃぞ。\nいつまで%1F待たせれば\n%1F気がすむんじゃい！,Hay que ver... ¡Yo también soy\nuna paciente! ¡¿Hasta cuándo me\nvan a hacer esperar?!,oficial
+81000342,10,%2F白衣の%2F天使…　ぽっ。,ngeles vestidos de blanco... Jo.,oficial
+81000342,11,Hおいっ　\nオレが%1F先に　ならんでたんだぞ！\nわりこむなよなっ！,¡Oye! ¡Yo estaba antes!\n¡No te cueles!,oficial
+81000342,12,%2F白衣の%2F天使…　ぽっ。,ngeles vestidos de blanco... Jo.,oficial
+81000342,13,P%3F大丈夫だよ。　%2F注射を\n%1F打ってもらえば\nすぐに　よくなるからね。,"Calma. En cuanto te pongan\nla inyección, te recuperarás\nenseguida.",oficial
+81000342,14,ウル…サイ…　ダマレッ！,¡Cá...llate... pesa...da!,oficial
+81000342,15,P%3F大丈夫だよ。　%2F注射を\n%1F打ってもらえば\nすぐに　よくなるからね。,"Calma. En cuanto te pongan\nla inyección, te recuperarás\nenseguida.",oficial
+81000342,16,(えーんっ　ちゅうしゃ\nやだーっ！！,¡No! ¡No me gustan las inyecciones!,oficial
+81000342,17,えーんっ　えーんっ！,¡No! ¡No!,oficial
+81000342,18,(えーんっ　ちゅうしゃ\nやだーっ！！,¡No! ¡No me gustan las inyecciones!,oficial
+81000342,19,<おじいちゃん。　だから\nただの　%2F水虫ですってば！,"Señor, ¡le he dicho\nque es pie de atleta! ¡Nada más!",oficial
+81000342,20,$おじいちゃん　しっかりして！,¡Que no es para tanto!,oficial
+81000342,21,<おじいちゃん。　だから\nただの　%2F水虫ですってば！,"Señor, ¡le he dicho\nque es pie de atleta! ¡Nada más!",oficial
+81000342,22,T%2F先生！　\nはっきり%1F言ってくだされ。\nワシは　もう%1F長くないのじゃろ？,"¡Doctor, sea sincero!\nNo me queda mucho, ¿verdad?",oficial
+81000342,23,ウ…　ウアア…。,Ugh... Argh...,oficial
+81000342,24,T%2F先生！　\nはっきり%1F言ってくだされ。\nワシは　もう%1F長くないのじゃろ？,"¡Doctor, sea sincero!\nNo me queda mucho, ¿verdad?",oficial
+81000342,25,カミノ…　サバキヲッ！,¡El juicio... divino!...,oficial
+81000342,26,<おじいちゃん。　だから\nただの　%2F水虫ですってば！,"Señor, ¡le he dicho\nque es pie de atleta! ¡Nada más!",oficial
+81000470,0,Lど　どうぞ　%1F見てってください。\n…たいしたモノはありませんが…。,Pasa y mira todo lo que quieras...,oficial
+81000470,1,�でっかい　スポーツショップが　\n%1F近くに　オープンしたんだ。\fおかげで　ここは\nカンコ%1F鳥が　ないてるよ。\nとほほ…。,"Han abierto una tienda de deportes\nmuy grande cerca.\fPor culpa de eso, la campanilla de\nla puerta ha dejado de sonar. Snif.",oficial
+81000470,2,カワナイキャク…　キエロ！,No necesito... clientes...\nque no compran...,oficial
+81000470,3,�でっかい　スポーツショップが　\n%1F近くに　オープンしたんだ。\fおかげで　ここは\nカンコ%1F鳥が　ないてるよ。\nとほほ…。,"Han abierto una tienda de deportes\nmuy grande cerca.\fPor culpa de eso, la campanilla de\nla puerta ha dejado de sonar. Snif.",oficial
+81000470,4,0うーん　\n%1F品ぞろえが　ワルいわねぇ。,Mmm... \nHay muy poca variedad.,oficial
+81000470,5,`さいきん　%1F太ってきたから　\nスポーツをしようと%1F思ってね。\nうーん　なにがいいかなぁ。,Estoy pensando en empezar a hacer\ndeporte porque he engordado.\n¿Qué deporte me vendría bien?,oficial
+81000470,6,Dぼく　サッカーはじめるんだ！\nママが　ボールかってくれるって！,¡Voy a empezar a jugar al fútbol!\n¡Mi madre me ha prometido que\nme comprará una pelota!,oficial
+81000470,7,tぼくのパパ　サッカーが\nとっても　うまいんだよ！\fパパが　お%1F休みの%1F日には\nいっしょに　サッカーするんだ。,¡Mi padre es muy bueno jugando\nal fútbol!\fLos días de fiesta siempre\njuega conmigo.,oficial
+81000470,8,0えっ　ボールって\nこんなに%1F高いの！？,¿Eh? ¡Sí que son caros los balones!,oficial
+81000470,9,Dこの%1F子　サッカーがうまいのよ。\n%2F主人に%1F似たのかしら。,A mi hijo no se le da nada mal\nel fútbol. Supongo que se parece\na su padre.,oficial
+81000500,0,Dここの　ラーメン%1F屋のオヤジ\nガンコなので　%2F有名なんだ。,¡El señor del restaurante de fideos\nchinos es famoso por su tozudez!,oficial
+81000500,1,Tううっ…　なんだ　\nこのキンチョーかんっ！！\n%1F食った%1F気に　ならないよ…。,¿Eh? ¿Por qué estoy nervioso?...\n¡Me siento tan ligero como\nsi no hubiese comido nada!,oficial
+81000500,2,Tシンプルな%1F中にも\n%1F深みのあるスープ…\nこの%2F店主　タダものじゃないな！,"Es una simple sopa, pero tiene\nmucho sabor. ¡El cocinero sabe\nlo que hace!",oficial
+81000530,0,Lおったまげただー。\nこげな　カッコしたムスメさん\nはじめてみただーよ。,Me he quedado de piedra.\nEs la primera vez que veo a\nchicas con esas pintas.,oficial
+81000530,1,4あれー　メイドさんたち\nどこいっただかーね？,¿Eh? ¿Adónde han ido\nlas doncellas?,oficial
+81000530,2,@ほへー。\fメイドさんを%1F見てると\nとっても　%1F幸せだーよ,¿Eh?\fVer a las doncellas me hace\nmuy feliz.,oficial
+81000530,3,@オ　オレ\nこんな　かんげいをうけたの\nはじめてだキーっ。,Es la primera vez que\nalguien me recibe con tanto\nentusiasmo...,oficial
+81000530,4,@うおーんっ！\nメイドさんたちが\nいなくなっちゃったキーっ。,¡Oh!\n¡Las doncellas han desaparecido!,oficial
+81000530,5,dメイドさんに　もう%2F夢中ッキー！\n%3F野生中の%1F近くにも　メイド%2F喫茶\nできてほしいッキー！,¡Adoro a las doncellas! ¡Quiero que\npongan una cafetería de doncellas\ncerca del Instituto Wild también!,oficial
+81000530,6,Hでへへ　メイドさんに\nケチャップでハート\nかいてもらっちゃった。,"Je, je. Una de las doncellas\nme ha dibujado un corazón con\nketchup sobre la comida.",oficial
+81000530,7,Lメイドさんが　つくってくれた\nオムライスの%1F味が\n%1F忘れられないよ。,Nunca olvidaré el sabor de\nla tortilla que me ha preparado\nla doncella.,oficial
+81000530,8,Hでへへ　メイドさんに\nケチャップでハート\nかいてもらっちゃった。,"Je, je. Una de las doncellas\nme ha dibujado un corazón con\nketchup sobre la comida.",oficial
+81000530,9,tみるくちゃーんっ！\nめろんちゃーんっ！\nいちごちゃーんっ！\fみんな　かくれてないで\n%1F出ておいでーーいっ。,¡Milk! ¡Melon! ¡Strawberry!\f¡No os escondáis! ¡Venid aquí!,oficial
+81000530,10,xむほほほっ\n%3F居酒屋「%3F金閣寺」の\nサリーちゃんも　いいけど\fムチムチプリンッ　な\nメイドさんも　たまらんのう。,"Jo, jo, jo. Samantha, la del bar\nEl templo de oro, está como un\nqueso, pero...\fes que estas doncellas tan\nadorables me vuelven loco.",oficial
+81000530,11,Xまったく　けしからんっ。　\nごかいするなよ\nわたしは　%2F調査で%1F来ているのだ！,Habrase visto... No te confundas.\n¡Yo he venido a investigar!,oficial
+81000530,12,�なにっ　\nこのメイド%2F喫茶は\n%4F秋葉名戸の　ワナだったって？\fやっぱりな！　\nわたしも　そうじゃないかと　\n%1F思っていたのだ！,¡¿Cómo?! ¿Que lo de la cafetería\nde doncellas era una trampa puesta\npor los del Instituto Otaku?\f¡Ya me lo imaginaba!,oficial
+81000530,13,Xまったく　けしからんっ。　\nごかいするなよ\nわたしは　%2F調査で%1F来ているのだ！,Habrase visto... No te confundas.\n¡Yo he venido a investigar!,oficial
+81000530,14,$うおーっ　みるくちゃーんっ！,¡Oh! ¡Milk!,oficial
+81000530,15,Dうおーっ　みるくちゃーんっ！\nどこに%1F行ったんだーっい！！,¡Oh! ¡Milk!\n¿Dónde te has metido?,oficial
+81000530,16,$うおーっ　みるくちゃーんっ！,¡Oh! ¡Milk!,oficial
+81000530,17,0おかえりなさいませー　\nご%2F主人さまー。,"Me alegro de volver a verle, señor.",oficial
+81000530,18,0オカエリナサイマセ…　\nゴシュジンサマ…。,Me alegro de... volver a verle...\nseñor...,oficial
+81000530,19,0おかえりなさいませー　\nご%2F主人さまー。,"Me alegro de volver a verle, señor.",oficial
+81000530,20,Tみんなー！　きょうは　\nみるくのために　\n%1F集まってくれて　ありがとーっ！,¡Muchas gracias a todos por haber\nvenido expresamente para ver a\nMilk!,oficial
+81000530,21,ｨぐふふ〜っ　いらっしゃいっ！\nボク　ココロをいれかえちゃって\n%1F新メイド%2F喫茶をオープンしたヨ〜。\fうーんと　サービスしちゃうから\n%1F楽しんでってネッ　ネッ！,"Ji, ji. ¡Bienvenido! He cambiado\nde opinión y al final he vuelto a\nabrir la cafetería.\fMm... Te invitaré a algo.\nAdelante y pásalo bien.",oficial
+81000530,22,�ぐふふ〜っ\n%1F何か　%1F町のヨウスやばくないっ？\fボク　こわくって\nメイド%2F喫茶に　\n%1F閉じこもっちゃってるもんネ〜！,"Je, je, je. A Inazuma le está\npasando algo raro, ¿no?\fTengo tanto miedo que me he\nencerrado en el interior\nde la cafetería de doncellas.",oficial
+81000530,23,ｨぐふふ〜っ　いらっしゃいっ！\nボク　ココロをいれかえちゃって\n%1F新メイド%2F喫茶をオープンしたヨ〜。\fうーんと　サービスしちゃうから\n%1F楽しんでってネッ　ネッ！,"Ji, ji. ¡Bienvenido! He cambiado\nde opinión y al final he vuelto a\nabrir la cafetería.\fMm... Te invitaré a algo.\nAdelante y pásalo bien.",oficial
+81000561,0,<こらっ　%1F守。\nあんた　%2F宿題は%1F終わったの！？,"Ey, Mark. ¿Has terminado\nde hacer los deberes?",oficial
+81000561,1,@%1F守…\nあまり　%1F危ないことには　\nかかわらないでね…。,"Mark...\nIntenta no meterte en líos, ¿vale?",oficial
+81000561,2,<…ほんと　ガンコなところが\nじいちゃんにソックリだわ。,De verdad...\nEres tan tozudo como tu abuelo.,oficial
+81000561,3,<こらっ　%1F守。\nあんた　%2F宿題は%1F終わったの！？,"Ey, Mark. ¿Has terminado\nde hacer los deberes?",oficial
+81000561,4,<おや　%1F守。　\n%2F今日は　%2F練習はおしまいかい？,"Hola, Mark. ¿Ya has terminado\nde entrenar hoy?",oficial
+81000561,5,@%1F守。　\nあまり%1F母さんを\n%2F心配させてはいけないよ。,"Mark, no hagas que tu madre\nse preocupe.",oficial
+81000561,6,\%1F守。　\n%2F自分の%1F信じる%1F道を%1F行きなさい。\n%1F父さんは　%2F見守っているぞ。,"Sigue el camino que consideres\ncorrecto. Yo te apoyaré, Mark.",oficial
+81000561,7,<おや　%1F守。　\n%2F今日は　%2F練習はおしまいかい？,"Hola, Mark. ¿Ya has terminado\nde entrenar hoy?",oficial
+81000580,0,X%2F鬼道さまが　%1F何か\nなやんでいらっしゃるようだ。\nあの%1F方らしくもないな…。,Parece que Jude está preocupado\npor algo. Qué raro...,oficial
+81000580,1,`%2F総帥が%2F逮捕されるとは…。\n%4F帝国学園は　これから\nどうなってしまうのだろうか…。,Quién nos iba a decir que\narrestarían al comandante... ¿Qué\nva a pasar con la Royal Academy?,oficial
+81000580,2,8%3F世宇子%2F学園…\nいったい　%1F何ものなのだ…！,¿De dónde han salido los\ndel Instituto Zeus?,oficial
+81000580,3,`%2F総帥が%2F逮捕されるとは…。\n%4F帝国学園は　これから\nどうなってしまうのだろうか…。,Quién nos iba a decir que\narrestarían al comandante... ¿Qué\nva a pasar con la Royal Academy?,oficial
+81000580,4,T%2F土門をチームに%1F引きこむとは…\nキサマら　どんな%1F手を\nつかったんだ！,¿Qué artimaña habéis utilizado\npara convencer a Bobby de que\nse pase a vuestro equipo?,oficial
+81000580,5,撃�の%3F決勝戦の%1F後　%2F鬼道さまたちは　\n%1F今まで%2F以上にキビしい%2F練習を\nされているようだ。\nおまえたち　%2F覚悟しておけよ！,"Tras la final, Jude y el resto\ndel equipo han empezado a entrenar\naún más duro que antes. \fYa os podéis ir preparando...",oficial
+81000580,6,ｬ%2F鬼道さまたち　サッカー%1F部は\nおまえたちと%1F戦った%1F時より\n%1F力をつけておられたのだ…。\fそれなのに\nまったく%1F歯が%1F立たないとは…\nなんということだ…。,"Jude y los demás ahora son\nmucho más fuertes que cuando\nse enfrentaron a vosotros.\fPero, a pesar de todo, no han\npodido estar a la altura...\nEs hasta difícil de creer...",oficial
+81000580,7,`%2F鬼道さまは　なんだか%2F以前より\nおだやかになられたようだ。\n%1F何かあったのだろうか？,Jude está más sereno que antes.\n¿Le habrá ocurrido algo?...,oficial
+81000580,8,うわー　%1F高いなァ。,Va a ser un partido muy\nemocionante.,oficial
+81000580,9,H%3F豪炎寺くんと　%2F鬼道くん…\nどっちを%2F応援しようかしら…。,Axel o Jude...\nNo sé a quién animar de los dos...,oficial
+81000580,10,､%2F鬼道さまが　%2F総帥をウラ%1F切ったことで\n%2F学園%1F中が%1F荒れているのだ。\fだが　オレは\n%2F鬼道さまが　なさったことは\nまちがいではないと%1F思うよ…。,El caos reina en la Royal porque\nJude traicionó al comandante.\fPero yo creo que Jude hizo\nlo correcto.,oficial
+81000580,11,､サッカー%1F部のメンバーが\n%1F大ケガのため　%2F入院されたらしい…。\fだが　あんな%1F負けかたでは\n%1F体のキズより　%1F心のキズのほうが\n%1F深いであろうな…。,Se ve que los jugadores del equipo\nde fútbol están en el hospital\ncon heridas graves...\fPero estoy convencido de que\nlas heridas del corazón son\nmás profundas que las físicas.,oficial
+81000580,12,h%2F鬼道さまが　%2F雷門に%1F入るとは…。\n%2F円堂…　だったか？\n%2F鬼道さまを　よろしくたのむぞ。,"No esperaba que Jude entrase en\nel Raimon. Te llamas Mark, ¿no?\nCuida mucho de él.",oficial
+81000580,13,､%2F鬼道さまが　%2F総帥をウラ%1F切ったことで\n%2F学園%1F中が%1F荒れているのだ。\fだが　オレは\n%2F鬼道さまが　なさったことは\nまちがいではないと%1F思うよ…。,El caos reina en la Royal porque\nJude traicionó al comandante.\fPero yo creo que Jude hizo\nlo correcto.,oficial
+81000600,0,Tこの%1F先は　ひかえ%1F室だ。\nおとなしく　さばきの%1F時を　\n%1F待つがいい。,Este es vuestro vestuario.\nEsperad aquí sin armar follón.,oficial
+81000600,1,だれだ　キサマ！,¿Quién demonios eres?,oficial
+81000600,2,$%1F立ち%1F去れ　おろかもの！,¡Márchate ahora mismo!,oficial
+81000660,0,р謔､こそ　イナビカリ%3F修練場へ。\fここでは　コースをクリアすることで\n%2F特定の%2F能力を　アップする\nことができるのです。,"Bienvenido al centro de\nentrenamiento Centella.\fAl completar uno de los circuitos,\nmejorará uno de los parámetros\nde tus jugadores.",oficial
+81000660,1,dちなみに「ねっけつ%2F特訓」と%1F違い\nチーム%2F全員の%2F能力を\n１%1F度にアップできますよ。,"Por cierto, a diferencia del\nentrenamiento especial, aquí sube\nel nivel de todo el equipo a la vez.",oficial
+81000660,2,怩ｽだし　そうカンタンに\nクリアすることは\nできないでしょうが…。\f２つの%2F特性を　うまく%1F使い%1F分けて\nさらなるパワーアップを\nめざして%1F下さい。,"Sin embargo, llegar al final de\nla ruta no es sencillo.\fHaz un buen uso de los dos tipos\nde entrenamiento para conseguir\nun equipo aún más fuerte.",oficial
+84000001,0,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,1,<スカウトしたいんだったら\n%2F部室に%1F来てくださいね！,"Cuando quieras reclutar a\nun jugador, ven al club, ¿vale?",oficial
+84000001,2,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,3,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000001,4,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,5,<スカウトしたいんだったら\n%2F部室に%1F来てくださいね！,"Cuando quieras reclutar a\nun jugador, ven al club, ¿vale?",oficial
+84000001,6,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,7,Xもうっ！\nそんなに　せかさないでくださいよ！\n%1F今　%2F部室に%1F戻ってますから！,"¡No seas tan impaciente, porfa!\nYa estoy volviendo al club.",oficial
+84000001,8,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000001,9,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,10,Dまだスカウト%1F中なんです。\nもう%1F少し%1F待ってくださいね！,"Aún estoy buscando.\nEspera un poquito más, porfa.",oficial
+84000001,11,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,12,Dまだスカウト%1F中なんです。\nもう%1F少し%1F待ってくださいね！,"Aún estoy buscando.\nEspera un poquito más, porfa.",oficial
+84000001,13,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,14,tスカウトしていた%1F人が%1F見つかりました！\nリストは　わたしが%1F持ってますから\n%2F部室に%1F来てくださいね！,¡He encontrado lo que buscabas! \nVen a verme al club para ver\nlos resultados.,oficial
+84000001,15,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,16,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000001,17,$もしもし？\nセンパイですか？,¡Hola! ¿Mark?,oficial
+84000001,18,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000002,0,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,1,hあれれ？　%1F今はスカウトしてませんよ？\nスカウトしたいんだったら\n%2F部室に%1F来てくださいね！,"¿Eh? Ahora no estoy buscando\na nadie. Si quieres reclutar a\nalguien, ven a la caseta del club.",oficial
+84000002,2,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,3,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000002,4,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,5,hあれれ？　%1F今はスカウトしてませんよ？\nスカウトしたいんだったら\n%2F部室に%1F来てくださいね！,"¿Eh? Ahora no estoy buscando\na nadie. Si quieres reclutar a\nalguien, ven a la caseta del club.",oficial
+84000002,6,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,7,Xもうっ！\nそんなに　せかさないでくださいよ！\n%1F今　%2F部室に%1F戻ってますから！,"¡No seas tan impaciente, porfa!\nYa estoy volviendo al club.",oficial
+84000002,8,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000002,9,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,10,4え？　スカウトをやめちゃって\nいいんですか？,¿Eh? ¿Quieres que deje de buscar?,oficial
+84000002,11,8わかりました！\nそれじゃ　%2F部室にもどりますね！,"De acuerdo. \nEntonces, me vuelvo al club.",oficial
+84000002,12,Dスッゴイ%2F選手を%1F見つけてきますから\n%2F安心してください！,"¡Encontraré a los mejores\njugadores, no te preocupes!",oficial
+84000002,13,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,14,4え？　スカウトをやめちゃって\nいいんですか？,¿Eh? ¿Quieres que deje de buscar?,oficial
+84000002,15,8わかりました！\nそれじゃ　%2F部室にもどりますね！,"De acuerdo. \nEntonces, me vuelvo al club.",oficial
+84000002,16,Dスッゴイ%2F選手を%1F見つけてきますから\n%2F安心してください！,"¡Encontraré a los mejores\njugadores, no te preocupes!",oficial
+84000002,17,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,18,Dセンパイの%1F言っていた%2F選手は\nもう　%1F見つかってますよ？,Ya he encontrado al jugador\nque me has pedido.,oficial
+84000002,19,L%1F新しくスカウトしたいなら\n%2F部室に%1F来てもらっても　いいですか？,"Si quieres reclutar a alguien más,\nven a la caseta del club, por favor.",oficial
+84000002,20,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,21,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+84000002,22,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,23,Dセンパイの%1F言っていた%2F選手は\nもう　%1F見つかってますよ？,Ya he encontrado al jugador\nque me has pedido.,oficial
+84000002,24,L%1F新しくスカウトしたいなら\n%2F部室に%1F来てもらっても　いいですか？,"Si quieres reclutar a alguien más,\nven a la caseta del club, por favor.",oficial
+84000002,25,はい！\n%2F春奈です！,"Hola, soy Celia.",oficial
+84000002,26,Hもうっ！\n%1F目の%1F前にいるのに\n%2F電話してこないでくださいよ！,"¡Pero si me tienes delante! Je, je.\n¡No hace falta que me llames!",oficial
+85000001,0,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,1,@%1F引き%1F抜きしたいんだったら\n%2F部室に%1F来るといいわ。,"Si quieres fichar a alguien,\nacércate a la caseta del club.",oficial
+85000001,2,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,3,Pな　%1F何よ？\n%1F目の%1F前にいるのに\n%2F電話してこないでくれるかしら？,¿Eres tonto?\n¿Para qué me llamas si me\ntienes delante de tus narices?,oficial
+85000001,4,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,5,@%1F引き%1F抜きしたいんだったら\n%2F部室に%1F来るといいわ。,"Si quieres fichar a alguien,\nacércate a la caseta del club.",oficial
+85000001,6,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,7,Pな　%1F何よ？\n%1F目の%1F前にいるのに\n%2F電話してこないでくれるかしら？,¿Eres tonto?\n¿Para qué me llamas si me\ntienes delante de tus narices?,oficial
+85000001,8,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,9,@まだ%1F引き%1F抜き%1F中よ。\nもう%1F少し%1F待ちなさい。,"Aún no he terminado de investigar.\nTen un poco más de paciencia,\npor favor.",oficial
+85000001,10,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,11,Pな　%1F何よ？\n%1F目の%1F前にいるのに\n%2F電話してこないでくれるかしら？,¿Eres tonto?\n¿Para qué me llamas si me\ntienes delante de tus narices?,oficial
+85000001,12,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,13,p%1F引き%1F抜きしていた%1F人が%1F見つかってるわ。\nリストは　わたしが%1F持っているから\n%2F部室にきなさい！,He encontrado a los jugadores\ndel equipo que me dijiste. Ven\nal club para ver la lista.,oficial
+85000001,14,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,15,Pな　%1F何よ？\n%1F目の%1F前にいるのに\n%2F電話してこないでくれるかしら？,¿Eres tonto?\n¿Para qué me llamas si me\ntienes delante de tus narices?,oficial
+85000001,16,もしもし？\n%2F夏未よ。,"Hola, soy Nelly.",oficial
+85000001,17,Pな　%1F何よ？\n%1F目の%1F前にいるのに\n%2F電話してこないでくれるかしら？,¿Eres tonto?\n¿Para qué me llamas si me\ntienes delante de tus narices?,oficial
+91000002,0,(%2F全体マップに　%2F移動しますか？,¿Quieres ir al mapa?,oficial
+92010200,0,ﾄやっぱりこのままじゃダメだ。\nとにかくオレ%2F１人でも\n%2F練習を%1F始めなきゃ。\f%2F今日ぐらいは　グラウンドが\nあいているといいんだけどな…。\fとりあえず　ようすを\n%1F見に%1F行ってみるか。,No podemos seguir así. Iré a\nentrenar aunque vaya solo.\fOjalá hoy el campo esté libre...\nVoy a echar un vistazo.,oficial
+92010200,1,グラウンドに行って練習だ！,¡Ve al campo a entrenar!,oficial
+92010320,0,ｰおや　%2F円堂じゃないか。\nサッカー%1F部は　%2F部室に\nこもってばかりだな。\fもう%1F少しなんとかならんのか？\nあれでは%1F他の%2F部活の%1F悪い%2F見本に\nなってしまうぞ。,"Anda, si es Mark. Oye, el equipo de\nfútbol no sale de la caseta.\n¿Es que no puedes hacer algo?\fSois un mal ejemplo para el resto\nde clubes deportivos.",oficial
+92010320,1,`え？　%4F冬海先生は%1F今はいないようだな。\nたしか%3F校長室によばれていた\nみたいだが…。,¿Eh? Wintersea no está ahora.\nCreo que el director le ha\nllamado a su despacho...,oficial
+92010320,2,Hそうなんですか。\nじゃあグラウンドの%4F使用許可は\nどうしよう…。,"Ah, ¿sí? Entonces, ¿qué puedo\nhacer para conseguir permiso\npara jugar en el campo?...",oficial
+92010320,3,|しばらく%1F戻らない\n%2F様子だったからな…。\fしかたない。\n%2F今回はわたしが%4F冬海先生に\n%1F伝えておいてやろう。,Parece que va a tardar algo...\nNo pasa nada. Ya se lo diré yo\nal profesor Wintersea.,oficial
+92010320,4,0%2F本当ですか？\nありがとうございます。,¿En serio? Muchas gracias.,oficial
+92010320,5,Dよかったね　%2F円堂くん。\nこれでグラウンドが\n%1F使えるよ。,"Qué bien, ¿verdad, Mark?\nYa se puede usar el campo.",oficial
+92010320,6,Dああ　ありがとう　%2F木野。\nそれじゃあ\nさっそく%2F練習だ！,"Sí, muchas gracias, Silvia. ¡No\nretrasemos más el entrenamiento!",oficial
+92010320,7,8うん　グラウンドに\n%1F戻りましょう　%2F円堂くん。,"Vale. Volvamos al campo, Mark.",oficial
+92010320,8,グラウンドへ戻って練習だ！,¡Regresa al campo y entrena!,oficial
+92010400,0,(あの…。\n%1F何かご%1F用ですか？,Eh... ¿Querías algo?,oficial
+92010400,1,T…！\fな　なんでもないわ。\nきたない%2F部室だと%1F思って\n%1F見ていただけよ。,"No, nada. Solo estaba mirando.\fMe llamaba la atención que\ntuvierais todo tan sucio.",oficial
+92010400,2,%1F今のは…。,Si era...,oficial
+92010400,3,%1F誰だ？　あいつ。,¿Y esa chica?,oficial
+92010400,4,�%1F知らないの　%2F円堂くん？\n%1F今のは　%2F生徒%2F会長の%2F雷門%2F夏未さん…。\f%3F理事長のムスメさんよ。\n%2F学園の%2F経営まで　まかされてるって\nウワサだけど…。\fそんな%1F人が　サッカー%1F部に\nいったい　なんの%2F用事だったのかな？,"¿No la conoces, Mark? Era Nelly\nRaimon, la presidenta del Consejo\nde estudiantes.\fTambién es la hija del presidente\nde la Junta escolar. Se dice que\nes ella quien gestiona el instituto.\f¿Qué le traería por el club\nde fútbol?...",oficial
+92010400,5,`…%1F気になるけど\n%4F冬海先生の%1F話が%1F先だよね。\nはやく　%2F部室に%1F入りましょう。,"Me preocupa, pero lo primero es\nescuchar lo que tenga que decirnos\nWintersea. Venga, entremos rápido.",oficial
+92010500,0,x%2F冬海の%1F話なんて　どうせまた\n%2F部室の　そうじをしろだとか\nろくな%1F話じゃないさ。\f…おっと　%1F来たぜ。,"Seguro que Wintersea no tiene nada\nbueno que decirnos. Querrá que\nlimpiemos el club o algo así.\fOh, ya está aquí.",oficial
+92010500,1,ﾀよろしい。\n%2F全員　%1F集まっているようですね。\fえ〜　それでは　みなさんに\nお%1F知らせがあります。\f%2F突然ですが　１%3F週間後に\n%1F久しぶりの%4F練習試合を\nすることになりました。,"Muy bien, parece que estamos\ntodos. Tengo algo que comunicaros.\fBueno, seré breve... Os hemos\norganizado un partido amistoso\npara dentro de una semana.",oficial
+92010500,2,Xえ〜？　いったいどこが\nうちなんかと　%4F練習試合をしようって\nいうんでやんす？,¿Eh? ¿Y qué equipo está tan\ndesesperado como para querer\nenfrentarse a nosotros?,oficial
+92010500,3,@%2F相手は　%4F帝国学園です。\nどうです　すごいでしょう？,La Royal Academy.\n¿No es fantástico?,oficial
+92010500,4,Pて　%2F帝国？\nそれって　%2F最強といわれる\n%4F帝国学園のことでやんすか？,¿La Royal? ¿Estamos hablando del\ninstituto con el mejor equipo\ndel país?,oficial
+92010500,5,Dこの４０%1F年ずっと\n%4F全国大会で%2F優勝している\nあの…？,¿Los que llevan 40 años ganando\nel torneo nacional?...,oficial
+92010500,6,hうちは%1F今　７%1F人しか\n%2F部員がいないんですよ？\n%2F帝国となんて　%2F試合になりませんって！,¡Pero si solo somos 7! ¡No tenemos\nni equipo para jugar contra ellos!,oficial
+92010500,7,ｰ%2F部員が%1F足りないのなら\n%2F試合までに%1F集めておけば\nいいでしょう。\fもし　この%2F試合に%1F勝てなければ\nサッカー%1F部は%2F廃部になることが\n%1F決まりましたから。,"Si os faltan jugadores, solo tenéis\nque reclutarlos antes del día del\npartido.\fSabed que si no conseguís ganar,\nel club de fútbol... pasará a\nmejor vida.",oficial
+92010500,8,ええっ？\n%2F廃部！？,¿Qué? ¿Nos dejáis sin club?,oficial
+92010500,9,ｬええ　これは%2F校長と%3F理事長\nお%2F２人が　%2F決定されたことなのです。\fグラウンドを%1F使えるように\nたのんでおきましたから\nきちんと　%2F整備しておいてくださいよ。,"Sí, así lo han decidido tanto\nel director como el presidente de\nla Junta escolar.\fOs he reservado el campo,\nasí que id a prepararos.",oficial
+92010500,10,t%1F今のまま　%2F帝国の%2F選手をむかえては\nとんだ%1F恥さらしですからね。\fそれでは　%1F話は%2F以上ですので。,"Si tuvierais que jugar contra\nla Royal tal y como estáis ahora,\nel ridículo podría ser inmenso.\fEso era todo cuanto tenía que\ncomunicaros.",oficial
+92010500,11,Xど　ど　どうするんでやんす？\nこれは　めんどうなことに\nなってきたでやんすよ〜。,¿Qué... qué vamos a hacer?\nEn menuda nos hemos metido...,oficial
+92010500,12,@ついに%2F廃部か。\nいつかこうなるとは%1F思ってたけど…。,"Así que el club se va a pique.\nBueno, algún día tenía que pasar.",oficial
+92010500,13,ｬ%1F何いってるんだ！\n%2F廃部になんか　させやしない！\fせっかくグラウンドが%1F使えるんだ。\nメンバーを%1F集めて　%2F練習して\n%2F帝国を　あっと%1F言わせてやろうぜ！,¿Pero qué estáis diciendo? ¡No\npermitiré que acaben con el club!\fPor fin tenemos el campo a nuestra\ndisposición. ¡Encontraré jugadores\ny sorprenderemos a la Royal!,oficial
+92010500,14,Tまったく　おめでたいやつだな。\n%1F今さら%2F部員なんて%1F集まるわけないだろ。,Este tío se alegra por todo.\n¿Quién va a querer unirse al club\na estas alturas de la película?,oficial
+92010500,15,Dそうでやんすよ。\nキャプテン　まだ\nわからないんでやんすか？,"Es verdad. ¿Es que no te das\ncuenta, capitán?",oficial
+92010500,16,Pそんな…。\nひさしぶりの%2F試合なんだぞ？\nみんな　うれしくないのかよ？,No seáis así... ¡Llevábamos mucho\ntiempo sin jugar un partido!\n¿Es que no estáis contentos?,oficial
+92010500,17,D%1F恥をかくのが　わかっているのに\nうれしいわけがないだろう。,No podemos estarlo sabiendo el\nridículo que vamos a hacer.,oficial
+92010500,18,�おい！　%1F何も%1F始まってないうちから\nあきらめるなよ！\f%2F試合に%1F勝つか%1F負けるかなんて\nやってみなけりゃ　わからないだろ！\f%1F足りない%2F部員はたったの４%1F人だ！\nオレは　ゼッタイに%2F部員を%1F集めて\n%2F帝国と%2F試合をしてみせるぞ！,¡No tiréis la toalla antes de tiempo!\n¡El resultado del partido no se\ndecide sin haberlo jugado!\fSolo necesitamos 4 jugadores más.\n¡Daré con ellos y plantaremos cara\na la Royal Academy!,oficial
+92010500,19,吹cそうだ！　%3F豪炎寺！\n%1F今こそ　アイツをさがして\n%2F仲間にする%1F時だ！\fこうしちゃ　いられないぞ！\n%2F木野！　ついて%1F来てくれ！,"¡Ya lo tengo! ¡Es el momento\nde buscar a Axel e invitarle a\nque se una a nuestro equipo!\f¡No hay tiempo que perder!\n¡Acompáñame, Silvia!",oficial
+92010500,20,わかったわ　%2F円堂くん！,"¡Vale, Mark!",oficial
+92010520,0,�%3F転校生なら　ずいぶん%1F前に\nそこの%2F裏門から%1F出て%1F行ったぜ。\f%2F転校したその%1F日に　%2F裏門から%1F帰るなんて\nちょっと%1F変わってるよな。\fもう%2F裏門は%1F閉まっているから\nおまえたちも　%1F帰るなら\n%2F正門を%1F使ったほうがいいぜ。,"Si te refieres al chico nuevo, hace\nbastante rato que se ha ido por la\npuerta trasera.\fMira que irse a casa por ahí\nel mismo día en que se cambia\nde instituto... Qué raro...\fYa han cerrado esta puerta, así\nque si queréis salir tendréis\nque utilizar la principal.",oficial
+92010520,1,l%3F豪炎寺　もう%1F帰っちゃったんだな…。\fとりあえず　オレたちも\n%2F正門の%1F方へ%1F行ってみるか。,"Axel ya se ha ido...\nBueno, de momento, dirijámonos\na la puerta principal.",oficial
+92010550,0,h%3F豪炎寺くん\n%1F帰っちゃったみたいだね…。\f%3F今日中に%1F会うのは　\nむずかしいかもしれないよ？,Parece que Axel se ha ido...\nPuede que ya no le veamos hoy.,oficial
+92010550,1,p%2F明日まで%1F待つしかないのか…。\fなんだかスッキリしないな。\nこんな%1F時は　あそこに%1F行ってみるか。,¿Tenemos que esperar hasta\nmañana? No me quedo nada\ntranquilo. Miraré por allí.,oficial
+92010550,2,あそこって？,¿Dónde es hallíh?,oficial
+92010550,3,Lそうだ　%2F木野も%1F行かないか？\nきっと　おまえも%1F気に%1F入るぜ！,"Ya sé, ¿por qué no vienes conmigo?\n¡Será divertido!",oficial
+92010550,4,<え？　%2F円堂くん　いったい\nどこに%1F行くつもりなの？,"¿Eh? Pero ¿adónde quieres\nir, Mark?",oficial
+92010550,5,Tいいから　%1F楽しみにしてろって！\nとりあえず　%2F正門から%1F外に%1F出ようぜ！,"Ya lo verás, ¡no te preocupes!\nDe momento vayamos hacia la puerta\nprincipal.",oficial
+92010550,6,<%2F全体マップに\n%2F鉄塔エリア　が%2F追加されました。,El área de la torre se ha añadido\nal mapa general.,oficial
+92010550,7,正門から外に出よう！,¡Sal por la puerta principal!,oficial
+92010620,0,@ここから　%1F上にのぼれるんだ。\nさあ　ついて%1F来てくれ！,"Por aquí se puede subir.\n¡Vamos, ven conmigo!",oficial
+92010620,1,鉄塔の上に行ってみよう！,¡Sube a la torre!,oficial
+92010720,0,ただいまー！,¡Ya estoy en casa!,oficial
+92010730,0,ただいまー！,¡Ya estoy en casa!,oficial
+92010730,1,\おかえり　%1F守。\nご%1F飯できてるから　はやくカバンを\nおいて　%1F降りてきなさい。,"Hola, Mark. La cena ya está\npreparada, así que deja la\nmochila y ven a la mesa.",oficial
+92010730,2,hあっ　%1F母ちゃん！\n%2F今日さ　すげーヤツに%1F会ったんだ。\nそれでさ　そいつのキックったらさ〜！,"¡Ah, mamá! Hoy he conocido a\nun chico increíble. ¡Tendrías\nque haberle visto chutar!",oficial
+92010730,3,hはいはい。\nご%1F飯を%1F食べながら%1F聞くわよ。\fまったくアンタは\nサッカーのことばかりねえ…。,"Sí, sí. Tú come, que ya te escucho.\nHay que ver, no haces más que\nhablar de fútbol, ¿eh?",oficial
+92010730,4,$%1F聞いてくれ　じいちゃん！,"¡Escucha, abuelo!",oficial
+92010730,5,P%2F今日さ　オレ　すげーヤツに%1F会ったよ。\n%3F豪炎寺っていうんだけどさ。,¡Hoy he conocido a alguien\nalucinante! Se llama Axel.,oficial
+92010730,6,4なんかオレ　ひさしぶりに\nわくわくしたんだ。,Hacía mucho que no me\nemocionaba tanto al\nconocer a una persona.,oficial
+92010730,7,hサッカーって　やっぱいいよな。\fオレ　%2F明日からも　がんばるから\n%1F見ててくれよ　じいちゃん！,"El fútbol es una pasada. Mañana\nvolveré a entrenarme duro, abuelo.\n¡No dejes de mirarme desde arriba!",oficial
+92010900,0,ちょっと　ちょっと！,"¡Eh, oye!",oficial
+92010900,1,<キミたち　%1F今ごろ%2F部員を\n%1F集めだしたんだって？,"Habéis empezado a buscar\njugadores para vuestro\nequipo, ¿no?",oficial
+92010900,2,@ああ。　おまえもどうだ？\nいっしょに　サッカーやろうぜ！,Sí. ¿Qué te parece?\n¿Te unirías a nosotros?,oficial
+92010900,3,рｦえ〜　おことわりだよ。\nそんなカッコ%1F悪いこと…。\fああ　でも%2F最後の%2F１人として\n%2F入部っていうのなら　いいかもね。,"¿Eh? Me temo que no.\nEs tan vulgar...\fAunque... si fuera el último\njugador que necesitas, puede\nque cambiase de opinión.",oficial
+92010900,4,ｸ「メガネのヒーローが\n　%2F弱小サッカー%1F部を%1F救った！！」なんて\nなんだか　カッコいいじゃないか。\fその%1F時はついでに　エースナンバーも\nボクがもらってやるよ！\nあっはっは。,"¿No sería glorioso escuchar\nhGlass es el héroe que ha salvado\na los chicos del club de fútbolh?\fCuando llegue el momento, dame\nla camiseta con el dorsal\nestrella. ¡Ja, ja, ja!",oficial
+92011000,0,8みんな！\nついに%2F部員が１１%1F人%1F集まったぞ！,¡Chicos! ¡Por fin somos once!,oficial
+92011000,1,",まさか　ホントに%1F集めるなんて…。",Pensaba que no lo conseguiría...,oficial
+92011000,2,$やったじゃない　%2F円堂くん！,"¡Muy bien, Mark!",oficial
+92011000,3,@でも　これで%2F帝国と\n%2F試合するしかないってことだね。,Ahora sí que no podemos escapar\ndel partido contra la Royal.,oficial
+92011000,4,dああ　%1F久しぶりの%2F試合だな！\nさっそく　%3F紅白戦で%2F練習だ！\fみんな　しまっていこうぜ！,"¡Sí, ya tocaba disputar un\nencuentro después de tanto tiempo!\f¡Vamos a hacer un partidillo\npara entrenar! ¡Venga chicos,\nque se note que somos una piña!",oficial
+92011000,5,Dキャプテン　もしかして\n%2F本気で%1F勝つつもりなんですかね？,¿De verdad el capitán se piensa\nque somos capaces de ganar?,oficial
+92011000,6,lさあな。\nでも　ここまできたら\n%1F腹を%1F決めるしかねえだろう。\fとりあえず%2F練習するとしようぜ…。,"Vete a saber, pero a estas alturas\nya poco podemos hacer.\fHay que resignarse.\nVamos con ese partidillo.",oficial
+92011000,7,<みんな　いそいで！\nまずはグラウンドの%2F整備からよ！,"¡Vamos, chicos!\n¡Tenemos que preparar el campo!",oficial
+92011752,0,\おい　%2F寺門よ。\nどうしてオレたちが　こんな%2F弱小と\n%2F試合しなきゃいけないんだ？,"Eh, Daniel... ¿Por qué tenemos\nque jugar contra un equipo de\nmatados como este?",oficial
+92011752,1,t%2F総帥は　ここに%2F転校してきた%2F選手を\n%1F気にしておられるのだ。\nしっかりと%2F実力を%1F見きわめてこい。,El comandante está interesado en\nun jugador que ha venido a estudiar\naquí. Tenemos que ver cómo lo hace.,oficial
+92011752,2,@へえ…。\nうちに%1F呼んでも　つかえそうな\nやつなのか？,"Je... ¿Crees que podría jugar\nen nuestro equipo, si se lo\nofrecemos?",oficial
+92011752,3,垂ｻれは%2F総帥の%1F決めること…。\fオレたちは%2F命令どおりに%1F動くだけだ。\nどんな%2F目的だろうと\n%2F失敗はゆるされない。\f…%1F行くぞ！,"Eso depende del comandante...\fNosotros solo tenemos que seguir\nórdenes. Sea cual sea el objetivo,\nhay que cumplirlo. ¡Vamos!",oficial
+92011754,0,ｰついに　%4F帝国学園との%2F試合が%1F始まった。\fしかし　オレたちは　\nそこで%1F思い%1F知ることになったんだ。\fやつらは　とても１%2F週間%1F前に\n%1F集まったばかりのチームで,Finalmente arrancó el partido\ncontra la Royal Academy.\nEntonces nos dimos cuenta...,oficial
+92011754,1,@%3F太刀打ちできる　%2F相手では\nなかったということを…。,Era inútil plantarles cara\ncon un equipo que apenas llevaba\nuna semana entrenando.,oficial
+92011755,0,4こんな…。\nこんなに　%1F違うものなのか…。,¡No puede ser!\n¿Tanta diferencia hay?,oficial
+92011755,1,Lなに%1F言ってるんだ　コイツ？\nなんてことない　ただのシュートだぜ。,¿Qué le pasa a ese tío?\n¡Si mi tiro no era nada\ndel otro jueves!,oficial
+92011755,2,くそっ…！,¡Maldita sea!...,oficial
+92020500,0,Tあなたたち　%2F特訓%2F場所を%1F探しているの？\nそれならちょうどよかったわ。,¿Buscáis un sitio en el que\npoder entrenaros?,oficial
+92020500,1,�%1F私があなたたちをつぶしてくれるように\n%2F学園のみんなにたのんでおいたから。\fあなたたちって　はっきり%1F言って\nめざわりなのよ。,La verdad es que sois una\nvergüenza.\fPor eso he pedido a todos los\nalumnos que os pongan a prueba.,oficial
+92020500,2,tなんだって？\fそれじゃ　%2F学校を%1F歩いているだけで\nサッカーバトルを%1F挑んでくるやつが\nいるって%1F事か？,¿Qué?\f¿Eso significa que nos retarán\nmientras estemos recorriendo\nel instituto?,oficial
+92020500,3,tまあ　そういうことね。\nどこにいても%2F油断は%2F禁物という%1F事よ。\nあなたたちには%1F難しいでしょうけれど。,"Más o menos... Debéis estar listos\npara jugar, estéis donde estéis.\nPuede que os resulte complicado.",oficial
+92020500,4,\サッカーでの%2F勝負なら\nオレはいつだって%3F大歓迎さ！\n%1F誰とでも%2F勝負してやるぞ！,¡Estaré encantado de enfrentarme\na cualquiera que esté dispuesto\na jugar al fútbol!,oficial
+92020500,5,D　　　　　■チュートリアル■\n　　　　　ランダムエンカウント,TUTORIAL\nENCUENTROS AL AZAR,oficial
+92021100,0,D%2F円堂くん　%2F準備はいい？\nよければ%2F試合を%1F始めるわよ？,"¿Estás listo, Mark?\nSi es así, empecemos el partido.",oficial
+92021100,1,d%3F尾刈斗%2F中学の%1F人たちは\nもう%2F準備して%1F待ってるわ。\nグラウンドへ%1F行きましょう！,El equipo Occult ha terminado su\ncalentamiento y está esperando.\n¡Vamos al terreno de juego!,oficial
+92021100,2,Xああ！\n%1F待ってろよ　%4F尾刈斗中！\nオレたちの%1F新しい%1F力を%1F見せてやる！,"¡Que se preparen! ¡Cuando vean\nnuestra nueva técnica, se van a\nquedar con la boca abierta!",oficial
+92021100,3,8あれ？　フィールドに１１%1F人\nいないみたいだよ？,¿Eh? ¡No hay once jugadores en\nel terreno de juego!,oficial
+92021100,4,X【Ｘボタン】の【せんじゅつ】から\nしあいのフォーメーションを\n%2F確認してみて！,Pulsa el Botón X y selecciona\nhEstrategiah para comprobar\nla formación del partido.,oficial
+92021100,5,",そう。\n%2F準備ができたら%1F教えてね。",Avísame cuando estés preparado.,oficial
+92021300,0,�もしもし…。\fはい…　そうですね。\n%3F尾刈斗には%2F勝利したようです。\fええ　%1F分かりました…。\nはい　%2F失礼します。,"¿Hola?\fHan conseguido vencer al Occult.\fYa veo...\nSí, lo siento.",oficial
+92021300,1,H%1F見たぞ…。\f%1F私の%1F目をごまかせると%1F思うなよ。\n%2F冬海。,"Lo he visto con mis propios ojos.\nNo me engañarás, Wintersea.",oficial
+92030210,0,�あっ　%2F円堂センパイ！\nちょうどいいところに。\f%3F野生中について　%1F何か\n%1F役に%1F立ちそうな　%2F資料が%1F無いか\nさがしてたんですけど…。,"¡Ah, Mark!\nHas venido justo a tiempo.\fEstaba buscando algún documento\nque nos ayudase a ganar al Wild...",oficial
+92030210,1,lなんだか　ふしぎな%1F紙%1F切れを\n%1F見つけちゃったんです。\nここの%1F本だな　%1F調べてみてください！,Me he encontrado con este extraño\npapel. Vamos a buscar un poco más\nen estas estanterías.,oficial
+92030210,2,本だなを調べてみよう！,¡Busca en las estanterías!,oficial
+92030260,0,l円堂センパイ！　すごいモノ\n見つけちゃいました！\fここの本だなを　\nちょっと　しらべてみてください！,¡Mark! ¡He encontrado algo brutal!\f¡Mira en estas estanterías!,oficial
+92030260,1,本棚を調べてみよう！,¡Busca en las estanterías!,oficial
+92030300,0,ﾜああ　いそがしい　いそがしい。\n%1F古い%1F本を　%2F整理しているの。\nまったく　カビくさいったらないわ。\fえ？　\nそこの　たなの%1F本？\fあの%1F辺の%1F本って　%2F漫研の%1F人たちが\n%1F借りっぱなしにしてるのよね。,Estoy ocupadísima ordenando estos\nlibros viejos. Huelen a antiguo\nque tiran de espaldas.\f¿Qué? ¿El libro de esa estantería?\fTodos los libros de esa zona los\nhan sacado los miembros del club\nde manga.,oficial
+92030300,1,�ちょうどいいわ。\n%1F見たいのなら　あなたたちが\n%1F返してもらって%1F来てよ。\fあたしは　%2F整理でいそがしくって\nそれどころじゃないんだから…。,¿Me podrías hacer el favor de\ntraer de vuelta esos libros si\nlos ves?\fEstoy demasiado ocupada para\nirlos a buscar yo misma.,oficial
+92030300,2,ﾌもしかして　%1F切れはしも\nその%1F中に　はさまってるのかも\nしれないッスね。\fキャプテン　%3F漫研部に%1F行って\n%1F聞いてみたらいいッス！\f%3F漫研部がある%3F文化棟は\nプールの%2F西側にあるッスよ！,"La parte que falta tiene que\nestar en alguno de esos libros.\fCapitán, vamos al club de manga\na preguntarles.\fEstán en el edificio de las actividades\nculturales, al oeste de la piscina.",oficial
+92030300,3,H%3F体育館エリアと\n%3F文化棟エリアに\n%1F行けるようになりました。,Ya puedes ir al gimnasio y al\nedificio de actividades culturales.,oficial
+92030300,4,漫研部室へ行こう！,¡Ve al club de manga!,oficial
+92030700,0,<へっ　しょせん%1F口だけかよ。\n%1F出%1F直してきな！！,"No eres más que un bocazas.\nSi crees que puedes ganar,\n¡vamos a enfrentarnos otra vez!",oficial
+92030700,1,河川敷へいこう！,¡Ve a la ribera!,oficial
+92031500,0,$%3F野生中に%1F行きたいのかい？,¿Queréis ir al Instituto Wild?,oficial
+92031500,1,$よし！　%3F野生中へ%2F出発だ。,¡Sí! Nos vamos al Instituto Wild.,oficial
+92031500,2,@%3F野生中に%1F行きたくなったら\n%1F声をかけてください。,Hablad conmigo cuando queráis\nir al Instituto Wild.,oficial
+92031600,0,野生中へいこう！,¡Ve al Instituto Wild!,oficial
+92031600,1,<これが%3F野生中か！\nまるで%1F森の%1F中じゃないか！,¿Este es el Instituto Wild?\n¡Pero si estamos en mitad\ndel bosque!,oficial
+92031600,2,$なっ　%1F何よ\nあなたたち！,"Eh, ¿qué estáis haciendo?",oficial
+92031600,3,\あれは　%2F夏未の%1F声？\n%1F向こうから%1F聞こえたみたいだけど。\nどうかしたのか！？,¿No era esa la voz de Nelly?\nParece que salía de allí.\n¿Qué estará pasando?,oficial
+92031610,0,",%2F円堂くん　%1F町へ%1F帰りたいの？","Mark, ¿quieres volver a la ciudad?",oficial
+92031610,1,Hもうすぐ%4F試合開始だから\n%1F用があるなら　%1F早めにすませてね。,"El partido empezará pronto, así\nque procura no tardar demasiado\ncon lo que tengas que hacer.",oficial
+92031610,2,(もどっている%2F場合じゃないな。,No voy a volver.,oficial
+92031650,0,Tお　オレ　\nこんなすっげえ%1F車　はじめて%1F見たっピ。\nぴっかぴかだっピ！！,¡Vaya!\n¡Es la primera vez que veo\nun cochazo tan alucinante!,oficial
+92031650,1,<ウホ〜　や　やっぱ\n%2F都会モンはすげえんだナァ〜。,"¡Ju, ju! Estos tipos de ciudad\nno se andan con chiquitas en lo\nque a coches respecta, ¿verdad?",oficial
+92031650,2,Lな　なんだか%1F気がぬけちゃうね。\nこれが　%3F野生中のメンバーなの？,"Vaya, no era lo que me esperaba.\nSon miembros del equipo Wild, ¿no?",oficial
+92031650,3,4うーん…　\nこいつらホントに%1F強いのかな。,Sí...\nMe pregunto si serán\ntan buenos como dicen.,oficial
+92031650,4,tこ　これは〜　イナズマおとしを\n%1F出すまでもないんじゃないッスか〜？\n%2F今日は%1F使うのを　やめておくッス！,¿Y tenemos que hacer el Trampolín\nrelámpago ante estos... animales?\n¡Reservémoslo para otro día!,oficial
+92031650,5,%1F兄ちゃ〜んっ！,"¡Jack, Jack!",oficial
+92031650,6,8サク！　\nホントに%2F試合を%1F見にきたッスか！？,¡Zak!\n¿Has venido a ver el partido?,oficial
+92031650,7,�うん！　だって%1F兄ちゃんが\nスゴイ%1F技を　%2F完成させたって\n%1F言ったから…。\fボク　どうしても%1F見たくって！\nだから　ママにナイショで%1F来ちゃった！,¡Sí! ¡Dijiste que te habías\nentrenado un montón para hacer\nuna técnica especial fantástica!\f¡Y yo quiero verla!\nNo le he dicho a mamá que\nhe venido...,oficial
+92031650,8,<ああ　すっげぇカッコいい%1F技だぞ！\n%2F期待してろよ。,"Sí, es una técnica sensacional.\n¡Ya lo verás!",oficial
+92031650,9,Dなんだよ　おまえ！\n%1F兄ちゃんの%2F手下のクセに\nエラそうに！,"¿Tú quién eres? No seas tan\nsobrado, que solo estás ahí\npara echar una mano a mi hermano.",oficial
+92031650,10,0じゃあね　%1F兄ちゃん\nがんばってねー！,"Hasta luego, Jack.\n¡Y buena suerte!",oficial
+92031650,11,………\nカッコいい…。,"Sensacional... Sí, claro.",oficial
+92040050,0,`%2F夏未　どうしたんだ？\nおまえが　わたしを%1F呼ぶなんて\nめずらしいことも　あるものだ。,"Nelly, ¿qué pasa?\nDebe de ser algo muy importante\nporque casi nunca me llamas.",oficial
+92040050,1,Hええ　%2F今日はお%1F父さまに\n１つお%1F願いしたいことがあるの。,"Papá, deseo pedirte un favor.",oficial
+92040050,2,рﾓっ　なんだ？\n%1F急にあらたまって。\f%2F学園のことは\nおまえに%1F任せているんだ。\nわざわざ　わたしに%1F聞くことはない…。,"¿Sí? No hace falta que\nseas tan formal.\fTe he dejado a cargo del instituto,\ny por tanto, no hace falta que\nme consultes nada.",oficial
+92040050,3,dありがとう　お%1F父さま。\f%1F実はわたし　この%1F間\nある%2F部活のマネージャーに\nなったのよ。,"Gracias, papá.\fQuería comentarte que ahora soy\ngerente de un club del instituto.",oficial
+92040050,4,hほう　こんなかわいい\nマネージャーができるとは…\fその%1F幸せなクラブは\nいったい　どこなのだ？,"Vaya, pues tienen una joya que\nno se la merecen...\f¿Y quiénes son los afortunados?",oficial
+92040050,5,$それが…　サッカー%1F部なの。,Son... los del club de fútbol.,oficial
+92040050,6,\…なに？ サッカー%1F部？\fサッカー%1F部はつぶす%2F予定だと\n%1F伝えておいたはずだぞ？,¿Qué? ¿El club de fútbol?\f¡¿Pero no querías acabar con él?!,oficial
+92040050,7,�ええ　そうね…。\fでも　ただ%2F廃部にするんじゃ\n%2F面白くないと%1F思わない？\fそこで　さっきの\nお%1F願いなんだけど…。,"Bueno, sí...\fPero limitarse a disolverlo\nno sería especialmente divertido,\n¿no crees?\fPor eso quiero pedirte un favor...",oficial
+92040050,8,<おや　%2F夏未…。\nいったい%1F何を%1F考えているんだ？,Nelly... ¿Qué tienes pensado?,oficial
+92040050,9,Lこの%2F学校の%2F資料を%1F調べていたら\nこんなものを%1F見つけたのよ。,Mientras buscaba en los archivos\ndel instituto encontré esto.,oficial
+92040050,10,<…！\fこれは…！\n%2F夏未　これをいったいどこで…！？,"¡Ah!\fEsto es...\nNelly, ¿dónde lo has encontrado?",oficial
+92040050,11,\フフフ…。\nお%1F父さま　%2F今日はこれのこと\nいろいろ%1F聞かせていただきたいわ…。,"Je, je... Papá, primero me\ngustaría preguntarte unas\ncuantas cosas más...",oficial
+92040300,0,�%2F最近　%2F部員が%2F１人やめちゃってね。\nどこかのサッカー%1F部のやつとけんかして\n%1F負けたショックのせいらしいんだ。\f%1F今ごろどうしているのかな。\nがらの%1F悪いやつらと%1F付き%1F合うように\nなってないといいんだけど。,Hemos perdido a un miembro del\nequipo. Parece que el trauma de\nperder contra otro club le superó.\fMe pregunto qué será de él. Espero\nque no se haya juntado con malas\ncompañías.,oficial
+92040300,1,体育館裏スラムに行こう！,¡Ve detrás del gimnasio!,oficial
+92040800,0,`え？　お%1F父さまの%1F持っている%3F秘伝書？\nあなたたち　いったいどこで\nそのことを…？,¿Eh? ¿El cuaderno secreto de\nmi padre? ¿Dónde lo habéis\nencontrado?,oficial
+92040800,1,ﾐでも　ちょうどよかったわ。\nわたしも　あなたたちを%1F父のところに\nつれていこうと%1F思っていたのよ。\fグラウンドの%1F西の　お%1F父さまの\n%2F銅像の%1F前に%1F来てくれる？\nわたしもすぐに%1F向かうから…。,Qué oportuno... Estaba pensando\nen llevaros a ver a mi padre.\fHay una estatua al este del\ncampo de fútbol. Allí nos\nencontraremos.,oficial
+92040800,2,銅像の前に行こう！,¡Ve al lugar de la estatua!,oficial
+92041700,0,$%4F御影専農へ%1F行きますか？,¿Quieres ir al Instituto Brain?,oficial
+92041700,1,%4F御影専農に%1F行きます。,Rumbo al Instituto Brain.,oficial
+92050400,0,�ここが%3F居酒屋…。\f%1F今　%2F自分はオトナの%2F世界への%1F扉を\n%1F開けようとしているのでやんすね…\nコーフンでやんすっ！,Aquí está el bar...\fEs la primera vez que entro\nen un sitio que es solo para\nmayores... ¡Qué emoción!,oficial
+92050400,1,\でも　%2F電気がついてないぞ。\nまだ%2F昼間だし　お%1F店\nやってないんじゃないのか？,Pero las luces están apagadas.\n¿No será que solo abren cuando\nse hace de noche?,oficial
+92050400,2,8ええーっ！　\nここも%1F閉まってるでやんすか！？,¡¿Eh?!\n¿Este sitio también está cerrado?,oficial
+92050400,3,Pなら　%1F聞いてみようぜ。\fすみませーん！\nどなたか　いませんかーっ！！,"Bueno, habrá que preguntar.\f¡Hola!\n¿Hay alguien? ¿Hola?",oficial
+92050400,4,4キャッ　キャプテン！\nまだココロのじゅんびが…,¡Ca... capitán!\nCreo que aún no estoy listo\npara esto...,oficial
+92050400,5,@なぁにぃ　お%1F店の%1F前で　\nギャーギャーうるさいわねぇ。,¿Pero qué es este alboroto?\n¿Qué hacéis aquí?,oficial
+92050400,6,$おおっ　%2F美人でやんすっ！,¡Oh! ¡¡¡Qué preciosidad!!!,oficial
+92050400,7,�あら　ずいぶんカワイイお%1F客さんね。\fここは　ボクたちのようなコドモが\n%1F来る%2F場所じゃないわよ。\nお%1F帰りなさいな。,¡Vaya! ¡Qué jovencitos tan monos!\fEste no es lugar para chiquillos\ncomo vosotros. Marchaos de aquí.,oficial
+92050400,8,<%2F円堂はサリーに\n%3F真二屋のおねがいを%1F伝えた。,Mark habla con Sam sobre\nla petición de Manny Artic.,oficial
+92050400,9,､ふうん…。\fコドモたちが　%2F学校の%1F帰りに\n%1F寄っているみたいだって\nモンクが%1F出たものだから\fあのメイド%2F喫茶は\n%2F営業%2F停止にしてたのだけどね。,Hum...\fLa gente se quejaba de que algunos\nchicos se metían allí dentro\nnada más salir del instituto.\fPor eso decidí cerrar esa\ncafetería de doncellas.,oficial
+92050400,10,そうだったんですか。,"Ah, ahora lo entiendo.",oficial
+92050400,11,|そりゃー　そうでやんすよ。\f%2F自分だって　%1F行けるものなら\n%2F学校をサボってでも\n%1F通いたいくらいでやんすし…。,La verdad es que no me extraña.\fYo a lo mejor hasta dejaría de ir\na clase para pasarme el día\nahí metido...,oficial
+92050400,12,\ボクたちのような　コドモに%1F頼む　\nあのオトコの%2F根性が　\n%1F気にいらないけれど…,"Mira que pedir a unos chicos que\nden la cara por él... Ese hombre\nno me gusta ni un pelo, pero...",oficial
+92050400,13,ｴ…いいわ。\fこのサリーに%1F頼みごとをする\nそのドキョウにめんじて\nチャンスをあげる。\f%2F準備ができたら\n%3F一番街の%1F空き%1F地にいらっしゃいな。\n%1F待ってるわよ　ボ・ク。,"De acuerdo.\fComo habéis tenido el valor de\nvenir a pedírmelo, os daré una\noportunidad.\fCuando estéis listos, venid al\ndescampado que hay al fondo de\nesta calle, ¿vale?",oficial
+92050400,14,0%2F準備？　\nいったい　なんのことだろう？,¿Cuándo estemos listos?\n¿A qué se refiere?,oficial
+92050400,15,はぁ　サリーさん…。,"Oh, Sam...",oficial
+92050400,16,�キャプテン！\nなんでもいいでやんすから　\n%1F早いとこ　%1F空き%1F地にいくでやんす！\fあんまりサリーさんを　\nお%1F待たせしちゃ　ダメでやんすよ！,"¡Qué más da, capitán! ¡No hay\ntiempo que perder! ¡Vamos ahora\nmismo al descampado!\f¡No hagamos esperar a Sam!",oficial
+92050400,17,一番街　空き地へいこう！,¡Ve al descampado!,oficial
+92050600,0,P%2F人脈ルートロック%2F解除！\n%2F音無に%1F話しかけて　%2F確認してみよう！,¡Se ha desbloqueado una ruta de\ncontactos! ¡Habla con Celia para\nacceder a ella!,oficial
+92050600,1,tやっぱりオレたち\nパワーアップしてるッス！\f%2F雷門サッカー%1F部にかかれば\n%4F秋葉名戸だって%2F楽勝ッスよ！,"¡Sí, ya hemos mejorado bastante!\f¡El Otaku no podrá hacer nada\ncontra el poderoso Raimon!",oficial
+92050600,2,D%2F雷門？　お%1F前さんたちは\n%3F雷門中の%2F生徒さんなのかえ？,"¿El Raimon? ¿Entonces, sois del\nInstituto Raimon?",oficial
+92050600,3,ええ　そうですけど…？,"Esto... Sí, así es...",oficial
+92050600,4,`はあー　なるほど%1F強いワケじゃ。\nさっすが%2F伝説の\nイナズマイレブンの%2F後輩じゃのぅ。,"¡Ja, ja! ¡Por eso sois tan buenos!\nSois los herederos del legendario\nequipo Inazuma Eleven.",oficial
+92050600,5,8えっ　イナズマイレブンを\n%1F知ってるんですか？,¿Eh? ¿Has oído hablar del Inazuma\nEleven?,oficial
+92050600,6,�もちろんじゃよ。\n４０%1F年%1F前の　%3F稲妻町を%1F知るもので\f%2F伝説のイナズマイレブンの%2F名前を\n%1F聞いたことのないものは\nおらんじゃろうて。,Claro. Todos los que vivíamos en\nInazuma hace 40 años conocemos al\nlegendario Inazuma Eleven.,oficial
+92050600,7,Xかれらのサッカーは\nそれはそれは　%1F強くてのう。\nワシも　あこがれたものじゃ。,Jugaban al fútbol de una forma\nincreíble. A mí me dejaban\ncon la boca abierta.,oficial
+92050600,8,\%2F古株さんも　%1F言ってたッスが\nイナズマイレブンって　\nそんなにスゴかったんッスね。,Eso fue lo que dijo el Sr. Veteran.\n¡Al parecer eran alucinantes!,oficial
+92050600,9,ｼなあ　%2F円堂。　\nちょっと%1F気になったんだが…。\fイナズマイレブンって\n%3F雷門中の%2F生徒だったんだろ？\fだったら　もしかして\nまだ　この%3F稲妻町に　\n%1F住んでいるんじゃないか？,"Eh, Mark...\nHe estado pensando en una cosa...\fLos miembros del Inazuma Eleven\nestudiaban en el Instituto Raimon,\n¿verdad?\fEntonces, ¡alguno de ellos tiene\nque seguir viviendo en Inazuma!",oficial
+92050600,10,ｰそうか　そのとおりだよ！！\fだとしたら　オレ%1F会ってみたい！\n%2F伝説のイナズマイレブンに！\fおじいさん！　\nその%1F人たちが%1F今　どこにいるのか\n%1F知りませんか！？,"¡Tienes razón!\fSi es así, ¡me gustaría conocerles!\n¡El legendario Inazuma Eleven!\fPor casualidad, no sabrás dónde\nestán ahora, ¿no?",oficial
+92050600,11,tさあ…。\fかれらが　サッカーをする%1F姿は\nある%1F日を%1F境に　パッタリと\n%1F見なくなってしまったからのう…。,"Pues...\fNo lo sé. Siempre andaban por ahí\njugando al fútbol, pero de pronto\nun día desaparecieron...",oficial
+92050600,12,狽ﾈんせ４０%1F年も　たっておるし\nたとえ%1F今　%1F会ったとしても\nわかるかどうか…。\fまあ　だからこそ「%2F伝説」と\nよばれておるんじゃがなぁ。,"No les he visto en 40 años, así\nque aunque me cruzara con alguno\nde ellos, no lo reconocería.\fBueno, supongo que por eso mismo\nse les considera una leyenda...",oficial
+92050600,13,@そうですか…\nやっぱり　そうカンタンには\nいかないのかな。,Vaya... Ya sabía yo que no iba\na ser tan fácil.,oficial
+92050600,14,8でも　キャプテン。\nさがしだして　どうするッスか？,"Capitán, ¿por qué tienes tanto\ninterés en encontrarles?",oficial
+92050600,15,T%1F戦ってみたいんだ！\nじいちゃんが%1F作り%1F上げた　\nイナズマイレブンと！,¡Me encantaría poder enfrentarme\nal equipo que entrenaba mi abuelo!,oficial
+92050600,16,ﾔじいちゃん？　ほー\nそうかい　おまえさんは　\n%2F円堂%2F大介のマゴなのかい。\fなるほどのう　%1F言われてみれば\nよく%1F似とるわい。\fサッカーを　やっとる%1F時の\n%2F真剣な　まなざしなんて\nそっくりじゃわい。,"¿Tu abuelo? ¡Oh!\n¿Eres el nieto de David Evans?\fAh, pues ahora que lo dices,\n¡te pareces mucho a él!\fLa cara que pones cuando juegas\nal fútbol es clavadita a la suya.",oficial
+92050600,17,艨cでも　どうして%1F母ちゃんは\nイナズマイレブンのこと\n%1F教えてくれなかったんだろ。\fじいちゃんのことなんだから\nゼッタイ　%1F知ってたはずなのに。\f%1F前は　%1F聞きそびれちゃったけど…\n%1F母ちゃんに%1F聞いてみようかな。,¿Pero por qué mi madre no me habló\ndel Inazuma Eleven?\fElla seguro que sabía lo de\nmi abuelo...\fNunca le he preguntado nada\nsobre esto. Pero hoy cuando vuelva\na casa hablaré con ella.,oficial
+92050600,18,狽ﾍいはいはいっ！\nここで%1F考えてても　\nしょうがないでやんすよっ！\fそれより　%1F今は　\n%4F秋葉名戸のヒミツを\nさぐるのが%1F先でやんすっ。,"¡Vale, muy bien! ¡Pero ahora\npensar en eso no nos sirve de\nnada!\fLo primero es intentar descubrir\nlos secretos del Otaku.",oficial
+92050600,19,8おまえは　メイド%2F喫茶に\n%1F行きたいだけだろ…。,"Tú lo que quieres es ir a la\ncafetería de doncellas, ¿no?",oficial
+92050600,20,`フフッ　このサリーに%2F二言はないわ。\nメイド%2F喫茶の%2F営業は　\nオッケーしてあげる。,"Je, je. Soy una mujer de palabra,\nasí que permitiré que la cafetería\nde doncellas vuelva a funcionar.",oficial
+92050600,21,ありがとうございます！,¡Muchísimas gracias!,oficial
+92050600,22,Tやったでやんす！\nさっそくメイド%2F喫茶まで\n%2F報告に%1F行くでやんすよっ！,¡Genial!\n¡Vamos a la cafetería de doncellas\na contárselo a todos!,oficial
+92050600,23,`オトナになったら　\n%2F今度は　ウチのお%1F店にいらっしゃいな。\n%1F待ってるわよ　ボク。,Espero que cuando os hagáis\nmayores vengáis algún día a verme\nal bar. Os estaré esperando.,oficial
+92050600,24,$真二屋さんに報告しにいこう！,¡Ve a darle la noticia a Manny Artic!,oficial
+92050700,0,ｼうわーっ！\nホントにＯＫしてくれちゃったの！？\nありがとう！　キミたちサイコーっ！\fボク　キミたちのために\nうーんと　サービスしちゃうもんね！\fネッネッ！\nぜひ　よっていってヨ〜！,¡Vaya!\n¿Realmente ha dado el visto bueno?\n¡Muchas gracias! ¡Sois unos cracks!\f¡Venid cuando queráis!\f¡La casa invita!,oficial
+92050700,1,",お%1F帰りなさいませ\nご%2F主人さま〜。",¡Bienvenidos a la cafetería!,oficial
+92050700,2,8おっ　おい　ちょっと！\nうわー　ひっぱるなって！,"¡Eh, un segundo!\n¡En serio, no empujéis!",oficial
+92050700,3,<あっ　キャプテン！\nぬけがけは　ズルいでやんすよ〜っ！,"¡Ah, capitán!\n¡Qué morro! ¡Te has colado!",oficial
+92050900,0,\…%2F円堂くん　%2F昨日は%1F楽しかった？\n%2F準備ができたら　%1F駅に%1F行きましょう。,"Mark, ¿os lo pasasteis bien ayer?\nCuando quieras, nos vamos a\nla estación.",oficial
+92050900,1,Xぼそっ…　\n%2F木野センパイ　%2F昨日から　\nちょっと　ごきげんナナメなんです…。,Uf...\nSilvia lleva desde ayer de mal\nhumor.,oficial
+92050900,2,Dなんでだ？　そんなに　\nメイド%2F喫茶に%1F行きたかったのかな。,¿Por qué? ¿Tantas ganas tenía de\nir a la cafetería de doncellas?,oficial
+92050900,3,$はあー　これだから…\n……？？,"No, en realidad es porque...\n¡¿Eh?!",oficial
+92050900,4,0あれ？　　　\nみなさん　どうしたんですか？,"¿Chicos, qué os pasa?",oficial
+92050900,5,",うう…なんか…\nおなか…イタいッス…。",Ayyy... Oooh...\nMe duele mucho la tripa...,oficial
+92050900,6,(も　もうガマンできないでやんす〜！,"Ay, ay, ¡no puedo más!",oficial
+92050900,7,рｦっ？　み　みんな\n%1F急に　どうしちゃったの！？\f%2F大変だわ！　%2F円堂くん！　\n１%1F度　%3F保健室で%1F診てもらいましょう！,"¡Pero bueno! ¿Qué os ha pasado a\ntodos de repente?\f¡Mark, esto no pinta bien!\n¡Deberíamos llevarlos a todos\na la enfermería!",oficial
+92050900,8,保健室へいこう！,¡Ve a la enfermería!,oficial
+92051100,0,(%5F秋葉名戸中に%1F行きたいのかい？,¿Queréis ir al Instituto Otaku?,oficial
+92051100,1,dみんなの%2F体調が%2F心配だ…。\nこんな%1F時こそ　キャプテンの\nオレがしっかりしなくちゃな。,"La condición física del equipo\nes preocupante. En momentos así,\nel capitán debe probar lo que vale.",oficial
+92051100,2,D%5F秋葉名戸中に%1F行きたくなったら\n%1F声をかけてください。,"Si quieres ir al Instituto Otaku,\nhabla conmigo.",oficial
+92051500,0,Tなんだよ　こんなところまでさ。\nキミたちと%1F違って\nボクは　いそがしいんだ。,"¿Qué hacéis aquí?\nA diferencia de vosotros, ¡yo\nestoy ocupadísimo!",oficial
+92051500,1,(%2F円堂はメガネくんに%2F説明した。,Mark explica la situación a Willy.,oficial
+92051500,2,ｼパソコンから\nデータを%1F見つけてほしいだって？\fあいにくだけど　%1F今から\n%1F新しいゲームソフトを\n%1F買いに%1F行くところでさ\fキミたちに　%1F付き%1F合ってるヒマ\nないんだよね。,"¿Queréis que encuentre unos datos\nen un ordenador?\fLo siento, pero me voy a comprar\nun nuevo videojuego...\f¡No tengo tiempo para acompañaros!",oficial
+92051500,3,Hでも　このままだと　\n%2F雷門が　%1F負けたことになっちゃうんだ！,Pero si no nos ayudas...\n¡el Raimon perderá!,oficial
+92051500,4,$フン　ボクには%2F関係ないね。,"Bueno, ¿y a mí qué?\nEso es problema vuestro,\nastros del balompié.",oficial
+92051500,5,\そんな…！\fたのむよ！\n%2F学園１　パソコンにくわしい\nおまえにしか　できないんだ！,"¡Por favor, Willy!\fA nadie se le dan mejor que a ti\nlos ordenadores en este instituto.\n¡Solo tú puedes hacerlo!",oficial
+92051500,6,ﾐ%2F学園１…　%2F学園１ね。\n…まあ　そのとおりだけど。\fフフンッ\nいいよ　キブンがいいから\nこのボクが%2F手伝ってあげる。\f%2F学園１の%2F天才のウデまえ\n%1F見せてあげるよ。\nさっ　%1F早く%1F行こうか。,"El mejor del instituto... Sí,\neso es cierto.\fJe, je...\nMira, por algún motivo estoy de\nbuen humor, así que os ayudaré.\fVais a ver a un genio de la\ninformática en acción.\nVamos allá.",oficial
+92051500,7,メイド喫茶へいこう！,¡Ve a la cafetería de doncellas!,oficial
+92051601,0,@くっ…　ばかな…！\n%2F正義が%1F悪に%1F負けるなんて…。,¿Eh? ¡¿Qué?!\nEl mal ha triunfado sobre el bien...,oficial
+92051601,1,4くっ　くそー！\nお　おぼえてろーでありますぞ！,¡Rayos! ¡Os vais a acordar de esta!,oficial
+92060300,0,h%2F円堂くん！\f%2F土門くんは%3F職員室に%1F行ったらしいの！\nあたしたちも　%1F追いかけましょう！,¡Mark! Creo que Bobby ha ido\nhacia la sala de profesores.\n¡Vamos a alcanzarle!,oficial
+92060300,1,�%3F職員室…？\n%2F土門のヤツ　どうして\nそんなところに%1F行ったんだ？\fとにかく　オレたちも\n%3F職員室に%1F行ってみるか！,"¿A la sala de profesores? ¿Y para\nqué va a querer ir allí?\fBueno, ¡vamos para allá!",oficial
+92060300,2,(土門が向かった　職員室に行こう！,¡Sigue a Bobby\na la sala de profesores!,oficial
+92060400,0,T%2F円堂くん！　%2F土門くんは\nこの%1F机から%1F何かを%1F持って%1F行ったって…！,¡Mark! ¡Parece que Bobby ha cogido\nalgo de esta mesa!,oficial
+92060400,1,",ここは　%4F冬海先生の%1F机じゃないか！",¿No es esa la mesa de Wintersea?,oficial
+92060400,2,hうん…　どういうことなんだろう？\n%2F土門くんは%2F部室に%1F行くって%1F言ってた\nらしいんだけど…。,Sí. No entiendo nada.\nBobby nos ha dicho que\ntambién se venía a la caseta.,oficial
+92060400,3,ｼどういうことだ…？\n%2F先生の%1F机からものを%1F持ち%1F出すなんて\n%2F普通じゃないな…。\fとにかく%1F早く%2F土門に%1F追いついたほうが\nよさそうだ…。\n%1F急いで　%2F部室にもどろう！,Qué extraño. No es propio de él\ncolarse y robar algo de la mesa\nde un profesor.\fLo mejor será que le preguntemos\ndirectamente. ¡Vamos a reunirnos\ncon él en la caseta del club!,oficial
+92060400,4,(土門の話を聞くため　部室に行こう！,¡Habla con Bobby en la caseta\ndel club!,oficial
+92061450,0,`え？　土門くんの　いばしょ？\fそういえば　このあいだ\n土門くんにも鉄塔の話をしたんだ…。,"¿Eh? ¿Que dónde está Bobby?\fAhora que lo pienso, le hablé\nhace poco de la torre...",oficial
+92061450,1,ｸ円堂くんが教えてくれたあの場所。\nあそこに行きたくなるのって\nこんな気持ちのときなのかも…。\fわたしもいくよ　円堂くん！\n土門くんと　話をしたいんだ！\n鉄塔に行ってみましょう！,"Del lugar que me enseñaste.\nEs un buen refugio cuando uno no\nse siente del todo bien.\f¡Yo también voy, Mark! ¡Tengo que\nhablar con Bobby! ¡Vamos a la\ntorre!",oficial
+92061450,2,",木野が　いっしょに行くことになった！",¡Silvia se te ha unido!,oficial
+92061450,3,鉄塔に行こう！,¡Ve a la torre!,oficial
+92061600,0,\よーし！\nそれでは%2F今日から%2F試合の%1F日までの\n%2F仕上げの%2F練習を%2F開始するぞ！,¡Muy bien! ¡Empecemos el\nentrenamiento para el gran partido!,oficial
+92061600,1,%2F準備はいいか　ボウズ！,"¿Estás listo, chaval?",oficial
+92061600,2,\それじゃ%1F行くぞ！\n%2F時間のかぎり　%2F練習する！\nそれが%2F雷門サッカー%1F部だ！,¡Pues empecemos! ¡Entrenaréis\nhasta que se agote el tiempo!\n¡Al viejo estilo Raimon!,oficial
+92061600,3,(はい！\nよろしくお%1F願いします！,"¡Sí, entrenador!",oficial
+92061600,4,`%2F響木さんの%2F特訓は\nそれから%2F試合の%1F日まで\n%2F毎日　%2F限界まで%1F続けられた…。,Hillman nos entrenó hasta el límite\ntodos los días hasta el día\ndel partido...,oficial
+92061600,5,Xでも　そのおかげでオレたちの%2F実力は\n%1F見る%1F見るうちに%1F上がっていったんだ。,Pero valió la pena porque gracias\na su entrenamiento mejoramos de\nforma rápida y constante.,oficial
+92061600,6,撃ｻう…　%2F相手があの%4F帝国学園だろうと\nゼッタイに%1F負けない！\nそう%1F信じられるほどに…！\fそして　%2F決戦の%1F日がやってきた…！,"Por eso, ¡estaba claro que no\npodíamos perder contra la Royal!\nO eso pensaba yo...\fDe cualquier forma, ¡el día del\npartido se nos echó encima!",oficial
+92061600,7,`それじゃあ　さっさと%2F準備をして%1F来い！\n%2F帝国との%2F試合まで　もう%2F時間がねえぞ！,¡Pues date prisa y prepárate!\n¡Ya no queda mucho tiempo para\nel partido contra la Royal!,oficial
+92061900,0,",%2F今日はついに%2F決戦の%1F日だ…！",¡Al fin ha llegado el día del\npartido!,oficial
+92061900,1,lワシに%1F教えられることは\nもはや　%1F全て%1F教えた！\f%2F全力でぶつかり　%2F帝国をたおして%1F来い！,"Bueno, ¡os he enseñado todo\nlo que sé! ¡Id y atacad a la\nRoyal con todas vuestras fuerzas!",oficial
+92061900,2,tはい！　%2F監督！\fよーし！　それじゃ%1F駅から\n%4F帝国学園への%2F電車にのるぞ！\n%1F待ってろよ　%4F帝国学園！,"¡Sí, entrenador!\f¡Vale! ¡Vamos a la estación a\ncoger un tren que nos lleve a\nla Royal! ¡Que se preparen!",oficial
+92061900,3,$さあ　試合だ！　駅に行こう！,¡Es hora del partido! ¡Ve a la estación!,oficial
+92062000,0,帝国学園へ行きますか？,¿Quieres ir a la Royal Academy?,oficial
+92062000,1,帝国学園に行きます。,Rumbo a la Royal Academy.,oficial
+92070500,0,",…しっ　しまったでござる！\n御免っ！",¡Ma-maldición!\n¡Lo lamento mucho!,oficial
+92070500,1,おいっ　まてっ！,"¡Oye, espera!",oficial
+92070500,2,|先輩！　\nあれ　つぎの対戦相手の\n戦国伊賀島中の生徒ですよ！\fテイサツに来たんでしょうか。\nうーん　あなどれませんね！,¡Mark! ¡Es uno de los alumnos\ndel Instituto Shuriken!\f¡Seguro que ha venido a espiar!\n¡No tienen vergüenza!,oficial
+92070500,3,Tこうしちゃいられないな！\nオレたちも　はやく　\nＯＢをせっとくしにいこうぜ！,¡No tiene sentido seguir así!\n¡Vamos a convencer a los veteranos\ndel Inazuma cuanto antes!,oficial
+92070500,4,$木野にメモをみせてもらおう！,¡Muéstrale las notas a Silvia!,oficial
+92070501,0,<あれっ　おにいちゃん。　　\nもう　ようじはおわったの？,"Anda, ¿ya has terminado lo\nque tenías que hacer?",oficial
+92070501,1,えっ　なんのことだ？,¿Eh? ¿A qué te refieres?,oficial
+92070501,2,dだって　さっき　　\nうたのおじちゃんに　\nあいにいくからって\fてっとうのほうへ　いったでしょ？,"Antes has dicho que ibas a\nla torre para hablar con el señor\nque siempre está cantando, ¿no?",oficial
+92070501,3,@どういうことだ！？\n%2F円堂　%2F鉄塔へ%1F行ってみよう！,"¿De qué está hablando?\n¡Mark, vamos a la torre!",oficial
+92070522,0,pなんだぁ　ガキか。\fオレは%1F今　キゲンが%1F悪いんだ。\n%1F何も　%1F買わねぇなら\nさっさと%1F帰りやがれ！,"¿Qué? ¿Más niños?\f¡Si no vais a comprar\nnada, marchaos de aquí!",oficial
+92070522,1,Tあっ　あなたが　\n%3F備流田さん…　ですよね。\n%2F伝説のイナズマイレブンの…。,"Te llamas Constant, ¿verdad?\nSé que jugabas en el legendario\nInazuma Eleven.",oficial
+92070522,2,ｸそうか　%2F響木のヤツが%1F言ってた\n%2F特訓してほしいとか%1F言うガキは　\nおまえたちか！\fチッ…　なんでこのオレが　　\nこんなガキたち%2F相手に\n%2F特訓しなきゃ　いけねぇんだよ！,¡Vosotros sois los mocosos a los\nque Seymour me ha pedido que\nentrene!\fPche. ¿Y por qué iba yo a\nentrenar a unos críos?...,oficial
+92070522,3,怎Iレたち　どうしても\n%3F伊賀島に%1F勝ちたいんです！\fそして　ゼッタイに%2F優勝して\n%2F全国ナンバーワンになる…。\nそれが　オレたちの%1F夢なんです！,¡Queremos ganar al Instituto\nShuriken sea como sea!\f¡Nuestro sueño es ganar todos\nlos partidos y ser los número\nuno del país!,oficial
+92070522,4,怎nッ　%2F優勝？　おまえらが？\f%1F笑わせるない！\n%3F雷門中サッカー%1F部のウワサなら\nオレだって%1F知ってるぜ！？\n%1F弱すぎて　%2F廃部になるってな！,¿Vosotros? ¿Ganar? ¡Ja!\f¡No me hagáis reír! ¡Hasta yo sé\nlo que se dice por ahí de vuestro\nclub!\f¡Sois tan malos que os lo van\na cerrar!,oficial
+92070522,5,帥Iレは　とっくの%1F昔に\nサッカーを　やめたんだよ！\n…やる%2F意味がねぇんだ。\f……あの%1F人のいないサッカーに\nもう　%2F意味はない…。,"¡Yo dejé de jugar al fútbol hace\nmuchos años! Y no tengo ningún\nmotivo para volver a jugar.\fSi él no está, no tiene\nningún sentido practicar ese\ndeporte...",oficial
+92070522,6,あの%1F人？,¿Íl? ¿De quién hablas?,oficial
+92070522,7,�うるせえ！　\nとにかく　なんと%1F言われても\nオレは%2F協力しねぇ！\fさあ　%2F商売のジャマだ！！　\n%1F帰った　%1F帰った！,¡No te importa! ¡Y no hace falta\nque insistáis porque no pienso\ncambiar de opinión!\f¡Marchaos y dejad de estorbar!,oficial
+92070523,0,h%2F２人は　%2F協力してくれたが…\n%3F備流田さんだけは　まったく　\n%2F相手にしてくれなかったな。,"Al final, dos han aceptado unirse\nal grupo, pero... No ha habido\nmanera de convencer a Constant.",oficial
+92070523,1,�こまったなあ。\n%2F監督は　%3F備流田さんと\n%1F仲が%1F悪いって%1F言うし…。　\nもう１%1F度　%2F会田さんに　\n%1F話を%1F聞きに%1F行ってみようかな。,"Vaya problemón. Y encima, se ve\nque Constant se lleva a matar\ncon el entrenador...\fVamos a ver a Arthur para que\nnos explique algo más sobre ellos.",oficial
+92070523,2,",もう１度　会田さんのところへ行こう！",¡Ve a hablar con Arthur de nuevo!,oficial
+92070523,3,|%2F円堂　%1F次のＯＢを　\nさがしに%1F行こうぜ。\fＯＢの　%3F居場所のヒントは\nメモを%1F見れば　わかるんだったよな。,"Mark, ¿por qué no vamos a por\notro miembro de los veteranos?\fSeguro que con las pistas de\nlas notas lo encontraremos en\nseguida.",oficial
+92070700,0,\浮島さんは　河川敷にいるみたい。\nＫＦＣの子たちなら\nなにか　知ってるかもしれないね。,Parece ser que Island está en la\nribera del río. Quizá los niños\ndel Kids FC saben algo de él.,oficial
+92070700,1,なるほど…。,Ya veo...,oficial
+92070700,2,浮島さんを探す？,¿Vas a buscar a Charles Island?,oficial
+92070700,3,じゃあ探しにいきましょう,"Bien, pues vamos a buscarle.",oficial
+92070700,4,河川敷にいこう！,¡Ve a la ribera del río!,oficial
+92070700,5,(見たくなったら　いつでも言ってね。,"Cuando quieras verlas, solo\ntienes que decírmelo.",oficial
+92070800,0,烽�あっ　守おにいちゃん！\nサッカーグラウンドで　まこが\nヘンなヤツにつかまっちゃったんだ！\fオレ　コワくって\n思わず　にげてきちゃって…。\f浮島のおじちゃんが\n１人でヤっつけようとしてるんだ！\nおねがい　たすけてよ！,"¡Ah, Mark! ¡Un chico raro ha\ncogido a Maddie!\fYo tenía tanto miedo que he\nsalido corriendo...\f¡Pero el señor Island ha ido él\nsolo a intentar salvarla!\n¡Por favor, haz algo!",oficial
+92070800,1,<なんだって！　みんな　\nいそいでグラウンドへ行くぞ！,¡¿Cómo?! ¡Vamos todos al campo!\n¡Rápido!,oficial
+92070800,2,河川敷グラウンドへいこう！,¡Ve al campo de la ribera del río!,oficial
+92071000,0,8やあ　%2F円堂くん。\n%2F説得は　どうなってるかね？,"Hola, Mark. ¿Has conseguido\nconvencer a los veteranos?",oficial
+92071000,1,(%2F円堂は%2F会田に%2F報告した。,Mark pone al corriente a Arthur.,oficial
+92071000,2,Hそうか……。\nやれやれ　%3F備流田のヤツにも\nこまったものだな。,"Vaya, seguro que no ha sido\nfácil tratar con Constant.",oficial
+92071000,3,hそういえば…\f%3F備流田さんが　%1F言ってた\n「あの%1F人」って\nいったい　%1F誰のことなんですか？,Ahora que lo pienso...\fConstant ha dicho que no valía la\npena jugar sin una persona...\n¿A quién se estaría refiriendo?,oficial
+92071000,4,dあの%1F人…　か。\fそれは　おそらく　\n%2F円堂%2F監督…　おまえさんの\nじいさんのことだろう。,"Sin una persona... ¿eh?\fSupongo que estaba hablando del\nentrenador Evans, tu abuelo.",oficial
+92071000,5,じいちゃんの？,¿Del abuelo?,oficial
+92071000,6,�%3F備流田は　１%1F度あばれだしたら\n%1F手がつけられない\n%1F困ったヤツだったが\f%2F円堂%2F監督の　%1F言うことだけは\nすなおに%1F聞いていたんだ…。\f%2F監督が%1F亡くなったショックは\nヤツにとっても\n%1F大きなものだったのだろう…。,"Constant era un chico\nproblemático. Cuando se enfadaba,\nera imposible controlarle.\fSolo hacía caso al entrenador\nEvans.\fEstoy convencido de que la muerte\nde tu abuelo fue un shock muy\nfuerte para él.",oficial
+92071000,7,Tじゃあ　おまえが\n%2F監督のマゴだってことを　\n%3F備流田さんに%1F伝えれば…。,Quizá si le dices a Constant que\neres el nieto de su entrenador...,oficial
+92071000,8,hいや　%1F口だけでは\n%1F信じないだろうな。\fあいつは　%2F響木と%1F同じくらい\nガンコなヤツなんだ。,Solo con decírselo no se lo\ncreerá.\fConstant es tan cabezota como\nSeymour.,oficial
+92071000,9,撃ｽとえマゴでも　すなおに\n%2F協力してくれるかどうか…。\fせめて…　そう\n%3F備流田の%1F心を%1F動かす\n%2F監督の「しるし」があれば…。,"Además, por mucho que seas el\nnieto, puede que se niegue a \ncolaborar de todas maneras.\fSi tuviéramos algo de tu abuelo\nque consiguiera conmoverle...",oficial
+92071000,10,じいちゃんの「しるし」…？,¿Algo del abuelo?...,oficial
+92071000,11,0%2F円堂\n%1F何か%1F心あたりはないのか？,"¿Se te ocurre algo, Mark?",oficial
+92071000,12,ﾌうーん。　じいちゃんの%1F残した　\nサッカー%2F関係のモノは\f%1F母ちゃんが　ほとんど　\n%1F捨てちゃったんだ。\nあるのは　このノートと…\fそうだ！　グローブ！！\nじいちゃんの　%2F形見のグローブだ！,Mmm... Mi madre tiró casi todo\nlo que tenía que ver con\nel fútbol.\fLo único que queda son\nlos cuadernos y...\f¡Ya lo tengo! ¡Los guantes!\n¡Los guantes que heredé de mi\nabuelo!,oficial
+92071000,13,<グローブ？　\nそれが　%1F何かの%1F役に%1F立つのか？,¿Unos guantes?... ¿Crees que nos\nservirán para algo?,oficial
+92071000,14,|わからない。　\nでも　%1F他に%1F手がかりがないんだし。\fとりあえず　１%1F度%1F家まで\nグローブを%1F取りに%1F帰ろうぜ！,No lo sé. Pero es lo único que\ntenemos.\fVamos a mi casa a buscarlos.,oficial
+92071000,15,",グローブを取りに　円堂の家に行こう！",¡Ve a casa de Mark!,oficial
+92071900,0,(%2F円堂くん！　ちょっと%1F来て！！,"¡Mark, ven un momento!",oficial
+92072000,0,8うわっ　すごい！\nグラウンドがキレイになってるぞ!,"¡Uah, qué pasada!\n¡El campo ha mejorado mucho!",oficial
+92072000,1,hこんな　りっぱなグラウンドを\n%2F用意するなんて…。\fまったく　お%1F父さまは\n%1F甘いんだから。,Mira que construir un campo como\neste...\fMi padre es demasiado optimista.,oficial
+92072000,2,Tよかったね！\nきっと　%2F円堂くんたちの\nがんばりを　%1F見てくれてたんだよ。,"Qué bien, ¿eh? Seguro que ha\nvisto cómo os esforzabais y ha\nquerido recompensaros.",oficial
+92072000,3,<ああ！　%3F理事長に　\nお%1F礼を%1F言わなくっちゃな！,¡Tenemos que darle las gracias\nal presidente de la Junta!,oficial
+92072000,4,xそれが　お%1F父さまは\n%2F最近　とても%1F忙しいみたいで\fわたしも　ここ%2F数日\nまともに%1F顔を%1F見ていないのよ。,Mi padre está muy ocupado\núltimamente.\fHace días que no le veo.,oficial
+92072000,5,そうなのか？,"¿Ah, sí?",oficial
+92072000,6,撃ﾜ　よろこんでいたとは\n%1F伝えておくわ。\f%2F工事には　まだ%2F時間がかかるから\n%2F今日は　べつの%2F場所で\n%2F練習してちょうだい。,"Bueno, ya le diré que os\nha gustado mucho de vuestra parte.\fLas obras aún no han terminado,\no sea, que hoy tendréis que\nentrenar en algún otro sitio.",oficial
+92072000,7,`あなたたち　お%1F父さまの%2F厚意を\nウラ%1F切るような%2F試合をしたら\nゆるさなくってよ。,"Como juguéis un mal partido y\ntraicionéis la confianza de mi\npadre, no os lo perdonaré jamás.",oficial
+92072000,8,",ああ！　\nありがとうなー　%2F夏未！","Vale... ¡Gracias, Nelly!",oficial
+92072000,9,Tよーっし！　\nそれじゃあ%2F今日も%2F特訓だ！\n%2F秘密の%2F倉庫へ%1F行こうぜ！,¡Y ahora a entrenar! ¡Vamos\nal almacén secreto!,oficial
+92072000,10,秘密の倉庫に行こう！,¡Ve al almacén secreto!,oficial
+92072300,0,`ついに%2F試合の%1F日だ…。\n%1F夢にまで%1F見た　%2F全国の%2F舞台で\nサッカーができるぞ！,Hoy es el día del partido. ¡Por\nfin podremos debutar en el torneo\nque he visto hasta en sueños!,oficial
+92072300,1,怩ﾈあ　%2F円堂。\n%3F伊賀島のヤツら　%1F炎の%3F風見鶏の\n%3F秘伝書を　もっていただろ？\fもしかして　ヤツらも\nあの%1F技を%2F完成させているんじゃ…。,"Oye, Mark, los del Shuriken se\nllevaron el cuaderno secreto del\nPájaro de fuego, ¿te acuerdas?\fPuede que ellos también hayan\nconseguido dominar la técnica.",oficial
+92072300,2,ｸ%3F大丈夫！　オレたちは\nイナズマイレブンＯＢに\nちょくせつ%1F教えを%1F受けたんだぜ。\fたとえ　%3F伊賀島のヤツらが　\n%1F同じ%1F技を%1F使ってきたとしても\n%1F負けるはずないぜ！,"¡Tranquilo! A nosotros nos la han\nenseñado los veteranos del Inazuma\npersonalmente.\f¡Aunque nuestro rival sea capaz\nde usar la misma técnica, no\nvamos a perder contra ellos!",oficial
+92072300,3,@さあ　みんな\n%2F準備ができたら%1F駅へ%1F行きましょう。,"Cuando estéis preparados, id\na la estación, ¿vale?",oficial
+92072300,4,駅に向かおう！,¡Ve a la estación!,oficial
+92080400,0,Xやっぱり　ここにも　\nもどってないみたいだなあ。\n%2F本当に　どこに%1F行ったんだ？,No parece que Nelly haya vuelto\npor aquí. ¿Adónde habrá ido?,oficial
+92080400,1,8…あなたたち　%2F夏未さまを　\nさがしているのね？,¿Buscáis a Nelly?,oficial
+92080400,2,l…！　\nああ　そうなんだ！\fなんでもいいんだ。\n%2F夏未が%1F行きそうな%2F場所に\n%1F心あたりはないか？,Pues sí.\fEstamos tratando de averiguar\ndónde está. ¿Sabes algo de ella?,oficial
+92080400,3,x…%1F昔　%2F夏未さまから\n%1F聞いたことがあります。\f%3F稲妻町で　１%1F番%1F好きな%2F場所は\nあの「%2F鉄塔」だと。,Nelly me contó algo hace mucho\ntiempo...\fDijo que su lugar favorito en toda\nla ciudad era la torre.,oficial
+92080400,4,L%2F鉄塔が？\nあいつも　あそこが%1F好きだなんて\nなんだか%2F意外だな。,¿La torre?\n¿Quién diría que a ella\ntambién le gusta ir allí?,oficial
+92080400,5,Dあの%2F鉄塔は　%2F夏未さまにとって\n%1F思い%1F出の%2F場所…。,La torre le trae ciertos\nrecuerdos...,oficial
+92080400,6,tまだ%1F幼いころ　%3F理事長と\n%1F亡くなった%1F奥さまの３%1F人で\nよく%2F夕日を%1F見に%1F行ったそうなのです。,"El presidente a menudo la\nllevaba con su madre, cuando\naún vivía, a ver la puesta de sol.",oficial
+92080400,7,$じゃあ　もしかしたらそこに？,¿Y crees que estará allí ahora?,oficial
+92080400,8,ｬ%2F円堂さん　%1F必ず%2F夏未さまを\n%1F見つけてあげてください。\fあの%1F方は　%1F人に%1F弱さを\n%1F見せるのを　%1F嫌う%1F方です。　\nでも　もしかしたらあなたなら…。,"Mark, debes ir y encontrar a Nelly.\fNo le gusta que nadie la vea\ncuando se muestra vulnerable.\nPero quizá si eres tú...",oficial
+92080400,9,え？　オレなら？,¿Eh? ¿Y por qué yo?,oficial
+92080400,10,P…ま　とにかく\n%1F他にアテもないんだろ。\n%2F鉄塔へ%1F行ってみようぜ。,Tampoco tenemos más pistas...\n¡Vamos a la torre!,oficial
+92080400,11,鉄塔にいってみよう！,¡Ve a la torre!,oficial
+92081010,0,Hクッ　\n%1F待て　%3F世宇子…！\nまだ…　%2F勝負はついてない…！,"¡Un momento, Zeus!\n¡Todavía no habéis ganado!",oficial
+92081010,1,ブザマだな　%2F鬼道。,"Sharp, das pena.",oficial
+92081010,2,Pそっ　%2F総帥！\nなぜここに！？　\nまさか　あなたが%3F世宇子%1F中の…。,"¿Comandante?\n¿Qué hace aquí? Entonces,\nel Zeus es su...",oficial
+92081010,3,Lおまえたちのような%2F弱者に　\n%1F生きる%2F意味はない。\n%1F消えろ。,No hay sitio para los débiles.\n¡Debes desaparecer!,oficial
+92081520,0,lボウズ\nそろそろ%2F仕上げの\n%2F特訓を%1F始めるか？\f%2F準備ができたら\nワシに%1F話しかけるがいい。,"Chicos, ¿pasamos ya al\nentrenamiento final?\fAvisadme cuando estéis listos.",oficial
+92081520,1,秘密の倉庫で特訓だ！,¡Entrénate en el almacén secreto!,oficial
+92081530,0,撃謔ｵ！\nそれでは　さいごの%2F仕上げだ！\fチームの%1F心を１つにし\n%2F明日の%2F試合では　%1F必ず\n%2F無限の%1F壁を%1F打ちやぶるのだ！,¡Muy bien! ¡Esta es vuestra\núltima sesión!\f¡Mañana podréis vencer a la Muralla\ninfinita si actuáis en el partido\ncomo uno solo!,oficial
+92081530,1,(フ…\nおくれをとるなよ　%2F円堂。,"Ju...\n¡No me falles, Mark!",oficial
+92081530,2,(ああ！　\nよーしっ　がんばるぞっ！,¡Claro!\n¡Vamos a esforzarnos al máximo!,oficial
+92081530,3,",そして　%2F試合の%1F日がやってきた…！",El día del partido llegó al fin...,oficial
+92081700,0,",%3F千羽山%1F中に%1F行きたいのかい？",¿Quieres ir al Instituto Farm?,oficial
+92081700,1,@オレたちは　ゼッタイに%1F勝てる！\nみんな　がんばろう！,¡No podemos perder!\n¡Debemos esforzarnos todos\nal máximo!,oficial
+92081700,2,D%3F千羽山%1F中に%1F行きたくなったら\n%1F声をかけてください。,Avísame cuando quieras ir\nal Instituto Farm.,oficial
+92081900,0,lほう　%2F土門だけでなく\n%2F鬼道までもが%2F雷門に…。\fフッ　…ブザマだな。\nそこまで%1F落ちぶれたか。,"Primero Shearer, ¿y ahora también\nSharp?\f¡Bah! Patético. ¿Cómo han podido\ncaer tan bajo?",oficial
+92081900,1,狽ﾅすが　%2F今回ヤツらが%1F使った\nイナズマブレイクの%1F力…\fやはり　%2F伝説のイナズマイレブンの\n%3F後継者だけあって\nあなどれないかと…。,Pero el poder de la Ruptura\nrelámpago que han mostrado\nesta vez...\fNo les subestimes. Solo los\nsucesores del Inazuma Eleven\nserían capaces de...,oficial
+92081900,2,クッククク…。,"¡Ja, ja, ja!",oficial
+92081900,3,(もっ　%1F申しわけございません！,¡Lo siento!,oficial
+92081900,4,<%2F総帥…　\n%1F例の%2F研究が%2F完成いたしました…。,¡Comandante!\nHemos completado la investigación.,oficial
+92081900,5,フッ…　そうか。,Hum... Ya veo.,oficial
+92081900,6,�もうすぐ　わたしの%2F理想が\n%2F実現する%1F時が%1F来る。\fさあ　クズどもが\nどこまで%1F楽しませてくれるかな。\nククク…。,"Pronto mis planes se llevarán\na cabo.\fA ver cuánta diversión nos\nofrecen esos mocosos.\nJua, jua, jua...",oficial
+92090050,0,0おい！　\nアイツはまだ%1F来ないのか！？,¿Viene o qué?,oficial
+92090050,1,<くそっ　アイツがいないと\n%2F帝国には%1F勝てないぜ…！,No podremos ganar\na la Royal sin él...,oficial
+92090050,2,まさか%1F逃げたんじゃ！？,¿No me digas que ha huido?,oficial
+92090050,3,",でも　アイツにかぎって\nそんなハズ…。",No me lo explico.,oficial
+92090050,4,D%3F木戸川%2F清修！　%2F試合の%2F時間だ。\nスタンバイしなさい。,"¡Kirkwood, el partido va a\ncomenzar! Tomad posiciones.",oficial
+92090050,5,Pちくしょう…\nオレは…　\nオレは　ゼッタイゆるさないぜ。\f…%3F豪炎寺！,"Maldita sea... Esta no te\nla paso, Axel. No te la paso...",oficial
+92091650,0,@%2F円堂くん。\n%2F今日の%2F練習は\nもう%1F終わりでいいの？,"Mark, ¿ya has terminado de\nentrenar por hoy? ¿Seguro?",oficial
+92091900,0,%3F木戸川へ%1F行くのかい？,¿Vas al Instituto Kirkwood?,oficial
+92091900,1,8%3F木戸川%2F清修に%1F行くのも\n１%1F年ぶりか…。,Hace un año que no paso por allí...,oficial
+92091900,2,�%3F豪炎寺！\n%3F木戸川のヤツらにさ\fおまえは%1F逃げたんじゃない。\n%2F去年より　もっと%1F強くなってるって\n%1F見せてやろうぜ！,¡Axel! ¡Tú no dejaste tirados\na tus ex compañeros!\f¡Demuéstrales todo lo que has\nmejorado en este último año!,oficial
+92091900,3,8ああ　オレは%3F大丈夫だ。\nありがとうな　%2F円堂。,"No te preocupes, Mark.\nGracias...",oficial
+92091900,4,$よしっ　%3F木戸川に%2F出発だ！,¡Hora de ir al Kirkwood!,oficial
+92091900,5,がんばっといで！,¡Mucha suerte!,oficial
+92091900,6,",%2F準備ができるまで　%1F待ってるよ。",Esperaré hasta que estéis listos.,oficial
+92092000,0,ﾜ%1F次は　ついに%3F決勝戦か…。\n%3F世宇子…　%2F影山との%2F試合…　\nそして　%1F小さいころからの%1F夢\fフットボールフロンティア\n%4F全国大会での%2F優勝…！\fもうすぐ…　もうすぐ\n%1F手が%1F届くかもしれないんだ！,"Solo queda la final...\nEl Zeus... El enfrentamiento\ncontra Ray Dark...\f¡Mi sueño desde que era pequeño,\nganar el torneo Fútbol Frontier,\nestá más cerca que nunca!",oficial
+92092000,1,",%2F円堂くん　\nやはり　ここだったか。","Conque estabas aquí, Mark...",oficial
+92092000,2,",%2F鬼瓦さん？　\nどうかしたんですか。",¿Gregory? ¿Sucede algo?,oficial
+92092000,3,Pちょっと%1F集まってくれるか。\n…キミたちに\n%1F話したいことがあるんだ。,¿Podéis venir todos un momento?\nTengo algo que deciros...,oficial
+92100500,0,監督！\nどうして　ここに？,¡Entrenador!\n¿Por qué estás aquí?,oficial
+92100500,1,dこのさわぎ…\nどうやら　影山のしわざだな。\fヤツら　この町の水に\n何かをまぜやがったようだ…。,Todo este alboroto tiene que ser\ncosa de Ray Dark. A saber qué le\nha echado al agua de la ciudad...,oficial
+92100500,2,h水…？\nそうか　それなら一度に町全体を\n洗脳できるかもしれない！\fでも監督…　どうしてそのことを？,"¿Al agua? ¡Es verdad! ¡Planea\ncontrolar las mentes de los\nhabitantes de Inazuma!\fYa habías llegado a esa\nconclusión, ¿verdad?",oficial
+92100500,3,Lこれでも食べ物を\nあつかってるんだぜ。\nそんなことはすぐにわかるさ。,"Aquí donde me ves, tengo un\nrestaurante de fideos.\fDe manipulación de comidas y\nbebidas entiendo un rato.",oficial
+92100500,4,dそれよりも　おまえに\n伝えねばならんことがある。\fボウズ…\nおまえは今から　鉄塔へ行くんだ！,"Dejando eso a un lado, tienes\nuna conversación pendiente.\fTienes que ir a la torre, chaval.",oficial
+92100500,5,Dえ？　鉄塔へ？\nでも　それより今は\n理事長をさがさないと…。,¿Eh? ¿A la torre?\nLo que tengo que hacer es\nencontrar al Sr. Raimon...,oficial
+92100500,6,4その総一郎が\n鉄塔でおまえを待っているんだよ！,¡Por eso lo digo! ¡Sonny\nte espera en la torre!,oficial
+92100500,7,Dええ？\nどうして？　理事長はまだ\nケガが直っていないんじゃ…。,¿Eh? ¿Pero no está el Sr. Raimon\ncurándose aún de sus heridas?,oficial
+92100500,8,\それだけ大事な話があるってことだ。\fこの状況だからこそ\nおまえに伝えねばならん話がな！,"Pues sí, para que veas lo\nimportante que es eso que\ntiene que decirte.\f¡Dadas las circunstancias, se ha\nvisto en la necesidad de tener\nque hablar contigo de algo serio!",oficial
+92100500,9,@大事な話…。\n…わかりました！\nオレ　鉄塔へ行ってみます！,"Algo serio...\n¡Vale, entendido!\nVoy a la torre.",oficial
+92100500,10,Hああ　急ぐんだ…。\nこの様子じゃ\nあそこも安全とは言えんからな！,"Sí, date prisa... No es que\nese sea el lugar más seguro del\nmundo, y menos ahora.",oficial
+92100500,11,恬搦亦ｷ…　そんなに無理してまで\nオレたちに何を伝えようと\nしてるんだ？\fとにかく　鉄塔へ急ごう！\n木野！　危険だから\nおまえは部室にもどっていてくれ！,"Sr. Raimon... ¿Tan importante es\neso que tiene que decirme, que\npone en peligro su propia salud?\f¡Bueno, a la torre se ha dicho!\nSilvia, tú regresa al club, que\nesto puede ser peligroso para ti.",oficial
+92100500,12,",う　うん！\n気をつけてね　円堂くん！","Va... vale...\nLleva mucho cuidado, Mark.",oficial
+92100500,13,鉄塔に行ってみよう！,¡Ve a la torre!,oficial
+92100500,14,�お父さまが　鉄塔に？\nそこまでして　円堂くんに\nいったい何の話をするつもり…？\fまったくムチャなんだから…！\nこれは　たしかめてみる必要が\nありそうね…。,"¿Papá está en la torre? ¿Tan\nimportante es eso que tiene que\ndecirle, que ha de jugarse el tipo?",oficial
+92100500,15,8あれ？　夏未さん…？\nいったいどこへ行くんだろう？,¿Eh? ¿Nelly?\n¿Adónde irá?...,oficial
+92100500,16,�水…　神さま…　てんばつ…！\fこのウワサ話…　もうちょっと\n調べてみる必要がありそうね！\nわたしのウデの見せどころだわ！,Agua... Dioses... Castigo celestial.\nCreo que vale la pena investigar\ntodo esto más a fondo.\f¡Hora de demostrar lo que\nvalgo como periodista!,oficial
+92100700,0,Tボウズ…　気づいたか？\n今朝からこの町の水に\nみょうなモンがまじってやがるぜ！,"¿Te has dado cuenta, chaval?\nAlguien ha echado algo raro a\nlas aguas de la ciudad esta mañana.",oficial
+92100700,1,8ええっ？　ほんとうですか？\nそれが　洗脳の原因？,¿Eh? ¿De verdad? ¿Por eso\nparece que a todos les\nhubieran lavado el cerebro?,oficial
+92100700,2,垂ｽしかに病院の人も　水しか\nのんでないって言っていたな…。\f…ということは！　この町で\n水を飲んだ人全員が\n洗脳されちまったってことか？,Los pacientes del hospital solo\nhabían bebido agua...\f¡Menuda faena! Todos los de la\nciudad que beban van a acabar\ncon la cabeza hecha un lío...,oficial
+92100700,3,dああ　これでも食いもんを\nあつかってんだ。　まちがいねえ。\n影山のヤツ　ひでえことをしやがる。,"Sí, aquí donde me ves, tengo un\nrestaurante de fideos. Sé por\ndonde van los tiros.\fRay Dark está montando un follón\nde tres pares de narices.",oficial
+92100700,4,|しかも　理事長が病院から\nいなくなっちゃったんです！\nどこか　こころあたりはないですか？\fこのままじゃ　キケンで…。,"Además, el Sr. Raimon ha\ndesaparecido del hospital.\f¿Tienes idea de dónde puede\nhaber ido? Corre un serio\npeligro...",oficial
+92100700,5,Tなんだと？　総一郎のヤツ\nこんな時に…。\nまったくテマをかけさせやがって…。,¿Cómo? ¿Por qué Sonny iría a\nesfumarse en un momento así?...\nQué manera de darnos trabajo...,oficial
+92100700,6,4おっと…　電話だ。\nちょっとシツレイするぞ。,"Vaya, el teléfono.\nDiscúlpame un segundo.",oficial
+92100700,7,$理事長…　いったいどこに…。,Sr. Raimon...\n¿Dónde estará?...,oficial
+92100700,8,l総一郎か！？\fバカヤロウ　しんぱいかけやがって！\n今　どこにいるんだ！？\fなんだと？　あいつらを…。,¿Sonny? ¿Estás mal de la cabeza?\n¡Nos tenías preocupados!\f¿Dónde estás? ¿Cómo?\n¿Qué dices que pasa\ncon esos tíos?...,oficial
+92100700,9,$うむ…　ううむ…　そうか…。,Sí... Ya veo... Vale.,oficial
+92100700,10,(わかった…　そう伝えておこう…。,Entendido. Ahora se lo digo.,oficial
+92100700,11,8理事長　みつかったんですね？\nいったい　どこに…？,¿Has encontrado al Sr. Raimon?\n¿Sabes dónde está?...,oficial
+92100700,12,Hボウズ…　今からオレをつれて\nここを脱出しろ！　大いそぎでな…。,"Chaval, ¡tenemos que largarnos\nde aquí a toda prisa!",oficial
+92100700,13,8ええ？　どういうことです？\n理事長のいばしょは…？,¿Eh? ¿Qué ha pasado?\n¿Sabes dónde está el Sr. Raimon?,oficial
+92100700,14,Lオレをつれて　グラウンドへ向かえ！\nそこですべてを　おしえてやる…！,¡Llévame al campo de fútbol!\nAhí te lo contaré todo.,oficial
+92100700,15,Lわ　わかりました…！\nそれじゃ　とりあえず\nグラウンドへむかいます！,"Vale, ¡entendido!...\nVamos hacia el campo.",oficial
+92100700,16,@ああ　ゆだんするなよ！\nしれんはもう　はじまっているんだ！,¡Ve con mil ojos!\n¡La prueba ya\nha comenzado!,oficial
+92100700,17,<しれんだって…？\nいったい　どういうことなんですか？,¿Prueba?...\n¿De qué hablas?,oficial
+92100700,18,Xどうやらすべては　グラウンドに\nもどってからってことらしいな！\n行こうぜ　円堂！,"Parece que no dirá nada hasta que\nlleguemos al campo. ¡Vamos, Mark!",oficial
+92100700,19,$雷門中のグラウンドに行こう！,¡Ve al campo del Raimon!,oficial
+92101000,0,�%2F明日はいよいよ%3F世宇子との%2F決戦だ…！\n%2F今日が%2F最後の%2F練習になる…！\f%2F限界まで%2F練習しまくって\n%2F準備が%1F整ったら　%2F部室にもどろう！,"¡Mañana jugamos la final contra\nel Zeus! ¡Hoy será nuestro\núltimo día de entrenamiento!\f¡Vamos a esforzarnos hasta que no\npodamos más! Cuando estéis listos,\nos veo en la caseta del club.",oficial
+92101000,1,部室に行こう！,¡Ve a la caseta del club!,oficial
+92101200,0,ｬついに%3F決勝戦の%1F日だ。\n%1F待ってろよ　%3F世宇子%1F中！\nそして　%2F影山%2F総帥…！\fいよいよ%2F最後の%2F決戦だ！\n%1F駅から　ゼウススタジアムに\n%2F出発するぞ！,"Por fin ha llegado el día de la\ngran final. ¡Más te vale estar\npreparado, Zeus!\f¡Y lo mismo va por ti, Ray Dark!\f¡Vamos a la estación para tomar\nel tren que nos llevará al estadio\nde la final!",oficial
+92101200,1,(駅からゼウススタジアムに出発だ！,¡Ve a la estación para ir a la final!,oficial
+92101370,0,(１%1F度　%1F町にもどろうかな…。,Quizás valga la pena\nvolver a la ciudad...,oficial
+92101370,1,Xそう　これが%2F最後の%2F決戦なんだ。\nしっかり%2F準備してから\n%1F行かないとな！,"Sí, es la final... Hay que estar\nmás preparados que nunca.",oficial
+92101370,2,(%1F戻っている%2F場合じゃないな。,No es momento de regresar.,oficial
+92101400,0,`…。\fここがゼウススタジアムか…？\fなんだか　しずまりかえって\n%1F人の%2F気配がないな…。,i...j\n¿Este es el estadio del Zeus?\fNo se oye ni a una mosca...\n¿Es que no hay nadie?,oficial
+92101400,1,d%3F決勝戦の%2F会場って\nこんなものなのか…？\fとにかく　グラウンドまで\n%1F行ってみよう…！,"¿Este es el escenario de\nla gran final? Bueno, tiremos\npara el campo de momento...",oficial
+92101400,2,",決勝会場のグラウンドにいってみよう！",¡Ve al campo donde se juega la final!,oficial
+92101550,0,�%2F歓声が%1F聞こえる…。\fここがフットボールフロンティア\n%3F決勝戦の%2F舞台…！\fみんなこっちに%2F移動して\n%1F外には%1F誰もいなかったのか！,Puedo oír el ruido del público...\f¡Eso debe de ser el estadio de la\nfinal del Fútbol Frontier!\f¡Sin duda todos están preparados ya!\n¡No hay un alma ahí fuera!,oficial
+92101550,1,",それにしても　%1F広い%2F建物だな…。",¡Pedazo de estadio!,oficial
+92101550,2,Pよーし…。\nそれじゃ　ひかえ%1F室をさがして\n%3F決勝戦の%2F準備をしよう！,Vamos a buscar los vestuarios\ny preparémonos.,oficial
+92101550,3,ひかえ室をさがそう。,¡Encuentra los vestuarios!,oficial
+92101570,0,|ここがお%1F前たちのひかえ%1F室だ…。\f%2F準備ができたのなら\nこの%1F中で　おとなしく\nさばきの%1F時を%1F待つのだな。,Este es vuestro vestuario.\fEsperad dentro sin armar jaleo\nhasta que os llegue la hora\ndel juicio. ¿Vais a entrar o no?,oficial
+92101570,1,dふん　われら%3F世宇子の%1F力に\nおそれをなしたか…。\f%1F用がないなら　%1F立ち%1F去るがいい！,"¡Bah! Supongo que no conoceréis\nnuestra temible reputación...\fSi no tenéis un buen motivo para\nestar aquí, ¡será mejor que\nos vayáis en el acto!",oficial
+92101700,0,Dいくぞ！　世宇子！　影山総統！\nこれが　命がけの最終決戦だ！,"¡Adelante! Zeus, Dark...\n¡Esta será la batalla\ndefinitiva!",oficial
+92102100,0,(ここが%3F世宇子のひかえ%1F室ね…。,Esto debe de ser el vestuario\ndel Zeus...,oficial
+92102100,1,あら？,"¡Oh, no!",oficial
+92102100,2,どうしたんですか？,¿Qué pasa?,oficial
+92102100,3,",%1F鍵が　かかっているみたいだわ…。",Parece que está cerrado con llave.,oficial
+92102100,4,hそれって　%1F逆に\nなんだか　あやしいですね…。\fいかにもヒミツが\nかくされている%1F感じがします！,¿No os parece muy raro? Si dentro\nno debería haber más que duchas y\nbanquillos...\f¡Algo me dice que ahí ocultan algo!,oficial
+92102100,5,8どこか　%1F他の%2F場所に\n%1F鍵があるのかしら…？,Vaya... ¿Dónde estará la llave?,oficial
+92102100,6,Pわからないけれど…\nもうちょっと　この%1F辺りを\nさがしてみましょうか…。,No lo sé. Habrá que empezar\na buscar por aquí.,oficial
+92102100,7,ひかえ室の鍵をさがそう！,¡Encuentra la llave del vestuario!,oficial
+92102500,0,(ここが　%2F影山の%2F部屋なのね…。,Esta debe de ser la sala de Dark.,oficial
+92102500,1,$す　すごい%2F部屋ですね…。,"Vaya... Impresiona, ¿no?",oficial
+92102500,2,$%1F鍵は　どこにあるのかな…？,¿Y dónde está la llave?,oficial
+92102500,3,P…！\fこれは…。\f%1F手に%1F入れたわよ…！\nこれが　ひかえ%1F室の%1F鍵ね。,¡Ah!\fCreo que...\f¡La tengo!\n¡Tiene que ser esta!,oficial
+92102500,4,狽竄閧ﾜしたね！\n…でも　これから　どうしましょう？\fひかえ%1F室で%1F神のアクアを\n%1F見つけたとしても　%2F鬼瓦さんとは\nはぐれちゃったし…！,"¡Bien! ¿Pero ahora qué hacemos?\fAunque consigamos el néctar,\nahora Smith no está en la mejor\nsituación para ayudarnos.",oficial
+92102500,5,そうね…。,Eso parece...,oficial
+92102500,6,ﾀそれは%1F後で%1F考えればいいわ！\nとにかく%1F今は%1F神のアクアを\n%1F見つけるのが%1F先よ。\fこの%1F鍵で%3F世宇子のひかえ%1F室に\nしのびこんでしまえば\n%1F後はきっと　なんとかなるはずよ！,"Ya pensaremos en ello.\n¡Antes hay que conseguir\nese néctar!\fSi logramos colarnos en su\nvestuario con esta llave, luego\nya veremos lo que hacemos.",oficial
+92102500,7,Xううっ　%2F夏未さん！\nダイタンすぎますっ！\nわたしのドキドキは%2F頂点ですよっ！,¡Nelly! ¡Qué valiente eres!\n¡A mí es que se me sale\nel corazón del pecho!,oficial
+92102500,8,<…%1F待っててね　%2F円堂くん。\nもうすぐ　きっと…！,"Aguanta, Mark... Esto no nos\nllevará mucho más...",oficial
+92102500,9,Tそれじゃ　%1F急ぎましょう！\nぐずぐずしてたら\nまた　%1F見つかっちゃいますよ！,¡Rápido! ¡Nos acabarán encontrando\nsi nos quedamos aquí!,oficial
+92102500,10,ｰそうね…　いっこくも%1F早く\n%1F神のアクアを%1F見つけないと…。\fそれにしても　%1F神のアクアというのは\nわたしたちが%1F思っていたより\nはるかに%2F危険な%1F薬なのね…。,¡No hay tiempo que perder! ¡Hay que\nencontrar el néctar!\fAunque me temo que sea algo\nmucho más peligroso que\nlo que nos imaginábamos.,oficial
+92102500,11,8う　うん…。\n%3F大丈夫なのかな…　%2F円堂くん…！,Cierto. ¡Espero que Mark esté bien!,oficial
+92102500,12,0そうね…。\nとにかく　%1F急ぎましょう…！,Yo también. ¡Démonos prisa!,oficial
+92102800,0,(それじゃ…\n%1F鍵をあけるわよ。,Bueno...\nVamos a abrir la puerta.,oficial
+92102800,1,Lドキドキしますね…。\f%1F神のアクアって　どんなもの\nなんでしょう…？,¡Pero qué nervios!\f¿Cómo será ese néctar?,oficial
+92102800,2,lどうします？　ものすごく\n%2F気持ちのワル〜い%1F生き%1F物が%1F入った\nブキミな%1F水だったりしたら…。,¿Qué hacemos si es un brebaje\nasqueroso lleno de bichos\nvivitos y coleando...?,oficial
+92102800,3,4ちょ　ちょっと　やめてよ！\nきみの%1F悪い…。,¡¿Pero qué dices?!\n¡Me estás revolviendo las tripas\ncon esas burradas que sueltas!,oficial
+92102800,4,Tあれ？\nどうしたんです　%2F夏未さん？\nいきなり　こわがりになっちゃって…。,"¿Qué pasa, Nelly?\nHasta ahora eras muy valiente.",oficial
+92102800,5,Lう　うるさいわね！\nさっきまでは　%2F緊張して\n%2F夢中だったから…。,¡Déjame en paz!\n¡Estaba nerviosa y no era\nconsciente de lo que hacíamos!...,oficial
+92102800,6,p…ふふっ　そうですよね…。\fまったく　%2F円堂くんったら\nわたしたちに　こんなムリさせて\nくれちゃって…。,"Ja, ja... Pues sí.\f¿Y cómo nos ha metido Mark a todas\nen este fregado? ¡Estamos locas!",oficial
+92102800,7,�まったくよ…。\nどうして　わたしがこんなこと\nしなくちゃいけないの…！\f%2F試合が%1F終わったら　%1F思いっきり\nもんくを%1F言ってやるんだから…！,Yo qué sé... ¡¿Pero qué rayos\nestoy haciendo aquí?!\f¡Se va a enterar cuando termine\nde jugar ese partido!,oficial
+92102800,8,ふふっ…！,"¡Ja, ja!",oficial
+92102800,9,ええ！　そうしましょ！,Sí... ¡Yo también le diré\ncuatro cosas!,oficial
+92102800,10,",さあ！　それじゃ\n%1F鍵をあけるわよ！","Bueno, ¿abrimos esta puerta?",oficial
+92103300,0,Xたのんだぞ…　%2F円堂くん…！\f%2F影山を%1F止められるのは\nもう　キミたち…\f…。,"¡Cuento contigo, Mark!\f¡Ahora sois los únicos que podéis\ndetener a Dark!\fi...j",oficial
+92103300,1,0キミたち…\nイナズマイレブンだけなのだ…！,Vosotros sois...\n¡el Inazuma Eleven!,oficial
+93911001,0,�よう　%2F円堂。　\n%2F今度は%2F全国%2F優勝のチームと%2F試合だって？\fまったく　おまえのまわりは\nいつも%1F大さわぎだな。,"Hola, Mark. Esta vez toca jugar\ncontra el campeón nacional, ¿eh?\f¡La de alboroto que está causando\nel partido!",oficial
+93911001,1,ｼ…どうせ　%2F部員もたりないんだろ？\nそういうことなら\nオレ　サッカー%1F部に%1F入ってもいいぜ。\f%3F新入生もしっかりしてるし\n%2F陸上%1F部は　あいつらに\nまかせても%3F大丈夫だろう。,"Parece que te faltan jugadores,\n¿no? Jugaré contigo, pues.\fLos atletas nuevos del equipo de\natletismo lo están haciendo bien.\n¡Dejaré el club en sus manos!",oficial
+93911001,2,Hホントか？\nサンキュー%2F風丸！\nおまえがいてくれれば%3F百人力だ！,"¿De verdad? ¡Gracias, Nathan!\n¡Contigo todo será mucho\nmás sencillo!",oficial
+93911001,3,ｴ%1F気にするなよ。\nオレがしたいから　そうするだけさ。\n\fお%1F前とのサッカーは\nけっこう%1F楽しかったしな。\fサッカーの%2F世界も　%2F最高のスピードで\nかけぬけてみせるぜ！,"No te preocupes, lo hago porque\nme apetece jugar al fútbol.\fEra bastante divertido... ¡Toca\nvolver a atravesar los campos\na la velocidad del rayo!",oficial
+93911001,4,0%2F風丸　%3F一郎太　が%2F仲間になった。,Nathan Swift se ha unido al equipo.,oficial
+93911001,5,$部員を集めよう！　あと４人だ！,¡Busca jugadores! ¡Te quedan 4!,oficial
+93911001,6,$部員を集めよう！　あと３人だ！,¡Busca jugadores! ¡Te quedan 3!,oficial
+93911001,7,$部員を集めよう！　あと２人だ！,¡Busca jugadores! ¡Te quedan 2!,oficial
+93911001,8,�あと%2F１人か。\fさっきのメガネのやつ…。\n%1F今ならひきうけてくれるかな。\nもう１%1F度　%1F話を%1F聞きにいってみよう。,Ya solo me queda encontrar\na un jugador.\fEse tal Willy... Seguro que ahora\nacepta jugar con nosotros. Iré\na preguntarle otra vez.,oficial
+93911001,9,(メガネくんのところに行ってみよう！,¡Ve adonde está Willy Glass!,oficial
+93911002,0,Dサッカーね。\nそういえばそれはまだ\nやったことがなかったな。,"¿Fútbol? Ahora que lo dices,\nnunca he jugado...",oficial
+93911002,1,l%1F他のスポーツにはあきちゃったし\n%1F今なら%2F入部してもいいよ。\nいつまで%1F続くかわからないけど…。,"Te advierto que suelo cansarme\nrápido de todos los deportes. Aun así,\n¿quieres que me una a tu equipo?",oficial
+93911002,2,ｬじゃ　よろしくね。\nボクは%2F器用だから　ひととおりなんでも\nこなせるとは%1F思うよ。\fただ　あんまり%2F退屈させないでよね。\nボクってあきっぽい%2F性格みたいだから。,"Bueno, encantado. Que sepas que\nsoy muy habilidoso y que todo\nse me queda muy rápido.\fDe todas formas, no dejes que\nme aburra mucho. Tiendo a cansarme\nenseguida de todo.",oficial
+93911002,3,",%2F松野　%2F空介　が%2F仲間になった。",Maxwell Carson se ha unido al equipo.,oficial
+93911002,4,$部員を集めよう！　あと４人だ！,¡Busca jugadores! ¡Te quedan 4!,oficial
+93911002,5,$部員を集めよう！　あと３人だ！,¡Busca jugadores! ¡Te quedan 3!,oficial
+93911002,6,$部員を集めよう！　あと２人だ！,¡Busca jugadores! ¡Te quedan 2!,oficial
+93911002,7,�あと%2F１人か。\fさっきのメガネのやつ…。\n%1F今ならひきうけてくれるかな。\nもう１%1F度　%1F話を%1F聞きにいってみよう。,Ya solo me queda encontrar\na un jugador.\fEse tal Willy... Seguro que ahora\nacepta jugar con nosotros. Iré\na preguntarle otra vez.,oficial
+93911002,8,(メガネくんのところに行ってみよう！,¡Ve adonde está Willy Glass!,oficial
+93911002,9,<そっか。\n%1F気が%1F向いたら　また%1F声をかけてよ。,"Ah, vale. Si quieres volver\na hablar conmigo del tema,\nno te cortes.",oficial
+93911003,0,激Tッカーか。\nすごい%2F選手には\n%2F有名になってる%1F人も%1F多いよな。\fおれも　サッカーをすれば\nもう%1F少し%3F存在感が%1F出るのかな,"¿Fútbol? Muchos buenos jugadores\nconsiguen hacerse muy\nfamosos...\fSi juego al fútbol, a lo mejor\nmás gente cae en la cuenta de\nque existo...",oficial
+93911003,1,�よし　いい%2F機会だしサッカー%1F部に\n%1F入ることにするよ。\fオレは%2F気配を%1F消すのが%2F得意なんだ。\nそのあたりを%2F意識してつかってくれよ。,"Bien, es una oportunidad tan buena\nque no puedo pasarla por alto.\fSoy experto en disimular mi\npresencia... Tenlo en cuenta para\ncuando quieras hacerme jugar.",oficial
+93911003,2,",%2F影野　%1F仁　が%2F仲間になった。",Jim Wraith se ha unido al equipo.,oficial
+93911003,3,$部員を集めよう！　あと４人だ！,¡Busca jugadores! ¡Te quedan 4!,oficial
+93911003,4,$部員を集めよう！　あと３人だ！,¡Busca jugadores! ¡Te quedan 3!,oficial
+93911003,5,$部員を集めよう！　あと２人だ！,¡Busca jugadores! ¡Te quedan 2!,oficial
+93911003,6,�あと%2F１人か。\fさっきのメガネのやつ…。\n%1F今ならひきうけてくれるかな。\nもう１%1F度　%1F話を%1F聞きにいってみよう。,Ya solo me queda encontrar\na un jugador.\fEse tal Willy... Seguro que ahora\nacepta jugar con nosotros. Iré\na preguntarle otra vez.,oficial
+93911003,7,(メガネくんのところに行ってみよう！,¡Ve adonde está Willy Glass!,oficial
+93911003,8,Hそういうものか。\nま　%1F人にはそれぞれ%2F限界が\nあるもんな…。,"Ah... Bueno, cada uno tiene\nsus propios límites...",oficial
+93911004,0,<キミたち　%1F今ごろ%2F部員を\n%1F集めだしたんだって？,"Habéis empezado a reclutar\njugadores para vuestro club, ¿no?",oficial
+93911004,1,<ああ。　おまえもどうだ？\nいっしょにサッカーやろうぜ！,Sí. ¿Te apetece jugar al fútbol\ncon nosotros?,oficial
+93911004,2,рｦえ〜　おことわりだよ。\nそんなカッコ%1F悪いこと…。\fああ　でも%2F最後の%2F１人として\n%2F入部っていうのなら　いいかもね。,"¿Eh? Me temo que no.\nEs tan vulgar...\fAunque... si fuera el último\njugador que necesitas, puede\nque cambiase de opinión.",oficial
+93911004,3,ｸ「メガネのヒーローが\n　%2F弱小サッカー%1F部を%1F救った！！」なんて\nなんだか　カッコいいじゃないか。\fその%1F時はついでに　エースナンバーも\nボクがもらってやるよ！\nあっはっは。,"¿No sería glorioso escuchar\nhGlass es el héroe que ha salvado\na los chicos del club de fútbolh?\fCuando llegue el momento, dame\nla camiseta con el dorsal\nestrella. ¡Ja, ja, ja!",oficial
+93911004,4,ｸおや？\n%2F仲間を３%1F人%1F連れてるってことは\nボクが%2F最後の%2F１人ってワケ？\fそんなに　ボクの%1F力が%2F必要なの？\n%1F全く　しょうがないなぁ。\fでも%2F条件があるんだよね。,"¿Uh? Si vienes con tres... Eso\nsignifica que yo soy el último\nque necesitas, ¿cierto?\f¿Tanta falta te hago? En fin,\nsi no hay más remedio... Pero\ntengo una condición.",oficial
+93911004,5,dボクにエースナンバーの\n１０%1F番をくれるっていうなら　\n%2F本気で%1F考えてあげてもいいよ。,"Si pudiera lucir el número\n10 a la espalda, estaría\ndispuesto a aceptar la oferta.",oficial
+93911004,6,�ホント？\nそこまでされちゃ%2F仕方ないね。\n%2F入部してあげよう。\f…%2F練習？\nそんなのエースには%2F必要ないだろ。\nそれじゃ　これからよろしくたのむよ。,"¿Sí? Con tantas facilidades\nno puedo rechazar tu oferta...\nVale, jugaré en tu equipo.\f¿Entrenar? Los ases no necesitan\nentrenarse... Venga, muchos\nánimos, chicos.",oficial
+93911004,7,(メガネくん　が%2F仲間になった。,William Glass se ha unido al equipo.,oficial
+93911004,8,Tこれで　なんとか１１%1F人\n%1F集まったぞ！\f%2F部室にいるみんなに%2F報告だ！,¡Ya tenemos 11 jugadores!\nVamos a la caseta a avisar\na los chicos.,oficial
+93911004,9,ｬおっと。\nだれが%2F部員になったのか\nバインダーに　%2F記録しなきゃな！\fついでに　%2F部員になったヤツ%2F以外で\nいっしょにサッカーをした%2F相手も\n%2F記録しておこう！,¡Ah!... ¡También hay que\nregistrar a los nuevos\njugadores en el álbum!,oficial
+93911004,10,l【バインダー】はコマンドメニューの\n『じょうほう』から　いつでも\n%1F見ることができるんだったよな。,Puedes mirar el hlbumh siempre\nque quieras desde el apartado\nhDatosh del menú de comandos.,oficial
+93911004,11,サッカー部室へ向かおう！,¡Ve a la caseta del club!,oficial
+93911004,12,Hちぇっ　なんだい。　%2F弱小のクセに\nプライドだけは%1F高いんだな。,"Pche, no sé de qué vas. Demasiado\norgullo tienes para ser miembro\nde un equipo tan malo.",oficial
+97000010,0,ｨそ　それは！？\fわたしのクツと　サングラス！\nキミが%1F見つけてくれたのか！\fありがとう！\nわたしもキミとともに%1F戦おう！\nわたしのキック%1F力はすごいんだぞ！,¡%s se te ha unido!,oficial
+97000010,1,%s\nが仲間になった！,"¡Son... son...!\f¡Mis zapatos y mis gafas de sol!\n¡¿Cómo los has encontrado?!\f¡Gracias! ¡A partir de ahora\nlucharé contigo! ¡Ya verás,\nmis tiros te dejarán alucinado!",oficial
+97000010,2,Xわたしはずっとさがしものを\nしているのだが…。\nまさかキミ…　%1F持ってないよな？,"Llevo mucho tiempo buscando\nunas cosas... No las tendrás\ntú por casualidad, ¿no?",oficial

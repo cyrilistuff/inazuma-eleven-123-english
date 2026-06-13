@@ -16,9 +16,17 @@ Eleven* son propiedad de sus respectivos dueños (© Level-5).
 ## Qué NO se distribuye NUNCA
 
 - ❌ La ROM del juego (`.3ds`, `.cia`, `.nds`, etc.).
-- ❌ El contenido extraído de la ROM (RomFS, ExeFS, assets, archivos del juego).
-- ❌ Fuentes, gráficos, audio u otros recursos originales del juego.
+- ❌ El contenido **binario** extraído de la ROM (RomFS, ExeFS, `archive.fa`,
+  `.pkb`, fuentes, gráficos, audio u otros recursos originales).
 - ❌ Binarios de herramientas de terceros (se enlazan a sus repositorios).
+
+## Texto de traducción (sí versionado)
+
+Los **ficheros de texto de la traducción** (`translation/`) — diálogos y términos
+con su origen japonés de referencia y la versión en español — **sí se versionan**:
+son el producto de trabajo del proyecto y no se puede traducir/colaborar sin ellos
+(práctica estándar en fan-translations). No incluyen binarios ni assets del juego.
+El repositorio es privado mientras el proyecto está en desarrollo.
 
 El archivo [`.gitignore`](.gitignore) está configurado para impedir que estos
 materiales se suban por accidente.
