@@ -96,9 +96,27 @@ perfectamente (descripciones de objetos), pero los recuentos difieren
 posición es solo un punto de partida; el exacto necesita el **índice del `.dat`**
 asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_align.py`.
 
-**Pendiente:** (1) parsear los `.dat` índice para alinear con exactitud;
-(2) completar las dos tablas de codificación (Shift-JIS+furigana del 3DS y Latin
-propia del NDS).
+### Formatos de registro resueltos (juego 1)
+
+- **`unitbase.dat`** (jugadores): registros de **96 bytes**, nombre (kanji) en
+  `+0` (16 B) y lectura kana en `+16`. Mismo tamaño/orden en 3DS y NDS →
+  emparejado por índice (verificado: 円堂守→Mark Evans). 2400 registros.
+- **`teamtitle.dat`** (títulos de equipo): registros de **16 bytes**, nombre@+0.
+- **`games.STR`** (menús): mismo nº de cadenas en 3DS y NDS → índice 1:1.
+- **`item.dat`** / **`command.STR`**: el orden NO casa 1:1 entre plataformas
+  (3DS item.dat=16384 B vs NDS=49152; recuentos de `.STR` distintos). Pendiente
+  parsear su índice real.
+
+### Tabla de codificación NDS (ES) — `NDS_DEC` (parcial, ampliable)
+`0xB2→á, 0xBA→é, 0xBE→í, 0xC4→ó, 0xCA→ú, 0xC2→ñ, 0xCC→ü, 0xB5→ä, 0xA5→¿,
+0xDF→¡, 0xD9→Í`. El 3DS usa Shift-JIS con furigana `[kanji/lectura]`.
+
+Glosario generado: ver [`translation/glossary/`](../translation/glossary/) y
+`tools/build_glossary.py`. Resultado: ~1327 parejas exactas (jugadores, títulos
+de equipo, menús).
+
+**Pendiente:** (1) parsear los índices `.dat` de objetos/técnicas para alinear con
+exactitud; (2) completar la tabla `NDS_DEC` (mayúsculas acentuadas, signos).
 
 ## Herramientas (resumen, detalle en tools/README.md)
 

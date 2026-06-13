@@ -39,8 +39,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
   `unitbase.STR/.dat` (jugadores), `evet.pkb`/`mcht.pkb` (eventos), `team.pkb`
 - ✅ Confirmados términos oficiales (Regate, Bloqueo, Vaselina, Testarazo…) con
   `tools/nds_str_dump.py`
-- 🟡 Mapear la **tabla de codificación** NDS (acentos, ñ, códigos de control h/…)
-- ⬜ Construir glosario maestro en `translation/glossary/` (con alineado JP↔ES)
+- ✅ Mapear la **tabla de codificación** NDS (parcial: á é í ó ú ñ ü ¿ ¡ Í)
+- ✅ **Glosario JP↔ES del juego 1** generado (`tools/build_glossary.py`):
+  ~1174 jugadores, 20 títulos de equipo, 133 menús = **~1327 parejas exactas**
+  (alineadas por índice de registro). Verificado: 円堂守→Mark Evans, 鬼道有人→Jude Sharp
+- 🟡 Objetos y técnicas/hissatsu: el `item.dat`/`command.STR` no casan 1:1
+  (estructura/recuento distintos) → pendiente parsear su índice real
 
 ## Fase 3 — Traducción
 - ⬜ Juego 1
