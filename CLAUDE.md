@@ -1,0 +1,47 @@
+# Guía para Claude (y colaboradores) — Proyecto de traducción Inazuma Eleven 1·2·3
+
+Este archivo lo lee Claude Code al inicio de cada sesión. Resume las **normas de
+trabajo** del proyecto. Léelo antes de actuar.
+
+## Norma 1 — Todo el trabajo se gestiona con GitHub Issues + Project board
+
+**Cada tarea pendiente o nueva se registra como un issue de GitHub.** Nada se queda
+solo "en la cabeza" o en el chat. En concreto:
+
+- Antes de empezar algo nuevo, comprueba si existe un issue; si no, **créalo**
+  (`gh issue create`) con título claro, descripción y etiqueta(s).
+- Al **empezar** una tarea, deja constancia (asignación/comentario) y, si hay
+  Project board, muévela a "In progress".
+- Al **terminar**, **cierra el issue** (`gh issue close` o `Closes #N` en el commit/PR)
+  y muévelo a "Done".
+- Si surge trabajo derivado (un bug, un formato nuevo que decodificar, una mejora),
+  **abre un issue** en el momento en lugar de dejarlo suelto.
+- Usa el Project board del repo para la visión de conjunto.
+
+> Si `gh` no está autenticado en una sesión, redacta los issues nuevos en
+> `docs/ISSUES_PENDIENTES.md` y créalos en GitHub en cuanto haya autenticación.
+
+## Norma 2 — Copyright: nunca subir ROMs ni contenido extraído
+
+- **Jamás** se suben ROMs (`.3ds`, `.nds`, `.cia`…) ni contenido extraído de ellas
+  (RomFS, `.STR`, `.dat`, `.arc`, diálogos/descripciones completas, fuentes, gráficos).
+- El `.gitignore` bloquea `roms/` y `work/`. No lo desactives.
+- Se distribuye **solo el parche `.xdelta`** + herramientas/scripts + glosarios de
+  términos cortos. Ver [`LEGAL.md`](LEGAL.md).
+- Antes de cada push, verifica con `git ls-files` que no se cuela nada sensible.
+
+## Norma 3 — Estilo y decisiones del proyecto
+
+- Traducción al **español de España**, con **nombres europeos oficiales**
+  (Mark Evans, Axel Blaze, Raimon…). Fuente canónica: el texto oficial ES de las
+  ROMs NDS (ver `translation/glossary/`).
+- Commits incrementales y descriptivos. Documenta los formatos en `docs/FORMATOS.md`
+  y el avance en `docs/PROGRESO.md`.
+- Herramientas en `tools/` (Python/PowerShell, sin GUI: el proyecto se maneja por CLI).
+
+## Estado y documentación
+
+- Avance: [`docs/PROGRESO.md`](docs/PROGRESO.md)
+- Formatos técnicos (B123, ARCV, .STR, .dat, codificación): [`docs/FORMATOS.md`](docs/FORMATOS.md)
+- Herramientas: [`tools/README.md`](tools/README.md)
+- Glosario: [`translation/glossary/`](translation/glossary/)
