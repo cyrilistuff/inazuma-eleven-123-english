@@ -135,8 +135,19 @@ NDS "te ha unido!").
 MISMA estructura** → una vez parseado el formato de script, **alinear** los mensajes
 JP(3DS)↔ES(NDS) y reutilizar la traducción oficial en lugar de traducir desde cero.
 
-**Pendiente (issue #3):** escribir el parser del bytecode/tabla de mensajes para
-volcar el diálogo a CSV/JSON. Diagnóstico: `tools/pkb_scan.py`.
+**Índice `.pkh` RESUELTO** (`tools/pkb_unpack.py`):
+- 16 B: `"PackNum YYYYMMDD"` · `+0x10 u32`: tamaño del pkh
+- `+0x30`: tabla de entradas de **12 B**: `{event_id u32, offset u32, size u32}`.
+  Los `event_id` son IDs de mapa/evento (`10010001`…). Offsets cubren el pkb exacto.
+- 3DS `eve.pkb`: **1293 eventos**. El NDS `evet.pkb` es también PackNum →
+  **alineable por `event_id`** (reutilizar el ES oficial).
+
+**Formato de MENSAJE (pendiente, issue #3):** dentro de cada evento el texto va como
+operandos de un **script compilado (bytecode)**: plantillas printf (`%s`, `\n`,
+`%2F`, `$`) + **códigos de control de 1 byte entrelazados con el Shift-JIS** (e
+incluso NUL dentro de una palabra). Hay que **catalogar los códigos de control** y
+parsear el bytecode para extraer/​reinsertar el diálogo limpio. Diagnóstico:
+`tools/pkb_unpack.py --text` (volcado best-effort, fragmentado).
 
 ## Herramientas (resumen, detalle en tools/README.md)
 
