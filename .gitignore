@@ -1,0 +1,43 @@
+# ===========================================================================
+#  ROMs y material con copyright  ->  NUNCA se suben a GitHub
+# ===========================================================================
+roms/
+*.3ds
+*.nds
+*.cia
+*.cci
+*.cxi
+*.app
+*.ncch
+*.bin.dec
+
+# Contenido extraído de las ROMs (RomFS / ExeFS / assets originales)
+work/
+romfs/
+exefs/
+extracted/
+*.romfs
+*.exefs
+
+# ROM traducida intermedia (solo se distribuye el .xdelta, no la ROM)
+*_es.3ds
+*_translated.3ds
+build/
+
+# ===========================================================================
+#  Herramientas de terceros (se enlazan, no se re-suben)
+# ===========================================================================
+tools/bin/
+*.exe
+*.dll
+
+# ===========================================================================
+#  Basura del sistema / editores
+# ===========================================================================
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.tmp
