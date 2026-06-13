@@ -2,9 +2,9 @@
 .SYNOPSIS
   Extrae el sistema de archivos de una ROM NDS a work/<nombre>/.
 .DESCRIPTION
-  Requiere ndstool.exe en tools/bin/. Úsalo con las ROMs de referencia ES.
+  Requiere ndstool.exe en tools/bin/. Usalo con las ROMs de referencia ES.
 .EXAMPLE
-  ./tools/extract_nds.ps1 -Rom "roms\Inazuma Eleven.nds" -Name ie1_es
+  pwsh ./tools/extract_nds.ps1 -Rom "roms\Inazuma Eleven.nds" -Name ie1_es
 #>
 [CmdletBinding()]
 param(
@@ -17,7 +17,7 @@ $rom  = Join-Path $repo $Rom
 $tool = Join-Path $repo "tools\bin\ndstool.exe"
 $out  = Join-Path $repo (Join-Path "work" $Name)
 
-if (-not (Test-Path $tool)) { throw "Falta tools/bin/ndstool.exe — devkitPro/ndstool" }
+if (-not (Test-Path $tool)) { throw "Falta tools/bin/ndstool.exe - devkitPro/ndstool" }
 if (-not (Test-Path $rom))  { throw "No se encuentra la ROM: $rom" }
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
