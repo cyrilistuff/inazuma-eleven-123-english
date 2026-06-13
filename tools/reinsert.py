@@ -68,23 +68,39 @@ def load_translations():
     return out
 
 
-def reencode_event(dec, trans):
-    """Sustituye en el evento descomprimido las cadenas traducidas. Tamano invariante."""
-    parts = dec.split(b"\x00")
-    n_applied = 0
-    for i, part in enumerate(parts):
+def reencode_event(dec, trans, esize):
+    """Sustituye las cadenas traducidas (tamano de chunk invariante). Si el evento
+    recomprimido no cabe, revierte lineas (las que mas ocupan) hasta que quepa, en
+    vez de saltar el evento entero. Devuelve (comp_bytes_o_None, n_aplicadas)."""
+    orig = dec.split(b"\x00")
+    parts = list(orig)
+    changed = []                                    # (idx, peso_es)
+    for i, part in enumerate(orig):
         if len(part) < 3 or part[0] not in (1, 2, 4):
             continue
-        clean = _decode_string(part, "sjis")
-        es = trans.get(clean)
+        es = trans.get(_decode_string(part, "sjis"))
         if not es:
             continue
-        budget = len(part) - 2                      # bytes de texto disponibles
+        budget = len(part) - 2
         body = es_encode(es, budget)
-        body = body + b" " * (budget - len(body))   # rellenar a tamano exacto
+        weight = len(body)
+        body = body + b" " * (budget - len(body))
         parts[i] = bytes(part[:2]) + body
-        n_applied += 1
-    return b"\x00".join(parts), n_applied
+        changed.append((i, weight))
+    if not changed:
+        return None, 0
+    comp = compress(b"\x00".join(parts))
+    n = len(changed)
+    if len(comp) > esize:
+        for idx, _w in sorted(changed, key=lambda x: -x[1]):
+            parts[idx] = orig[idx]                   # revertir a japones
+            n -= 1
+            comp = compress(b"\x00".join(parts))
+            if len(comp) <= esize:
+                break
+    if len(comp) > esize:
+        return None, 0
+    return comp + b"\x00" * (esize - len(comp)), n
 
 
 def main():
@@ -100,21 +116,21 @@ def main():
     trans = load_translations()
     print(f"eve.pkb {pkb_size}B, {len(ents)} eventos; traducciones en {len(trans)} eventos")
 
-    ev_ok = ev_skip = lines = 0
+    ev_ok = ev_part = lines = 0
     for eid, eoff, esize in ents:
         if eid not in trans:
             continue
         dec = decompress(bytes(pkb[eoff:eoff + esize]))
-        new_dec, n = reencode_event(dec, trans[eid])
-        if n == 0:
+        applicable = sum(1 for p in dec.split(b"\x00")
+                         if len(p) >= 3 and p[0] in (1, 2, 4)
+                         and _decode_string(p, "sjis") in trans[eid])
+        comp, n = reencode_event(dec, trans[eid], esize)
+        if not comp or n == 0:
             continue
-        comp = compress(new_dec)
-        if len(comp) > esize:
-            ev_skip += 1
-            continue                                # no cabe -> dejar japones
-        comp = comp + b"\x00" * (esize - len(comp))
         pkb[eoff:eoff + esize] = comp
         ev_ok += 1; lines += n
+        if n < applicable:
+            ev_part += 1
 
     data[pkb_off:pkb_off + pkb_size] = pkb
 
@@ -127,7 +143,7 @@ def main():
         data[foff:foff + fsize] = patched
 
     open(dst, "wb").write(data)
-    print(f"eventos parcheados: {ev_ok} (skip por tamano: {ev_skip}); lineas ES: {lines}")
+    print(f"eventos parcheados: {ev_ok} (parciales por tamano: {ev_part}); lineas ES: {lines}")
     print(f"fuentes parcheadas: {len(FONTS)}")
     print(f"-> {dst} (mismo tamano = {len(data)})")
 

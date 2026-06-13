@@ -77,10 +77,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ✅ Reinsertar + reconstruir la ROM (parche in-place de archive.fa, `tools/build_3ds.py`)
 - ✅ **Parche v1** `patch/inazuma123-es.xdelta` (~416 KB, sin acentos, 477 eventos)
 - ✅ **LZ10 con lazy matching** → más eventos caben
-- ✅ **Parche v2** `patch/inazuma123-es-v2.xdelta` (~1,14 MB): **con acentos** +
-  fuente ampliada, **821 eventos / 10778 líneas** (81 % de los traducibles), roundtrip OK
+- ✅ **Parche v2** `patch/inazuma123-es-v2.xdelta` (~1,14 MB): con acentos, 821 eventos
+- ✅ **Ajuste parcial por evento** (revierte líneas que no caben en vez de saltar
+  el evento) → **Parche v3** `patch/inazuma123-es-v3.xdelta` (~1,53 MB):
+  **992/1008 eventos (≈98% de los traducibles), 12343 líneas ES**, roundtrip OK
 - ⬜ Pruebas en emulador (Lime3DS / Azahar) — **lo verifica el usuario**
-- 🟡 Traducir pendiente (33,8%) + revisar líneas "revisar" + más cobertura
+- 🟡 Traducir manualmente el 33,8% pendiente (líneas JP SIN equivalente oficial NDS)
 - ⬜ Primera release pública
 
 ## Notas de las ROMs (referencia)
