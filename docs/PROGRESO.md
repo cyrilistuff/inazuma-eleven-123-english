@@ -58,10 +58,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
   códigos de control). Etapa 3 resuelta.
 - ✅ **Alineado por `event_id`** JP(3DS)↔ES(NDS): 1289 ids comunes; **133 eventos
   con nº de líneas idéntico → ES oficial aplicado** (934 líneas), `tools/align_events.py`
-- ✅ Tabla de traducción `translation/game1/dialogo.csv` (934 líneas oficiales);
-  cobertura **133/1039 eventos con texto = 12,8%** (`tools/build_translation.py`)
-- 🟡 Mejorar matching de líneas en eventos con recuentos distintos (subir cobertura)
-- ⬜ Traducir lo pendiente · ⬜ Juego 2 · ⬜ Juego 3
+- ✅ **Alineado fino (Needleman-Wunsch)** con señal de longitud + formato (%s/%d/\n):
+  `translation/game1/dialogo.csv` (29985 líneas). **Cobertura con ES: 66,2%**
+  (oficial 3,1% + revisar 56,4% + auto-dup 6,7%); pendiente 33,8%
+  (`tools/align_events.py`, `tools/build_translation.py`)
+- 🟡 Traducir a mano lo `pendiente` (33,8%) y revisar lo `revisar`
+- ⬜ Juego 2 · ⬜ Juego 3
 
 ## Fase 4 — Fuente y gráficos
 - ⬜ Ampliar fuente (ñ, ¿ ¡, tildes) y tabla de anchos
