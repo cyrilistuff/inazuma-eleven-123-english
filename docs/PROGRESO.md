@@ -33,8 +33,14 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
   (SwareJonge) — tiene binario en releases.
 
 ## Fase 2 — Glosario y terminología
-- ⬜ Volcar terminología oficial ES de las NDS (personajes, técnicas, equipos)
-- ⬜ Construir glosario maestro en `translation/glossary/`
+- ✅ Extraído el filesystem de IE1/IE2 NDS (ES) → `work/ie1_es`, `work/ie2_es`
+- ✅ Localizado el texto español oficial en carpetas `data_iz/logic/sp/` y
+  `data_iz/script/sp/`: `command.STR` (técnicas), `item.STR` (objetos),
+  `unitbase.STR/.dat` (jugadores), `evet.pkb`/`mcht.pkb` (eventos), `team.pkb`
+- ✅ Confirmados términos oficiales (Regate, Bloqueo, Vaselina, Testarazo…) con
+  `tools/nds_str_dump.py`
+- 🟡 Mapear la **tabla de codificación** NDS (acentos, ñ, códigos de control h/…)
+- ⬜ Construir glosario maestro en `translation/glossary/` (con alineado JP↔ES)
 
 ## Fase 3 — Traducción
 - ⬜ Juego 1
