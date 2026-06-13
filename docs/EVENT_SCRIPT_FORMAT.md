@@ -1,8 +1,9 @@
 # Formato de los scripts de evento (eve.pkb / evet.pkb) — notas de RE
 
-Estado: **parcialmente resuelto**. El contenedor (PackNum) está resuelto; el
-formato de mensaje in-band está caracterizado pero **falta la tabla exacta de
-códigos de control** para extracción/reinserción 100% limpia (issue #3).
+Estado: **RESUELTO** (extracción limpia). El contenedor es PackNum y **cada entrada
+está comprimida con LZ10 de Nintendo**. Tras descomprimir, el texto son cadenas
+Shift-JIS separadas por NUL. (Lo que parecían "códigos de control" eran flags y
+back-references de LZ10.) Reinserción: pendiente recomprimir + fixup de offsets.
 
 ## Contenedor PackNum (RESUELTO — `tools/pkb_unpack.py`)
 
@@ -12,28 +13,31 @@ códigos de control** para extracción/reinserción 100% limpia (issue #3).
 - Juego 1: 3DS `eve.pkb` = **1293 eventos**; NDS `evet.pkb` = **1737**;
   **1289 `event_id` comunes** → alineables (etapa 4).
 
-## Mensaje in-band (caracterizado, tabla PENDIENTE)
+## Compresión LZ10 (RESUELTO)
 
-Dentro de cada evento el texto va mezclado con el script. Codificación:
-**Shift-JIS** (3DS) / Latin propia (NDS). Elementos identificados:
+Cada entrada del `.pkb` empieza por `10 XX XX 00` = **LZ10 de Nintendo**
+(`0x10` + tamaño descomprimido de 24 bits LE). `tools/pkb_unpack.py:lz10_decompress`.
+Hallado vía comunidad ([Kuriimu #249](https://github.com/IcySon55/Kuriimu/issues/249),
+GBAtemp). Tras descomprimir → cadenas Shift-JIS separadas por NUL.
 
-- **Sustitución printf**: `%s` (nombre, 724×), `%d` (número, 225×).
-- **Furigana/ruby**: `%1F` (669×), `%2F` (678×), `%3F` (399×), `%4F` — delimitan
-  kanji/lectura. (Semántica exacta por confirmar.)
-- **Otros escapes**: `%kw`, `%g/%G`, `%O/%o`, `%c`, `%0..%9`…
-- **Códigos de control de 1 byte** recurrentes cerca del texto: `0x1C`, `0x1F`,
-  y separadores `0x00`/`0x09`/`0x0A`. Tras `！`(0x8149) abundan `40 1F`, `\n`.
-- El resto de bytes `<0x20` (0x0F, 0x01, 0x03, 0x10…) son **opcodes del script**.
+## Texto descomprimido
 
-**Lo que falta:** determinar, para cada código de control, su **longitud y
-semántica** (cuántos bytes de parámetro consume) y los **marcadores de inicio/fin
-de mensaje**. Sin eso, la extracción tiene ruido en los bordes y la **reinserción
-exacta no es fiable**. Es el objetivo del issue #3.
+- **Sustitución**: `%s` (nombre), `%d` (número).
+- **Furigana/ruby**: `%1F`/`%2F`/`%3F` marcan kanji; la **lectura** va como cadena
+  aparte (solo hiragana) → se filtra con `is_furigana()`.
+- `\n` literal (backslash+n) = salto de línea.
+- Encoding: **Shift-JIS** (3DS) / Latin propia (NDS, ver `build_glossary.NDS_DEC`).
 
-## Extracción best-effort disponible
+## Estado de extracción y alineado
 
-- `tools/pkb_unpack.py --text` → vuelca líneas (tokeniza `%XX` como `{..}`, filtra
-  por hiragana). Cobertura: diálogo en **962/1293** eventos (~3939 líneas JP).
-- `tools/align_events.py` → agrupa por `event_id` el JP (3DS) y el ES oficial (NDS)
-  lado a lado (1035 eventos con texto). Material de trabajo, **no** listo para
-  reinsertar. Salida en `work/` (no se sube: contiene texto extraído).
+- `tools/pkb_unpack.py --text` → diálogo LIMPIO (descomprime + NUL-split + filtro).
+  JP ~57k cadenas; ES ~22k.
+- `tools/align_events.py` → empareja por `event_id` (1289 comunes), quita furigana,
+  dedup. **133 eventos con nº de líneas JP=ES idéntico → emparejado posicional
+  perfecto** (reúso directo del ES oficial). El resto necesita matching más fino.
+
+## Pendiente (reinserción, etapa 7)
+
+Recomprimir/almacenar el texto ES, **fixup de offsets** (cambian los tamaños):
+pkb-entry → tabla `.pkh` → `archive.fa` (B123) → NCSD `.3ds`. Y la fuente (ñ, tildes,
+¿¡) debe existir en el 3DS (Shift-JIS no los tiene → asignar códigos + glifos).

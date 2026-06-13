@@ -23,15 +23,26 @@ import struct
 import sys
 
 sys.path.insert(0, "tools")
-from pkb_unpack import parse_index, dialogue_runs
+from pkb_unpack import parse_index, dialogue_runs, is_furigana
 
 
-def load(pkh_path, pkb_path, enc):
+def _dedup(seq):
+    out = []
+    for x in seq:
+        if not out or out[-1] != x:
+            out.append(x)
+    return out
+
+
+def load(pkh_path, pkb_path, enc, drop_furigana=True):
     pkh = open(pkh_path, "rb").read()
     pkb = open(pkb_path, "rb").read()
     out = {}
     for eid, off, size in parse_index(pkh):
-        out[eid] = dialogue_runs(pkb[off:off + size], enc)
+        lines = dialogue_runs(pkb[off:off + size], enc)
+        if drop_furigana:
+            lines = [l for l in lines if not is_furigana(l)]
+        out[eid] = _dedup(lines)
     return out
 
 

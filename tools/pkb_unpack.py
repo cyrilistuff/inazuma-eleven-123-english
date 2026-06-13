@@ -44,54 +44,87 @@ def parse_index(pkh):
     return out
 
 
-import re as _re
+def lz10_decompress(data):
+    """Descompresion LZ10 estandar de Nintendo (cabecera 0x10 + tamaño 24-bit LE).
 
-# Codigos de escape de texto (printf + furigana/ruby) que aparecen como "%XX".
-# %s/%d = sustitucion (nombre/numero); %1F/%2F/%3F = marcadores de furigana.
-_PCODE = _re.compile(rb"%[0-9A-Za-z]{1,2}")
-
-
-def dialogue_runs(data, enc="sjis", minhira=3):
-    """[BEST-EFFORT] Extrae lineas de dialogo de un script de evento.
-
-    El texto va in-band con codigos de control de longitud variable (0x1C, 0x1F...)
-    y escapes %XX entremezclados con el Shift-JIS. Esto tokeniza los %XX como {..},
-    ignora separadores suaves (NUL/TAB/LF) y corta en >=2 bytes binarios. Filtra por
-    nº de hiragana para descartar basura del bytecode. NO es 100% limpio en bordes:
-    para extraccion/​reinsercion exacta falta la tabla de codigos (issue #3).
+    Cada entrada del .pkb va comprimida asi (descubierto via Kuriimu/GBAtemp). Tras
+    descomprimir, el contenido son cadenas Shift-JIS separadas por NUL (dialogo +
+    lecturas furigana), con escapes %s/%d y marcadores furigana %1F/%2F/%3F.
     """
-    lines, cur, binrun, i = [], [], 0, 0
+    if not data or data[0] != 0x10:
+        return data  # no comprimido
+    size = data[1] | (data[2] << 8) | (data[3] << 16)
+    out = bytearray()
+    p = 4
+    while len(out) < size and p < len(data):
+        flags = data[p]; p += 1
+        for bit in range(8):
+            if len(out) >= size or p >= len(data):
+                break
+            if flags & (0x80 >> bit):
+                b1, b2 = data[p], data[p + 1]; p += 2
+                length = (b1 >> 4) + 3
+                disp = ((b1 & 0xF) << 8 | b2) + 1
+                for _ in range(length):
+                    out.append(out[-disp])
+            else:
+                out.append(data[p]); p += 1
+    return bytes(out)
 
-    def pair(j):
-        return (j + 1 < len(data)
-                and (0x81 <= data[j] <= 0x9F or 0xE0 <= data[j] <= 0xFC)
-                and 0x40 <= data[j + 1] <= 0xFC and data[j + 1] != 0x7F)
 
-    def flush():
-        s = "".join(cur).strip()
-        if enc == "sjis" and sum(1 for c in s if 0x3040 <= ord(c) <= 0x309F) >= minhira:
-            lines.append(s)
-        elif enc == "nds" and sum(ch.isalpha() for ch in s) >= 6 and s.count(" ") >= 1:
-            lines.append(s)
+def entry_data(pkb, off, size):
+    """Devuelve el contenido descomprimido de una entrada del .pkb."""
+    return lz10_decompress(pkb[off:off + size])
 
-    while i < len(data):
-        b = data[i]
-        if enc == "sjis" and pair(i):
-            cur.append(data[i:i + 2].decode("shift-jis", "replace")); i += 2; binrun = 0; continue
-        if b == 0x25 and i + 1 < len(data):
-            m = _PCODE.match(data[i:i + 4]); tok = m.group().decode() if m else "%"
-            cur.append("{" + tok + "}"); i += len(tok); binrun = 0; continue
-        if 0x20 <= b < 0x7F:
-            cur.append(NDS_DEC.get(b, chr(b)) if enc == "nds" else chr(b)); i += 1; binrun = 0; continue
-        if enc == "nds" and b in NDS_DEC:
-            cur.append(NDS_DEC[b]); i += 1; binrun = 0; continue
-        if b in (0x00, 0x09, 0x0A):
-            i += 1; continue
-        binrun += 1; i += 1
-        if binrun >= 2:
-            flush(); cur = []; binrun = 0
-    flush()
-    return lines
+
+def _decode_string(part, enc):
+    """Decodifica una cadena (entre NUL) ya descomprimida, limpiando controles."""
+    if enc == "sjis":
+        s = part.decode("shift-jis", "replace")
+        # quitar controles sueltos (<0x20) salvo nada; conservar texto, %codes, \n literal
+        s = "".join(c for c in s if ord(c) >= 0x20 or c == "\n")
+        return s.strip()
+    out = []
+    for c in part:
+        if c == 0x0A:
+            out.append(" ")
+        elif 0x20 <= c < 0x7F:
+            out.append(chr(c))
+        elif c in NDS_DEC:
+            out.append(NDS_DEC[c])
+    return " ".join("".join(out).split()).strip()
+
+
+def is_furigana(s):
+    """Una lectura furigana = cadena corta solo de hiragana/katakana."""
+    core = [c for c in s if c not in " 　"]
+    return bool(core) and all(0x3040 <= ord(c) <= 0x30FF for c in core)
+
+
+def dialogue_runs(data, enc="sjis"):
+    """Extrae las lineas de texto de un script de evento (descomprime LZ10 primero).
+
+    Tras descomprimir, el contenido son cadenas separadas por NUL. Se devuelven las
+    que contienen texto real (Shift-JIS con kana/kanji, o ES con letras). Las lecturas
+    furigana (solo hiragana, cortas) se incluyen pero pueden filtrarse con is_furigana.
+    """
+    data = lz10_decompress(data)
+    out = []
+    for part in data.split(b"\x00"):
+        if len(part) < 2:
+            continue
+        s = _decode_string(part, enc)
+        if not s or s.count("�") > len(s) * 0.2:
+            continue
+        if enc == "sjis":
+            # texto real: >=2 kana/kanji de ancho completo (descarta basura binaria)
+            jp = sum(1 for c in s if 0x3040 <= ord(c) <= 0x30FF or 0x4E00 <= ord(c) <= 0x9FFF)
+            if jp >= 2:
+                out.append(s)
+        else:
+            if sum(ch.isalpha() for ch in s) >= 3 and " " in s.strip():
+                out.append(s)
+    return out
 
 
 def main():
