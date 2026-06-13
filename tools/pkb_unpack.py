@@ -44,38 +44,54 @@ def parse_index(pkh):
     return out
 
 
-def dialogue_runs(data, enc="sjis", minlen=3):
-    """Extrae runs de texto best-effort (los codigos de control rompen runs)."""
-    runs, cur, i = [], bytearray(), 0
+import re as _re
+
+# Codigos de escape de texto (printf + furigana/ruby) que aparecen como "%XX".
+# %s/%d = sustitucion (nombre/numero); %1F/%2F/%3F = marcadores de furigana.
+_PCODE = _re.compile(rb"%[0-9A-Za-z]{1,2}")
+
+
+def dialogue_runs(data, enc="sjis", minhira=3):
+    """[BEST-EFFORT] Extrae lineas de dialogo de un script de evento.
+
+    El texto va in-band con codigos de control de longitud variable (0x1C, 0x1F...)
+    y escapes %XX entremezclados con el Shift-JIS. Esto tokeniza los %XX como {..},
+    ignora separadores suaves (NUL/TAB/LF) y corta en >=2 bytes binarios. Filtra por
+    nº de hiragana para descartar basura del bytecode. NO es 100% limpio en bordes:
+    para extraccion/​reinsercion exacta falta la tabla de codigos (issue #3).
+    """
+    lines, cur, binrun, i = [], [], 0, 0
+
+    def pair(j):
+        return (j + 1 < len(data)
+                and (0x81 <= data[j] <= 0x9F or 0xE0 <= data[j] <= 0xFC)
+                and 0x40 <= data[j + 1] <= 0xFC and data[j + 1] != 0x7F)
+
+    def flush():
+        s = "".join(cur).strip()
+        if enc == "sjis" and sum(1 for c in s if 0x3040 <= ord(c) <= 0x309F) >= minhira:
+            lines.append(s)
+        elif enc == "nds" and sum(ch.isalpha() for ch in s) >= 6 and s.count(" ") >= 1:
+            lines.append(s)
+
     while i < len(data):
         b = data[i]
-        if enc == "sjis" and (0x81 <= b <= 0x9F or 0xE0 <= b <= 0xFC) and i + 1 < len(data):
-            cur += data[i:i + 2]; i += 2; continue
+        if enc == "sjis" and pair(i):
+            cur.append(data[i:i + 2].decode("shift-jis", "replace")); i += 2; binrun = 0; continue
+        if b == 0x25 and i + 1 < len(data):
+            m = _PCODE.match(data[i:i + 4]); tok = m.group().decode() if m else "%"
+            cur.append("{" + tok + "}"); i += len(tok); binrun = 0; continue
         if 0x20 <= b < 0x7F:
-            cur.append(b); i += 1; continue
-        if len(cur) >= minlen:
-            runs.append(_decode(bytes(cur), enc))
-        cur = bytearray(); i += 1
-    if len(cur) >= minlen:
-        runs.append(_decode(bytes(cur), enc))
-    return [r for r in runs if r]
-
-
-def _decode(b, enc):
-    if enc == "sjis":
-        try:
-            s = b.decode("shift-jis")
-        except Exception:
-            return ""
-        return s if any(0x3040 <= ord(c) <= 0x9FFF for c in s) else ""
-    out = []
-    for c in b:
-        if 0x20 <= c < 0x7F:
-            out.append(chr(c))
-        elif c in NDS_DEC:
-            out.append(NDS_DEC[c])
-    s = "".join(out)
-    return s if sum(ch.isalpha() for ch in s) >= 3 else ""
+            cur.append(NDS_DEC.get(b, chr(b)) if enc == "nds" else chr(b)); i += 1; binrun = 0; continue
+        if enc == "nds" and b in NDS_DEC:
+            cur.append(NDS_DEC[b]); i += 1; binrun = 0; continue
+        if b in (0x00, 0x09, 0x0A):
+            i += 1; continue
+        binrun += 1; i += 1
+        if binrun >= 2:
+            flush(); cur = []; binrun = 0
+    flush()
+    return lines
 
 
 def main():

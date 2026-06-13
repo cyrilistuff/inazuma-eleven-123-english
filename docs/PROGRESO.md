@@ -53,10 +53,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
   (estructura/recuento distintos) → pendiente parsear su índice real
 
 ## Fase 3 — Traducción
-- ⬜ Juego 1
-- ⬜ Juego 2
-- ⬜ Juego 3
-- ⬜ Interfaz / menús / sistema
+- ✅ Contenedor de scripts **PackNum resuelto** (`tools/pkb_unpack.py`): 1293 eventos
+- ✅ **Alineado por `event_id`** JP(3DS)↔ES(NDS): 1289 ids comunes, 1035 eventos
+  con texto (`tools/align_events.py`); ES oficial legible ("se te ha unido", nombres)
+- 🟡 Extracción de diálogo **best-effort** (962/1293 eventos): hay ruido en bordes;
+  falta la **tabla de códigos de control** para extracción/reinserción limpia (#3)
+- ⬜ Traducir capítulos (gated por extracción limpia) · ⬜ Juego 2 · ⬜ Juego 3
 
 ## Fase 4 — Fuente y gráficos
 - ⬜ Ampliar fuente (ñ, ¿ ¡, tildes) y tabla de anchos
