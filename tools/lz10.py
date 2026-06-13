@@ -38,13 +38,18 @@ def compress(data):
     pos = defaultdict(list)
     mv = memoryview(data)
 
+    MAX_CAND = 64        # candidatos por posicion (acota el coste; ratio casi igual)
+
     def best(i):
         if i + 3 > n:
             return 0, 0
         bl, bd = 0, 0
         maxlen = min(18, n - i)
-        key = bytes(mv[i:i + 3])
-        for j in reversed(pos.get(key, ())):
+        cand = pos.get(bytes(mv[i:i + 3]))
+        if not cand:
+            return 0, 0
+        checked = 0
+        for j in reversed(cand):
             disp = i - j
             if disp > 4096:
                 break
@@ -55,11 +60,17 @@ def compress(data):
                 bl, bd = length, disp
                 if length == maxlen:
                     break
+            checked += 1
+            if checked >= MAX_CAND:
+                break
         return bl, bd
 
     def addpos(i):
         if i + 3 <= n:
-            pos[bytes(mv[i:i + 3])].append(i)
+            lst = pos[bytes(mv[i:i + 3])]
+            lst.append(i)
+            if len(lst) > 256:        # no dejar crecer listas de prefijos comunes
+                del lst[:128]
 
     tokens = []
     i = 0

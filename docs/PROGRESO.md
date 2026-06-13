@@ -52,11 +52,21 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - 🟡 Objetos y técnicas/hissatsu: el `item.dat`/`command.STR` no casan 1:1
   (estructura/recuento distintos) → pendiente parsear su índice real
 
-## Juego 2 (en progreso)
-- ✅ Extraído `inazuma2/data_iz/script/eve.pkb` (12 MB) + alineado por `event_id`
-  con el NDS IE2 (Tormenta de Fuego): 3450 ids comunes, **74,0% con ES oficial**
-  (`translation/game2/dialogo.csv`, 89970 líneas)
-- 🟡 Reinsertar el juego 2 en la build (mismo pipeline, multi-juego)
+## Juego 2
+- ✅ Extraído + alineado con NDS IE2 (74% con ES oficial, `translation/game2/dialogo.csv`)
+- ✅ **Reinsertado en la build** (multi-juego): 2610 eventos / 24843 líneas ES
+
+## UI / menús (etapa añadida)
+- ✅ **Re-insertor de UI** (`tools/ui_insert.py`): inserta en la ROM (mismo tamaño,
+  acentos vía griego→SJIS): **menús** (`games.STR`, 133/134), **jugadores**
+  (`unitbase.dat`, 1170 → Mark Evans…), **equipos** (`teamtitle.dat`, 20). Juego 1.
+  Verificado en el archive. Objetos/técnicas pendientes (#1/#2). Juego 2 UI: pendiente glosario.
+
+## Builds / parches
+- v1 (416K, j1 sin acentos) · v2 (1.1M, j1 acentos) · v3 (1.5M, j1 98%)
+- v4 (4.68M, j1+j2 diálogo) · **v5 (4.70M, j1+j2 diálogo + UI menús/jugadores/equipos)** ← recomendada
+- Compresor LZ10 optimizado (lazy + límite de candidatos) para builds rápidas
+- ⬜ Verificación de arranque en emulador (usuario)
 
 ## Fase 3 — Traducción
 - ✅ Contenedor **PackNum resuelto** (`tools/pkb_unpack.py`): 1293 eventos

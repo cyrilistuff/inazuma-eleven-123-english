@@ -43,3 +43,4 @@ desktop.ini
 .idea/
 *.log
 *.tmp
+.claude/

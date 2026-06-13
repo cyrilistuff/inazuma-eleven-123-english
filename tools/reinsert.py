@@ -57,10 +57,16 @@ def find_file(arc, suffix):
     raise SystemExit("no encontrado: " + suffix)
 
 
-def load_translations():
+# (carpeta_3ds, carpeta_translation) de cada juego incluido en la build
+GAMES = [("inazuma1", "game1"), ("inazuma2", "game2")]
+
+
+def load_translations(game):
     """{event_id: {japones_limpio: es_final}} para lineas con es_final."""
     out = {}
-    path = os.path.join(REPO, "translation", "game1", "dialogo.csv")
+    path = os.path.join(REPO, "translation", game, "dialogo.csv")
+    if not os.path.exists(path):
+        return out
     for row in csv.DictReader(open(path, encoding="utf-8")):
         if row["estado"] == "pendiente" or not row["es_final"]:
             continue
@@ -93,11 +99,11 @@ def reencode_event(dec, trans, esize):
     n = len(changed)
     if len(comp) > esize:
         for idx, _w in sorted(changed, key=lambda x: -x[1]):
-            parts[idx] = orig[idx]                   # revertir a japones
+            parts[idx] = orig[idx]                   # revertir a japones (el peor primero)
             n -= 1
             comp = compress(b"\x00".join(parts))
             if len(comp) <= esize:
-                break
+                break                                # reverter todo -> original siempre cabe
     if len(comp) > esize:
         return None, 0
     return comp + b"\x00" * (esize - len(comp)), n
@@ -109,30 +115,27 @@ def main():
     dst = os.path.join(REPO, "work", "archive_es.fa")
     data = bytearray(open(src, "rb").read())
     arc = FaArchive(src)
-    pkb_off, pkb_size = find_file(arc, "inazuma1/data_iz/script/eve.pkb")
-    pkh_off, pkh_size = find_file(arc, "inazuma1/data_iz/script/eve.pkh")
-    pkb = bytearray(data[pkb_off:pkb_off + pkb_size])
-    ents = parse_index(bytes(data[pkh_off:pkh_off + pkh_size]))
-    trans = load_translations()
-    print(f"eve.pkb {pkb_size}B, {len(ents)} eventos; traducciones en {len(trans)} eventos")
 
-    ev_ok = ev_part = lines = 0
-    for eid, eoff, esize in ents:
-        if eid not in trans:
+    for folder, game in GAMES:
+        trans = load_translations(game)
+        if not trans:
             continue
-        dec = decompress(bytes(pkb[eoff:eoff + esize]))
-        applicable = sum(1 for p in dec.split(b"\x00")
-                         if len(p) >= 3 and p[0] in (1, 2, 4)
-                         and _decode_string(p, "sjis") in trans[eid])
-        comp, n = reencode_event(dec, trans[eid], esize)
-        if not comp or n == 0:
-            continue
-        pkb[eoff:eoff + esize] = comp
-        ev_ok += 1; lines += n
-        if n < applicable:
-            ev_part += 1
-
-    data[pkb_off:pkb_off + pkb_size] = pkb
+        pkb_off, pkb_size = find_file(arc, f"{folder}/data_iz/script/eve.pkb")
+        pkh_off, pkh_size = find_file(arc, f"{folder}/data_iz/script/eve.pkh")
+        pkb = bytearray(data[pkb_off:pkb_off + pkb_size])
+        ents = parse_index(bytes(data[pkh_off:pkh_off + pkh_size]))
+        ev_ok = lines = 0
+        for eid, eoff, esize in ents:
+            if eid not in trans:
+                continue
+            dec = decompress(bytes(pkb[eoff:eoff + esize]))
+            comp, n = reencode_event(dec, trans[eid], esize)
+            if not comp or n == 0:
+                continue
+            pkb[eoff:eoff + esize] = comp
+            ev_ok += 1; lines += n
+        data[pkb_off:pkb_off + pkb_size] = pkb
+        print(f"{game}: {ev_ok} eventos, {lines} lineas ES")
 
     # parchear fuentes (anadir glifos ES) - mismo tamano, in-place
     for fp in FONTS:
@@ -143,19 +146,8 @@ def main():
         data[foff:foff + fsize] = patched
 
     open(dst, "wb").write(data)
-    print(f"eventos parcheados: {ev_ok} (parciales por tamano: {ev_part}); lineas ES: {lines}")
     print(f"fuentes parcheadas: {len(FONTS)}")
     print(f"-> {dst} (mismo tamano = {len(data)})")
-
-    # verificacion
-    arc2 = FaArchive(dst)
-    o2, s2 = find_file(arc2, "inazuma1/data_iz/script/eve.pkb")
-    pkb2 = open(dst, "rb").read()[o2:o2 + s2]
-    eid, eoff, esize = ents[0]
-    d2 = decompress(pkb2[eoff:eoff + esize])
-    sample = [_decode_string(p, "sjis") for p in d2.split(b"\x00") if p[:1] and p[0] in (1, 2, 4)]
-    sample = [s for s in sample if s.strip()][:3]
-    print("verificacion (evento 0):", sample)
 
 
 if __name__ == "__main__":

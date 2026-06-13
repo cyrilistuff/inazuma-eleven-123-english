@@ -13,10 +13,10 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟢 **Build parcial jugable v2** — juego 1 con el diálogo en español **CON acentos**
-(ñ, tildes, ¿¡), ~81 % de los eventos traducibles aplicados. Parche recomendado:
-[`patch/inazuma123-es-v2.xdelta`](patch/) (v1 sin acentos sigue disponible). Ver
-[`docs/PROGRESO.md`](docs/PROGRESO.md).
+🟢 **Build parcial jugable v5** — **juegos 1 y 2** con diálogo en español **con
+acentos** (ñ, tildes, ¿¡) + **menús, nombres de jugadores (Mark Evans…) y equipos**.
+Parche recomendado: [`patch/inazuma123-es-v5.xdelta`](patch/). Ver
+[`docs/PROGRESO.md`](docs/PROGRESO.md). (v1–v4 anteriores siguen disponibles.)
 
 ## La ROM objetivo
 
@@ -36,20 +36,21 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Cómo aplicar el parche (para jugadores)
 
-> ⚠️ **Build de prueba PARCIAL.** Traduce el **juego 1** (los demás siguen en
-> japonés): ~81 % de los eventos con diálogo, **con acentos** (ñ, tildes, ¿¡)
-> gracias a la fuente ampliada. Algunos eventos siguen en japonés (no cabían).
+> ⚠️ **Build de prueba PARCIAL (v5).** Traduce el **juego 1 y el juego 2**
+> (el 3 sigue en japonés): diálogo de eventos (reúso del español oficial del NDS),
+> **menús, nombres de jugadores y equipos**, todo **con acentos** (ñ, tildes, ¿¡).
+> Quedan líneas sin equivalente oficial (en japonés) y objetos/técnicas pendientes.
 > Mejora en cada versión.
 
 **Requisitos:** tu **propia ROM legal**, **descifrada**, de *Inazuma Eleven 1·2·3!!
 Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
 Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
 
-**Aplicar el parche (recomendado: v2 con acentos):**
+**Aplicar el parche (recomendado: v5):**
 ```
-xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v2.xdelta "inazuma123_es.3ds"
+xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v5.xdelta "inazuma123_es.3ds"
 ```
-(la v1 sin acentos sigue en `patch/inazuma123-es.xdelta` por si la v2 diera problemas)
+(las versiones anteriores v1–v4 siguen en `patch/` por si alguna diera problemas)
 (o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
 
 **Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).
