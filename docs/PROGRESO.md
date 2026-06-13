@@ -10,13 +10,16 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 
 ## Fase 1 — Extracción y mapeo
 - ✅ Extraer RomFS/ExeFS de la ROM 3DS (1·2·3) → `work/romfs`, `work/exefs`
-- ✅ Mapa de primer nivel del RomFS 3DS (ver hallazgos abajo)
-- 🟡 **Desempaquetar `archive.fa`** (1,2 GB, magic `B123H`) — contiene casi todo
-- ⬜ Listar árbol del Inazuma Eleven 1 (NDS, ES) → hecho con `nds_unpack.py --tree-only`
-- ⬜ Extraer sistema de archivos completo del IE1 / IE2 (NDS, ES)
-- ⬜ **Mapa de textos** del juego 1 (NDS ES): dónde está cada cadena
-- ⬜ **Mapa de textos** del juego 1 dentro del `archive.fa` (3DS)
-- ⬜ **Emparejado (match)** entre cadenas NDS ES ↔ 3DS JP del juego 1
+- ✅ Mapa de primer nivel del RomFS 3DS
+- ✅ **`archive.fa` decodificado** (magic `B123` = variante ARC0/XFSA) y
+  **extractor propio** `tools/fa_unpack.py` (15.547 archivos, rutas correctas)
+- ✅ Verificado que las herramientas de la comunidad NO soportan `B123` (plan B)
+- ✅ Localizado el texto: `message/jp/GameString.bin` (UTF-8), `import/*.itx`
+  (parámetros), `field_message*.arc` (diálogos, en contenedores ARCV)
+- ✅ Primer vistazo a texto real del juego 1 (cadenas de sistema en UTF-8)
+- 🟡 Parsear **ARCV / message-bin** para volcar diálogos a formato editable
+- ⬜ Extraer sistema de archivos completo del IE1 / IE2 (NDS, ES) con `nds_unpack.py`
+- ⬜ **Mapa de textos** del juego 1 (NDS ES) y del 3DS, y **emparejado (match)**
 
 ### Hallazgos de la extracción 3DS (RomFS)
 - Estructura por juego: `inazuma1/`, `inazuma2/`, `inazuma3/`, `inazuma3_ogre/`
