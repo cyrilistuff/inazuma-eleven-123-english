@@ -13,10 +13,10 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟢 **Build parcial jugable v5** — **juegos 1 y 2** con diálogo en español **con
-acentos** (ñ, tildes, ¿¡) + **menús, nombres de jugadores (Mark Evans…) y equipos**.
-Parche recomendado: [`patch/inazuma123-es-v5.xdelta`](patch/). Ver
-[`docs/PROGRESO.md`](docs/PROGRESO.md). (v1–v4 anteriores siguen disponibles.)
+🟢 **Build parcial jugable v6** — **juegos 1 y 2** con diálogo en español **con
+acentos** (ñ, tildes, ¿¡) + **menús, jugadores y equipos en AMBOS juegos**.
+Parche recomendado: [`patch/inazuma123-es-v6.xdelta`](patch/). Ver
+[`docs/PROGRESO.md`](docs/PROGRESO.md). (v1–v5 anteriores siguen disponibles.)
 
 ## La ROM objetivo
 
@@ -46,11 +46,11 @@ Parche recomendado: [`patch/inazuma123-es-v5.xdelta`](patch/). Ver
 Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
 Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
 
-**Aplicar el parche (recomendado: v5):**
+**Aplicar el parche (recomendado: v6):**
 ```
-xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v5.xdelta "inazuma123_es.3ds"
+xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v6.xdelta "inazuma123_es.3ds"
 ```
-(las versiones anteriores v1–v4 siguen en `patch/` por si alguna diera problemas)
+(las versiones anteriores v1-v5 siguen en `patch/` por si alguna diera problemas)
 (o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
 
 **Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).

@@ -56,17 +56,19 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ✅ Extraído + alineado con NDS IE2 (74% con ES oficial, `translation/game2/dialogo.csv`)
 - ✅ **Reinsertado en la build** (multi-juego): 2610 eventos / 24843 líneas ES
 
-## UI / menús (etapa añadida)
+## UI / menús (AMBOS juegos)
 - ✅ **Re-insertor de UI** (`tools/ui_insert.py`): inserta en la ROM (mismo tamaño,
-  acentos vía griego→SJIS): **menús** (`games.STR`, 133/134), **jugadores**
-  (`unitbase.dat`, 1170 → Mark Evans…), **equipos** (`teamtitle.dat`, 20). Juego 1.
-  Verificado en el archive. Objetos/técnicas pendientes (#1/#2). Juego 2 UI: pendiente glosario.
+  acentos vía griego→SJIS): menús (`games.STR`), jugadores (`unitbase.dat`),
+  equipos (`teamtitle.dat`). `build_glossary` multi-juego.
+  - Juego 1: menús 133, jugadores 1170, equipos 20
+  - Juego 2: menús 209, jugadores 2032, equipos 20  (verificado: Axel Blaze, etc.)
+- ⬜ Objetos/técnicas (#1/#2) · GameString.bin (textos de sistema)
 
 ## Builds / parches
-- v1 (416K, j1 sin acentos) · v2 (1.1M, j1 acentos) · v3 (1.5M, j1 98%)
-- v4 (4.68M, j1+j2 diálogo) · **v5 (4.70M, j1+j2 diálogo + UI menús/jugadores/equipos)** ← recomendada
-- Compresor LZ10 optimizado (lazy + límite de candidatos) para builds rápidas
-- ⬜ Verificación de arranque en emulador (usuario)
+- v1–v5 (ver historial) · **v6 (4.95M)** ← recomendada: j1+j2 diálogo + UI completa
+- Cobertura diálogo: **game1 989 eventos / 11406 líneas**, **game2 2795 / 28124**
+- Compresor LZ10 (lazy + cap 256) — recuperada la cobertura del juego 1
+- ⬜ Verificación de arranque en emulador (usuario) · traducir pendientes (sin ES oficial)
 
 ## Fase 3 — Traducción
 - ✅ Contenedor **PackNum resuelto** (`tools/pkb_unpack.py`): 1293 eventos
