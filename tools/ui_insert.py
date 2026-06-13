@@ -118,8 +118,10 @@ def main():
                 return o, s
         return None
 
+    # menus: el juego 1 tiene el set canonico; se aplica a ambos por match de japones
+    menus_g1 = load_csv("game1", "menus.csv")
     for folder, game in GAMES:
-        menus = load_csv(game, "menus.csv")
+        menus = load_csv(game, "menus.csv") or menus_g1
         jug = load_csv(game, "jugadores.csv")
         teams = load_csv(game, "titulos_equipo.csv")
         res = []

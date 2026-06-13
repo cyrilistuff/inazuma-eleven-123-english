@@ -18,11 +18,21 @@ Salida: CSV en translation/glossary/ (solo nombres/terminos, sin descripciones).
 import csv
 import os
 import struct
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# valores por defecto (juego 1); main() los reasigna segun el juego
 DS = os.path.join(REPO, "work", "fa_extract", "inazuma1", "data_iz", "logic")   # 3DS JP
 ES = os.path.join(REPO, "work", "ie1_es", "data_iz", "logic", "sp")             # NDS ES
 OUT = os.path.join(REPO, "translation", "glossary")
+
+# config por juego: (carpeta 3DS, carpeta NDS ES, salida glosario)
+GAME_CFG = {
+    "game1": ("inazuma1", os.path.join("ie1_es", "data_iz", "logic", "sp"),
+              os.path.join("translation", "glossary")),
+    "game2": ("inazuma2", os.path.join("ie2_es", "data_iz", "logic", "sp"),
+              os.path.join("translation", "game2", "glossary")),
+}
 
 # Codificacion Latin propia del NDS ES (inferida por contexto; ampliable)
 NDS_DEC = {0xB2: "á", 0xBA: "é", 0xBE: "í", 0xC4: "ó", 0xCA: "ú",
@@ -87,25 +97,31 @@ def pair_dat(name, jp_stride, es_stride, fname, header):
 
 
 def main():
-    print("Generando glosario juego 1 (JP 3DS <-> ES NDS oficial)...")
+    global DS, ES, OUT
+    game = sys.argv[1] if len(sys.argv) > 1 else "game1"
+    folder, es_rel, out_rel = GAME_CFG[game]
+    DS = os.path.join(REPO, "work", "fa_extract", folder, "data_iz", "logic")
+    ES = os.path.join(REPO, "work", *es_rel.split(os.sep))
+    OUT = os.path.join(REPO, out_rel)
+    print(f"Generando glosario {game} (JP 3DS <-> ES NDS oficial)...")
     total = 0
     total += pair_dat("unitbase.dat", 96, 96, "jugadores.csv",
                       ["idx", "japones", "espanol_oficial"])
     total += pair_dat("teamtitle.dat", 16, 16, "titulos_equipo.csv",
                       ["idx", "japones", "espanol_oficial"])
-    # NOTA: objetos (item.dat) y tecnicas (command.STR) PENDIENTES: el orden de
-    # registros NO coincide 1:1 entre 3DS y NDS (estructura/recuento distintos).
-    # Requieren parsear el indice real antes de emparejar de forma fiable.
-    # Menus: games.STR por indice
+    # Menus: games.STR por indice (NDS puede tenerlo en sp/ o en logic/)
+    es_games = os.path.join(ES, "games.STR")
+    if not os.path.exists(es_games):
+        es_games = os.path.join(os.path.dirname(ES), "games.STR")
     jp = strings_from_str(os.path.join(DS, "games.STR"), dec_jp)
-    es = strings_from_str(os.path.join(ES, "games.STR"), dec_es)
-    if len(jp) == len(es):
+    es = strings_from_str(es_games, dec_es) if os.path.exists(es_games) else []
+    if es and len(jp) == len(es):
         rows = [[i, jp[i], es[i]] for i in range(len(jp)) if clean(es[i])]
         write_csv("menus.csv", ["idx", "japones", "espanol_oficial"], rows)
         total += len(rows)
     else:
-        print(f"  menus.csv: OMITIDO (recuentos distintos {len(jp)} vs {len(es)})")
-    print(f"TOTAL: {total} parejas exactas")
+        print(f"  menus.csv: OMITIDO (jp={len(jp)} vs es={len(es)})")
+    print(f"TOTAL: {total} parejas")
 
 
 if __name__ == "__main__":
