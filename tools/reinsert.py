@@ -20,11 +20,30 @@ import os
 import struct
 import sys
 
+import re as _re
 sys.path.insert(0, "tools")
 from fa_unpack import FaArchive
 from lz10 import compress, decompress
 from pkb_unpack import parse_index, _decode_string
 from font_patch import patch_font_bytes
+
+_EN = _re.compile(r"[A-Za-z]{4,}")
+
+
+def looks_like_dialogue(s):
+    """True si parece DIALOGO real (no etiqueta/comentario/debug del script).
+
+    Las cadenas estructurales (etiquetas como スカウトキャラ配置, comentarios que
+    empiezan por '(', debug en ingles como 'Mobilephone') NO deben traducirse:
+    el script las referencia y sustituirlas cuelga el juego.
+    """
+    s = (s or "").strip()
+    if not s or s[0] in "(（/#=":
+        return False
+    if _EN.search(s):                      # palabra inglesa larga = debug
+        return False
+    # dialogo real: tiene particulas hiragana (0x3040-0x309F)
+    return sum(1 for c in s if 0x3040 <= ord(c) <= 0x309F) >= 2
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -86,9 +105,13 @@ def reencode_event(dec, trans, esize):
             continue
         # SEGURO: no tocar chunks con furigana (sus lecturas 0x03 descuadran el
         # script si se quitan los marcadores). Se traducen en una fase posterior.
-        if any(m in part for m in (b"%1F", b"%2F", b"%3F", b"%4F")):
+        if not os.environ.get("TRANSLATE_FURIGANA") and \
+           any(m in part for m in (b"%1F", b"%2F", b"%3F", b"%4F")):
             continue
-        es = trans.get(_decode_string(part, "sjis"))
+        clean = _decode_string(part, "sjis")
+        if not looks_like_dialogue(clean):       # excluir etiquetas/comentarios/debug
+            continue
+        es = trans.get(clean)
         if not es:
             continue
         budget = len(part) - 2
