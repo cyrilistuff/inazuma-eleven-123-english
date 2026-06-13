@@ -75,6 +75,31 @@ tamaño). `fa_unpack.py` detecta cuál es por magic/plausibilidad.
 > **Pendiente (siguiente fase):** parsear ARCV y el formato interno de los
 > message-bin para volcar los diálogos a formato editable.
 
+## Emparejado JP (3DS) ↔ ES (NDS) — vía `data_iz/logic/`
+
+**Hallazgo clave:** el 3DS conserva en `inazuma1/data_iz/logic/` **los mismos
+ficheros que el NDS** (`item.STR`, `command.dat`, `games.STR`, `unitbase.dat`…).
+`unitbase.dat` mide **230400 bytes en ambos** → misma estructura de registros,
+solo cambia el idioma. Esto permite **alinear por índice/registro** el japonés del
+3DS con el castellano oficial del NDS.
+
+**Formato `.STR`:** 32 bytes de cabecera (ceros) + pool de cadenas separadas por
+`NUL`. Encodings distintos:
+- **3DS**: Shift-JIS, con **furigana** `[kanji/lectura]` (p.ej. `[水/みず]`).
+- **NDS (ES)**: codificación **Latin propia** con bytes especiales para acentos/ñ
+  y códigos de control. Tabla parcial inferida (ampliar):
+  `0xC2→ñ, 0xDF→¡, 0xBA→é, 0xC4→ó, 0xB2→á`.
+
+**Estado del emparejado (item.STR, juego 1):** las primeras ~10 cadenas alinean
+perfectamente (descripciones de objetos), pero los recuentos difieren
+(3DS=300, NDS=603 ≈ el NDS intercala nombre+descripción). → El alineado por
+posición es solo un punto de partida; el exacto necesita el **índice del `.dat`**
+asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_align.py`.
+
+**Pendiente:** (1) parsear los `.dat` índice para alinear con exactitud;
+(2) completar las dos tablas de codificación (Shift-JIS+furigana del 3DS y Latin
+propia del NDS).
+
 ## Herramientas (resumen, detalle en tools/README.md)
 
 | Tarea | Herramienta |
