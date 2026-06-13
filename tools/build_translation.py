@@ -23,7 +23,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    data = json.load(open(os.path.join(REPO, "work", "dialogue", "game1_aligned.json"),
+    game = sys.argv[1] if len(sys.argv) > 1 else "game1"
+    data = json.load(open(os.path.join(REPO, "work", "dialogue", f"{game}_aligned.json"),
                           encoding="utf-8"))
 
     # 1) mapa global JP->ES (preferir 'exacto' sobre 'nw')
@@ -47,7 +48,7 @@ def main():
             else:
                 rows.append([eid, jp, "", "pendiente"]); cnt["pendiente"] += 1
 
-    out = os.path.join(REPO, "translation", "game1", "dialogo.csv")
+    out = os.path.join(REPO, "translation", game, "dialogo.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)

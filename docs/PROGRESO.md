@@ -52,6 +52,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - 🟡 Objetos y técnicas/hissatsu: el `item.dat`/`command.STR` no casan 1:1
   (estructura/recuento distintos) → pendiente parsear su índice real
 
+## Juego 2 (en progreso)
+- ✅ Extraído `inazuma2/data_iz/script/eve.pkb` (12 MB) + alineado por `event_id`
+  con el NDS IE2 (Tormenta de Fuego): 3450 ids comunes, **74,0% con ES oficial**
+  (`translation/game2/dialogo.csv`, 89970 líneas)
+- 🟡 Reinsertar el juego 2 en la build (mismo pipeline, multi-juego)
+
 ## Fase 3 — Traducción
 - ✅ Contenedor **PackNum resuelto** (`tools/pkb_unpack.py`): 1293 eventos
 - ✅ **Entradas comprimidas con LZ10** → diálogo extraído **LIMPIO** (no eran
