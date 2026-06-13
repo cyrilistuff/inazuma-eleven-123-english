@@ -36,8 +36,25 @@ GBAtemp). Tras descomprimir → cadenas Shift-JIS separadas por NUL.
   dedup. **133 eventos con nº de líneas JP=ES idéntico → emparejado posicional
   perfecto** (reúso directo del ES oficial). El resto necesita matching más fino.
 
-## Pendiente (reinserción, etapa 7)
+## Reinserción (etapa 7) — ciclo de datos VALIDADO
 
-Recomprimir/almacenar el texto ES, **fixup de offsets** (cambian los tamaños):
-pkb-entry → tabla `.pkh` → `archive.fa` (B123) → NCSD `.3ds`. Y la fuente (ñ, tildes,
-¿¡) debe existir en el 3DS (Shift-JIS no los tiene → asignar códigos + glifos).
+`tools/lz10.py` (compresor LZ10 propio, roundtrip OK, salida ≤ original) +
+`tools/reinsert_test.py` (PoC). Estrategia **bulletproof sin fixup de offsets**:
+1. Descomprimir el evento (LZ10).
+2. Sustituir cadenas por el ES **del mismo nº de bytes** (relleno/recorte) → el
+   tamaño descomprimido y todos los offsets internos quedan intactos.
+3. Recomprimir; si ≤ tamaño original de la entrada, **rellenar con `\x00`** hasta
+   ese tamaño exacto (el descompresor ignora el padding).
+4. Sobrescribir en `eve.pkb`/`archive.fa` **in-place** (mismo tamaño) → no hay que
+   tocar `.pkh`, B123 ni el NCSD.
+
+Validado: re-extraer del `archive.fa` parcheado devuelve el texto nuevo.
+Aprovecha que el japonés (Shift-JIS, 2 B/char) suele ocupar MÁS bytes que el
+español ASCII → cabe.
+
+## Pendiente sobre la reinserción
+- Re-encode real del ES preservando códigos del 3DS (`%s`, `\n`, quitar furigana).
+- Meter el `archive.fa` parcheado en un `.3ds` (parche in-place del .3ds, o rebuild
+  con 3dstool) — verificar arranque en emulador (hashes IVFC/NCCH: Citra/Lime3DS
+  suelen ignorarlos). Alternativa: distribuir como mod LayeredFS.
+- Fuente (etapa 6) para ñ/tildes/¿¡.
