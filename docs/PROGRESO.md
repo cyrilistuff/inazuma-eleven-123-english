@@ -5,8 +5,11 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 ## Fase 0 — Infraestructura
 - ✅ Diagnóstico de las ROMs (formato, cifrado, regiones)
 - ✅ Estructura del repositorio + git init
-- ✅ `.gitignore`, `README.md`, `LEGAL.md`
-- 🟡 Conseguir/compilar herramientas (3dstool, ndstool, CfgBinEditor, Nyanko, xdelta3)
+- ✅ `.gitignore`, `README.md`, `LEGAL.md`, `CLAUDE.md` (normas de trabajo)
+- ✅ Repo en GitHub (privado) + push: `luishidalgoa/inazuma-eleven-123-spanish`
+- ✅ Workflow de Issues: #1 objetos, #2 técnicas, #3 diálogo, #4 juego 2, #5 juego 3
+  (Project board pendiente: el token necesita scope `project`)
+- 🟡 Herramientas (3dstool ✅, extractores propios ✅; xdelta3 pendiente p/ release)
 
 ## Fase 1 — Extracción y mapeo
 - ✅ Extraer RomFS/ExeFS de la ROM 3DS (1·2·3) → `work/romfs`, `work/exefs`
@@ -17,7 +20,10 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ✅ Localizado el texto: `message/jp/GameString.bin` (UTF-8), `import/*.itx`
   (parámetros), `field_message*.arc` (diálogos, en contenedores ARCV)
 - ✅ Primer vistazo a texto real del juego 1 (cadenas de sistema en UTF-8)
-- 🟡 Parsear **ARCV / message-bin** para volcar diálogos a formato editable
+- ✅ **Diálogo localizado**: `inazuma1/data_iz/script/eve.pkb` (4,2 MB, historia)
+  + `mch.pkb` (combates), paquete "PackNum". Texto en bytecode Shift-JIS (issue #3)
+- 🟡 Parser del script de evento (bytecode) para volcar diálogo a CSV/JSON + alinear
+  con el español oficial del NDS `evet.pkb` (misma estructura)
 - ⬜ Extraer sistema de archivos completo del IE1 / IE2 (NDS, ES) con `nds_unpack.py`
 - ⬜ **Mapa de textos** del juego 1 (NDS ES) y del 3DS, y **emparejado (match)**
 

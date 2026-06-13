@@ -118,6 +118,26 @@ de equipo, menús).
 **Pendiente:** (1) parsear los índices `.dat` de objetos/técnicas para alinear con
 exactitud; (2) completar la tabla `NDS_DEC` (mayúsculas acentuadas, signos).
 
+## Diálogo narrativo / scripts de evento (issue #3)
+
+**Ubicación (juego 1):** `inazuma1/data_iz/script/`
+- **`eve.pkb`** (4,2 MB) = eventos/historia · **`mch.pkb`** (1,1 MB) = combates/partidos
+- **`eve.pkh`** (índice) — paquete Level-5 **"PackNum"** (cabecera `PackNum YYYYMMDD`).
+- Equivalen al `evet.pkb`/`mcht.pkb` del NDS.
+
+**Formato:** el texto va **EMBEBIDO en scripts de evento COMPILADOS (bytecode)**,
+entrelazado con operandos binarios. NO se extrae limpio separando por NUL (las
+frases salen partidas). Encoding: **Shift-JIS** en el 3DS; codificación Latin
+propia en el NDS ES. Se ven fragmentos reales ("仲間になった！"=¡se unió al equipo!,
+NDS "te ha unido!").
+
+**Estrategia recomendada:** el **NDS `evet.pkb` contiene el español oficial en la
+MISMA estructura** → una vez parseado el formato de script, **alinear** los mensajes
+JP(3DS)↔ES(NDS) y reutilizar la traducción oficial en lugar de traducir desde cero.
+
+**Pendiente (issue #3):** escribir el parser del bytecode/tabla de mensajes para
+volcar el diálogo a CSV/JSON. Diagnóstico: `tools/pkb_scan.py`.
+
 ## Herramientas (resumen, detalle en tools/README.md)
 
 | Tarea | Herramienta |
