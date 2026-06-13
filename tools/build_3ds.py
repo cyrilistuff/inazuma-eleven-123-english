@@ -17,8 +17,10 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROM = os.path.join(REPO, "roms", "Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds")
 FA_ES = os.path.join(REPO, "work", "archive_es.fa")
-OUT = os.path.join(REPO, "work", "build", "inazuma123_es.3ds")
-PATCH = os.path.join(REPO, "patch", "inazuma123-es.xdelta")
+_VER = sys.argv[1] if len(sys.argv) > 1 else ""
+_SUF = f"_{_VER}" if _VER else ""
+OUT = os.path.join(REPO, "work", "build", f"inazuma123_es{_SUF}.3ds")
+PATCH = os.path.join(REPO, "patch", f"inazuma123-es{('-' + _VER) if _VER else ''}.xdelta")
 XDELTA = os.path.join(REPO, "tools", "bin", "xdelta3.exe")
 
 

@@ -66,16 +66,21 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ⬜ Juego 2 · ⬜ Juego 3
 
 ## Fase 4 — Fuente y gráficos
-- ⬜ Ampliar fuente (ñ, ¿ ¡, tildes) y tabla de anchos
+- ✅ **Fuente BCFNT ampliada** (`tools/bcfnt.py`, `tools/font_patch.py`): añadidos
+  ñÑáéíóúüÁÉÍÓÚ¡¿ reusando glifos griegos (swizzle morton + LA4 validados, CWDH
+  copiado). Mapeo byte→glifo: ES→griego→SJIS (0x839F+). Parcheadas FONT12T/12/8.
 - ⬜ Gráficos con texto incrustado
 
 ## Fase 5 — Build y release
 - ✅ Re-encoder real del ES (`tools/reinsert.py`): 477 eventos, 6893 líneas ES
   (sin acentos; saltados 531 por tamaño LZ10)
 - ✅ Reinsertar + reconstruir la ROM (parche in-place de archive.fa, `tools/build_3ds.py`)
-- ✅ **Generar parche** `patch/inazuma123-es.xdelta` (~416 KB, roundtrip verificado)
+- ✅ **Parche v1** `patch/inazuma123-es.xdelta` (~416 KB, sin acentos, 477 eventos)
+- ✅ **LZ10 con lazy matching** → más eventos caben
+- ✅ **Parche v2** `patch/inazuma123-es-v2.xdelta` (~1,14 MB): **con acentos** +
+  fuente ampliada, **821 eventos / 10778 líneas** (81 % de los traducibles), roundtrip OK
 - ⬜ Pruebas en emulador (Lime3DS / Azahar) — **lo verifica el usuario**
-- 🟡 Subir cobertura (mejorar LZ10 para reducir los 531 skips) + acentos (fuente)
+- 🟡 Traducir pendiente (33,8%) + revisar líneas "revisar" + más cobertura
 - ⬜ Primera release pública
 
 ## Notas de las ROMs (referencia)

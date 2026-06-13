@@ -30,43 +30,57 @@ def decompress(data):
 
 
 def compress(data):
-    """LZ10 greedy. Ventana 4096, longitud 3..18."""
+    """LZ10 con lazy matching. Ventana 4096, longitud 3..18."""
+    from collections import defaultdict
     n = len(data)
     out = bytearray(b"\x10")
     out += struct.pack("<I", n)[:3]
-    i = 0
-    # indice simple por prefijo de 3 bytes para acelerar la busqueda
-    from collections import defaultdict
     pos = defaultdict(list)
-    tokens = []
-    while i < n:
-        best_len, best_disp = 0, 0
-        if i + 3 <= n:
-            key = data[i:i + 3]
-            for j in reversed(pos.get(bytes(key), [])):
-                disp = i - j
-                if disp > 4096:
+    mv = memoryview(data)
+
+    def best(i):
+        if i + 3 > n:
+            return 0, 0
+        bl, bd = 0, 0
+        maxlen = min(18, n - i)
+        key = bytes(mv[i:i + 3])
+        for j in reversed(pos.get(key, ())):
+            disp = i - j
+            if disp > 4096:
+                break
+            length = 3
+            while length < maxlen and data[j + length] == data[i + length]:
+                length += 1
+            if length > bl:
+                bl, bd = length, disp
+                if length == maxlen:
                     break
-                length = 3
-                maxlen = min(18, n - i)
-                while length < maxlen and data[j + length] == data[i + length]:
-                    length += 1
-                if length > best_len:
-                    best_len, best_disp = length, disp
-                    if length == maxlen:
-                        break
-        if best_len >= 3:
-            tokens.append((True, best_disp, best_len))
-            for k in range(i, i + best_len):
-                if k + 3 <= n:
-                    pos[bytes(data[k:k + 3])].append(k)
-            i += best_len
+        return bl, bd
+
+    def addpos(i):
+        if i + 3 <= n:
+            pos[bytes(mv[i:i + 3])].append(i)
+
+    tokens = []
+    i = 0
+    while i < n:
+        bl, bd = best(i)
+        if bl >= 3:
+            addpos(i)
+            nl, _ = best(i + 1) if i + 1 < n else (0, 0)
+            if nl > bl:                       # lazy: mejor empezar match en i+1
+                tokens.append((False, data[i], 1))
+                i += 1
+                continue
+            for k in range(i + 1, i + bl):
+                addpos(k)
+            tokens.append((True, bd, bl))
+            i += bl
         else:
             tokens.append((False, data[i], 1))
-            if i + 3 <= n:
-                pos[bytes(data[i:i + 3])].append(i)
+            addpos(i)
             i += 1
-    # emitir en grupos de 8
+
     k = 0
     while k < len(tokens):
         grp = tokens[k:k + 8]

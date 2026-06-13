@@ -13,8 +13,9 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟢 **Primera build parcial jugable** — juego 1 con ~66 % del diálogo en español
-(sin acentos aún). Parche en [`patch/inazuma123-es.xdelta`](patch/). Ver
+🟢 **Build parcial jugable v2** — juego 1 con el diálogo en español **CON acentos**
+(ñ, tildes, ¿¡), ~81 % de los eventos traducibles aplicados. Parche recomendado:
+[`patch/inazuma123-es-v2.xdelta`](patch/) (v1 sin acentos sigue disponible). Ver
 [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## La ROM objetivo
@@ -35,19 +36,20 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Cómo aplicar el parche (para jugadores)
 
-> ⚠️ **Build de prueba TEMPRANA y PARCIAL.** Traduce ~el 66 % del diálogo del
-> **juego 1** (los demás juegos siguen en japonés) y **de momento SIN acentos**
-> (ñ→n, tildes quitadas, ¡¿→!?) hasta terminar la fuente. Sirve para verificar
-> que arranca y se ve español. Va mejorando en cada versión.
+> ⚠️ **Build de prueba PARCIAL.** Traduce el **juego 1** (los demás siguen en
+> japonés): ~81 % de los eventos con diálogo, **con acentos** (ñ, tildes, ¿¡)
+> gracias a la fuente ampliada. Algunos eventos siguen en japonés (no cabían).
+> Mejora en cada versión.
 
 **Requisitos:** tu **propia ROM legal**, **descifrada**, de *Inazuma Eleven 1·2·3!!
 Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
 Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
 
-**Aplicar el parche:**
+**Aplicar el parche (recomendado: v2 con acentos):**
 ```
-xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es.xdelta "inazuma123_es.3ds"
+xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v2.xdelta "inazuma123_es.3ds"
 ```
+(la v1 sin acentos sigue en `patch/inazuma123-es.xdelta` por si la v2 diera problemas)
 (o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
 
 **Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).

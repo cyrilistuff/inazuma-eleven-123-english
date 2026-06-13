@@ -24,18 +24,30 @@ sys.path.insert(0, "tools")
 from fa_unpack import FaArchive
 from lz10 import compress, decompress
 from pkb_unpack import parse_index, _decode_string
+from font_patch import patch_font_bytes
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ACC = str.maketrans({"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ü": "u",
-                     "ñ": "n", "Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U",
-                     "Ü": "U", "Ñ": "N", "¡": "!", "¿": "?", "ª": "a", "º": "o",
-                     "“": '"', "”": '"', "—": "-", "…": "..."})
+# Acentos/signos del espanol -> caracter griego reusado (glifo sustituido en la
+# fuente, ver font_patch.PLAN). Al codificar en Shift-JIS dan 2 bytes (rango 0x839F+)
+# que el juego mapea a U+0391.. -> CMAP -> el glifo ES.
+GREEK = str.maketrans({"á": "Α", "é": "Β", "í": "Γ", "ó": "Δ", "ú": "Ε",
+                       "ü": "Ζ", "ñ": "Η", "Á": "Θ", "É": "Ι", "Í": "Κ",
+                       "Ó": "Λ", "Ú": "Μ", "Ñ": "Ν", "¡": "Ξ", "¿": "Ο",
+                       "ª": "a", "º": "o", "“": '"', "”": '"', "—": "-", "…": "..."})
+
+FONTS = ["font/FONT12T.bcfnt", "font/FONT12.bcfnt", "font/FONT8.bcfnt"]
 
 
-def romanize(s):
-    s = s.translate(ACC)
-    return s.encode("shift-jis", "replace")
+def es_encode(s, budget):
+    """Codifica el ES (acentos->griego->SJIS) sin partir multibyte ni pasar budget."""
+    out = b""
+    for ch in s.translate(GREEK):
+        b = ch.encode("shift-jis", "replace")
+        if len(out) + len(b) > budget:
+            break
+        out += b
+    return out
 
 
 def find_file(arc, suffix):
@@ -68,7 +80,7 @@ def reencode_event(dec, trans):
         if not es:
             continue
         budget = len(part) - 2                      # bytes de texto disponibles
-        body = romanize(es)[:budget]
+        body = es_encode(es, budget)
         body = body + b" " * (budget - len(body))   # rellenar a tamano exacto
         parts[i] = bytes(part[:2]) + body
         n_applied += 1
@@ -105,8 +117,18 @@ def main():
         ev_ok += 1; lines += n
 
     data[pkb_off:pkb_off + pkb_size] = pkb
+
+    # parchear fuentes (anadir glifos ES) - mismo tamano, in-place
+    for fp in FONTS:
+        foff, fsize = find_file(arc, fp)
+        ext = os.path.join(REPO, "work", "fa_extract", *fp.split("/"))
+        patched = patch_font_bytes(ext)
+        assert len(patched) == fsize, f"{fp}: tamano cambio {len(patched)}!={fsize}"
+        data[foff:foff + fsize] = patched
+
     open(dst, "wb").write(data)
     print(f"eventos parcheados: {ev_ok} (skip por tamano: {ev_skip}); lineas ES: {lines}")
+    print(f"fuentes parcheadas: {len(FONTS)}")
     print(f"-> {dst} (mismo tamano = {len(data)})")
 
     # verificacion
