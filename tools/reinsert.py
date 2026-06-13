@@ -84,6 +84,10 @@ def reencode_event(dec, trans, esize):
     for i, part in enumerate(orig):
         if len(part) < 3 or part[0] not in (1, 2, 4):
             continue
+        # SEGURO: no tocar chunks con furigana (sus lecturas 0x03 descuadran el
+        # script si se quitan los marcadores). Se traducen en una fase posterior.
+        if any(m in part for m in (b"%1F", b"%2F", b"%3F", b"%4F")):
+            continue
         es = trans.get(_decode_string(part, "sjis"))
         if not es:
             continue
@@ -116,7 +120,8 @@ def main():
     data = bytearray(open(src, "rb").read())
     arc = FaArchive(src)
 
-    for folder, game in GAMES:
+    games = [g for g in GAMES if g[1] in sys.argv] or GAMES
+    for folder, game in games:
         trans = load_translations(game)
         if not trans:
             continue
