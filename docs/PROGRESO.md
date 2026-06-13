@@ -70,9 +70,12 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ⬜ Gráficos con texto incrustado
 
 ## Fase 5 — Build y release
-- ⬜ Reinsertar y reconstruir la ROM
-- ⬜ Pruebas en emulador (Lime3DS / Azahar)
-- ⬜ Generar parche `.xdelta`
+- ✅ Re-encoder real del ES (`tools/reinsert.py`): 477 eventos, 6893 líneas ES
+  (sin acentos; saltados 531 por tamaño LZ10)
+- ✅ Reinsertar + reconstruir la ROM (parche in-place de archive.fa, `tools/build_3ds.py`)
+- ✅ **Generar parche** `patch/inazuma123-es.xdelta` (~416 KB, roundtrip verificado)
+- ⬜ Pruebas en emulador (Lime3DS / Azahar) — **lo verifica el usuario**
+- 🟡 Subir cobertura (mejorar LZ10 para reducir los 531 skips) + acentos (fuente)
 - ⬜ Primera release pública
 
 ## Notas de las ROMs (referencia)

@@ -13,7 +13,8 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟡 **Fase inicial** — montaje de herramientas y mapeo de textos. Ver
+🟢 **Primera build parcial jugable** — juego 1 con ~66 % del diálogo en español
+(sin acentos aún). Parche en [`patch/inazuma123-es.xdelta`](patch/). Ver
 [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## La ROM objetivo
@@ -34,13 +35,40 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Cómo aplicar el parche (para jugadores)
 
-> _(Pendiente de la primera release.)_
+> ⚠️ **Build de prueba TEMPRANA y PARCIAL.** Traduce ~el 66 % del diálogo del
+> **juego 1** (los demás juegos siguen en japonés) y **de momento SIN acentos**
+> (ñ→n, tildes quitadas, ¡¿→!?) hasta terminar la fuente. Sirve para verificar
+> que arranca y se ve español. Va mejorando en cada versión.
 
-1. Consigue tu propia ROM legal de *Inazuma Eleven 1·2·3!! Endō Mamoru Densetsu* (3DS), descifrada.
-2. Descarga el parche `patch/inazuma123-es.xdelta` de la sección *Releases*.
-3. Aplícalo con [xdelta UI](https://www.romhacking.net/utilities/598/) o
-   `xdelta3 -d -s tu_rom.3ds inazuma123-es.xdelta inazuma123_es.3ds`.
-4. Juega en una consola con tu propia copia o en un emulador (Lime3DS / Azahar).
+**Requisitos:** tu **propia ROM legal**, **descifrada**, de *Inazuma Eleven 1·2·3!!
+Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
+Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
+
+**Aplicar el parche:**
+```
+xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es.xdelta "inazuma123_es.3ds"
+```
+(o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
+
+**Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).
+
+### Si no arranca (hashes IVFC/NCCH)
+El parche sobrescribe datos sin recalcular los hashes internos del cartucho.
+Lime3DS/Azahar **suelen ignorarlos** y arranca igual. Si tu emulador lo rechaza,
+reconstruye la ROM recalculando hashes con [3dstool](https://github.com/dnasdw/3dstool):
+```
+3dstool -xtf 3ds "tu_rom.3ds" -0 part0.cxi --header ncsd.bin
+3dstool -xtf cxi part0.cxi --romfs romfs.bin --exefs exefs.bin --header ncch.bin \
+        --exh exh.bin --logo logo.bin --plain plain.bin
+3dstool -xtf romfs romfs.bin --romfs-dir romfs            # extraer
+#  -> aplica el parche a romfs/archive.fa (o usa el archive.fa parcheado)
+3dstool -ctf romfs romfs_new.bin --romfs-dir romfs        # reconstruir (recalcula IVFC)
+3dstool -ctf cxi part0.cxi --romfs romfs_new.bin --exefs exefs.bin --header ncch.bin \
+        --exh exh.bin --logo logo.bin --plain plain.bin   # recalcula hash NCCH
+3dstool -ctf 3ds salida.3ds -0 part0.cxi --header ncsd.bin
+```
+**Alternativa (LayeredFS):** en Lime3DS/Citra puedes cargar solo el `archive.fa`
+parcheado como mod de RomFS sin tocar la ROM (carpeta `load/mods/<TitleID>/romfs/`).
 
 ## Cómo contribuir
 
