@@ -16,10 +16,19 @@
 
 | Herramienta | Para qué | Fuente |
 |---|---|---|
+| **Pingouin** | **Abrir/extraer/reempaquetar archivos `.fa` (XFSA) de Level-5** — es la clave para `archive.fa` | https://github.com/Tiniifan/Pingouin |
+| **Nyanko** | Editor de **texto** Level-5 | https://github.com/Tiniifan/Nyanko |
 | **CfgBinEditor** | Editar `.cfg.bin` de Level-5 | https://github.com/Tiniifan/CfgBinEditor |
-| **Nyanko** | Editor de texto Level-5 (sobre CfgBinEditor) | https://github.com/Tiniifan/Nyanko |
-| **Inazuma-Eleven-Toolbox** | Editor específico de la saga (WIP) | https://github.com/SwareJonge/Inazuma-Eleven-Toolbox |
-| **Strikers2013-Tools** | Extraer/importar archivos, texto, gráficos, fuentes | https://github.com/obluda3/Strikers2013-Tools |
+| **Level5ResourceEditor** | Editar `RES.bin` (recursos) | https://github.com/Tiniifan/Level5ResourceEditor |
+| **Strikers2013-Tools** | Extraer/importar texto, gráficos, fuentes (referencia) | https://github.com/obluda3/Strikers2013-Tools |
+
+> **Nota:** *Inazuma-Eleven-Toolbox* (SwareJonge) es un **editor de partidas/estadísticas**,
+> NO sirve para extraer `.fa` ni traducir. Las herramientas de traducción son las de Tiniifan
+> (Pingouin, Nyanko, CfgBinEditor), las mismas que usan las traducciones de la comunidad.
+>
+> Las apps de Tiniifan son GUI de .NET Framework (4.6.1+). En `tools/bin/` quedan descargadas
+> (ignoradas por git): `Pingouin/`, `Nyanko/`. El `archive.fa` de este juego usa el magic
+> `B123H` (variante de XFSA): comprobar que Pingouin lo abre.
 
 ## Cadena NDS (referencia ES)
 
