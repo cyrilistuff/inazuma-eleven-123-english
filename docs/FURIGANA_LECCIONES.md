@@ -25,16 +25,39 @@ sin un desensamblador que recalcule offsets). Todo lo que rompa esa mecánica �
 | 7 | Cargar un **save state del emulador** hecho con OTRA build | "Cuelga" siempre | NO es bug nuestro: los save states guardan memoria de una build concreta. **Probar siempre con partida NUEVA.** |
 | 8 | **[Longitud variable]** offset-fixup que actualiza **cualquier u32** que coincida con un inicio de chunk | **Error Fatal al avanzar el 1er diálogo** (build var inicial) | Muchos **operandos numéricos** del bytecode (p.ej. `1000`, coordenadas, IDs) coinciden por casualidad con una posición de inicio de chunk → el fixup los "recoloca" (`1000→972`) y **corrompe el evento**. Esos valores apuntan a **chunks vacíos** (NUL consecutivos) o a **diálogo** (que se consume secuencialmente, nunca por offset). **Solución: solo actualizar offsets cuyo destino sea un chunk TIPADO (`part[0]` 0x01–0x1f: lectura furigana / debug / control) o un BYTE-ID (1 byte ≥0x80).** Ver `_is_ref_target()` en `reinsert_var.py`. Pasó de corromper decenas de u32/evento a ~7 referencias reales/evento. |
 
-## ✅ Lo que SÍ funciona (enfoque actual = `FURIGANA_INPLACE`, build v23)
+## ✅ Enfoque ACTUAL (build var STRIP-historia): texto completo + furigana solo en intro
 
-- Conservar los marcadores `%NF`, repartidos **por página** igual que el original.
-- Cada marcador seguido de **N espacios de ancho completo** (`　` U+3000, 2 bytes).
-- **Solo** traducir chunks donde el nº de páginas `\f` coincide ES/JP (resto → japonés).
-- Quitar cualquier `%NF` huérfano del texto español.
-- Nunca truncar los marcadores: si no caben enteros, dejar la línea en japonés.
+Tras confirmar que **hacer crecer una línea con furigana CUELGA al avanzar** (❌#8,
+límite del runtime de ruby — el evento queda perfecto pero el motor se descuadra con
+el diálogo más largo) y que **quitar furigana CUELGA al crear partida** (❌#1, solo en
+los eventos de apertura), la estrategia que combina ambas restricciones:
 
-**Estado:** arranca, crea partida, **muestra el diálogo en español**. Validador
-(`work/validate_furigana.py`) = 0 anomalías sobre 895 eventos.
+- **HISTORIA** (`eid < 90000000`): **STRIP** — quitar marcadores `%NF`, **crecer el
+  texto a longitud COMPLETA** (sin cortes) y **vaciar las N lecturas siguientes**
+  (espacios, mismo tamaño; conservan su byte de tipo 0x02+ → el motor las ignora).
+  En español el furigana no aporta nada. → **texto ES completo y limpio.**
+- **SISTEMA/INTRO** (`eid >= 90000000`, incl. club 92010100): **FURIGANA_INPLACE a
+  MISMO tamaño** (= v25): marcadores por página + N espacios ancho completo, solo
+  páginas `\f` que casan, sin `%NF` huérfano, sin truncar marcadores. NO crecer (❌#8).
+  Conservar el furigana aquí evita el cuelgue del crear-partida (❌#1).
+
+`reinsert_var.py` `reencode_var(strip=eid<90000000)`. Reparto game1: **706 ev /
+10613 líneas completas** (88%) + 315 ev / 1419 líneas furigana (intro/sistema).
+
+**Estado:** PENDIENTE confirmar en emulador (build var STRIP-historia). Lo anterior
+(`FURIGANA_INPLACE` mismo-tamaño en TODO, v23/v25) arranca, crea partida y muestra
+diálogo en español, pero **trunca** (este es justo el problema que STRIP-historia
+resuelve para el grueso del juego).
+
+### Hechos confirmados del bytecode (offline, evento 92010100)
+- La sección de texto tiene **una sola** referencia a la zona que se mueve (`code+2960`
+  = byte-id `0xbc` antes de la lectura れんしゅう); el offset-fixup ya la recoloca bien.
+- **No hay campos de longitud/offset-de-final** del diálogo en el bytecode (no existe
+  `len`/`end` que actualizar al crecer). Los u32 que caen en `[first_change,tlen)` y
+  coinciden con un inicio de chunk son **constantes de opcode** (273/819/305/529…),
+  NO punteros: reubicarlos corrompe el evento. Por eso `_is_ref_target` solo toca
+  cadenas tipadas/byte-id. ⇒ a nivel de DATOS el evento queda correcto al crecer; el
+  cuelgue de ❌#8 es del **runtime** del motor, no editable desde el evento.
 
 ## ⚠️ Problemas ABIERTOS del enfoque que funciona (v23/v25)
 
