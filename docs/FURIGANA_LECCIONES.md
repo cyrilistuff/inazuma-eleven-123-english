@@ -23,6 +23,7 @@ sin un desensamblador que recalcule offsets). Todo lo que rompa esa mecánica �
 | 5 | Traducir chunks donde el **nº de páginas `\f` ES ≠ JP** | CUELGA (v16/v19/v20) | El reparto de marcadores por página deja de casar 1:1. **Solución: solo traducir si `es.count(\f)==jp.count(\f)`; si no, dejar en japonés.** |
 | 6 | Dejar un **`%NF` huérfano** dentro del texto español (venía de algunas líneas `auto-ia`/`revisar`) | CUELGA en zonas concretas (v18/v21/v23) | El marcador suelto, sin N chars de ancho completo detrás, descuadra. **Solución: `reinsert` quita cualquier `%NF` del ES antes de codificar.** |
 | 7 | Cargar un **save state del emulador** hecho con OTRA build | "Cuelga" siempre | NO es bug nuestro: los save states guardan memoria de una build concreta. **Probar siempre con partida NUEVA.** |
+| 8 | **[Longitud variable]** offset-fixup que actualiza **cualquier u32** que coincida con un inicio de chunk | **Error Fatal al avanzar el 1er diálogo** (build var inicial) | Muchos **operandos numéricos** del bytecode (p.ej. `1000`, coordenadas, IDs) coinciden por casualidad con una posición de inicio de chunk → el fixup los "recoloca" (`1000→972`) y **corrompe el evento**. Esos valores apuntan a **chunks vacíos** (NUL consecutivos) o a **diálogo** (que se consume secuencialmente, nunca por offset). **Solución: solo actualizar offsets cuyo destino sea un chunk TIPADO (`part[0]` 0x01–0x1f: lectura furigana / debug / control) o un BYTE-ID (1 byte ≥0x80).** Ver `_is_ref_target()` en `reinsert_var.py`. Pasó de corromper decenas de u32/evento a ~7 referencias reales/evento. |
 
 ## ✅ Lo que SÍ funciona (enfoque actual = `FURIGANA_INPLACE`, build v23)
 
@@ -41,7 +42,21 @@ sin un desensamblador que recalcule offsets). Todo lo que rompa esa mecánica �
 El presupuesto **mismo-tamaño** + el coste de los rellenos de ancho completo dejan
 poco espacio → frases recortadas ("Vaya, entr" en vez de "Vaya, a entrenar"). 
 **Solución real: longitud variable** (`tools/reinsert_var.py` + `fa_repack.py` +
-`build_3ds_var.py`) → reconstruye el contenedor con eventos más grandes. En marcha.
+`build_3ds_var.py`) → reconstruye el contenedor con eventos más grandes.
+
+**Modelo de referencias del evento SSD (clave para el redimensionado).** La sección
+de texto (`d[s10:]`) es una secuencia de records separados por NUL:
+`<byte-id><NUL><cadena tipada><NUL>...`. Hay tres clases:
+- **Diálogo** (`part[0]`=0x01, estilo): se **consume SECUENCIALMENTE** (el motor lo
+  recorre NUL→NUL). **Nunca se referencia por offset** → se puede agrandar libremente.
+- **Lecturas furigana / strings de debug / control** (`part[0]` 0x02–0x1f, p.ej.
+  `01_3.SAD`, `れんしゅう`) y sus **byte-id** (1 byte ≥0x80 que las precede): **SÍ se
+  referencian por offset** (u32 rel a `s10`) desde el bytecode `d[:s10]`.
+- **Chunks vacíos** (NUL consecutivos): nunca son destino de referencia.
+
+Al agrandar el diálogo, todo lo que va detrás se desplaza; hay que **sumar el delta a
+cada offset del bytecode que apunte a una lectura/debug/byte-id movido** (offset-fixup).
+**Solo a esos** (ver ❌ #8): tocar operandos numéricos coincidentes cuelga el juego.
 
 ### 2. BUG: cuelgue al hablar con NPC en `サークル棟エリア` (y quizá otras zonas)
 - **Síntoma:** en una build con furigana (INPLACE: v21/v23/v25), al hablar con un NPC
