@@ -128,9 +128,11 @@ def _furigana_body_bytes(orig_body, es, budget):
 
 
 def _is_reading(part):
-    """True si el chunk es una LECTURA de furigana: tipo 0x02/0x03 y el cuerpo
-    (tras los 2 bytes de prefijo) es kana puro (hiragana/katakana)."""
-    if len(part) < 4 or part[0] not in (2, 3):
+    """True si el chunk es una LECTURA de furigana. Las lecturas se numeran
+    SECUENCIALMENTE por evento: [indice][estilo][kana...], p.ej \\x02\\x0cひとり,
+    \\x03\\x10れんしゅう, \\x04\\x0cはじ... (indice 0x02..0x1f, estilo 0x08/0x0c/0x10).
+    El cuerpo tras los 2 bytes de prefijo es kana puro."""
+    if len(part) < 4 or not (2 <= part[0] <= 0x1f) or part[1] not in (0x08, 0x0c, 0x10, 0x14, 0x18):
         return False
     try:
         s = part[2:].split(b"\x00")[0].decode("shift-jis")
@@ -189,12 +191,10 @@ def reencode_event(dec, trans, esize):
                 continue                             # no caben los marcadores -> dejar japones
             weight = len(body)
         elif marks and STRIP:
-            # v14: conservar el NUMERO de marcadores (el motor consume 1 lectura por
-            # marcador; si cambia, cuelga) pero ponerlos como PREFIJO, cada uno
-            # seguido de N espacios (sus chars base) -> el ruby (en blanco, ver
-            # _is_reading) cae sobre espacios, nunca fuera de limites. Luego el ES.
-            prefix = b"".join(m + b" " * int(chr(m[1])) for m in marks)
-            body = prefix + es_encode(es, max(0, budget - len(prefix)))
+            # v24: QUITAR los marcadores del todo (espanol limpio, sin rellenos ->
+            # TODO el presupuesto de bytes para el texto, sin cortes) y VACIAR las N
+            # lecturas siguientes (para que no salgan kana sueltos ni se descuadre).
+            body = es_encode(es, budget)
             weight = len(body)
             body = body + b" " * (budget - len(body))
             pending += len(marks)                  # vaciar las N lecturas siguientes
