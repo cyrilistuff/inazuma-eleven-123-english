@@ -27,7 +27,12 @@ GAMES = R.GAMES
 # (eid>=90000000), se STRIPean: sufren el bug #2 (cuelgue al hablar con NPC, especifico
 # del furigana). Son gameplay post-intro, no afectan al crear-partida. Detectados por
 # tener nombre-de-zona tipo0x03 + diálogos con marcadores entre los eventos protegidos.
-STRIP_ZONA = {92010510, 92040800, 92062100}   # サークル棟エリア, objetivo estatua, 正門エリア
+STRIP_ZONA = {92040800, 92062100}   # objetivo estatua, 正門エリア (fuera del rango cap.1)
+# Ademas se STRIPea el bloque de gameplay del cap.1 [92010510, 92011000): zona
+# サークル棟エリア (92010510) y los eventos interactivos siguientes (92010520 "Axel se
+# fue", 92010600 torre, 92010640 entreno, 92010730 casa, 92010820, 92010900...). Son
+# POST-control (el crear-partida es la apertura 92010100..92010509) -> STRIP seguro,
+# arregla el bug #2 (cuelgue al hablar, furigana-especifico) y da texto completo.
 
 
 def referenced_offsets(d, s10):
@@ -229,7 +234,8 @@ def main():
                 # sufren el bug #2 (cuelgue al hablar con NPC, furigana-especifico). Son
                 # gameplay POST-intro (no afectan al crear-partida) -> se STRIPean para
                 # quitarles el furigana (lo arregla) y dar texto completo. Ver LECCIONES #2.
-                strip = eid < 90000000 or eid in STRIP_ZONA
+                strip = (eid < 90000000 or eid in STRIP_ZONA
+                         or 92010510 <= eid < 92011000)   # bloque gameplay cap.1 (zona)
                 new_dec, n = reencode_var(dec, trans[eid], strip=strip)
                 if n:
                     comp = compress(new_dec)
