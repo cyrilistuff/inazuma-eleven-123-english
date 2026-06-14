@@ -28,6 +28,14 @@ GAMES = R.GAMES
 # del furigana). Son gameplay post-intro, no afectan al crear-partida. Detectados por
 # tener nombre-de-zona tipo0x03 + diálogos con marcadores entre los eventos protegidos.
 STRIP_ZONA = {92040800, 92062100}   # objetivo estatua, 正門エリア (fuera del rango cap.1)
+
+
+def is_strip_event(eid):
+    """True si el evento se STRIPea (historia/gameplay): quita furigana, texto completo.
+    False = evento PROTEGIDO (apertura/sistema/menu): furigana a mismo tamano (=v25), NO
+    se le aplica la traduccion oficial (descuadra el crear-partida). Debe coincidir con
+    la decision 'strip' de main()."""
+    return eid < 90000000 or eid in STRIP_ZONA or 92010510 <= eid < 92011000
 # Ademas se STRIPea el bloque de gameplay del cap.1 [92010510, 92011000): zona
 # サークル棟エリア (92010510) y los eventos interactivos siguientes (92010520 "Axel se
 # fue", 92010600 torre, 92010640 entreno, 92010730 casa, 92010820, 92010900...). Son
@@ -234,8 +242,7 @@ def main():
                 # sufren el bug #2 (cuelgue al hablar con NPC, furigana-especifico). Son
                 # gameplay POST-intro (no afectan al crear-partida) -> se STRIPean para
                 # quitarles el furigana (lo arregla) y dar texto completo. Ver LECCIONES #2.
-                strip = (eid < 90000000 or eid in STRIP_ZONA
-                         or 92010510 <= eid < 92011000)   # bloque gameplay cap.1 (zona)
+                strip = is_strip_event(eid)
                 new_dec, n = reencode_var(dec, trans[eid], strip=strip)
                 if n:
                     comp = compress(new_dec)

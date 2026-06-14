@@ -92,12 +92,16 @@ def load_translations(game):
             continue
         out.setdefault(int(row["event_id"]), {})[row["japones"]] = row["es_final"]
     # OFICIAL: el diálogo oficial del DS (tools/ds_official.py -> dialogo_oficial.csv)
-    # tiene PRIORIDAD sobre la IA (es el texto oficial de Nintendo, mismo evento+línea).
-    # Fichero local (work/refs gitignored): contiene texto con copyright, no se sube.
+    # tiene PRIORIDAD sobre la IA (texto oficial de Nintendo, mismo evento+línea).
+    # SOLO en eventos STRIP (historia): meterlo en la apertura PROTEGIDA (furigana)
+    # descuadra el crear-partida (pantalla negra). Fichero local gitignored (copyright).
     ofi = os.path.join(REPO, "translation", game, "dialogo_oficial.csv")
     if os.path.exists(ofi):
+        from reinsert_var import is_strip_event        # lazy: evita import circular
         for row in csv.DictReader(open(ofi, encoding="utf-8")):
-            out.setdefault(int(row["event_id"]), {})[row["japones"]] = row["es_oficial"]
+            eid = int(row["event_id"])
+            if is_strip_event(eid):
+                out.setdefault(eid, {})[row["japones"]] = row["es_oficial"]
     return out
 
 
