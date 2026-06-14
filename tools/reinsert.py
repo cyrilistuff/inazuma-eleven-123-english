@@ -91,6 +91,13 @@ def load_translations(game):
         if row["estado"] == "pendiente" or not row["es_final"]:
             continue
         out.setdefault(int(row["event_id"]), {})[row["japones"]] = row["es_final"]
+    # OFICIAL: el diálogo oficial del DS (tools/ds_official.py -> dialogo_oficial.csv)
+    # tiene PRIORIDAD sobre la IA (es el texto oficial de Nintendo, mismo evento+línea).
+    # Fichero local (work/refs gitignored): contiene texto con copyright, no se sube.
+    ofi = os.path.join(REPO, "translation", game, "dialogo_oficial.csv")
+    if os.path.exists(ofi):
+        for row in csv.DictReader(open(ofi, encoding="utf-8")):
+            out.setdefault(int(row["event_id"]), {})[row["japones"]] = row["es_oficial"]
     return out
 
 

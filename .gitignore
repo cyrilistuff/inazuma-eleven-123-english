@@ -44,3 +44,7 @@ desktop.ini
 *.log
 *.tmp
 .claude/
+.claude/settings.local.json
+
+# Diálogo oficial extraído del DS (copyright Nintendo): regenerar con tools/ds_official.py
+translation/*/dialogo_oficial.csv
