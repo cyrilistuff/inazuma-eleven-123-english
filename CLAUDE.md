@@ -39,8 +39,17 @@ solo "en la cabeza" o en el chat. En concreto:
   y el avance en `docs/PROGRESO.md`.
 - Herramientas en `tools/` (Python/PowerShell, sin GUI: el proyecto se maneja por CLI).
 
+## Norma 4 — NO repetir errores ya detectados
+
+Antes de tocar la **reinserción de diálogo / furigana** (`tools/reinsert.py`), lee
+**[`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)**: lista cada enfoque que
+YA se probó en emulador y FALLÓ (con el motivo). Cada entrada costó una build de
+~15 min + una prueba del usuario. **No reintentar lo que está marcado como ❌.**
+Si descubres un fallo/limitación nuevo, **añádelo a ese documento** en el momento.
+
 ## Estado y documentación
 
+- **⚠️ Lecciones (qué NO funciona): [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)**
 - Avance: [`docs/PROGRESO.md`](docs/PROGRESO.md)
 - Formatos técnicos (B123, ARCV, .STR, .dat, codificación): [`docs/FORMATOS.md`](docs/FORMATOS.md)
 - Herramientas: [`tools/README.md`](tools/README.md)
