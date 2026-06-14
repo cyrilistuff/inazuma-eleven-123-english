@@ -52,16 +52,35 @@ def main():
     else:
         print("partes CXI ya extraidas")
 
-    # 3) poner archive_var.fa en el romfs y reconstruir romfs
+    # secciones opcionales (esta NCCH puede no tener logo): incluir solo las que existen
+    opt = []
+    if os.path.exists(logo) and os.path.getsize(logo) > 0:
+        opt += ["--logo", logo]
+    if os.path.exists(plain) and os.path.getsize(plain) > 0:
+        opt += ["--plain", plain]
+
+    # 3) poner archive_var.fa en el romfs y reconstruir romfs.
+    #    OJO: no perder el archive.fa ORIGINAL (lo necesita reinsert). Backup+restore.
     print("== copiar archive_var.fa al romfs y reconstruir romfs ==")
     import shutil
-    shutil.copyfile(varfa, os.path.join(ROMFS_DIR, "archive.fa"))
-    run(TOOL, "-ctf", "romfs", romfs_bin, "--romfs-dir", ROMFS_DIR)
+    romfs_fa = os.path.join(ROMFS_DIR, "archive.fa")
+    orig_backup = os.path.join(W, "_archive_orig.fa")
+    if not os.path.exists(orig_backup):
+        print("  backup del archive.fa original ->", orig_backup)
+        shutil.copyfile(romfs_fa, orig_backup)
+    shutil.copyfile(varfa, romfs_fa)
+    try:
+        run(TOOL, "-ctf", "romfs", romfs_bin, "--romfs-dir", ROMFS_DIR)
+    finally:
+        shutil.copyfile(orig_backup, romfs_fa)         # restaurar original siempre
+        print("  archive.fa original restaurado en el romfs")
 
     # 4) reconstruir cxi y 3ds
     print("== reconstruir cxi y 3ds ==")
+    # --not-encrypt: conservar el flag NoCrypto (el ROM es descifrado); si no,
+    # 3dstool limpia el bit 0x04 y Azahar lo da por "encriptado / region no valida".
     run(TOOL, "-ctf", "cxi", cxi, "--romfs", romfs_bin, "--exefs", exefs,
-        "--header", ncch, "--exh", exh, "--logo", logo, "--plain", plain)
+        "--header", ncch, "--exh", exh, "--not-encrypt", *opt)
     run(TOOL, "-ctf", "3ds", out, "-0", cxi, "--header", ncsd)
     print(f"\n-> {out}  ({os.path.getsize(out)} bytes)")
 

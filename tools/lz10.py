@@ -7,6 +7,21 @@ Es el formato de cada entrada de los .pkb (scripts de evento) de Inazuma Eleven.
 import struct
 
 
+def compress_store(data):
+    """LZ10 valido con TODO literales (sin matching): O(n), casi instantaneo.
+    Salida ~12% mayor que el dato. Para builds de longitud VARIABLE donde el ratio
+    no importa y la velocidad si. El juego lo descomprime igual (es LZ10 estandar)."""
+    n = len(data)
+    out = bytearray(b"\x10")
+    out += struct.pack("<I", n)[:3]
+    i = 0
+    while i < n:
+        out.append(0x00)                 # flag: los 8 siguientes son literales
+        out += data[i:i + 8]
+        i += 8
+    return bytes(out)
+
+
 def decompress(data):
     if not data or data[0] != 0x10:
         return data
@@ -29,6 +44,12 @@ def decompress(data):
     return bytes(out)
 
 
+# candidatos por posicion (mas = mejor ratio, mas lento). Global ajustable: para
+# builds de longitud variable basta un valor bajo (el evento crece igual, da igual
+# que comprima un poco peor; gana mucha velocidad).
+MAX_CAND = 256
+
+
 def compress(data):
     """LZ10 con lazy matching. Ventana 4096, longitud 3..18."""
     from collections import defaultdict
@@ -38,7 +59,7 @@ def compress(data):
     pos = defaultdict(list)
     mv = memoryview(data)
 
-    MAX_CAND = 256       # candidatos por posicion (mas = mejor ratio, mas lento)
+    MAX_CAND = globals()["MAX_CAND"]   # leer el global (override-able)
 
     def best(i):
         if i + 3 > n:

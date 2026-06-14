@@ -14,7 +14,9 @@ import csv, os, struct, sys
 import re as _re
 sys.path.insert(0, "tools")
 from fa_unpack import FaArchive
-from lz10 import compress, decompress
+# Para longitud variable usamos compresion "store" (todo literales): O(n), instantanea.
+# El tamano no importa (el contenedor se reconstruye); la velocidad si (~4000 eventos).
+from lz10 import compress_store as compress, decompress
 from pkb_unpack import parse_index, _decode_string
 import reinsert as R
 
@@ -37,6 +39,22 @@ def referenced_offsets(d, s10):
         if rel >= 16 and code.count(struct.pack("<I", rel)) > 0:
             refs.add(rel)
     return refs
+
+
+def _furigana_var(orig_body, es):
+    """Cuerpo furigana de longitud VARIABLE (sin relleno): marcadores por pagina
+    (ancho completo) + texto ES completo. Devuelve bytes o None si las paginas no
+    casan. NO asigna relleno (a diferencia de _furigana_body_bytes con budget enorme)."""
+    orig_pages = orig_body.split(b"\\f")
+    es_pages = es.split("\\f")
+    if len(es_pages) != len(orig_pages):
+        return None
+    out = []
+    for i, esp in enumerate(es_pages):
+        mk = [m.group().decode() for m in R._MK.finditer(orig_pages[i])]
+        prefix = "".join(m + "　" * int(m[1]) for m in mk)   # marcador + N espacios ancho completo
+        out.append(R.es_encode(prefix + esp, 1 << 20))           # 1MB tope = sin cortar, sin alloc enorme
+    return b"\\f".join(out)
 
 
 def reencode_var(dec, trans):
@@ -65,10 +83,8 @@ def reencode_var(dec, trans):
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
                     if marks:
-                        # INPLACE sin limite de presupuesto (texto completo)
-                        body = R._furigana_body_bytes(part[2:], es, 1 << 30)
+                        body = _furigana_var(part[2:], es)    # longitud variable, sin relleno
                         if body is not None:
-                            body = body.rstrip(b" ")          # sin relleno (longitud variable)
                             new = bytes(part[:2]) + body
                             n += 1
                     else:
