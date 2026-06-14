@@ -73,7 +73,7 @@ def _is_ref_target(part):
     return False
 
 
-def reencode_var(dec, trans):
+def reencode_var(dec, trans, strip=False):
     """Redimensiona el dialogo a longitud COMPLETA y actualiza las referencias del
     bytecode (offset-fixup) para que sigan apuntando a las cadenas movidas.
 
@@ -82,7 +82,15 @@ def reencode_var(dec, trans):
     un chunk de dialogo, todo lo que va detras se desplaza; hay que sumar ese delta a
     cada offset del codigo que apunte a una posicion movida. SOLO se actualizan los
     offsets que apuntan a un destino VALIDO (_is_ref_target): asi no se tocan los
-    operandos numericos que coinciden con una posicion. Devuelve (nuevo_dec, n_lineas)."""
+    operandos numericos que coinciden con una posicion. Devuelve (nuevo_dec, n_lineas).
+
+    strip=True (eventos de HISTORIA): QUITA el furigana (marcadores %NF) y crece el
+    texto a longitud completa, vaciando las N lecturas siguientes. Asi se ve TODO el
+    texto ES sin cortes y sin el ruby japones (inutil en espanol). El furigana solo se
+    conserva (strip=False) en eventos de sistema/intro (eid>=90000000), donde quitarlo
+    descuadra el crear-partida (ver FURIGANA_LECCIONES ❌#1). En esos se mantiene a
+    MISMO TAMANO (= v25 INPLACE), porque hacer crecer lineas con furigana cuelga el
+    motor de ruby al avanzar (❌#8)."""
     if dec[:4] != b"SSD\x00":
         return dec, 0
     s10 = struct.unpack_from("<I", dec, 0x10)[0]
@@ -93,6 +101,7 @@ def reencode_var(dec, trans):
     n = 0
     parts = text.split(b"\x00")
     rel = 0
+    pending = 0                               # nº de lecturas a vaciar tras un dialogo STRIP
     ref_targets = set()                       # posiciones de destinos de referencia VALIDOS
     # mapa de desplazamiento: old_pos -> delta acumulado en esa posicion del original
     shift = []                                # lista (old_start, delta_acumulado_a_partir_de_ahi)
@@ -101,19 +110,32 @@ def reencode_var(dec, trans):
         if _is_ref_target(part):
             ref_targets.add(rel)
         new = part
-        if len(part) >= 3 and part[0] in (1, 2, 4):
+        if strip and pending > 0 and R._is_reading(part):
+            # vaciar la lectura kana que pertenece a un dialogo que acabamos de traducir
+            # (1 por marcador). Mismo tamano (espacios) -> no desplaza.
+            new = bytes(part[:2]) + b" " * (len(part) - 2)
+            pending -= 1
+        elif len(part) >= 3 and part[0] in (1, 2, 4):
             marks = R._MK.findall(part)
             clean = _decode_string(part, "sjis")
             if R.looks_like_dialogue(clean):
                 es = trans.get(clean)
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
-                    if marks:
-                        body = _furigana_var(part[2:], es)
+                    if marks and not strip:
+                        # SISTEMA/INTRO con furigana: mismo tamano (= v25 INPLACE). Crecer
+                        # estas lineas CUELGA al avanzar (runtime de ruby). NO crecen -> no
+                        # desplazan. Si no caben los marcadores -> None -> linea en japones.
+                        body = R._furigana_body_bytes(part[2:], es, len(part) - 2)
                         if body is not None:
-                            new = bytes(part[:2]) + body; n += 1
+                            new = bytes(part[:2]) + body; n += 1   # len(new)==len(part)
                     else:
+                        # HISTORIA (strip) o linea sin furigana: crece a texto COMPLETO,
+                        # sin marcadores (es ya viene sin %NF). Si tenia marcadores, marcar
+                        # sus lecturas para vaciarlas (mantiene el balance del motor).
                         new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
+                        if marks:
+                            pending += len(marks)
         out += new
         d = len(new) - len(part)
         if d:
@@ -180,7 +202,11 @@ def main():
             comp_orig = bytes(pkb[eoff:eoff + esize])
             if eid in trans:
                 dec = decompress(comp_orig)
-                new_dec, n = reencode_var(dec, trans[eid])
+                # STRIP (quitar furigana, texto completo) en HISTORIA; conservar furigana
+                # (INPLACE mismo-tamano) en sistema/intro (eid>=90000000) para no romper
+                # el crear-partida. Ver FURIGANA_LECCIONES ❌#1.
+                strip = eid < 90000000
+                new_dec, n = reencode_var(dec, trans[eid], strip=strip)
                 if n:
                     comp = compress(new_dec)
                     ev_ok += 1; lines += n
