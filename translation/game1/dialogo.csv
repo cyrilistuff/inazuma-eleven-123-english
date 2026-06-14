@@ -10550,7 +10550,7 @@ papel",auto-ia
 81000010,ﾔおお,¡eh!,auto-ia
 81000010,ﾔゆうめい,famoso,auto-ia
 81000010,ﾔまいご,niño perdido,auto-ia
-81000010,ﾟ\%2F銅像が　ぴかぴかに%1F磨かれているっ！\n%1F誰だか　しらんが\nかんしん　かんしんっ。,"\%2F¡La estatua está reluciente!\n%1FNo sé quién habrá sido,\npero ¡bien hecho!",auto-ia
+81000010,ﾟ\%2F銅像が　ぴかぴかに%1F磨かれているっ！\n%1F誰だか　しらんが\nかんしん　かんしんっ。,"\¡La estatua está reluciente!\nNo sé quién habrá sido,\npero ¡bien hecho!",auto-ia
 81000010,ﾟどうぞう,estatua,auto-ia
 81000010,ﾟみが,pulir,auto-ia
 81000010,ﾟだれ,quién,auto-ia
@@ -14277,7 +14277,7 @@ pásate por la sala del club.",auto-ia
 90000000,ブログ全開示,Mostrar todo el blog,auto-ia
 90000000,� %1F最%1F終%1F決%1F戦へ？,¿Hacia la batalla final?,auto-ia
 90000000,"ﾓ,熱血ポイントをつかって\n回復できます。",con los puntos de coraje\npuedes recuperarte.,auto-ia
-90000000,ﾖ0５０ポイントかかります。\nよろしいですか？,%2FCuesta 050 puntos.\n¿Quieres hacerlo?,auto-ia
+90000000,ﾖ0５０ポイントかかります。\nよろしいですか？,Cuesta 050 puntos.\n¿Quieres hacerlo?,auto-ia
 90000000,�$熱血ポイントが　たりません。,No tienes suficientes puntos de pasión.,auto-ia
 90000000,"�,円堂たちの\nＧＰとＴＰが　全回復した！","¡Los PG y los PT de Mark
 y los demás se han recuperado del todo!",auto-ia
@@ -14611,7 +14611,7 @@ Mark",auto-ia
 Partido rojos contra blancos",auto-ia
 91010000,"�
 (%2F校外に%1F出ちゃいけないよな。","
-(No deberíamos %1Fsalir del recinto.",auto-ia
+(No deberíamos salir del recinto.",auto-ia
 91010000,"�
 こうがい","
 afueras",auto-ia
@@ -24338,7 +24338,7 @@ historia",auto-ia
 92071300,ﾛかんせい,completado,auto-ia
 92071300,ﾛわざ,técnica,auto-ia
 92071300,ﾛしゅうとく,aprendizaje,auto-ia
-92071300,ﾝひ　%2F響木…。,Eh %2FSeymour Hillman….,auto-ia
+92071300,ﾝひ　%2F響木…。,Eh Seymour Hillman….,auto-ia
 92071300,ﾝひびき,Seymour Hillman,auto-ia
 92071300,�とっくん,¿Quieres realizar este \nentrenamiento especial?,auto-dup
 92071300,�いがじま,Igajima,auto-ia
@@ -24757,7 +24757,7 @@ yo también te echaré una mano!",auto-ia
 Uf…",auto-ia
 92080100,ﾑじゃくしゃ,el débil,auto-ia
 92080100,ﾓうっ　うわああーっ…！,¡Uy… aaaah…!,auto-ia
-92080100,ﾕこらっ　%2F円堂！,"¡Eh, %2F円堂！",auto-ia
+92080100,ﾕこらっ　%2F円堂！,"¡Eh, 円堂！",auto-ia
 92080100,ﾕえんどう,Mark Evans,auto-ia
 92080100,ﾚ本校舎２Ｆ　２年教室,"Aula de 2º curso, 2ª planta del edificio principal",auto-ia
 92080100,ﾛミニマップ表示,Mostrar minimapa,auto-ia
@@ -25120,7 +25120,7 @@ completamente sola….",auto-ia
 92080510,ﾌひとり,una persona,auto-ia
 92080510,ﾌなかま,compañero,auto-ia
 92080510,ﾌひとり,una persona,auto-ia
-92080510,ﾖ%2F円堂くん…。,%2FMark….,auto-ia
+92080510,ﾖ%2F円堂くん…。,Mark….,auto-ia
 92080510,ﾖえんどう,Mark Evans,auto-ia
 92080510,ﾘりじちょう,Presidente,auto-ia
 92080510,ﾘひしょ,secretario,auto-ia
@@ -26162,7 +26162,7 @@ a entrenar todos juntos!",auto-ia
 92081500,ﾀにい,hermano mayor,auto-ia
 92081500,ﾔねが,deseo,auto-ia
 92081500,ﾔれんしゅう,entrenamiento,auto-ia
-92081500,ﾖ%2F春奈…！,%2F¡Celia…!,auto-ia
+92081500,ﾖ%2F春奈…！,¡Celia…!,auto-ia
 92081500,ﾖはるな,Celia,auto-ia
 92081500,%3F豪炎寺さん！,¡Señor Blaze!,auto-ia
 92081500,$あっ　ありがとうございます…！,"$¡Ah, muchas gracias…!",auto-ia
@@ -26966,7 +26966,7 @@ libro de técnicas secretas",auto-ia
 92091300,$4ええっ　ＯＢたちが　\nイナズマブレイクを！？,¿Eh? ¿Podéis hacer la Ruptura\nrelámpago?,revisar
 92091300,&pるーららら…\nフッ　\nボウズたちに　つかえる%1F技を\fオレたちが%1F覚えられないとでも\n%1F思ったのかい？,"Lu, la, la, la... ¡Pero bueno! ¿Acaso\nos pensáis que no podemos aprender\ntécnicas que vosotros sí?",revisar
 92091300,(`さあ　%1F受けてみろ！\fこれが　%2F伝説とよばれた\nワシらがはなつ\nイナズマブレイクだっ！！,"Venga, prepárate a recibir nuestro\ndisparo.\f¡La legendaria Ruptura relámpago,\nrealizada por los veteranos\nInazuma!",revisar
-92091300,「%1F個」をきたえる？,¿Entrenar «%1F»?,auto-ia
+92091300,「%1F個」をきたえる？,¿Entrenar «»?,auto-ia
 92091300,"""えんどう",Evans,auto-ia
 92091300,"""かんとく",entrenador,auto-ia
 92091300,"""さいきょう",el más fuerte,auto-ia
@@ -27066,7 +27066,7 @@ libro de técnicas secretas",auto-ia
 92091500,ﾙしゅざい,Reportaje,auto-ia
 92091500,ﾛえんどう,Evans,auto-ia
 92091500,ﾛげんき,energía,auto-ia
-92091500,ﾝ4そうね…　まったく\n%2F世話のやける%1F人だわ。,Vaya… de verdad que eres\n%2Funa persona que da mucho trabajo%1F.,auto-ia
+92091500,ﾝ4そうね…　まったく\n%2F世話のやける%1F人だわ。,Vaya… de verdad que eres\nuna persona que da mucho trabajo.,auto-ia
 92091500,ﾝせわ,cuidado,auto-ia
 92091500,ﾝひと,persona,auto-ia
 92091500,�てっとう,torre de acero,auto-ia
@@ -29417,7 +29417,7 @@ se ha unido al equipo!",auto-ia
 97000013,ﾁおし,empujar,auto-ia
 97000013,ﾅせんせい,profesor,auto-ia
 97000013,ﾝいちのせ,Erik Eagle,auto-ia
-97000013,ﾟ ひさしぶりだな　%2F土門。," Cuánto tiempo sin verte, %2FBobby.",auto-ia
+97000013,ﾟ ひさしぶりだな　%2F土門。," Cuánto tiempo sin verte, Bobby.",auto-ia
 97000013,ﾟどもん,Shearer,auto-ia
 97000013,�いちのせ,Ichinose,auto-ia
 97000013,そうだったのか…。,Así que era eso...,auto-ia

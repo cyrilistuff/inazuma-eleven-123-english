@@ -102,10 +102,13 @@ def _furigana_body_bytes(orig_body, es, budget):
     Los marcadores NUNCA se truncan: si no caben enteros en 'budget', devuelve None
     (-> dejar la linea en japones). Devuelve bytes rellenos a 'budget', o None."""
     orig_pages = orig_body.split(b"\\f")
-    marks_pp = [[m.group().decode() for m in _MK.finditer(p)] for p in orig_pages]
     es_pages = es.split("\\f")
-    while len(es_pages) < len(orig_pages):          # paginas ES vacias para casar el conteo por pagina
-        es_pages.append("")
+    # SOLO traducir si la estructura de paginas coincide: asi los marcadores se
+    # reparten 1:1 por pagina como el original. Si difiere, devolver None (la linea
+    # se queda en japones) -> evita paginas vacias/desajustes que cuelgan el motor.
+    if len(es_pages) != len(orig_pages):
+        return None
+    marks_pp = [[m.group().decode() for m in _MK.finditer(p)] for p in orig_pages]
     npages = len(es_pages)
     prefixes = [es_encode("".join(m + "　" * int(m[1]) for m in (marks_pp[i] if i < len(marks_pp) else [])),
                           1 << 30) for i in range(npages)]   # marcadores enteros, sin recorte
@@ -176,6 +179,9 @@ def reencode_event(dec, trans, esize):
         es = trans.get(clean)
         if not es:
             continue
+        es = _re.sub(r"%[1-9]F", "", es)           # quitar cualquier %NF huerfano del ES
+        # (un marcador suelto en el texto, sin N chars de ancho completo detras,
+        #  descuadra el motor y cuelga; los marcadores correctos los pone el INPLACE)
         budget = len(part) - 2
         if marks and INPLACE:
             body = _furigana_body_bytes(part[2:], es, budget)  # marcadores enteros, por pagina
