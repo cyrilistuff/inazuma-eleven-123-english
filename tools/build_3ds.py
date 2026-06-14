@@ -39,6 +39,14 @@ def main():
     print(f"archive.fa @0x{off:X} en el .3ds; tamano {fa_size}")
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    # limpiar builds .3ds anteriores (2 GB c/u) para no llenar el disco
+    import glob as _glob
+    for old in _glob.glob(os.path.join(os.path.dirname(OUT), "inazuma123_es*.3ds")):
+        if os.path.abspath(old) != os.path.abspath(OUT):
+            try:
+                os.remove(old)
+            except OSError:
+                pass
     print("copiando ROM base...")
     shutil.copyfile(ROM, OUT)
     print("sobrescribiendo archive.fa parcheado in-place...")

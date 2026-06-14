@@ -94,29 +94,34 @@ def load_translations(game):
     return out
 
 
-def _furigana_inplace_str(orig_body, es):
-    """v16: construye el texto ES con los marcadores %NF repartidos POR PAGINA igual
-    que el original (el motor parece consumir 1 lectura por marcador y PAGINA; si se
-    amontonan en una pagina, se descuadra y cuelga). Cada marcador va seguido de N
-    espacios (sus chars base) -> el ruby cae sobre espacios, nunca fuera de limites.
-    Paginas separadas por '\\f' (texto literal backslash-f). Devuelve un str."""
+def _furigana_body_bytes(orig_body, es, budget):
+    """v20+: construye el CUERPO (bytes) del chunk furigana traducido, a prueba de
+    truncado. Reparte los marcadores %NF POR PAGINA igual que el original (el motor
+    consume 1 lectura por marcador y pagina) y cada marcador lleva detras N espacios
+    de ANCHO COMPLETO (U+3000, 2 bytes, como los kanji) para que el ruby no se salga.
+    Los marcadores NUNCA se truncan: si no caben enteros en 'budget', devuelve None
+    (-> dejar la linea en japones). Devuelve bytes rellenos a 'budget', o None."""
     orig_pages = orig_body.split(b"\\f")
     marks_pp = [[m.group().decode() for m in _MK.finditer(p)] for p in orig_pages]
     es_pages = es.split("\\f")
-    # RELLENAR paginas ES vacias hasta igualar el nº de paginas del original, para
-    # que el conteo de marcadores POR PAGINA case EXACTO con el original (el motor
-    # consume las lecturas por pagina; si no casa, se descuadra y cuelga).
-    while len(es_pages) < len(orig_pages):
+    while len(es_pages) < len(orig_pages):          # paginas ES vacias para casar el conteo por pagina
         es_pages.append("")
+    npages = len(es_pages)
+    prefixes = [es_encode("".join(m + "　" * int(m[1]) for m in (marks_pp[i] if i < len(marks_pp) else [])),
+                          1 << 30) for i in range(npages)]   # marcadores enteros, sin recorte
+    sep = 2 * (npages - 1)                            # los "\\f" entre paginas (2 bytes c/u)
+    fixed = sum(len(p) for p in prefixes) + sep
+    if fixed > budget:
+        return None                                  # ni los marcadores caben -> revertir linea
+    rem = budget - fixed
     out = []
-    for i, esp in enumerate(es_pages):
-        mk = marks_pp[i] if i < len(marks_pp) else []
-        # cada marcador seguido de N caracteres de ANCHO COMPLETO (espacio japones
-        # U+3000 = 2 bytes), porque %NF espera N chars de 2 bytes (como los kanji
-        # originales). Con espacios de 1 byte el motor se desalinea y cuelga.
-        prefix = "".join(m + "　" * int(m[1]) for m in mk)   # %2F -> "%2F　　"
-        out.append(prefix + esp)
-    return "\\f".join(out)
+    for i in range(npages):
+        share = rem // (npages - i)                  # reparto del presupuesto de texto restante
+        body = es_encode(es_pages[i], share)
+        rem -= len(body)
+        out.append(prefixes[i] + body)
+    full = b"\\f".join(out)
+    return full + b" " * (budget - len(full))
 
 
 def _is_reading(part):
@@ -173,10 +178,10 @@ def reencode_event(dec, trans, esize):
             continue
         budget = len(part) - 2
         if marks and INPLACE:
-            full = _furigana_inplace_str(part[2:], es)   # marcadores repartidos por pagina
-            body = es_encode(full, budget)
+            body = _furigana_body_bytes(part[2:], es, budget)  # marcadores enteros, por pagina
+            if body is None:
+                continue                             # no caben los marcadores -> dejar japones
             weight = len(body)
-            body = body + b" " * (budget - len(body))
         elif marks and STRIP:
             # v14: conservar el NUMERO de marcadores (el motor consume 1 lectura por
             # marcador; si cambia, cuelga) pero ponerlos como PREFIJO, cada uno
