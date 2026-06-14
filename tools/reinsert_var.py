@@ -119,6 +119,20 @@ def reencode_var(dec, trans, strip=False):
     out = bytearray()
     n = 0
     parts = text.split(b"\x00")
+    # Offsets de chunk REFERENCIADOS por el bytecode (un u32 alineado apunta a su inicio).
+    # Son LECTURAS furigana / estructura: aunque looks_like_dialogue los confunda con
+    # dialogo y esten en el mapeo, NO se traducen -> traducirlos cambia su contenido kana
+    # por espanol y la referencia del motor lee basura ("unmapped Read8" -> crash). El
+    # dialogo principal (tipo 0x01) NUNCA se referencia, asi que ese si se traduce.
+    chunk_starts = set(); _r = 0
+    for _p in parts:
+        chunk_starts.add(_r); _r += len(_p) + 1
+    _code = dec[:s10]
+    referenced = set()
+    for _i in range(0, s10 - 3, 4):
+        _v = struct.unpack_from("<I", _code, _i)[0]
+        if _v in chunk_starts:
+            referenced.add(_v)
     rel = 0
     pending = 0                               # nº de lecturas a vaciar tras un dialogo STRIP
     ref_targets = set()                       # posiciones de destinos de referencia VALIDOS
@@ -143,7 +157,10 @@ def reencode_var(dec, trans, strip=False):
                 # 'pending' sobrante NO debe vaciar las lecturas de ESTA linea (eso
                 # desincronizaba el furigana de lineas sin traducir -> texto vacio/cuelgue).
                 pending = 0
-                es = trans.get(clean)
+                # traducir solo dialogo REAL: tipo 0x01 (nunca referenciado) o un chunk
+                # NO referenciado. Un chunk referenciado de tipo 0x02/0x04 es una LECTURA
+                # furigana -> traducirla rompe la referencia del motor (crash). Dejarla.
+                es = trans.get(clean) if (part[0] == 1 or rel not in referenced) else None
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
                     if not strip:
@@ -204,6 +221,24 @@ def reencode_var(dec, trans, strip=False):
                 np = new_pos(v)
                 if np != v:
                     struct.pack_into("<I", head, i, np)
+
+        # VALIDACION del fixup: si alguna referencia relocada acaba apuntando a un chunk
+        # DISTINTO (la traduccion oficial, mas larga, rompe el fixup en algunos eventos),
+        # REVERTIR el evento a su estado original (japones) en vez de arriesgar un crash
+        # ("unmapped Read8" al leer un puntero corrupto). Mejor japones que cuelgue.
+        new_text = bytes(out)
+        new_starts = {}
+        r = 0
+        for part in new_text.split(b"\x00"):
+            new_starts[r] = part[:1]
+            r += len(part) + 1
+        ohead = dec[:s10]
+        for i in range(0, len(head) - 3, 4):
+            ov = struct.unpack_from("<I", ohead, i)[0]
+            if ov in ref_targets and first_change <= ov < tlen:
+                nv = struct.unpack_from("<I", head, i)[0]
+                if nv not in new_starts or new_starts[nv] != text[ov:ov + 1]:
+                    return dec, 0          # fixup roto -> evento sin tocar (seguro)
 
     new_dec = bytearray(bytes(head) + bytes(out))
     struct.pack_into("<I", new_dec, 0x08, len(new_dec))       # tamano total

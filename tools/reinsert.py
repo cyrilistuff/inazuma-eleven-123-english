@@ -284,8 +284,11 @@ def main():
 
     # ROSTER: nombres europeos oficiales en unitbase.dat (mismo tamano, in-place).
     # El recuadro azul del hablante muestra Mark/Axel... en vez de えんどう/ごうえんじ.
+    # DESACTIVADO por defecto: el parche actual crashea ("unmapped Read8") en algun
+    # personaje -> el unitbase.dat mezcla nombres con punteros de forma sutil. Re-activar
+    # con ROSTER=1 cuando el parche sea seguro (ver issue del roster).
     import ds_roster as DR                                # lazy: evita import circular
-    for game, (dsdir, suf) in DR.GAMES.items():
+    for game, (dsdir, suf) in (DR.GAMES.items() if os.environ.get("ROSTER") else []):
         try:
             doff, dsize = find_file(arc, suf)
         except Exception:
