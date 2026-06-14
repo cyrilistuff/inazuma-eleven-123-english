@@ -160,19 +160,38 @@ Cada entrada del `.pkb`, una vez descomprimida (LZ10), es un evento con magic
 | 0x04 | `0x00030001` | versión (constante) |
 | 0x08 | tamaño total | bytes del evento descomprimido |
 | 0x0C | u16+u16 | low=`0xCC` const, high=contador variable |
-| 0x10 | offset (p.ej. 4028) | inicio de la **sección de texto/datos** |
-| 0x14 | offset (p.ej. 1500) | inicio de la **sección de bytecode** |
-| 0x20/0x24/0x28 | constantes | `0x002c0001`/`0x01083001`/`0x11111111` |
+| 0x10 | offset (p.ej. 4028) | `s10` = inicio de la **sección de texto** (chunks NUL) |
+| 0x14 | offset (p.ej. 1500) | puntero a una instrucción (NO es el inicio del bytecode) |
+| 0x20 | — | **inicio real del stream de instrucciones** |
 
-**La sección de texto NO es una tabla de cadenas separable.** Es bytecode con el
-texto **inline**: cadenas delimitadas por NUL, con **separadores de 1 byte**
-(`0x10`, `0x39`) y NULs vacíos entre chunks, y al inicio unas cadenas-constante de
-debug con cabecera `[tipo, 00, 01, len_total]` (`len_total` incluye los 4 B de
-cabecera; p.ej. `HikinukiCharactor=%d`). El bytecode **referencia algunas cadenas
-por offset relativo** al inicio de la sección (verificado: offset 32 aparece en el
-bytecode). → **Reescribir longitudes de texto exigiría un desensamblador completo
-que recalcule TODOS los offsets internos** (alto riesgo). Por eso la reinserción
-in-place usa **sustitución del MISMO tamaño en bytes** (`tools/reinsert.py`).
+**Bytecode = stream de instrucciones de longitud prefijada — DECODIFICADO (2026-06).**
+Desde `0x20` hasta `s10` hay instrucciones consecutivas con este formato (verificado:
+las longitudes encadenan exactas hasta ~8 B antes de `s10`, un pie especial):
+
+```
+<u16 indice><u16 longitud><u32 opcode><operandos u32...>
+```
+
+- `longitud` (en +2) = tamaño TOTAL de la instrucción en bytes (incluye los 8 de
+  cabecera+opcode). `indice` (en +0) es un contador secuencial 1,2,3,… por evento.
+- **OJO al orden de bytes:** `0x002c0001` LE = `01 00 2c 00` → indice=1, longitud=0x2c.
+- La **sección de texto** (`dec[s10:]`) son chunks delimitados por NUL: diálogo
+  (consumido SECUENCIALMENTE), lecturas furigana, cadenas debug, nombres de archivo.
+
+**Qué operandos son OFFSETS de string (referencias) vs números.** Algunos operandos
+guardan un offset (rel a `s10`) que apunta al inicio de un chunk; otros son números
+(contador, coordenada, ID, delay). **NO se distinguen por el valor** (un número
+redondo como 500/1000 cae por azar en un inicio de chunk). Discriminador que SÍ
+funciona (`tools/reinsert_var.build_string_slots`): clasificar cada `(opcode, slot)`
+por estadística sobre TODO el ROM — un **slot de offset** apunta SIEMPRE a inicio de
+chunk o vale 0; **casi nunca a media cadena** (mid<3%). Un slot numérico cae a media
+cadena 40-80% (valores aleatorios). game1: ~6 slots-string; game2: ~45.
+
+**→ La reinserción de LONGITUD VARIABLE sí es viable** (`tools/reinsert_var.py`):
+agranda el diálogo a texto completo y **reubica SOLO los operandos de slots-string**
+que apuntan a un chunk movido (offset-fixup preciso), dejando intactos contadores/
+índices. Validado offline: 0 operandos no-string alterados, 0 referencias rotas.
+La reinserción in-place de MISMO tamaño (`tools/reinsert.py`) queda como alternativa.
 
 **Furigana (clave del bloqueo de pantalla negra):** un chunk de diálogo (tipo
 `0x01`) lleva N marcadores `%NF` (N = nº de caracteres base que reciben ruby;
