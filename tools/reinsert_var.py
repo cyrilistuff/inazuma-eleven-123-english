@@ -57,14 +57,32 @@ def _furigana_var(orig_body, es):
     return b"\\f".join(out)
 
 
+def _is_ref_target(part):
+    """True si un chunk es un destino VALIDO de referencia del bytecode: una cadena
+    TIPADA (lectura furigana / string de debug / control: part[0] en 0x01..0x1f) o un
+    BYTE-ID (1 byte alto >=0x80 que precede a esas cadenas). NO lo son los chunks
+    vacios (NUL consecutivos) ni el DIALOGO (consumido secuencialmente, nunca por
+    offset). Filtrar asi evita corromper operandos numericos (p.ej. 1000) que por
+    casualidad coinciden con un inicio de chunk -> esa era la causa del cuelgue."""
+    if not part:
+        return False
+    if 0x01 <= part[0] <= 0x1f:
+        return True
+    if len(part) == 1 and part[0] >= 0x80:
+        return True
+    return False
+
+
 def reencode_var(dec, trans):
     """Redimensiona el dialogo a longitud COMPLETA y actualiza las referencias del
     bytecode (offset-fixup) para que sigan apuntando a las cadenas movidas.
 
     El bytecode guarda offsets (rel a la seccion de texto s10) que apuntan a cadenas
-    repartidas por TODA la seccion (incluido el dialogo). Al agrandar un chunk, todo
-    lo que va detras se desplaza; hay que sumar ese delta a cada offset del codigo que
-    apunte a una posicion movida. Devuelve (nuevo_dec, n_lineas)."""
+    repartidas por TODA la seccion (lecturas furigana, archivos .SAD...). Al agrandar
+    un chunk de dialogo, todo lo que va detras se desplaza; hay que sumar ese delta a
+    cada offset del codigo que apunte a una posicion movida. SOLO se actualizan los
+    offsets que apuntan a un destino VALIDO (_is_ref_target): asi no se tocan los
+    operandos numericos que coinciden con una posicion. Devuelve (nuevo_dec, n_lineas)."""
     if dec[:4] != b"SSD\x00":
         return dec, 0
     s10 = struct.unpack_from("<I", dec, 0x10)[0]
@@ -75,12 +93,13 @@ def reencode_var(dec, trans):
     n = 0
     parts = text.split(b"\x00")
     rel = 0
-    old_starts = set()                        # posiciones de inicio de chunk (referencias reales)
+    ref_targets = set()                       # posiciones de destinos de referencia VALIDOS
     # mapa de desplazamiento: old_pos -> delta acumulado en esa posicion del original
     shift = []                                # lista (old_start, delta_acumulado_a_partir_de_ahi)
     cum = 0
     for k, part in enumerate(parts):
-        old_starts.add(rel)
+        if _is_ref_target(part):
+            ref_targets.add(rel)
         new = part
         if len(part) >= 3 and part[0] in (1, 2, 4):
             marks = R._MK.findall(part)
@@ -123,9 +142,10 @@ def reencode_var(dec, trans):
         first_change = shift[0][0]
         for i in range(0, len(head) - 3, 4):
             v = struct.unpack_from("<I", head, i)[0]
-            # SOLO offsets que apuntan a un INICIO de chunk (referencias reales);
-            # los operandos numericos coincidentes apuntan a mitad de cadena -> no tocar.
-            if first_change <= v < tlen and v in old_starts:
+            # SOLO offsets que apuntan a un destino VALIDO (lectura/debug/byte-id);
+            # los operandos numericos coincidentes (p.ej. 1000) apuntan a chunk vacio
+            # o a dialogo -> NO se tocan (eso corrompia el evento y colgaba el juego).
+            if first_change <= v < tlen and v in ref_targets:
                 np = new_pos(v)
                 if np != v:
                     struct.pack_into("<I", head, i, np)
