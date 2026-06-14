@@ -149,6 +149,50 @@ incluso NUL dentro de una palabra). Hay que **catalogar los códigos de control*
 parsear el bytecode para extraer/​reinsertar el diálogo limpio. Diagnóstico:
 `tools/pkb_unpack.py --text` (volcado best-effort, fragmentado).
 
+### Estructura interna del evento "SSD" — DECODIFICADA (2026-06)
+
+Cada entrada del `.pkb`, una vez descomprimida (LZ10), es un evento con magic
+**`SSD\0`** y esta cabecera (analizado con `work/re_ssd*.py`):
+
+| Offset | Valor (ev. ejemplo) | Significado |
+|---|---|---|
+| 0x00 | `"SSD\0"` | magic |
+| 0x04 | `0x00030001` | versión (constante) |
+| 0x08 | tamaño total | bytes del evento descomprimido |
+| 0x0C | u16+u16 | low=`0xCC` const, high=contador variable |
+| 0x10 | offset (p.ej. 4028) | inicio de la **sección de texto/datos** |
+| 0x14 | offset (p.ej. 1500) | inicio de la **sección de bytecode** |
+| 0x20/0x24/0x28 | constantes | `0x002c0001`/`0x01083001`/`0x11111111` |
+
+**La sección de texto NO es una tabla de cadenas separable.** Es bytecode con el
+texto **inline**: cadenas delimitadas por NUL, con **separadores de 1 byte**
+(`0x10`, `0x39`) y NULs vacíos entre chunks, y al inicio unas cadenas-constante de
+debug con cabecera `[tipo, 00, 01, len_total]` (`len_total` incluye los 4 B de
+cabecera; p.ej. `HikinukiCharactor=%d`). El bytecode **referencia algunas cadenas
+por offset relativo** al inicio de la sección (verificado: offset 32 aparece en el
+bytecode). → **Reescribir longitudes de texto exigiría un desensamblador completo
+que recalcule TODOS los offsets internos** (alto riesgo). Por eso la reinserción
+in-place usa **sustitución del MISMO tamaño en bytes** (`tools/reinsert.py`).
+
+**Furigana (clave del bloqueo de pantalla negra):** un chunk de diálogo (tipo
+`0x01`) lleva N marcadores `%NF` (N = nº de caracteres base que reciben ruby;
+`%1F`,`%2F`,…). Tras él vienen **N chunks de lectura** (hiragana, tipo `0x02`/`0x03`,
+con 2º byte de estilo `0x0c`/`0x10`), consumidos secuencialmente: **un marcador ⇒
+una lectura**. Ejemplo: `%1F彼 %2F駅前 %1F呼` → lecturas `かれ`,`えきまえ`,`よ`.
+
+- **Si se traducen y se QUITAN los marcadores** (el español no tiene ruby) pero se
+  dejan los chunks de lectura → el motor no los consume y los interpreta como
+  mensajes sueltos → **se descuadra y cuelga** (causa de la build v12).
+- **Si se quitan marcadores Y lecturas** → cambia el conteo de chunks/offsets →
+  cuelga (v11).
+- **Regla segura:** preservar el **conteo de marcadores** (modo v13,
+  `FURIGANA_KEEP_MARKERS`) para que las N lecturas se sigan consumiendo, traduciendo
+  el resto del texto y manteniendo el tamaño en bytes.
+
+**Proporción con furigana:** ~**70%** del diálogo traducido lleva furigana (game1:
+13867 de 19849; game2: 46141 de 66598). Por eso la build v10 (que salta el furigana)
+solo muestra ~30% en español → el resto sigue en japonés.
+
 ## Herramientas (resumen, detalle en tools/README.md)
 
 | Tarea | Herramienta |

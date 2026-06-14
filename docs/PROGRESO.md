@@ -65,10 +65,27 @@ Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 - ⬜ Objetos/técnicas (#1/#2) · GameString.bin (textos de sistema)
 
 ## Builds / parches
-- v1–v5 (ver historial) · **v6 (4.95M)** ← recomendada: j1+j2 diálogo + UI completa
-- Cobertura diálogo: **game1 989 eventos / 11406 líneas**, **game2 2795 / 28124**
+- v1–v5 (ver historial) · v6 (4.95M): j1+j2 diálogo + UI completa
 - Compresor LZ10 (lazy + cap 256) — recuperada la cobertura del juego 1
-- ⬜ Verificación de arranque en emulador (usuario) · traducir pendientes (sin ES oficial)
+
+### Investigación "pantalla negra / japonés" (v7–v13) — 2026-06
+Tras crear partida la build se quedaba en negro o el diálogo seguía en japonés.
+Aislado por bisección:
+- **Causa del cuelgue (v1–v6):** traducir cadenas **estructurales** del script
+  (etiquetas, comentarios `(`, debug en inglés) corrompía el bytecode →
+  `looks_like_dialogue()` las excluye. **v10 ARRANCA** y se juega.
+- **Furigana:** v10 **salta** los diálogos con furigana (`%NF`) → solo ~30% del
+  texto sale en español (el 70% lleva furigana). Quitar los marcadores (v12) o las
+  lecturas (v11) **descuadra el consumo de lecturas y cuelga**.
+- **v13 (candidata, `FURIGANA_KEEP_MARKERS`):** traduce el furigana pero
+  **reinyecta los mismos marcadores** (conteo invariante) → las lecturas se siguen
+  consumiendo. Invariantes verificadas offline (tamaño, nº de chunks y de
+  marcadores) en muestra de 240 eventos: **OK**. Cobertura ~3× la de v10.
+  **Riesgo restante: cosmético** (ruby kana flotante), no de cuelgue. **Falta que
+  el usuario lo pruebe visualmente.** Ver `docs/FORMATOS.md` §"Estructura SSD".
+- **Recomendación actual:** **v10 = estable** (arranca seguro, ~30% diálogo).
+  **v13 = a probar** (≈90% diálogo si el motor tolera el ruby sobrante).
+- ⬜ Verificación de arranque/visual de v13 en emulador (**usuario**)
 
 ## Fase 3 — Traducción
 - ✅ Contenedor **PackNum resuelto** (`tools/pkb_unpack.py`): 1293 eventos

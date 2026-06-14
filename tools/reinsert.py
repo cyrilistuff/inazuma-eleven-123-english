@@ -28,6 +28,7 @@ from pkb_unpack import parse_index, _decode_string
 from font_patch import patch_font_bytes
 
 _EN = _re.compile(r"[A-Za-z]{4,}")
+_MK = _re.compile(rb"%[1-9]F")          # marcadores furigana en bytes
 
 
 def looks_like_dialogue(s):
@@ -100,14 +101,18 @@ def reencode_event(dec, trans, esize):
     orig = dec.split(b"\x00")
     parts = list(orig)
     changed = []                                    # (idx, peso_es)
+    # Modo v13: en vez de SALTAR los chunks con furigana, se traducen pero se
+    # RE-INYECTAN los mismos marcadores %NF al final (mismo numero). El motor
+    # consume una lectura (chunk 0x02/0x03 siguiente) por cada marcador; si el
+    # numero cambia se descuadra y cuelga (causa de v12). Preservando el conteo
+    # las lecturas se consumen igual y el dialogo sale en espanol.
+    KEEP = os.environ.get("FURIGANA_KEEP_MARKERS")
     for i, part in enumerate(orig):
         if len(part) < 3 or part[0] not in (1, 2, 4):
             continue
-        # SEGURO: no tocar chunks con furigana (sus lecturas 0x03 descuadran el
-        # script si se quitan los marcadores). Se traducen en una fase posterior.
-        if not os.environ.get("TRANSLATE_FURIGANA") and \
-           any(m in part for m in (b"%1F", b"%2F", b"%3F", b"%4F")):
-            continue
+        marks = _MK.findall(part)                  # marcadores en orden, p.ej [b'%1F',b'%2F']
+        if marks and not KEEP and not os.environ.get("TRANSLATE_FURIGANA"):
+            continue                               # comportamiento v10 (seguro): saltar furigana
         clean = _decode_string(part, "sjis")
         if not looks_like_dialogue(clean):       # excluir etiquetas/comentarios/debug
             continue
@@ -115,9 +120,16 @@ def reencode_event(dec, trans, esize):
         if not es:
             continue
         budget = len(part) - 2
-        body = es_encode(es, budget)
-        weight = len(body)
-        body = body + b" " * (budget - len(body))
+        if marks and KEEP:
+            tail = b" " + b"".join(marks)          # re-colgar marcadores (conteo invariante)
+            body = es_encode(es, budget - len(tail))
+            weight = len(body) + len(tail)
+            body = body + tail
+            body = body + b" " * (budget - len(body))
+        else:
+            body = es_encode(es, budget)
+            weight = len(body)
+            body = body + b" " * (budget - len(body))
         parts[i] = bytes(part[:2]) + body
         changed.append((i, weight))
     if not changed:

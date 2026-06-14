@@ -13,10 +13,16 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟢 **Build jugable v10** (arranca y se juega) — **menús, nombres de jugadores y
-equipos** (ambos juegos) + parte del **diálogo del juego 1** (líneas sin furigana),
-con acentos. El diálogo con furigana (la mayoría) está **en proceso** (requiere
-manejo especial para no colgar el juego). Parche: [`patch/inazuma123-es-v10.xdelta`](patch/).
+🟢 **Build jugable v10** (estable, arranca y se juega) — **menús, nombres de
+jugadores y equipos** (ambos juegos) + parte del **diálogo** (líneas sin furigana,
+~30%), con acentos. Parche: [`patch/inazuma123-es-v10.xdelta`](patch/).
+
+🧪 **v13 (experimental, a probar)** — intenta también el diálogo **con furigana**
+preservando los marcadores `%NF` para no colgar el juego (causa raíz documentada en
+[`docs/FORMATOS.md`](docs/FORMATOS.md) §"Estructura SSD"). Estructura verificada
+offline; **pendiente de prueba visual**. Posible efecto cosmético (ruby kana
+flotante) y muchas líneas largas se revierten al japonés por el límite de tamaño.
+Parche: [`patch/inazuma123-es-v13.xdelta`](patch/). Si falla, usa v10.
 Ver [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## La ROM objetivo
