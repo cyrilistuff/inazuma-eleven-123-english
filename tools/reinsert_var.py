@@ -58,57 +58,80 @@ def _furigana_var(orig_body, es):
 
 
 def reencode_var(dec, trans):
-    """Redimensiona el dialogo. CLAVE: algunas cadenas (debug) se referencian por
-    offset desde el codigo. Si agrando un chunk que va ANTES de una referencia, esa
-    referencia se DESPLAZA y se rompe -> cuelga. Por eso:
-      - chunks DESPUES de la ultima referencia -> longitud VARIABLE (texto completo).
-      - chunks en/antes de una referencia -> MISMO TAMANO (no desplazan nada; texto
-        recortado como el modo in-place, pero seguro).
-    Devuelve (nuevo_dec, n_lineas)."""
+    """Redimensiona el dialogo a longitud COMPLETA y actualiza las referencias del
+    bytecode (offset-fixup) para que sigan apuntando a las cadenas movidas.
+
+    El bytecode guarda offsets (rel a la seccion de texto s10) que apuntan a cadenas
+    repartidas por TODA la seccion (incluido el dialogo). Al agrandar un chunk, todo
+    lo que va detras se desplaza; hay que sumar ese delta a cada offset del codigo que
+    apunte a una posicion movida. Devuelve (nuevo_dec, n_lineas)."""
     if dec[:4] != b"SSD\x00":
         return dec, 0
     s10 = struct.unpack_from("<I", dec, 0x10)[0]
-    refs = referenced_offsets(dec, s10)
-    max_ref = max(refs) if refs else 0       # ultima posicion referenciada
-    head = dec[:s10]                          # cabecera + codigo + cadenas debug (intactas)
+    head = bytearray(dec[:s10])               # cabecera + codigo (mutable para el fixup)
     text = dec[s10:]
+    tlen = len(text)
     out = bytearray()
     n = 0
     parts = text.split(b"\x00")
     rel = 0
+    old_starts = set()                        # posiciones de inicio de chunk (referencias reales)
+    # mapa de desplazamiento: old_pos -> delta acumulado en esa posicion del original
+    shift = []                                # lista (old_start, delta_acumulado_a_partir_de_ahi)
+    cum = 0
     for k, part in enumerate(parts):
+        old_starts.add(rel)
         new = part
-        if len(part) >= 3 and part[0] in (1, 2, 4) and rel not in refs:
+        if len(part) >= 3 and part[0] in (1, 2, 4):
             marks = R._MK.findall(part)
             clean = _decode_string(part, "sjis")
             if R.looks_like_dialogue(clean):
                 es = trans.get(clean)
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
-                    if rel > max_ref:
-                        # VARIABLE: texto completo (nada referenciado va detras)
-                        if marks:
-                            body = _furigana_var(part[2:], es)
-                            if body is not None:
-                                new = bytes(part[:2]) + body; n += 1
-                        else:
-                            new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
+                    if marks:
+                        body = _furigana_var(part[2:], es)
+                        if body is not None:
+                            new = bytes(part[:2]) + body; n += 1
                     else:
-                        # MISMO TAMANO: no desplazar las referencias posteriores
-                        budget = len(part) - 2
-                        if marks:
-                            body = R._furigana_body_bytes(part[2:], es, budget)
-                            if body is not None:
-                                new = bytes(part[:2]) + body; n += 1
-                        else:
-                            b = R.es_encode(es, budget)
-                            new = bytes(part[:2]) + b + b" " * (budget - len(b)); n += 1
+                        new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
         out += new
+        d = len(new) - len(part)
+        if d:
+            # a partir del FINAL de este chunk en el original, todo se desplaza +d
+            cum += d
+            shift.append((rel + len(part), cum))
         rel += len(part) + 1
         if k != len(parts) - 1:
             out += b"\x00"
-    new_dec = bytearray(head + bytes(out))
-    struct.pack_into("<I", new_dec, 0x08, len(new_dec))       # actualizar tamano total
+
+    def new_pos(old):
+        """posicion nueva de un offset del texto tras los desplazamientos."""
+        delta = 0
+        for start, c in shift:
+            if old >= start:
+                delta = c
+            else:
+                break
+        return old + delta
+
+    # offset-fixup: recorrer el codigo en u32 alineados; los que apuntan a una posicion
+    # del texto que se movio, recolocarlos. Solo se tocan offsets que cambian (los que
+    # apuntan a cadenas anteriores al primer cambio quedan igual -> operandos numericos
+    # pequenos no se tocan salvo que apunten justo a una posicion desplazada).
+    if shift:
+        first_change = shift[0][0]
+        for i in range(0, len(head) - 3, 4):
+            v = struct.unpack_from("<I", head, i)[0]
+            # SOLO offsets que apuntan a un INICIO de chunk (referencias reales);
+            # los operandos numericos coincidentes apuntan a mitad de cadena -> no tocar.
+            if first_change <= v < tlen and v in old_starts:
+                np = new_pos(v)
+                if np != v:
+                    struct.pack_into("<I", head, i, np)
+
+    new_dec = bytearray(bytes(head) + bytes(out))
+    struct.pack_into("<I", new_dec, 0x08, len(new_dec))       # tamano total
     return bytes(new_dec), n
 
 
