@@ -282,13 +282,13 @@ def main():
         assert len(patched) == fsize, f"{fp}: tamano cambio {len(patched)}!={fsize}"
         data[foff:foff + fsize] = patched
 
-    # ROSTER: nombres europeos oficiales en unitbase.dat (mismo tamano, in-place).
-    # El recuadro azul del hablante muestra Mark/Axel... en vez de えんどう/ごうえんじ.
-    # DESACTIVADO por defecto: el parche actual crashea ("unmapped Read8") en algun
-    # personaje -> el unitbase.dat mezcla nombres con punteros de forma sutil. Re-activar
-    # con ROSTER=1 cuando el parche sea seguro (ver issue del roster).
+    # ROSTER: nombre europeo en el RECUADRO AZUL del hablante (campo +16 de unitbase.dat,
+    # mismo tamano, in-place). Muestra Mark/Nathan/Jack... en vez de えんどう/かぜまる/かべやま.
+    # SEGURO (ds_roster.patch_unitbase): solo toca +16 (token unico). NO toca +0/+32
+    # (llevan separador 0x8140 que el motor parsea por offset; escribir ASCII ahi causaba
+    # el crash "unmapped Read8"). Desactivable con NO_ROSTER=1. Ver issue #16.
     import ds_roster as DR                                # lazy: evita import circular
-    for game, (dsdir, suf) in (DR.GAMES.items() if os.environ.get("ROSTER") else []):
+    for game, (dsdir, suf) in ([] if os.environ.get("NO_ROSTER") else DR.GAMES.items()):
         try:
             doff, dsize = find_file(arc, suf)
         except Exception:

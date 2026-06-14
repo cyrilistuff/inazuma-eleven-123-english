@@ -32,32 +32,42 @@ GAMES = {
 
 def _field(ds_bytes, size):
     """Decodifica un campo de nombre del DS y lo re-codifica para la fuente del 3DS
-    (acentos via es_encode/griego). Rellena/trunca a 'size' bytes."""
+    (acentos via es_encode/griego). SIEMPRE reserva el terminador NUL: codifica con
+    presupuesto size-1 y rellena a 'size'. Asi un nombre largo (>=size) nunca se queda
+    SIN NUL (eso hacia que el motor leyera el campo siguiente como continuacion del
+    nombre; 98 nombres de +0 llenaban 16B exactos). Devuelve None si el campo va vacio."""
     raw = ds_bytes.split(b"\x00")[0]
     if not raw:
         return None
     s = decode_ds(raw)
-    e = R.es_encode(s, size)
+    e = R.es_encode(s, size - 1)                    # -1 = reservar el terminador
     return e + b"\x00" * (size - len(e))
 
 
 def patch_unitbase(orig, ds):
-    """Devuelve un unitbase.dat 3DS (mismo tamano) con los nombres europeos del DS."""
+    """Devuelve un unitbase.dat 3DS (mismo tamano) con el NOMBRE del recuadro azul en
+    europeo. CONSERVADOR: solo se toca el campo +16 (lectura corta = lo que el motor
+    JAPONES pinta en el recuadro azul del hablante). Se DEJAN en japones:
+      - +0  (nombre completo kanji '円堂　守')   -> el motor lo parte por el espacio de
+            ancho completo (0x8140) para separar apellido/nombre; escribir ASCII sin ese
+            separador descuadra el parse.
+      - +32 (lectura completa 'えんどう　まもる') -> idem, lleva separador 0x8140.
+    Escribir esos dos campos era la causa probable del crash 'unmapped Read8' al hablar
+    con ciertos personajes (Kabeyama): el motor leia mas alla del separador inexistente
+    y usaba bytes ASCII como puntero. El +16 es un token UNICO (sin separador) -> seguro.
+    El recuadro azul es justo lo que el usuario pide. Ampliar a +0/+32 solo tras
+    confirmar en emulador que no crashea (ver issue #16)."""
     assert len(orig) == len(ds), f"tamanos distintos {len(orig)} != {len(ds)}"
     out = bytearray(orig)
     nrec = (len(orig) - HEADER) // REC
     changed = 0
     for n in range(nrec):
         rec = HEADER + n * REC
-        full = ds[rec:rec + FIELD]                  # 'Mark Evans'
-        given = ds[rec + 2 * FIELD:rec + 3 * FIELD]  # 'Mark'
-        ef = _field(full, FIELD)
+        given = ds[rec + 2 * FIELD:rec + 3 * FIELD]   # DS +32 = nombre dado ('Mark')
         eg = _field(given, FIELD)
-        if ef and orig[rec:rec + FIELD].strip(b"\x00"):
-            out[rec:rec + FIELD] = ef                       # nombre completo (roster)
-        if eg:
-            out[rec + FIELD:rec + 2 * FIELD] = eg            # recuadro azul (lectura) <- nombre dado
-            out[rec + 2 * FIELD:rec + 3 * FIELD] = eg        # nombre dado
+        # solo si el original +16 era un nombre (lectura) y hay nombre europeo
+        if eg and orig[rec + FIELD:rec + 2 * FIELD].strip(b"\x00"):
+            out[rec + FIELD:rec + 2 * FIELD] = eg     # recuadro azul <- nombre dado europeo
             changed += 1
     return bytes(out), changed
 
