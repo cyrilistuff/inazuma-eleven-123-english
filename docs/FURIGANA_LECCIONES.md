@@ -35,14 +35,33 @@ sin un desensamblador que recalcule offsets). Todo lo que rompa esa mecánica �
 **Estado:** arranca, crea partida, **muestra el diálogo en español**. Validador
 (`work/validate_furigana.py`) = 0 anomalías sobre 895 eventos.
 
-## ⚠️ Problemas ABIERTOS del enfoque que funciona (v23)
+## ⚠️ Problemas ABIERTOS del enfoque que funciona (v23/v25)
 
-1. **Texto cortado** (cosmético): el presupuesto mismo-tamaño + el coste de los
-   rellenos de ancho completo dejan poco espacio → frases recortadas ("Vaya, entr").
-   No hay arreglo sin crecer el evento (desensamblador) o aceptar el recorte.
-2. **Zona `サークル棟エリア` (y quizá otras) aún cuelga** con un NPC concreto, por una
-   causa **distinta** a las de arriba (no es `%NF` huérfano ni mismatch de páginas;
-   el validador no la detecta). PENDIENTE: aislar el evento exacto de esa zona.
+### 1. Texto cortado (truncado)
+El presupuesto **mismo-tamaño** + el coste de los rellenos de ancho completo dejan
+poco espacio → frases recortadas ("Vaya, entr" en vez de "Vaya, a entrenar"). 
+**Solución real: longitud variable** (`tools/reinsert_var.py` + `fa_repack.py` +
+`build_3ds_var.py`) → reconstruye el contenedor con eventos más grandes. En marcha.
+
+### 2. BUG: cuelgue al hablar con NPC en `サークル棟エリア` (y quizá otras zonas)
+- **Síntoma:** en una build con furigana (INPLACE: v21/v23/v25), al hablar con un NPC
+  de esa zona el juego se cuelga (negro, no llega a abrir el cuadro de diálogo).
+- **NO ocurre** en la build sin furigana (v22) → es **específico del furigana**.
+- **Causa: AÚN SIN AISLAR.** NO es `%NF` huérfano ni mismatch de páginas; el
+  validador (`work/validate_furigana.py`) da 0 anomalías. Hipótesis: puede estar
+  ligado al **truncado** (mismo-tamaño corta algo a media) → la build de **longitud
+  variable** (sin truncado) podría arreglarlo; PENDIENTE confirmar.
+- **Cómo aislar:** crear build **sin furigana** (estable) para confirmar; localizar el
+  evento del NPC buscando su japonés en `eve.pkb`; comparar chunk original vs
+  transformado. No re-probar marcadores (ver tabla ❌).
+
+### 3. BUG ya resuelto (NO reintentar la causa): cuelgue al CREAR PARTIDA
+- **Síntoma (v24/STRIP, v12):** al crear partida nueva se congela en el título/carga,
+  no llega a crear la partida.
+- **Causa:** se **quitaron los marcadores `%NF`** del diálogo (modo STRIP) → el evento
+  de apertura (92010200) descuadra el consumo de lecturas y cuelga.
+- **Cómo evitarlo:** **NUNCA quitar los marcadores.** Usar `FURIGANA_INPLACE`
+  (conservarlos, ancho completo, por página). Los marcadores son OBLIGATORIOS.
 
 ## Herramientas de comunidad (qué cubren y qué no)
 
