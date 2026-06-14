@@ -80,9 +80,12 @@ Aislado por bisección:
 - **v13 (candidata, `FURIGANA_KEEP_MARKERS`):** traduce el furigana pero
   **reinyecta los mismos marcadores** (conteo invariante) → las lecturas se siguen
   consumiendo. Invariantes verificadas offline (tamaño, nº de chunks y de
-  marcadores) en muestra de 240 eventos: **OK**. Cobertura ~3× la de v10.
-  **Riesgo restante: cosmético** (ruby kana flotante), no de cuelgue. **Falta que
-  el usuario lo pruebe visualmente.** Ver `docs/FORMATOS.md` §"Estructura SSD".
+  marcadores) en muestra de 240 eventos: **OK**. Cobertura real game1: **4923
+  líneas de furigana aplicadas (44,8% de las disponibles)** + 1741 sin furigana =
+  6664 (vs v10 que aplicaba 0 furigana). El total es parejo a v10 porque al
+  competir por el presupuesto de bytes se revierten más líneas, pero el **diálogo
+  de historia visible** sube mucho. **Riesgo restante: cosmético** (ruby kana
+  flotante), no de cuelgue. **Falta prueba visual.** Ver FORMATOS.md §"SSD".
 - **Recomendación actual:** **v10 = estable** (arranca seguro, ~30% diálogo).
   **v13 = a probar** (≈90% diálogo si el motor tolera el ruby sobrante).
 - ⬜ Verificación de arranque/visual de v13 en emulador (**usuario**)
