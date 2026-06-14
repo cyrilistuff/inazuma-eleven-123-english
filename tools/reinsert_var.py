@@ -58,18 +58,21 @@ def _furigana_var(orig_body, es):
 
 
 def reencode_var(dec, trans):
-    """Redimensiona: traduce dialogo a longitud completa (sin cortar), conserva
-    marcadores furigana (INPLACE, ancho completo) + lecturas. Salta chunks
-    referenciados por offset. Devuelve (nuevo_dec, n_lineas) o (dec, 0)."""
+    """Redimensiona el dialogo. CLAVE: algunas cadenas (debug) se referencian por
+    offset desde el codigo. Si agrando un chunk que va ANTES de una referencia, esa
+    referencia se DESPLAZA y se rompe -> cuelga. Por eso:
+      - chunks DESPUES de la ultima referencia -> longitud VARIABLE (texto completo).
+      - chunks en/antes de una referencia -> MISMO TAMANO (no desplazan nada; texto
+        recortado como el modo in-place, pero seguro).
+    Devuelve (nuevo_dec, n_lineas)."""
     if dec[:4] != b"SSD\x00":
         return dec, 0
     s10 = struct.unpack_from("<I", dec, 0x10)[0]
     refs = referenced_offsets(dec, s10)
-    head = dec[:s10]                      # cabecera + codigo + cadenas debug (intactas)
+    max_ref = max(refs) if refs else 0       # ultima posicion referenciada
+    head = dec[:s10]                          # cabecera + codigo + cadenas debug (intactas)
     text = dec[s10:]
-    # recorrer chunks de la seccion de texto; redimensionar solo dialogo no referenciado
     out = bytearray()
-    pos = 0
     n = 0
     parts = text.split(b"\x00")
     rel = 0
@@ -82,20 +85,29 @@ def reencode_var(dec, trans):
                 es = trans.get(clean)
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
-                    if marks:
-                        body = _furigana_var(part[2:], es)    # longitud variable, sin relleno
-                        if body is not None:
-                            new = bytes(part[:2]) + body
-                            n += 1
+                    if rel > max_ref:
+                        # VARIABLE: texto completo (nada referenciado va detras)
+                        if marks:
+                            body = _furigana_var(part[2:], es)
+                            if body is not None:
+                                new = bytes(part[:2]) + body; n += 1
+                        else:
+                            new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
                     else:
-                        new = bytes(part[:2]) + R.es_encode(es, 1 << 30)
-                        n += 1
+                        # MISMO TAMANO: no desplazar las referencias posteriores
+                        budget = len(part) - 2
+                        if marks:
+                            body = R._furigana_body_bytes(part[2:], es, budget)
+                            if body is not None:
+                                new = bytes(part[:2]) + body; n += 1
+                        else:
+                            b = R.es_encode(es, budget)
+                            new = bytes(part[:2]) + b + b" " * (budget - len(b)); n += 1
         out += new
         rel += len(part) + 1
         if k != len(parts) - 1:
             out += b"\x00"
-    new_text = bytes(out)
-    new_dec = bytearray(head + new_text)
+    new_dec = bytearray(head + bytes(out))
     struct.pack_into("<I", new_dec, 0x08, len(new_dec))       # actualizar tamano total
     return bytes(new_dec), n
 
