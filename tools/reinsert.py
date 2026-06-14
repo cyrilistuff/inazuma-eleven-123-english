@@ -282,6 +282,22 @@ def main():
         assert len(patched) == fsize, f"{fp}: tamano cambio {len(patched)}!={fsize}"
         data[foff:foff + fsize] = patched
 
+    # ROSTER: nombres europeos oficiales en unitbase.dat (mismo tamano, in-place).
+    # El recuadro azul del hablante muestra Mark/Axel... en vez de えんどう/ごうえんじ.
+    import ds_roster as DR                                # lazy: evita import circular
+    for game, (dsdir, suf) in DR.GAMES.items():
+        try:
+            doff, dsize = find_file(arc, suf)
+        except Exception:
+            continue
+        ds_path = os.path.join(REPO, "work", dsdir, "data_iz", "logic", "sp", "unitbase.dat")
+        if not os.path.exists(ds_path):
+            continue
+        patched, nrec = DR.patch_unitbase(bytes(data[doff:doff + dsize]), open(ds_path, "rb").read())
+        assert len(patched) == dsize
+        data[doff:doff + dsize] = patched
+        print(f"roster {game}: {nrec} nombres europeos en unitbase.dat")
+
     open(dst, "wb").write(data)
     print(f"fuentes parcheadas: {len(FONTS)}")
     print(f"-> {dst} (mismo tamano = {len(data)})")
