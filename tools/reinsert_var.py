@@ -139,94 +139,93 @@ def reencode_var(dec, trans, strip=False, string_slots=frozenset()):
     for _p in parts:
         old_starts.add(_r); _r += len(_p) + 1
 
-    out = bytearray()
+    # 1) Decidir el contenido nuevo de cada chunk (bytes) o ELIMINARLO (None).
+    #    CLAVE del bug del bloqueo (controles bloqueados al hablar con NPC): el motor
+    #    consume 1 LECTURA furigana por cada MARCADOR %NF. Al traducir (STRIP) quitamos
+    #    los marcadores -> 0 marcadores; si dejamos las lecturas como chunks, quedan
+    #    lecturas HUERFANAS (sin marcador que las consuma) que el motor lee como lineas
+    #    vacias / se descuadra -> no cierra el dialogo. Solucion: ELIMINAR las lecturas
+    #    de las lineas traducidas (no vaciarlas) -> marcadores y lecturas balanceados.
+    new_content = []                          # contenido nuevo por chunk (None = eliminar)
     n = 0
-    rel = 0
-    pending = 0                               # nº de lecturas a vaciar tras un dialogo STRIP
-    # mapa de desplazamiento: (old_pos_tras_chunk, delta_acumulado_a_partir_de_ahi)
-    shift = []
-    cum = 0
-    for k, part in enumerate(parts):
-        new = part
-        if strip and pending > 0 and R._is_reading(part):
-            # vaciar la lectura kana de un dialogo que acabamos de traducir (1 por
-            # marcador). Mismo tamano (espacios) -> no desplaza.
-            new = bytes(part[:2]) + b" " * (len(part) - 2)
-            pending -= 1
+    drop_readings = False                      # ¿eliminar las lecturas que siguen? (linea STRIP)
+    for part in parts:
+        content = part
+        if strip and drop_readings and R._is_reading(part):
+            # La linea traducida quedo SIN marcadores -> consume 0 lecturas -> eliminar
+            # TODAS sus lecturas (hasta la siguiente linea de dialogo). Asi marcadores y
+            # lecturas quedan balanceados como en el original (clave del bloqueo de NPCs).
+            content = None
         elif len(part) >= 3 and part[0] in (1, 2, 4):
             marks = R._MK.findall(part)
             clean = _decode_string(part, "sjis")
             if R.looks_like_dialogue(clean):
-                # NUEVA LINEA de dialogo: cortar el arrastre del vaciado anterior (si un
-                # dialogo tenia mas marcadores que lecturas reales, el 'pending' sobrante
-                # NO debe vaciar las lecturas de ESTA linea).
-                pending = 0
+                drop_readings = False         # reset: nueva linea de dialogo
                 es = trans.get(clean)
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
                     if not strip:
-                        # SISTEMA/INTRO: MISMO TAMANO en TODAS las lineas (= v25 INPLACE):
-                        # crecer una linea con furigana cuelga (ruby ❌#8) y crecer una
-                        # plana DESPLAZA las de furigana. Byte-identico en tamano = seguro.
+                        # SISTEMA/INTRO: MISMO TAMANO (= v25 INPLACE): crecer una linea con
+                        # furigana cuelga (ruby ❌#8); plana mas larga desplaza el furigana.
                         budget = len(part) - 2
                         if marks:
                             body = R._furigana_body_bytes(part[2:], es, budget)
                             if body is not None:
-                                new = bytes(part[:2]) + body; n += 1   # mismo tamano
+                                content = bytes(part[:2]) + body; n += 1   # mismo tamano
                         else:
                             b = R.es_encode(es, budget)
-                            new = bytes(part[:2]) + b + b" " * (budget - len(b)); n += 1
+                            content = bytes(part[:2]) + b + b" " * (budget - len(b)); n += 1
                     else:
-                        # HISTORIA (strip): crece a texto COMPLETO, sin furigana. Si tenia
-                        # marcadores, marcar sus lecturas para vaciarlas (balance del motor).
-                        new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
-                        if marks:
-                            pending += len(marks)
-        out += new
-        d = len(new) - len(part)
-        if d:
-            cum += d
-            shift.append((rel + len(part), cum))
+                        # HISTORIA (strip): crece a texto COMPLETO, sin furigana, y se
+                        # ELIMINAN sus lecturas (no tiene marcadores -> 0 lecturas).
+                        content = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
+                        drop_readings = True
+        new_content.append(content)
+
+    # 2) Construir el texto nuevo y el mapa old_start -> new_start (None si se elimino).
+    out = bytearray()
+    pos_map = {}
+    rel = 0
+    first = True
+    for part, content in zip(parts, new_content):
+        if content is None:
+            pos_map[rel] = None               # chunk eliminado
+        else:
+            if not first:
+                out += b"\x00"                # separador antes de cada chunk salvo el 1º
+            pos_map[rel] = len(out)
+            out += content
+            first = False
         rel += len(part) + 1
-        if k != len(parts) - 1:
-            out += b"\x00"
+    new_text = bytes(out)
 
-    def new_pos(old):
-        """posicion nueva de un offset del texto tras los desplazamientos."""
-        delta = 0
-        for start, c in shift:
-            if old >= start:
-                delta = c
-            else:
-                break
-        return old + delta
+    # 3) FIXUP PRECISO: reubicar SOLO operandos de slots-string que apuntan a un inicio de
+    #    chunk movido. Si alguno apunta a un chunk ELIMINADO, no es honrable -> revertir el
+    #    evento a japones (seguro). Los operandos numericos/indice NO se tocan.
+    relocated = []
+    for opos, op, slot in _instr_operands(head, s10):
+        if (op, slot) not in string_slots:
+            continue
+        v = struct.unpack_from("<I", head, opos)[0]
+        if v in old_starts:                   # es una referencia a un inicio de chunk
+            np = pos_map[v]
+            if np is None:
+                return dec, 0                 # apunta a chunk eliminado -> revertir
+            if np != v:
+                struct.pack_into("<I", head, opos, np)
+                relocated.append(opos)
+    # VALIDACION: cada operando reubicado debe caer EXACTO en un inicio de chunk nuevo.
+    if relocated:
+        new_starts = set(); _r = 0
+        for _p in new_text.split(b"\x00"):
+            new_starts.add(_r); _r += len(_p) + 1
+        for opos in relocated:
+            if struct.unpack_from("<I", head, opos)[0] not in new_starts:
+                return dec, 0                 # shift descuadrado -> revertir (seguro)
 
-    if shift:
-        first_change = shift[0][0]
-        # FIXUP PRECISO: SOLO operandos de slots-string que apuntan a un chunk MOVIDO.
-        relocated = []
-        for opos, op, slot in _instr_operands(head, s10):
-            if (op, slot) not in string_slots:
-                continue
-            v = struct.unpack_from("<I", head, opos)[0]
-            if first_change <= v < tlen and v in old_starts:
-                np = new_pos(v)
-                if np != v:
-                    struct.pack_into("<I", head, opos, np)
-                    relocated.append(opos)
-        # VALIDACION: cada operando reubicado debe caer EXACTO en un inicio de chunk nuevo.
-        # Si no (bug del shift), revertir el evento a japones (seguro) en vez de arriesgar
-        # un crash. Mejor japones que cuelgue.
-        if relocated:
-            new_text = bytes(out)
-            new_starts = set(); _r = 0
-            for _p in new_text.split(b"\x00"):
-                new_starts.add(_r); _r += len(_p) + 1
-            for opos in relocated:
-                if struct.unpack_from("<I", head, opos)[0] not in new_starts:
-                    return dec, 0
-
-    new_dec = bytearray(bytes(head) + bytes(out))
+    if n == 0:
+        return dec, 0                         # nada traducido -> dejar original
+    new_dec = bytearray(bytes(head) + new_text)
     struct.pack_into("<I", new_dec, 0x08, len(new_dec))       # tamano total
     return bytes(new_dec), n
 
