@@ -83,17 +83,20 @@ Al agrandar el diálogo, todo lo que va detrás se desplaza; hay que **sumar el 
 cada offset del bytecode que apunte a una lectura/debug/byte-id movido** (offset-fixup).
 **Solo a esos** (ver ❌ #8): tocar operandos numéricos coincidentes cuelga el juego.
 
-### 2. BUG: cuelgue al hablar con NPC en `サークル棟エリア` (y quizá otras zonas)
-- **Síntoma:** en una build con furigana (INPLACE: v21/v23/v25), al hablar con un NPC
-  de esa zona el juego se cuelga (negro, no llega a abrir el cuadro de diálogo).
-- **NO ocurre** en la build sin furigana (v22) → es **específico del furigana**.
-- **Causa: AÚN SIN AISLAR.** NO es `%NF` huérfano ni mismatch de páginas; el
-  validador (`work/validate_furigana.py`) da 0 anomalías. Hipótesis: puede estar
-  ligado al **truncado** (mismo-tamaño corta algo a media) → la build de **longitud
-  variable** (sin truncado) podría arreglarlo; PENDIENTE confirmar.
-- **Cómo aislar:** crear build **sin furigana** (estable) para confirmar; localizar el
-  evento del NPC buscando su japonés en `eve.pkb`; comparar chunk original vs
-  transformado. No re-probar marcadores (ver tabla ❌).
+### 2. BUG (RESUELTO): cuelgue al hablar con NPC en `サークル棟エリア` (y otras zonas)
+- **Síntoma:** en una build con furigana (INPLACE: v21/v23/v25 y la var protegida), al
+  hablar con un NPC de esa zona el juego se cuelga (negro o **cuadro de diálogo VACÍO
+  que no se cierra**). Es **específico del furigana** (no ocurre sin furigana, v22).
+- **Evento aislado:** **92010510** (zona `サークル棟エリア`: nombre de zona tipo0x03 +
+  11 diálogos, 28 marcadores). Quedaba con furigana por ser `eid>=90000000` (protegido
+  para no romper el crear-partida). El bug es del **runtime del furigana** del motor en
+  esos eventos de zona (no se aisló byte a byte: el contenido y las referencias quedan
+  correctos; es el mismo tipo de problema que ❌#8/#10).
+- **SOLUCIÓN:** como es **gameplay POST-intro** (no parte del crear-partida), se le
+  puede quitar el furigana sin riesgo. **STRIP del evento** → texto ES completo, sin
+  furigana → **sin cuelgue**. Ver `STRIP_ZONA` en `reinsert_var.py` (otros: 92040800,
+  92062100/`正門エリア`). Si aparece otra zona protegida que cuelgue al hablar, **añadir
+  su eid a `STRIP_ZONA`** (debe ser post-intro; los del crear-partida NO se tocan).
 
 ### 3. BUG ya resuelto (NO reintentar la causa): cuelgue al CREAR PARTIDA
 - **Síntoma (v24/STRIP, v12):** al crear partida nueva se congela en el título/carga,
