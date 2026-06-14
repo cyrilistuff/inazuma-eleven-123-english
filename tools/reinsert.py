@@ -94,24 +94,76 @@ def load_translations(game):
     return out
 
 
+def _furigana_inplace_str(orig_body, es):
+    """v16: construye el texto ES con los marcadores %NF repartidos POR PAGINA igual
+    que el original (el motor parece consumir 1 lectura por marcador y PAGINA; si se
+    amontonan en una pagina, se descuadra y cuelga). Cada marcador va seguido de N
+    espacios (sus chars base) -> el ruby cae sobre espacios, nunca fuera de limites.
+    Paginas separadas por '\\f' (texto literal backslash-f). Devuelve un str."""
+    orig_pages = orig_body.split(b"\\f")
+    marks_pp = [[m.group().decode() for m in _MK.finditer(p)] for p in orig_pages]
+    es_pages = es.split("\\f")
+    # RELLENAR paginas ES vacias hasta igualar el nº de paginas del original, para
+    # que el conteo de marcadores POR PAGINA case EXACTO con el original (el motor
+    # consume las lecturas por pagina; si no casa, se descuadra y cuelga).
+    while len(es_pages) < len(orig_pages):
+        es_pages.append("")
+    out = []
+    for i, esp in enumerate(es_pages):
+        mk = marks_pp[i] if i < len(marks_pp) else []
+        # cada marcador seguido de N caracteres de ANCHO COMPLETO (espacio japones
+        # U+3000 = 2 bytes), porque %NF espera N chars de 2 bytes (como los kanji
+        # originales). Con espacios de 1 byte el motor se desalinea y cuelga.
+        prefix = "".join(m + "　" * int(m[1]) for m in mk)   # %2F -> "%2F　　"
+        out.append(prefix + esp)
+    return "\\f".join(out)
+
+
+def _is_reading(part):
+    """True si el chunk es una LECTURA de furigana: tipo 0x02/0x03 y el cuerpo
+    (tras los 2 bytes de prefijo) es kana puro (hiragana/katakana)."""
+    if len(part) < 4 or part[0] not in (2, 3):
+        return False
+    try:
+        s = part[2:].split(b"\x00")[0].decode("shift-jis")
+    except Exception:
+        return False
+    s = s.strip()
+    return bool(s) and all(0x3040 <= ord(c) <= 0x30FF or c == "ー" for c in s)
+
+
 def reencode_event(dec, trans, esize):
     """Sustituye las cadenas traducidas (tamano de chunk invariante). Si el evento
     recomprimido no cabe, revierte lineas (las que mas ocupan) hasta que quepa, en
-    vez de saltar el evento entero. Devuelve (comp_bytes_o_None, n_aplicadas)."""
+    vez de saltar el evento entero. Devuelve (comp_bytes_o_None, n_aplicadas).
+
+    Modos de furigana (env):
+    - (ninguno) = v10: SALTAR los chunks con marcadores (seguro, ~30% dialogo).
+    - FURIGANA_KEEP_MARKERS = v13: traducir y re-colgar marcadores al final
+      (DEFECTUOSO: el marcador sin texto base detras cuelga el motor).
+    - FURIGANA_STRIP = v14: traducir el dialogo SIN marcadores y VACIAR los chunks
+      de lectura (kana) -> espanol limpio, sin ruby ni basura, mismo tamano."""
     orig = dec.split(b"\x00")
     parts = list(orig)
     changed = []                                    # (idx, peso_es)
-    # Modo v13: en vez de SALTAR los chunks con furigana, se traducen pero se
-    # RE-INYECTAN los mismos marcadores %NF al final (mismo numero). El motor
-    # consume una lectura (chunk 0x02/0x03 siguiente) por cada marcador; si el
-    # numero cambia se descuadra y cuelga (causa de v12). Preservando el conteo
-    # las lecturas se consumen igual y el dialogo sale en espanol.
     KEEP = os.environ.get("FURIGANA_KEEP_MARKERS")
+    STRIP = os.environ.get("FURIGANA_STRIP")
+    INPLACE = os.environ.get("FURIGANA_INPLACE")
+    stripped = 0
+    pending = 0                                    # nº de lecturas a vaciar tras un dialogo traducido
     for i, part in enumerate(orig):
+        # SOLO vaciar las lecturas que pertenecen a un dialogo que ACABAMOS de
+        # traducir (1 lectura por marcador). Asi no tocamos kana estructural
+        # (menus, nombres) que no es furigana -> evita romper el juego.
+        if STRIP and pending > 0 and _is_reading(part):
+            parts[i] = bytes(part[:2]) + b" " * (len(part) - 2)
+            pending -= 1
+            stripped += 1
+            continue
         if len(part) < 3 or part[0] not in (1, 2, 4):
             continue
         marks = _MK.findall(part)                  # marcadores en orden, p.ej [b'%1F',b'%2F']
-        if marks and not KEEP and not os.environ.get("TRANSLATE_FURIGANA"):
+        if marks and not (KEEP or STRIP or INPLACE or os.environ.get("TRANSLATE_FURIGANA")):
             continue                               # comportamiento v10 (seguro): saltar furigana
         clean = _decode_string(part, "sjis")
         if not looks_like_dialogue(clean):       # excluir etiquetas/comentarios/debug
@@ -120,19 +172,34 @@ def reencode_event(dec, trans, esize):
         if not es:
             continue
         budget = len(part) - 2
-        if marks and KEEP:
-            tail = b" " + b"".join(marks)          # re-colgar marcadores (conteo invariante)
+        if marks and INPLACE:
+            full = _furigana_inplace_str(part[2:], es)   # marcadores repartidos por pagina
+            body = es_encode(full, budget)
+            weight = len(body)
+            body = body + b" " * (budget - len(body))
+        elif marks and STRIP:
+            # v14: conservar el NUMERO de marcadores (el motor consume 1 lectura por
+            # marcador; si cambia, cuelga) pero ponerlos como PREFIJO, cada uno
+            # seguido de N espacios (sus chars base) -> el ruby (en blanco, ver
+            # _is_reading) cae sobre espacios, nunca fuera de limites. Luego el ES.
+            prefix = b"".join(m + b" " * int(chr(m[1])) for m in marks)
+            body = prefix + es_encode(es, max(0, budget - len(prefix)))
+            weight = len(body)
+            body = body + b" " * (budget - len(body))
+            pending += len(marks)                  # vaciar las N lecturas siguientes
+        elif marks and KEEP:
+            tail = b" " + b"".join(marks)          # v13 (DEFECTUOSO): marcadores al final
             body = es_encode(es, budget - len(tail))
             weight = len(body) + len(tail)
             body = body + tail
             body = body + b" " * (budget - len(body))
         else:
-            body = es_encode(es, budget)
+            body = es_encode(es, budget)           # v10/sin-furigana: ES limpio
             weight = len(body)
             body = body + b" " * (budget - len(body))
         parts[i] = bytes(part[:2]) + body
         changed.append((i, weight))
-    if not changed:
+    if not changed and not stripped:
         return None, 0
     comp = compress(b"\x00".join(parts))
     n = len(changed)
@@ -156,6 +223,8 @@ def main():
     arc = FaArchive(src)
 
     games = [g for g in GAMES if g[1] in sys.argv] or GAMES
+    if os.environ.get("SKIP_DIALOGUE"):
+        games = []                                 # diagnostico: solo parchear fuentes
     for folder, game in games:
         trans = load_translations(game)
         if not trans:
@@ -165,12 +234,18 @@ def main():
         pkb = bytearray(data[pkb_off:pkb_off + pkb_size])
         ents = parse_index(bytes(data[pkh_off:pkh_off + pkh_size]))
         ev_ok = lines = 0
+        skip_sys = os.environ.get("SKIP_SYSTEM")
+        skip_pref = os.environ.get("SKIP_EID_PREFIX")   # p.ej "9201" salta la apertura
         for eid, eoff, esize in ents:
             if eid not in trans:
                 continue
+            if skip_sys and eid >= 90000000:        # diagnostico: no tocar eventos de sistema/intro/menu
+                continue
+            if skip_pref and str(eid).startswith(skip_pref):
+                continue
             dec = decompress(bytes(pkb[eoff:eoff + esize]))
             comp, n = reencode_event(dec, trans[eid], esize)
-            if not comp or n == 0:
+            if comp is None:                         # nada aplicado o no cabe
                 continue
             pkb[eoff:eoff + esize] = comp
             ev_ok += 1; lines += n
