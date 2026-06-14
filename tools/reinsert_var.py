@@ -119,20 +119,34 @@ def reencode_var(dec, trans, strip=False):
             marks = R._MK.findall(part)
             clean = _decode_string(part, "sjis")
             if R.looks_like_dialogue(clean):
+                # NUEVA LINEA de dialogo: cortar el arrastre del vaciado de la linea
+                # anterior. Si un dialogo tenia mas marcadores que lecturas reales, el
+                # 'pending' sobrante NO debe vaciar las lecturas de ESTA linea (eso
+                # desincronizaba el furigana de lineas sin traducir -> texto vacio/cuelgue).
+                pending = 0
                 es = trans.get(clean)
                 if es:
                     es = _re.sub(r"%[1-9]F", "", es)
-                    if marks and not strip:
-                        # SISTEMA/INTRO con furigana: mismo tamano (= v25 INPLACE). Crecer
-                        # estas lineas CUELGA al avanzar (runtime de ruby). NO crecen -> no
-                        # desplazan. Si no caben los marcadores -> None -> linea en japones.
-                        body = R._furigana_body_bytes(part[2:], es, len(part) - 2)
-                        if body is not None:
-                            new = bytes(part[:2]) + body; n += 1   # len(new)==len(part)
+                    if not strip:
+                        # SISTEMA/INTRO: MISMO TAMANO en TODAS las lineas (= v25 INPLACE),
+                        # con o sin furigana. NO crecer NINGUNA: crecer una linea con
+                        # furigana cuelga (runtime de ruby, ❌#8) y crecer una linea PLANA
+                        # del evento DESPLAZA las lineas de furigana -> reubicarlas tambien
+                        # rompe el ruby. Asi el evento queda byte-identico en tamano (=v25)
+                        # y no se reubica nada. (Coste: las planas del sistema tambien se
+                        # truncan; son pocas y es la zona protegida.)
+                        budget = len(part) - 2
+                        if marks:
+                            body = R._furigana_body_bytes(part[2:], es, budget)
+                            if body is not None:
+                                new = bytes(part[:2]) + body; n += 1   # mismo tamano
+                        else:
+                            b = R.es_encode(es, budget)
+                            new = bytes(part[:2]) + b + b" " * (budget - len(b)); n += 1
                     else:
-                        # HISTORIA (strip) o linea sin furigana: crece a texto COMPLETO,
-                        # sin marcadores (es ya viene sin %NF). Si tenia marcadores, marcar
-                        # sus lecturas para vaciarlas (mantiene el balance del motor).
+                        # HISTORIA (strip): crece a texto COMPLETO, sin furigana (es ya
+                        # viene sin %NF). Si tenia marcadores, marcar sus lecturas para
+                        # vaciarlas (mantiene el balance del motor).
                         new = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
                         if marks:
                             pending += len(marks)
