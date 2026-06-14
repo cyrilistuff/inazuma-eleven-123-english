@@ -23,6 +23,12 @@ import reinsert as R
 REPO = R.REPO
 GAMES = R.GAMES
 
+# Eventos de ZONA (nombre de area + diálogos de NPC) que, aun siendo de sistema
+# (eid>=90000000), se STRIPean: sufren el bug #2 (cuelgue al hablar con NPC, especifico
+# del furigana). Son gameplay post-intro, no afectan al crear-partida. Detectados por
+# tener nombre-de-zona tipo0x03 + diálogos con marcadores entre los eventos protegidos.
+STRIP_ZONA = {92010510, 92040800, 92062100}   # サークル棟エリア, objetivo estatua, 正門エリア
+
 
 def referenced_offsets(d, s10):
     """offsets rel_s10 que el codigo (d[:s10]) referencia como u32 y apuntan a inicio
@@ -219,7 +225,11 @@ def main():
                 # STRIP (quitar furigana, texto completo) en HISTORIA; conservar furigana
                 # (INPLACE mismo-tamano) en sistema/intro (eid>=90000000) para no romper
                 # el crear-partida. Ver FURIGANA_LECCIONES ❌#1.
-                strip = eid < 90000000
+                # EXCEPCION: eventos de ZONA (NPCs por area) que aun siendo >=90000000
+                # sufren el bug #2 (cuelgue al hablar con NPC, furigana-especifico). Son
+                # gameplay POST-intro (no afectan al crear-partida) -> se STRIPean para
+                # quitarles el furigana (lo arregla) y dar texto completo. Ver LECCIONES #2.
+                strip = eid < 90000000 or eid in STRIP_ZONA
                 new_dec, n = reencode_var(dec, trans[eid], strip=strip)
                 if n:
                     comp = compress(new_dec)
