@@ -84,20 +84,25 @@ Al agrandar el diálogo, todo lo que va detrás se desplaza; hay que **sumar el 
 cada offset del bytecode que apunte a una lectura/debug/byte-id movido** (offset-fixup).
 **Solo a esos** (ver ❌ #8): tocar operandos numéricos coincidentes cuelga el juego.
 
-### 2. BUG (RESUELTO): cuelgue al hablar con NPC en `サークル棟エリア` (y otras zonas)
-- **Síntoma:** en una build con furigana (INPLACE: v21/v23/v25 y la var protegida), al
-  hablar con un NPC de esa zona el juego se cuelga (negro o **cuadro de diálogo VACÍO
-  que no se cierra**). Es **específico del furigana** (no ocurre sin furigana, v22).
-- **Evento aislado:** **92010510** (zona `サークル棟エリア`: nombre de zona tipo0x03 +
-  11 diálogos, 28 marcadores). Quedaba con furigana por ser `eid>=90000000` (protegido
-  para no romper el crear-partida). El bug es del **runtime del furigana** del motor en
-  esos eventos de zona (no se aisló byte a byte: el contenido y las referencias quedan
-  correctos; es el mismo tipo de problema que ❌#8/#10).
-- **SOLUCIÓN:** como es **gameplay POST-intro** (no parte del crear-partida), se le
-  puede quitar el furigana sin riesgo. **STRIP del evento** → texto ES completo, sin
-  furigana → **sin cuelgue**. Ver `STRIP_ZONA` en `reinsert_var.py` (otros: 92040800,
-  92062100/`正門エリア`). Si aparece otra zona protegida que cuelgue al hablar, **añadir
-  su eid a `STRIP_ZONA`** (debe ser post-intro; los del crear-partida NO se tocan).
+### 2. BUG (CAUSA REAL HALLADA): controles bloqueados al hablar con NPC en `サークル棟エリア`
+- **Síntoma:** al hablar con un NPC de la zona, el diálogo **no muestra texto y no se
+  cierra**; el juego NO crashea (sonido + sprites siguen vivos) pero **los controles se
+  bloquean**. Afecta a TODA la zona, no a un NPC suelto.
+- **Causa REAL (verificada offline):** **desincronización marcador `%NF` ↔ lectura
+  furigana**. El motor consume **1 lectura por cada marcador**. El STRIP quitaba los
+  marcadores de las líneas traducidas pero **VACIABA las lecturas dejándolas como chunks**
+  (tipo 0x02 + espacios). Resultado en ev **92010510**: **0 marcadores pero 29 chunks de
+  lectura** huérfanos en el stream → el motor los lee como líneas vacías / se descuadra
+  y nunca cierra el diálogo. (El STRIP "vaciar" NO arreglaba el bug, solo lo disfrazaba.)
+- **SOLUCIÓN (la que funciona):** **ELIMINAR** (no vaciar) las lecturas de cada línea
+  traducida, hasta la siguiente línea de diálogo (flag `drop_readings` en `reencode_var`).
+  Así marcadores y lecturas quedan **balanceados** como en el original (zona club: de 28
+  chunks huérfanos → 0). Es viable gracias al **offset-fixup preciso por slot** (ver ❌#11):
+  al borrar chunks, las referencias string se reubican; si alguna apunta a un chunk
+  borrado, el evento revierte a japonés (seguro). Validado offline: 0 operandos numéricos
+  alterados, 0 referencias nuevas rotas. **PENDIENTE confirmar en emulador.**
+- Nota: `STRIP_ZONA` y el rango `92010510..92011000` siguen marcando qué zonas se STRIPean
+  (post-intro, seguras); el fix de arriba corrige CÓMO se hace el strip de las lecturas.
 
 ### 3. BUG ya resuelto (NO reintentar la causa): cuelgue al CREAR PARTIDA
 - **Síntoma (v24/STRIP, v12):** al crear partida nueva se congela en el título/carga,
