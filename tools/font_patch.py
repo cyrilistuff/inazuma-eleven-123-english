@@ -31,8 +31,8 @@ PLAN = [
     ("ñ", "n", "tilde", 0x0397), ("Á", "A", "acute", 0x0398),
     ("É", "E", "acute", 0x0399), ("Í", "I", "acute", 0x039A),
     ("Ó", "O", "acute", 0x039B), ("Ú", "U", "acute", 0x039C),
-    ("Ñ", "N", "tilde", 0x039D), ("¡", "!", "vflip", 0x039E),
-    ("¿", "?", "vflip", 0x039F),
+    ("Ñ", "N", "tilde", 0x039D), ("¡", "!", "rot180", 0x039E),
+    ("¿", "?", "rot180", 0x039F),
 ]
 
 
@@ -161,6 +161,18 @@ def vflip(grid):
     return [row[:] for row in grid[::-1]]
 
 
+def rot180(grid):
+    """Gira la TINTA 180 grados DENTRO de su bbox (no toda la celda) -> mantiene la
+    posicion. Necesario para '¿' = '?' girado 180 (vflip+hflip): vflip solo no basta
+    (la curva quedaba abierta al lado contrario)."""
+    x0, y0, x1, y1 = ink_bbox(grid)
+    out = [[0] * len(grid[0]) for _ in grid]
+    for y in range(y0, y1 + 1):
+        for x in range(x0, x1 + 1):
+            out[y1 - (y - y0)][x1 - (x - x0)] = grid[y][x]
+    return out
+
+
 def patch_font(path, out):
     f = Font(path)
     base_cw = {}
@@ -183,6 +195,8 @@ def patch_font(path, out):
             grid = add_tilde(grid)
         elif acc == "vflip":
             grid = vflip(f.read_cell(bgi))
+        elif acc == "rot180":
+            grid = rot180(f.read_cell(bgi))
         f.write_cell(tgi, grid)
         f.copy_width(bgi, tgi)        # ancho del caracter base
         applied += 1

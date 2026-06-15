@@ -81,8 +81,56 @@ def find_file(arc, suffix):
 GAMES = [("inazuma1", "game1"), ("inazuma2", "game2")]
 
 
+# --- Reflow (ajuste de linea por PALABRAS) ---------------------------------
+# El motor 3DS corta el texto por ancho de pixel SIN respetar palabras (estilo japones,
+# sin espacios). Los saltos \n del DS oficial son mas anchos que la caja del 3DS (~140px),
+# asi que el motor re-corta a mitad de palabra ("vamo|s"). Solucion: re-ajustar el ES a la
+# anchura de caja cortando solo entre palabras. Ancho de caja conservador (caja principal).
+BOX_W = 132
+_BASE = {acc: base for acc, base, _t, _cp in _PLAN}     # á->a, ¿->?, ... (anchura del base)
+_ADV = None
+
+
+def _advance(ch):
+    """Ancho de avance (px) del caracter en la fuente del dialogo (FONT12). Los acentos
+    usan el ancho de su letra base (copy_width los iguala)."""
+    global _ADV
+    if _ADV is None:
+        from font_patch import Font
+        f = Font(os.path.join(REPO, "work", "fa_extract", "font", "FONT12.bcfnt"))
+        _ADV = {}
+        for cp, gi in f.cmap.items():
+            o = f.cwdh_entry_off(gi)
+            if o is not None:
+                _ADV[cp] = f.data[o + 2]
+    return _ADV.get(ord(_BASE.get(ch, ch)), 8)
+
+
+def reflow(text):
+    """Re-ajusta el texto ES a BOX_W cortando solo entre palabras (preserva paginas \\f)."""
+    if not text or "\\n" not in text and sum(_advance(c) for c in text.split("\\f")[0]) <= BOX_W:
+        return text                                      # ya cabe en una linea
+    out = []
+    for page in text.split("\\f"):
+        words = page.replace("\\n", " ").split(" ")
+        lines, cur, cw = [], "", 0
+        for w in words:
+            if not w:
+                continue
+            ww = sum(_advance(c) for c in w)
+            sp = _advance(" ") if cur else 0
+            if cur and cw + sp + ww > BOX_W:
+                lines.append(cur); cur, cw = w, ww
+            else:
+                cur = (cur + " " + w) if cur else w; cw += sp + ww
+        if cur:
+            lines.append(cur)
+        out.append("\\n".join(lines))
+    return "\\f".join(out)
+
+
 def load_translations(game):
-    """{event_id: {japones_limpio: es_final}} para lineas con es_final."""
+    """{event_id: {japones_limpio: es_final}} para lineas con es_final (re-ajustadas)."""
     out = {}
     path = os.path.join(REPO, "translation", game, "dialogo.csv")
     if not os.path.exists(path):
@@ -90,7 +138,7 @@ def load_translations(game):
     for row in csv.DictReader(open(path, encoding="utf-8")):
         if row["estado"] == "pendiente" or not row["es_final"]:
             continue
-        out.setdefault(int(row["event_id"]), {})[row["japones"]] = row["es_final"]
+        out.setdefault(int(row["event_id"]), {})[row["japones"]] = reflow(row["es_final"])
     # OFICIAL: el diálogo oficial del DS (tools/ds_official.py -> dialogo_oficial.csv)
     # tiene PRIORIDAD sobre la IA (texto oficial de Nintendo, mismo evento+línea).
     # SOLO en eventos STRIP (historia): meterlo en la apertura PROTEGIDA (furigana)
@@ -101,7 +149,7 @@ def load_translations(game):
         for row in csv.DictReader(open(ofi, encoding="utf-8")):
             eid = int(row["event_id"])
             if is_strip_event(eid):
-                out.setdefault(eid, {})[row["japones"]] = row["es_oficial"]
+                out.setdefault(eid, {})[row["japones"]] = reflow(row["es_oficial"])
     return out
 
 
