@@ -48,12 +48,11 @@ def looks_like_dialogue(s):
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Acentos/signos del espanol -> caracter PORTADOR (su glifo se sustituye en la fuente
-# por el acento, ver font_patch.PLAN). DERIVADO de PLAN: el portador es el caracter cuyo
-# codigo SHIFT-JIS es justo el codepoint que pinta font_patch -> es_encode y el parche
-# SIEMPRE coinciden en el mismo glifo (clave del bug de acentos: el juego busca por el
-# codepoint SJIS 0x839F.., no por el Unicode 0x0391).
-_acc = {ch: bytes([cp >> 8, cp & 0xFF]).decode("shift-jis") for ch, _b, _t, cp in _PLAN}
+# Acentos/signos del espanol -> caracter PORTADOR griego (su glifo se sustituye en la
+# fuente por el acento, ver font_patch.PLAN). DERIVADO de PLAN: el portador es chr(cp), el
+# caracter griego del codepoint UNICODE que pinta font_patch. es_encode lo emite en SJIS;
+# el motor lo reconvierte a Unicode y busca ese glifo (parcheado) -> sale el acento.
+_acc = {ch: chr(cp) for ch, _b, _t, cp in _PLAN}
 _acc.update({"ª": "a", "º": "o", "“": '"', "”": '"', "—": "-", "…": "..."})
 GREEK = str.maketrans(_acc)
 

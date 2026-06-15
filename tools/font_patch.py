@@ -15,23 +15,24 @@ import sys
 sys.path.insert(0, "tools")
 from bcfnt import BCFNT
 
-# ES char -> (caracter base existente, tipo de acento, CODEPOINT SJIS del glifo portador)
+# ES char -> (caracter base existente, tipo de acento, CODEPOINT UNICODE del glifo portador)
 #
-# CLAVE (bug de los acentos resuelto): la fuente tiene DOS entradas para el griego: el
-# rango Unicode (0x0391..) y el rango SJIS (0x839F..). El re-encoder emite SJIS (0x839F..),
-# asi que el juego busca el glifo por el codepoint SJIS -> hay que pintar EL GLIFO DEL
-# CODEPOINT SJIS, no el del Unicode. Ademas, la fuente solo tiene glifo SJIS para ALGUNAS
-# griegas mayusculas; los 9 acentos que faltaban se reasignan a portadores SJIS que SI
-# existen (griega minuscula / cirilica, que el espanol no usa). Verificado en las 3 fuentes.
+# CLAVE (bug de los acentos resuelto, verificado renderizando los glifos): la fuente
+# guarda cada griega en DOS sitios con glifos DISTINTOS: el rango UNICODE (0x0391..) y el
+# rango SJIS (0x839F..). El re-encoder emite bytes SJIS, pero el MOTOR los convierte a
+# UNICODE y busca el glifo por el codepoint UNICODE (comprobado: el glifo que pinta para
+# 'é'=0x83A0 es el del codepoint Unicode 0x0392, no el del SJIS). -> hay que pintar el
+# glifo del codepoint UNICODE. Los 15 griegos MAYUSCULOS Unicode (0x0391-0x039F) estan
+# TODOS en el cmap de las 3 fuentes, asi que cubren los 15 acentos (1:1).
 PLAN = [
-    ("á", "a", "acute", 0x839F), ("é", "e", "acute", 0x83A0),  # Α Β
-    ("í", "i", "acute", 0x83C1), ("ó", "o", "acute", 0x83A2),  # γ Δ
-    ("ú", "u", "acute", 0x83C5), ("ü", "u", "diaer", 0x83CA),  # η μ
-    ("ñ", "n", "tilde", 0x83CC), ("Á", "A", "acute", 0x83CE),  # ξ π
-    ("É", "E", "acute", 0x83D3), ("Í", "I", "acute", 0x83A8),  # φ Κ
-    ("Ó", "O", "acute", 0x83D6), ("Ú", "U", "acute", 0x83AA),  # ω Μ
-    ("Ñ", "N", "tilde", 0x83AB), ("¡", "!", "vflip", 0x83B1),  # Ν Τ
-    ("¿", "?", "vflip", 0x83B5),                               # Ψ
+    ("á", "a", "acute", 0x0391), ("é", "e", "acute", 0x0392),
+    ("í", "i", "acute", 0x0393), ("ó", "o", "acute", 0x0394),
+    ("ú", "u", "acute", 0x0395), ("ü", "u", "diaer", 0x0396),
+    ("ñ", "n", "tilde", 0x0397), ("Á", "A", "acute", 0x0398),
+    ("É", "E", "acute", 0x0399), ("Í", "I", "acute", 0x039A),
+    ("Ó", "O", "acute", 0x039B), ("Ú", "U", "acute", 0x039C),
+    ("Ñ", "N", "tilde", 0x039D), ("¡", "!", "vflip", 0x039E),
+    ("¿", "?", "vflip", 0x039F),
 ]
 
 
