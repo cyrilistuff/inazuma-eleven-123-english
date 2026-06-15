@@ -60,6 +60,9 @@ class Font:
         self.sy = self.t["sheet_h"] // self.t["nrows"]
 
     def _poff(self, gi, x, y):
+        """Devuelve (byte_offset, nibble_shift) del pixel. La fuente es 4bpp (2 px/byte,
+        sheet_size = sheet_w*sheet_h/2): un tile 8x8 ocupa 32 bytes y cada pixel es un
+        nibble (morton par = nibble bajo, impar = alto)."""
         t = self.t
         sheet = gi // self.PER
         cell = gi % self.PER
@@ -68,22 +71,31 @@ class Font:
         X, Y = ox + x, oy + y
         tw = t["sheet_w"] // 8
         tile = (Y // 8) * tw + (X // 8)
-        return self.doff + sheet * t["sheet_size"] + tile * 64 + morton8(X % 8, Y % 8)
+        m = morton8(X % 8, Y % 8)
+        return (self.doff + sheet * t["sheet_size"] + tile * 32 + m // 2, (m % 2) * 4)
 
     def read_cell(self, gi):
         t = self.t
-        return [[self.data[self._poff(gi, x, y)] for x in range(t["cell_w"])]
-                for y in range(t["cell_h"])]
+        out = []
+        for y in range(t["cell_h"]):
+            row = []
+            for x in range(t["cell_w"]):
+                bo, sh = self._poff(gi, x, y)
+                row.append((self.data[bo] >> sh) & 0xF)        # valor 4-bit (0..15)
+            out.append(row)
+        return out
 
     def write_cell(self, gi, grid):
         t = self.t
         for y in range(t["cell_h"]):
             for x in range(t["cell_w"]):
-                self.data[self._poff(gi, x, y)] = grid[y][x]
+                bo, sh = self._poff(gi, x, y)
+                v = grid[y][x] & 0xF
+                self.data[bo] = (self.data[bo] & ~(0xF << sh)) | (v << sh)
 
     def ascii_art(self, gi):
         for row in self.read_cell(gi):
-            print("".join("#" if (v & 0xF) >= 8 else "." if (v & 0xF) >= 3 else " " for v in row))
+            print("".join("#" if v >= 10 else "." if v >= 4 else " " for v in row))
 
     def cwdh_entry_off(self, gi):
         """Offset absoluto de la entrada CWDH (3 bytes) del glifo gi, o None."""
