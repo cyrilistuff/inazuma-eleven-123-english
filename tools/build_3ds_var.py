@@ -29,6 +29,17 @@ def run(*args):
 
 
 def main():
+    # 0) VALIDACION offline (red de seguridad): aborta ANTES de compilar si hay regresiones
+    #    -> nunca se produce una ROM con un crash conocido (operandos corruptos, furigana
+    #    que crece ❌#9, dialogo vacio...). SKIP_VALIDATE=1 para forzar (builds de prueba).
+    if not os.environ.get("SKIP_VALIDATE"):
+        sys.path.insert(0, os.path.join(REPO, "tools"))
+        import validate
+        print("== validate (red de seguridad pre-build) ==")
+        if not validate.run():
+            print("\n❌ VALIDACION FALLIDA -> NO se compila la ROM. (SKIP_VALIDATE=1 para forzar.)")
+            sys.exit(1)
+
     cxi = os.path.join(W, "part0.cxi")
     exefs = os.path.join(W, "exefs.bin"); exh = os.path.join(W, "exh.bin")
     logo = os.path.join(W, "logo.bin"); plain = os.path.join(W, "plain.bin")

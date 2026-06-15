@@ -84,8 +84,8 @@ def validate(game):
     ndecs = _events(npkb, parse_index(npkh))
 
     n_mod = 0
-    bad_operand = bad_midref = bad_empty = bad_struct = worse_imb = 0
-    ex = {"operand": [], "midref": [], "empty": [], "struct": [], "imb": []}
+    bad_operand = bad_midref = bad_empty = bad_struct = bad_growfg = worse_imb = 0
+    ex = {"operand": [], "midref": [], "empty": [], "struct": [], "growfg": [], "imb": []}
 
     for eid in odecs:
         od = odecs[eid]; nd = ndecs.get(eid)
@@ -137,14 +137,26 @@ def validate(game):
                     ex["empty"].append((eid, oc[:18]))
                 break
 
-        # 5) desbalance furigana EMPEORADO (mas marcadores huerfanos que el original)
+        # 5) FURIGANA que CRECIO -> ❌#9: el runtime de ruby del motor cuelga al AVANZAR
+        #    (confirmado en emulador con GROW_INTRO). El dato esta perfecto pero el motor de
+        #    ruby se descuadra con el dialogo mas largo. NO crecer lineas con %NF. Robusto:
+        #    sumar el tamano de los chunks CON marcadores (en limpio solo se quitan o se
+        #    mantienen marcadores -> nuevo<=viejo; si nuevo>viejo, algun chunk con %NF crecio).
+        old_fg = sum(len(p) for p in od[s10:].split(b"\x00") if R._MK.search(p))
+        new_fg = sum(len(p) for p in ntext.split(b"\x00") if R._MK.search(p))
+        if new_fg > old_fg:
+            bad_growfg += 1
+            if len(ex["growfg"]) < 8:
+                ex["growfg"].append(eid)
+
+        # 6) desbalance furigana EMPEORADO (mas marcadores huerfanos que el original)
         oi, ni = _imbalance(od), _imbalance(nd)
         if ni > oi and ni > 0:
             worse_imb += 1
             if len(ex["imb"]) < 8:
                 ex["imb"].append((eid, oi, ni))
 
-    fails = bad_operand + bad_midref + bad_empty + bad_struct
+    fails = bad_operand + bad_midref + bad_empty + bad_struct + bad_growfg
     print(f"== {game} == {n_mod} eventos modificados")
     print(f"   [{'FALLO' if bad_operand else ' OK  '}] operandos numericos corrompidos: {bad_operand}"
           + (f"  {ex['operand']}" if ex['operand'] else ""))
@@ -154,13 +166,15 @@ def validate(game):
           + (f"  {ex['empty']}" if ex['empty'] else ""))
     print(f"   [{'FALLO' if bad_struct else ' OK  '}] estructura SSD invalida: {bad_struct}"
           + (f"  {ex['struct']}" if ex['struct'] else ""))
+    print(f"   [{'FALLO' if bad_growfg else ' OK  '}] lineas de furigana que crecieron (❌#9 cuelga al avanzar): {bad_growfg}"
+          + (f"  {ex['growfg']}" if ex['growfg'] else ""))
     print(f"   [{'aviso' if worse_imb else ' OK  '}] furigana mas desbalanceado que el original: {worse_imb}"
           + (f"  {ex['imb']}" if ex['imb'] else ""))
     return fails == 0
 
 
-def main():
-    games = [g for g in SUF if g in sys.argv] or ["game1", "game2"]
+def run(games=("game1", "game2")):
+    """Valida los juegos dados. Devuelve True si TODO OK. Llamable desde el build."""
     ok = True
     for g in games:
         if not os.path.exists(os.path.join(REPO, "work", "eve_var", f"{g}.pkb")):
@@ -168,7 +182,12 @@ def main():
         ok = validate(g) and ok
     print()
     print("RESULTADO:", "TODO OK ✅" if ok else "HAY FALLOS ❌")
-    sys.exit(0 if ok else 1)
+    return ok
+
+
+def main():
+    games = [g for g in SUF if g in sys.argv] or ["game1", "game2"]
+    sys.exit(0 if run(games) else 1)
 
 
 if __name__ == "__main__":
