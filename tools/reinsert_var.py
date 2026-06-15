@@ -112,7 +112,8 @@ def _furigana_var(orig_body, es):
     return b"\\f".join(out)
 
 
-def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None):
+def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None,
+                 grow_fg=False):
     """Redimensiona el dialogo a longitud COMPLETA y reubica SOLO las referencias de
     string del bytecode (offset-fixup PRECISO via 'string_slots'), dejando INTACTOS los
     operandos numericos/indice. Devuelve (nuevo_dec, n_lineas).
@@ -173,7 +174,22 @@ def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None
                     drop_readings = True
                 elif es:
                     es = _re.sub(r"%[1-9]F", "", es)
-                    if not strip:
+                    if not strip and grow_fg:
+                        # PRUEBA (intro variable-length): CRECER conservando el furigana
+                        # (marcadores + ancho completo via _furigana_var) -> texto completo
+                        # SIN truncar y SIN quitar marcadores (no rompe el crear-partida #1).
+                        # Riesgo: runtime de ruby (❌#9). Las lecturas se mueven y el
+                        # offset-fixup preciso las reubica. Si las paginas no casan, fallback
+                        # a mismo-tamano.
+                        if marks:
+                            body = _furigana_var(part[2:], es)
+                            if body is None:
+                                body = R._furigana_body_bytes(part[2:], es, len(part) - 2)
+                            if body is not None:
+                                content = bytes(part[:2]) + body; n += 1
+                        else:
+                            content = bytes(part[:2]) + R.es_encode(es, 1 << 20); n += 1
+                    elif not strip:
                         # SISTEMA/INTRO: MISMO TAMANO (= v25 INPLACE): crecer una linea con
                         # furigana cuelga (ruby ❌#8); plana mas larga desplaza el furigana.
                         budget = len(part) - 2
@@ -278,11 +294,16 @@ def main():
             # DEBUG: strip TODO para poner [id] en CADA evento (incluidos los protegidos).
             # Por eso la build DEBUG puede romper el CREAR-PARTIDA -> hay que CARGAR PARTIDA.
             strip = True if dbg_on else is_strip_event(eid)
+            # PRUEBA intro variable-length (GROW_INTRO=1): los eventos protegidos del rango
+            # del crear-partida/club (92010100..92010509) CRECEN conservando furigana, para
+            # quitar el truncado. Hay que probar que no rompe el crear-partida (❌#1/#9).
+            grow_fg = bool(os.environ.get("GROW_INTRO")) and 92010100 <= eid <= 92010509
             if eid in trans or dbg_on:
                 dec = decs[eid]
                 new_dec, n = reencode_var(dec, trans.get(eid, {}), strip=strip,
                                           string_slots=string_slots,
-                                          dbg_eid=(eid if dbg_on else None))
+                                          dbg_eid=(eid if dbg_on else None),
+                                          grow_fg=grow_fg)
                 if n:
                     comp = compress(new_dec)
                     ev_ok += 1; lines += n
