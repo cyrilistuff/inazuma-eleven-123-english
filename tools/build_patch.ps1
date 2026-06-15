@@ -26,5 +26,7 @@ if (-not (Test-Path $new))  { throw "No se encuentra la ROM traducida: $new" }
 New-Item -ItemType Directory -Force -Path (Split-Path $out -Parent) | Out-Null
 
 Write-Host "==> Generando parche: $out"
-& $tool -e -f -s $orig $new $out
+# -B 2147483648: ventana de fuente = tamaño de la ROM (2GB). Sin esto xdelta usa una ventana
+# de 64MB y el parche sale ENORME (~509MB) en vez de unos MB.
+& $tool -e -f -B 2147483648 -s $orig $new $out
 Write-Host "OK. Parche listo (este SI se sube a GitHub): $out"
