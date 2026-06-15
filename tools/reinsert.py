@@ -25,7 +25,7 @@ sys.path.insert(0, "tools")
 from fa_unpack import FaArchive
 from lz10 import compress, decompress
 from pkb_unpack import parse_index, _decode_string
-from font_patch import patch_font_bytes
+from font_patch import patch_font_bytes, PLAN as _PLAN
 
 _EN = _re.compile(r"[A-Za-z]{4,}")
 _MK = _re.compile(rb"%[1-9]F")          # marcadores furigana en bytes
@@ -48,13 +48,14 @@ def looks_like_dialogue(s):
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Acentos/signos del espanol -> caracter griego reusado (glifo sustituido en la
-# fuente, ver font_patch.PLAN). Al codificar en Shift-JIS dan 2 bytes (rango 0x839F+)
-# que el juego mapea a U+0391.. -> CMAP -> el glifo ES.
-GREEK = str.maketrans({"á": "Α", "é": "Β", "í": "Γ", "ó": "Δ", "ú": "Ε",
-                       "ü": "Ζ", "ñ": "Η", "Á": "Θ", "É": "Ι", "Í": "Κ",
-                       "Ó": "Λ", "Ú": "Μ", "Ñ": "Ν", "¡": "Ξ", "¿": "Ο",
-                       "ª": "a", "º": "o", "“": '"', "”": '"', "—": "-", "…": "..."})
+# Acentos/signos del espanol -> caracter PORTADOR (su glifo se sustituye en la fuente
+# por el acento, ver font_patch.PLAN). DERIVADO de PLAN: el portador es el caracter cuyo
+# codigo SHIFT-JIS es justo el codepoint que pinta font_patch -> es_encode y el parche
+# SIEMPRE coinciden en el mismo glifo (clave del bug de acentos: el juego busca por el
+# codepoint SJIS 0x839F.., no por el Unicode 0x0391).
+_acc = {ch: bytes([cp >> 8, cp & 0xFF]).decode("shift-jis") for ch, _b, _t, cp in _PLAN}
+_acc.update({"ª": "a", "º": "o", "“": '"', "”": '"', "—": "-", "…": "..."})
+GREEK = str.maketrans(_acc)
 
 FONTS = ["font/FONT12T.bcfnt", "font/FONT12.bcfnt", "font/FONT8.bcfnt"]
 
