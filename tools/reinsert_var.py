@@ -112,7 +112,7 @@ def _furigana_var(orig_body, es):
     return b"\\f".join(out)
 
 
-def reencode_var(dec, trans, strip=False, string_slots=frozenset()):
+def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None):
     """Redimensiona el dialogo a longitud COMPLETA y reubica SOLO las referencias de
     string del bytecode (offset-fixup PRECISO via 'string_slots'), dejando INTACTOS los
     operandos numericos/indice. Devuelve (nuevo_dec, n_lineas).
@@ -162,7 +162,16 @@ def reencode_var(dec, trans, strip=False, string_slots=frozenset()):
             if R.looks_like_dialogue(clean):
                 drop_readings = False         # reset: nueva linea de dialogo
                 es = trans.get(clean)
-                if es:
+                if strip and dbg_eid is not None:
+                    # MODO DEBUG: anteponer el [event_id] a CADA linea de dialogo (con su
+                    # traduccion ES si existe, o solo el ID si no). Asi al hablar con un NPC
+                    # se ve "[92010640] texto..." -> identifica el evento interno de cada
+                    # personaje. Strip (sin furigana) = seguro. Solo eventos strip (gameplay).
+                    body = _re.sub(r"%[1-9]F", "", es) if es else ""
+                    content = bytes(part[:2]) + R.es_encode("[%d]%s" % (dbg_eid, body), 1 << 20)
+                    n += 1
+                    drop_readings = True
+                elif es:
                     es = _re.sub(r"%[1-9]F", "", es)
                     if not strip:
                         # SISTEMA/INTRO: MISMO TAMANO (= v25 INPLACE): crecer una linea con
@@ -254,23 +263,24 @@ def main():
         decs = {eid: decompress(bytes(pkb[eoff:eoff + esize])) for eid, eoff, esize in ents}
         string_slots = build_string_slots(decs.values())
         print(f"{game}: {len(string_slots)} slots-string detectados (offset-fixup preciso)")
+        # MODO DEBUG (DEBUG_IDS=1): antepone el [event_id] a cada linea de dialogo de los
+        # eventos de gameplay (strip), incluso sin traduccion -> al hablar con un NPC se ve
+        # su ID interno. Para identificar que evento es cada personaje (vacio/crash) entre
+        # tests. NO afecta a la build limpia (sin la variable).
+        dbg_on = bool(os.environ.get("DEBUG_IDS"))
         new_pkb = bytearray()
         new_index = []                                       # (eid, new_off, new_size)
         ev_ok = lines = grew = reverted = 0
         for eid, eoff, esize in ents:
             comp_orig = bytes(pkb[eoff:eoff + esize])
-            if eid in trans:
+            strip = is_strip_event(eid)
+            # STRIP (quitar furigana, texto completo) en HISTORIA; INPLACE mismo-tamano en
+            # sistema/intro (eid>=90000000) para no romper el crear-partida (LECCIONES ❌#1).
+            if eid in trans or (dbg_on and strip):
                 dec = decs[eid]
-                # STRIP (quitar furigana, texto completo) en HISTORIA; conservar furigana
-                # (INPLACE mismo-tamano) en sistema/intro (eid>=90000000) para no romper
-                # el crear-partida. Ver FURIGANA_LECCIONES ❌#1.
-                # EXCEPCION: eventos de ZONA (NPCs por area) que aun siendo >=90000000
-                # sufren el bug #2 (cuelgue al hablar con NPC, furigana-especifico). Son
-                # gameplay POST-intro (no afectan al crear-partida) -> se STRIPean para
-                # quitarles el furigana (lo arregla) y dar texto completo. Ver LECCIONES #2.
-                strip = is_strip_event(eid)
-                new_dec, n = reencode_var(dec, trans[eid], strip=strip,
-                                          string_slots=string_slots)
+                new_dec, n = reencode_var(dec, trans.get(eid, {}), strip=strip,
+                                          string_slots=string_slots,
+                                          dbg_eid=(eid if dbg_on else None))
                 if n:
                     comp = compress(new_dec)
                     ev_ok += 1; lines += n
