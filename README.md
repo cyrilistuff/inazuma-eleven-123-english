@@ -13,17 +13,21 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-🟢 **Build jugable v10** (estable, arranca y se juega) — **menús, nombres de
-jugadores y equipos** (ambos juegos) + parte del **diálogo** (líneas sin furigana,
-~30%), con acentos. Parche: [`patch/inazuma123-es-v10.xdelta`](patch/).
+⏸️ **Proyecto pausado/archivado** — preservado para retomar en el futuro.
 
-🧪 **v13 (experimental, a probar)** — intenta también el diálogo **con furigana**
-preservando los marcadores `%NF` para no colgar el juego (causa raíz documentada en
-[`docs/FORMATOS.md`](docs/FORMATOS.md) §"Estructura SSD"). Estructura verificada
-offline; **pendiente de prueba visual**. Posible efecto cosmético (ruby kana
-flotante) y muchas líneas largas se revierten al japonés por el límite de tamaño.
-Parche: [`patch/inazuma123-es-v13.xdelta`](patch/). Si falla, usa v10.
-Ver [`docs/PROGRESO.md`](docs/PROGRESO.md).
+🟢 **Build final v27** (estable): **arranca, crea partida**, e **intro + diálogo de
+historia en español** (gameplay completo sin truncar; intro a mismo tamaño, algo
+truncado). Menús, nombres de jugadores y equipos (ambos juegos), con acentos.
+Parche: [`patch/inazuma123-es-v27.xdelta`](patch/).
+
+**Muros técnicos definitivos** (documentados en [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)):
+parchear el código del juego es inviable (zona de relocalización del CRO); los eventos
+de sistema/intro no pueden crecer (se truncan); y ~la mitad del diálogo no tiene datos
+de traducción. No es un fallo del motor — es el techo real con lo que hay.
+
+> 🛠️ **¿Quieres retomarlo o trabajar en él?** Empieza por
+> **[`docs/DESARROLLO.md`](docs/DESARROLLO.md)**: clonar, requisitos, regenerar los datos
+> que no están en git, el pipeline de build paso a paso y la tabla de flags.
 
 ## La ROM objetivo
 
@@ -43,21 +47,20 @@ Ver [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## Cómo aplicar el parche (para jugadores)
 
-> ⚠️ **Build de prueba PARCIAL (v5).** Traduce el **juego 1 y el juego 2**
-> (el 3 sigue en japonés): diálogo de eventos (reúso del español oficial del NDS),
-> **menús, nombres de jugadores y equipos**, todo **con acentos** (ñ, tildes, ¿¡).
-> Quedan líneas sin equivalente oficial (en japonés) y objetos/técnicas pendientes.
-> Mejora en cada versión.
+> ⚠️ **Build PARCIAL (v27).** Traduce el **juego 1 y el juego 2** (el 3 sigue en
+> japonés): intro y diálogo de historia, menús, nombres de jugadores y equipos, todo
+> **con acentos** (ñ, tildes, ¿¡). El intro va algo **truncado** y ~la mitad de las
+> líneas sin traducción oficial se quedan en japonés (límite de datos, ver estado arriba).
 
 **Requisitos:** tu **propia ROM legal**, **descifrada**, de *Inazuma Eleven 1·2·3!!
 Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
 Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
 
-**Aplicar el parche (recomendado: v10):**
+**Aplicar el parche (v27, el último):**
 ```
-xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v10.xdelta "inazuma123_es.3ds"
+xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v27.xdelta "inazuma123_es.3ds"
 ```
-(las versiones anteriores v1-v5 siguen en `patch/` por si alguna diera problemas)
+(las versiones anteriores siguen en `patch/` por si alguna diera problemas)
 (o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
 
 **Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).
@@ -80,9 +83,13 @@ reconstruye la ROM recalculando hashes con [3dstool](https://github.com/dnasdw/3
 **Alternativa (LayeredFS):** en Lime3DS/Citra puedes cargar solo el `archive.fa`
 parcheado como mod de RomFS sin tocar la ROM (carpeta `load/mods/<TitleID>/romfs/`).
 
-## Cómo contribuir
+## Cómo contribuir / retomar
 
-Lee [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) y el glosario antes de traducir.
+- **Desarrollo (clonar, build, pipeline, flags):** [`docs/DESARROLLO.md`](docs/DESARROLLO.md)
+- **Traducir texto (estilo, glosario):** [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)
+- **Qué NO funciona (no repetir):** [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)
+- **Formatos técnicos:** [`docs/FORMATOS.md`](docs/FORMATOS.md) · [`docs/EVENT_SCRIPT_FORMAT.md`](docs/EVENT_SCRIPT_FORMAT.md)
+- **Avance:** [`docs/PROGRESO.md`](docs/PROGRESO.md)
 
 ## Créditos
 

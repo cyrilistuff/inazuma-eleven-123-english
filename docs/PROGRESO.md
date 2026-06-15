@@ -2,6 +2,32 @@
 
 Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 
+---
+
+## ⏸️ ESTADO FINAL (proyecto pausado, build v27) — 2026-06
+
+**Build v27** = la mejor lograda: **arranca, crea partida, intro + diálogo de historia en
+español**. Parche [`patch/inazuma123-es-v27.xdelta`](../patch/). Cómo trabajar:
+[`DESARROLLO.md`](DESARROLLO.md).
+
+**Motor nuevo de reinserción** (`tools/ssd_reinsert.py`): el texto SSD se referencia por
+**índice** (no por offset) → el bytecode queda intacto, el diálogo de **gameplay crece libre**
+(sin truncar), y los eventos de **sistema/intro** van INPLACE a mismo tamaño con **re-paginación**
+(reparte el ES en las páginas `\f` del JP) + **fallback global** (reusa traducción del mismo
+japonés en otro evento, +~22 % cobertura). Validador `validate.py` consciente del crecimiento.
+
+**Muros DEFINITIVOS** (no reintentar — [`FURIGANA_LECCIONES.md`](FURIGANA_LECCIONES.md)):
+- ❌ **Parchear el código es inviable**: la zona de caves del CRO (`0x50E14`) es de
+  **relocalización** → el loader la pisa → crash `0xAD9E1C`. Ni ruby (`0xABFCC0`) ni `code.bin`.
+- ❌ **Sistema/intro no puede crecer** (ruby cuelga al avanzar, ❌#9) → mismo tamaño → truncado.
+  La apertura/crear-partida (`92010100..92010249`) exige eventos intactos (❌#1).
+- 📉 **Techo de datos: ~48 %** del diálogo tiene traducción; el resto no existe en los datos.
+
+**Qué queda** para subir cobertura: traducir a mano lo `pendiente`/`revisar` de `dialogo.csv`,
+objetos/técnicas (#1/#2), juego 3. El motor ya aguanta; el límite es de datos.
+
+---
+
 ## Fase 0 — Infraestructura
 - ✅ Diagnóstico de las ROMs (formato, cifrado, regiones)
 - ✅ Estructura del repositorio + git init

@@ -52,15 +52,21 @@
   original y la traducida.
 
 ### Compilar la build
-Secuencia completa (CSV → ROM jugable):
+> **Guía completa (requisitos, regeneración de datos, tabla de flags):**
+> [`../docs/DESARROLLO.md`](../docs/DESARROLLO.md).
+
+Secuencia (CSV → ROM jugable), con los **flags de la build v27**:
 ```
-python tools/reinsert.py        # parchea fuentes (acentos) + roster -> work/archive_es.fa
-python tools/reinsert_var.py    # reinserta el dialogo (long. variable) -> work/eve_var/
-python tools/build_3ds_var.py   # VALIDA (red de seguridad) y compila -> work/build/*.3ds
+python tools/reinsert.py                                  # fuentes (acentos) + roster + UI -> work/archive_es.fa
+python tools/reinsert_var.py game1                        # dialogo (long. variable) -> work/eve_var/
+SKIP_CRO=1 NO_CODE_PATCH=1 python tools/build_3ds_var.py game1   # VALIDA y compila -> work/build/*.3ds
+pwsh -File tools/build_patch.ps1 -Translated "work\build\inazuma123_es_var.3ds" -Patch "patch\inazuma123-es-vNN.xdelta"
 ```
 `build_3ds_var.py` corre `validate.py` ANTES de compilar y **aborta** si hay una
-regresion conocida (operandos corruptos, furigana que crece ❌#9, dialogo vacio).
-`SKIP_VALIDATE=1` lo fuerza (solo builds de prueba).
+regresion conocida (operandos corruptos, furigana que crece ❌#9, dialogo vacio,
+desbalance marcador↔lectura). `SKIP_VALIDATE=1` lo fuerza (solo builds de prueba).
+La build v27 = `SKIP_CRO=1` + `NO_CODE_PATCH=1` (el resto de flags por defecto):
+gameplay crece a texto completo, sistema/intro INPLACE, fallback global, CRO sin parchear.
 
 ### Detección de errores en runtime (cosecha de logs)
 La idea: **cada partida deja su rastro de errores en NUESTRO registro**, para ir
