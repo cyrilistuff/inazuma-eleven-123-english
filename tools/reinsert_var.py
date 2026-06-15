@@ -273,10 +273,12 @@ def main():
         ev_ok = lines = grew = reverted = 0
         for eid, eoff, esize in ents:
             comp_orig = bytes(pkb[eoff:eoff + esize])
-            strip = is_strip_event(eid)
             # STRIP (quitar furigana, texto completo) en HISTORIA; INPLACE mismo-tamano en
             # sistema/intro (eid>=90000000) para no romper el crear-partida (LECCIONES ❌#1).
-            if eid in trans or (dbg_on and strip):
+            # DEBUG: strip TODO para poner [id] en CADA evento (incluidos los protegidos).
+            # Por eso la build DEBUG puede romper el CREAR-PARTIDA -> hay que CARGAR PARTIDA.
+            strip = True if dbg_on else is_strip_event(eid)
+            if eid in trans or dbg_on:
                 dec = decs[eid]
                 new_dec, n = reencode_var(dec, trans.get(eid, {}), strip=strip,
                                           string_slots=string_slots,
