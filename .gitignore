@@ -48,3 +48,4 @@ desktop.ini
 
 # Diálogo oficial extraído del DS (copyright Nintendo): regenerar con tools/ds_official.py
 translation/*/dialogo_oficial.csv
+.firecrawl/

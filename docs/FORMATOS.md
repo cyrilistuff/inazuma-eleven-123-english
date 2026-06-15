@@ -212,6 +212,38 @@ una lectura**. Ejemplo: `%1F彼 %2F駅前 %1F呼` → lecturas `かれ`,`えき�
 13867 de 19849; game2: 46141 de 66598). Por eso la build v10 (que salta el furigana)
 solo muestra ~30% en español → el resto sigue en japonés.
 
+## Fuentes y ACENTOS — DECODIFICADO (2026-06)
+
+El español no cabe en Shift-JIS (no tiene á/é/ñ/¡/¿). Estrategia: **codificar cada acento
+como un carácter GRIEGO/CIRÍLICO** (que SJIS sí tiene) y **repintar ese glifo en la fuente**
+con la letra acentuada (`tools/font_patch.py` sobre las `font/*.bcfnt`, mismo tamaño).
+
+**Fuentes del juego:** las reales son `font/FONT12T.bcfnt` / `FONT12.bcfnt` / `FONT8.bcfnt`
+(bcfnt 3DS, con ASCII media anchura + kana + kanji + griego/cirílico). Las
+`inazumaN/data_iz/font/*.NFTR` (formato DS) **NO** son las del diálogo (no tienen ASCII
+media anchura, que el diálogo sí usa).
+
+**⚠️ Clave (bug de acentos resuelto):** la bcfnt mapea el griego en **DOS** rangos: Unicode
+(`0x0391..`) **y SJIS** (`0x839F..`), a **glifos distintos**. `es_encode` emite bytes
+**SJIS** (`á`→`0x839F`), así que el juego busca el glifo por el **codepoint SJIS** → hay
+que repintar el glifo del **SJIS**, no el del Unicode (ese error hacía que los acentos
+salieran como letras griegas crudas: `dΔnde`, `estΒ`, `Ξ`=¡). Además la fuente solo tiene
+glifo SJIS para ALGUNAS griegas mayúsculas; los 9 acentos que faltaban se reasignan a
+portadores SJIS que sí existen (griega minúscula γ/η/μ/ξ/π/φ/ω + Τ/Ψ). `font_patch.PLAN` es
+la única fuente de verdad; `reinsert.GREEK` se deriva de ella → siempre coinciden.
+
+## Contexto de herramientas de la comunidad (research 2026-06)
+
+Este juego es un **PORT de los 3 juegos de DS** al 3DS → usa formatos **heredados del DS**
+(fuentes NFTR, `.dat`/`.str`, eventos SSD). Por eso:
+- Las herramientas de **Inazuma Eleven GO** (nativo 3DS: StudioElevenLib, CfgBinEditor,
+  scripts Squirrel, mapenv de Tiniifan) **NO aplican** a nuestros formatos.
+- Sí aplican herramientas de **DS**: crystaltile2 (NFTR/`.dat`), `InazumaDSEditor`
+  (unitbase.dat), `Inazuma-Eleven-Toolbox` (save/stats de los 3 primeros).
+- **El diálogo de eventos SSD con furigana NO lo ha resuelto la comunidad** (en el hilo de
+  GBAtemp de este juego se atascaron buscando el texto): nuestro pipeline custom va por
+  delante ahí. No reinventar la rueda en lo fácil (fuentes/roster), sí mantener lo difícil.
+
 ## Herramientas (resumen, detalle en tools/README.md)
 
 | Tarea | Herramienta |
