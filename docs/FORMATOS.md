@@ -223,14 +223,15 @@ con la letra acentuada (`tools/font_patch.py` sobre las `font/*.bcfnt`, mismo ta
 `inazumaN/data_iz/font/*.NFTR` (formato DS) **NO** son las del diálogo (no tienen ASCII
 media anchura, que el diálogo sí usa).
 
-**⚠️ Clave (bug de acentos resuelto):** la bcfnt mapea el griego en **DOS** rangos: Unicode
-(`0x0391..`) **y SJIS** (`0x839F..`), a **glifos distintos**. `es_encode` emite bytes
-**SJIS** (`á`→`0x839F`), así que el juego busca el glifo por el **codepoint SJIS** → hay
-que repintar el glifo del **SJIS**, no el del Unicode (ese error hacía que los acentos
-salieran como letras griegas crudas: `dΔnde`, `estΒ`, `Ξ`=¡). Además la fuente solo tiene
-glifo SJIS para ALGUNAS griegas mayúsculas; los 9 acentos que faltaban se reasignan a
-portadores SJIS que sí existen (griega minúscula γ/η/μ/ξ/π/φ/ω + Τ/Ψ). `font_patch.PLAN` es
-la única fuente de verdad; `reinsert.GREEK` se deriva de ella → siempre coinciden.
+**⚠️ Clave (bug de acentos resuelto, verificado renderizando los glifos):** la bcfnt guarda
+cada griega en **DOS** glifos distintos: el rango **Unicode** (`0x0391..`) y el **SJIS**
+(`0x839F..`). `es_encode` emite bytes **SJIS** (`é`→`0x83A0`), PERO el motor los **reconvierte
+a Unicode** y busca el glifo por el **codepoint UNICODE** (comprobado: el glifo que pinta
+para el byte `0x83A0` es el del Unicode `0x0392`, no el del SJIS). → hay que repintar el
+glifo del **codepoint UNICODE**, no el del SJIS (patchear el SJIS no tiene efecto: el juego
+no lo usa). Los **15 griegos mayúsculos Unicode (`0x0391-0x039F`)** están TODOS en el cmap de
+las 3 fuentes → cubren los 15 acentos 1:1. `font_patch.PLAN` (codepoints Unicode) es la única
+fuente de verdad; `reinsert.GREEK` deriva el portador = `chr(cp)` → siempre coinciden.
 
 ## Contexto de herramientas de la comunidad (research 2026-06)
 
