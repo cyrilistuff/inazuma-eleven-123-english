@@ -49,3 +49,8 @@ desktop.ini
 # Diálogo oficial extraído del DS (copyright Nintendo): regenerar con tools/ds_official.py
 translation/*/dialogo_oficial.csv
 .firecrawl/
+
+# Registro de errores de runtime cosechado de Azahar (tools/harvest_log.py):
+# datos locales de la maquina (rutas, PCs). El registro persiste en local; a GitHub
+# solo van las herramientas, no la cosecha.
+logs/

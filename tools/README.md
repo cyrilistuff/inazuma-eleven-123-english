@@ -51,4 +51,37 @@
 - `build_patch.ps1` — genera `patch/inazuma123-es.xdelta` a partir de la ROM
   original y la traducida.
 
+### Compilar la build
+Secuencia completa (CSV → ROM jugable):
+```
+python tools/reinsert.py        # parchea fuentes (acentos) + roster -> work/archive_es.fa
+python tools/reinsert_var.py    # reinserta el dialogo (long. variable) -> work/eve_var/
+python tools/build_3ds_var.py   # VALIDA (red de seguridad) y compila -> work/build/*.3ds
+```
+`build_3ds_var.py` corre `validate.py` ANTES de compilar y **aborta** si hay una
+regresion conocida (operandos corruptos, furigana que crece ❌#9, dialogo vacio).
+`SKIP_VALIDATE=1` lo fuerza (solo builds de prueba).
+
+### Detección de errores en runtime (cosecha de logs)
+La idea: **cada partida deja su rastro de errores en NUESTRO registro**, para ir
+detectando qué mejorar en la siguiente versión sin mirar el log en vivo.
+
+- `harvest_log.py` — lee el log de Azahar, agrupa cada error por su **PC** (firma
+  estable del bug; la dirección leída varía y se descarta), separa **crashes**
+  (bugs nuestros) del **ruido benigno del emulador**, y lo funde en
+  `logs/runtime_errors.json` (persistente) + `logs/INFORME_ERRORES.md`. Los PCs ya
+  diagnosticados se anotan en `KNOWN_PCS` (dentro del script).
+  ```
+  python tools/harvest_log.py            # cosecha el log actual + .old
+  python tools/harvest_log.py --report   # solo reimprime el informe
+  ```
+- `jugar.ps1` — lanza la build en Azahar y, **al cerrar el emulador, cosecha
+  automáticamente** la sesión. Así el registro se alimenta solo en cada arranque.
+  ```
+  pwsh -File tools/jugar.ps1 [ruta\build.3ds]   # sin arg: la build más reciente
+  ```
+
+> `logs/` está en `.gitignore` (datos locales de la máquina). A GitHub solo van las
+> herramientas, no la cosecha.
+
 > Coloca los ejecutables descargados en `tools/bin/` (ignorado por git).
