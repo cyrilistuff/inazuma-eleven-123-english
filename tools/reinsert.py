@@ -153,7 +153,26 @@ def load_translations(game):
     return out
 
 
-def _furigana_body_bytes(orig_body, es, budget):
+def _repaginate(es, n):
+    """Reparte el texto ES en EXACTAMENTE n paginas NO vacias (en limites de linea \\n/\\f).
+    El motor consume marcadores por pagina, asi que el nº de paginas DEBE coincidir con el JP;
+    cuando el traductor uso \\n donde el JP usa \\f (paginas != ), re-paginamos en vez de
+    rechazar la linea (que la dejaba en japones). Devuelve lista de n paginas, o None si no hay
+    lineas suficientes para n paginas no vacias (entonces se rechaza -> japones, seguro: nunca
+    una pagina vacia, que CUELGA el motor ❌#4)."""
+    lines = [l for l in es.replace("\\f", "\\n").split("\\n") if l.strip()]
+    if len(lines) < n:
+        return None                                  # no hay lineas para n paginas no vacias
+    pages = [[] for _ in range(n)]
+    for i, l in enumerate(lines):
+        pages[i * n // len(lines)].append(l)          # repartir lineas equilibrado entre n paginas
+    res = ["\\n".join(p) for p in pages]
+    if any(not p.strip() for p in res):
+        return None                                  # alguna pagina quedaria vacia -> rechazar
+    return res
+
+
+def _furigana_body_bytes(orig_body, es, budget, allow_repaginate=True):
     """v20+: construye el CUERPO (bytes) del chunk furigana traducido, a prueba de
     truncado. Reparte los marcadores %NF POR PAGINA igual que el original (el motor
     consume 1 lectura por marcador y pagina) y cada marcador lleva detras N espacios
@@ -162,11 +181,14 @@ def _furigana_body_bytes(orig_body, es, budget):
     (-> dejar la linea en japones). Devuelve bytes rellenos a 'budget', o None."""
     orig_pages = orig_body.split(b"\\f")
     es_pages = es.split("\\f")
-    # SOLO traducir si la estructura de paginas coincide: asi los marcadores se
-    # reparten 1:1 por pagina como el original. Si difiere, devolver None (la linea
-    # se queda en japones) -> evita paginas vacias/desajustes que cuelgan el motor.
+    # El nº de paginas DEBE coincidir (marcadores por pagina). Si el ES difiere, RE-PAGINAR
+    # (repartir las lineas del ES en len(orig_pages) paginas) en vez de rechazar -> recupera
+    # las lineas traducidas que el traductor dejo con \\n donde el JP usa \\f. Si no se puede
+    # re-paginar sin paginas vacias, devolver None (japones, seguro).
     if len(es_pages) != len(orig_pages):
-        return None
+        es_pages = _repaginate(es, len(orig_pages)) if allow_repaginate else None
+        if es_pages is None:
+            return None
     marks_pp = [[m.group().decode() for m in _MK.finditer(p)] for p in orig_pages]
     npages = len(es_pages)
     prefixes = [es_encode("".join(m + "　" * int(m[1]) for m in (marks_pp[i] if i < len(marks_pp) else [])),

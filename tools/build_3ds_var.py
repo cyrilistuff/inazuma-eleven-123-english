@@ -42,6 +42,10 @@ def main():
 
     cxi = os.path.join(W, "part0.cxi")
     exefs = os.path.join(W, "exefs.bin"); exh = os.path.join(W, "exh.bin")
+    exefs_dir = os.path.join(W, "exefs_out")
+    exh_exefs = os.path.join(W, "exh_exefs.bin")
+    exefs_patched = os.path.join(W, "exefs_patched.bin")
+    exh_patched = os.path.join(W, "exh_patched.bin")
     logo = os.path.join(W, "logo.bin"); plain = os.path.join(W, "plain.bin")
     ncsd = os.path.join(W, "ncsd_header.bin"); ncch = os.path.join(W, "ncch_header.bin")
     romfs_bin = os.path.join(W, "romfs_new.bin")
@@ -63,12 +67,48 @@ def main():
     else:
         print("partes CXI ya extraidas")
 
+    # 2b) extraer los FICHEROS del exefs (.code/banner/icon/logo) para parchear el .code
+    if not os.path.exists(os.path.join(exefs_dir, "code.bin")):
+        print("== extraer ficheros del exefs ==")
+        run(TOOL, "-xtf", "exefs", exefs, "--exefs-dir", exefs_dir, "--header", exh_exefs)
+
     # secciones opcionales (esta NCCH puede no tener logo): incluir solo las que existen
     opt = []
     if os.path.exists(logo) and os.path.getsize(logo) > 0:
         opt += ["--logo", logo]
     if os.path.exists(plain) and os.path.getsize(plain) > 0:
         opt += ["--plain", plain]
+
+    # 3a) PARCHE del CRO de ruby (idempotente): bounds-check que evita el crash del furigana
+    #     al traducir (ver tools/patch_cro.py — ingenieria inversa de ina_main1.cro). Sin esto
+    #     el texto completo (FULLTEXT) crashea (el muro ❌#1/#9 era del codigo, no de los datos).
+    sys.path.insert(0, os.path.join(REPO, "tools"))
+    # SKIP_CRO=1: NO parchear el CRO. La zona del cave (0x50E14/0xAD9E14) es de RELOCACION:
+    # el loader la pisa al cargar -> el parche se corrompe -> crash 0xAD9E1C (confirmado por
+    # log). Con NO_BLANK (lectura original) la ruby no se dispara y el parche sobra: restaurar
+    # el CRO original.
+    cro_path = os.path.join(ROMFS_DIR, "cro", "ina_main1.cro")
+    if os.environ.get("SKIP_CRO"):
+        _orig = cro_path + ".orig"
+        if os.path.exists(_orig):
+            open(cro_path, "wb").write(open(_orig, "rb").read())
+        print("== CRO SIN parchear (SKIP_CRO; original restaurado) ==")
+    else:
+        import patch_cro
+        _cb = bytearray(open(cro_path, "rb").read())
+        if patch_cro.patch(_cb):
+            open(cro_path, "wb").write(_cb); print("== CRO ruby PARCHEADO (bounds-check 0xABFCC0) ==")
+        else:
+            print("== CRO ruby ya parcheado ==")
+
+    # 3b) PARCHE de code.bin (bounds-checks de las funciones de texto strcpy/getc/strcmp que
+    #     crashean con el texto traducido) -> exefs reconstruido con el .code PLANO + flag
+    #     compress-code a 0. Ver tools/patch_code.py + patch_exefs.py (ingenieria inversa).
+    import patch_exefs, patch_code
+    npatch, plain_sz = patch_exefs.build_exefs(exefs_dir, exefs_patched)
+    ts = patch_code.NEW_TEXT_SIZE if npatch else None
+    patch_exefs.patch_exheader(exh, exh_patched, text_size=ts)
+    print(f"== code.bin PARCHEADO: {npatch} bounds-checks, plano {plain_sz}B; compress-flag->0; text_size->{ts} ==")
 
     # 3) poner archive_var.fa en el romfs y reconstruir romfs.
     #    OJO: no perder el archive.fa ORIGINAL (lo necesita reinsert). Backup+restore.
@@ -90,8 +130,8 @@ def main():
     print("== reconstruir cxi y 3ds ==")
     # --not-encrypt: conservar el flag NoCrypto (el ROM es descifrado); si no,
     # 3dstool limpia el bit 0x04 y Azahar lo da por "encriptado / region no valida".
-    run(TOOL, "-ctf", "cxi", cxi, "--romfs", romfs_bin, "--exefs", exefs,
-        "--header", ncch, "--exh", exh, "--not-encrypt", *opt)
+    run(TOOL, "-ctf", "cxi", cxi, "--romfs", romfs_bin, "--exefs", exefs_patched,
+        "--header", ncch, "--exh", exh_patched, "--not-encrypt", *opt)
     run(TOOL, "-ctf", "3ds", out, "-0", cxi, "--header", ncsd)
     print(f"\n-> {out}  ({os.path.getsize(out)} bytes)")
 

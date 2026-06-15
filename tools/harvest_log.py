@@ -90,7 +90,8 @@ def _classify(sub, msg):
         pc = "0x" + m["pc"].upper().rjust(8, "0")
         return (f"mem:{op}{sz}:{pc}", f"unmapped {op}{sz}", pc,
                 f"unmapped {op}{sz} @ 0x<addr> at PC {pc}", "crash")
-    norm = NUM.sub("<n>", HEX.sub("0x<a>", msg)).strip()
+    # normaliza separadores de ruta (Azahar mezcla \ y /) + numeros/hex -> misma firma
+    norm = NUM.sub("<n>", HEX.sub("0x<a>", msg.replace("\\", "/"))).strip()
     return (f"{sub}|{norm}"[:180], sub, None, norm, _relevancia(sub, None, norm))
 
 

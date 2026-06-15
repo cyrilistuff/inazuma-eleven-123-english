@@ -27,7 +27,48 @@ GAMES = R.GAMES
 # (eid>=90000000), se STRIPean: sufren el bug #2 (cuelgue al hablar con NPC, especifico
 # del furigana). Son gameplay post-intro, no afectan al crear-partida. Detectados por
 # tener nombre-de-zona tipo0x03 + diálogos con marcadores entre los eventos protegidos.
-STRIP_ZONA = {92040800, 92062100}   # objetivo estatua, 正門エリア (fuera del rango cap.1)
+# (vacio) Antes forzaba strip de 92040800/92062100 (正門エリア) pero el strip CRECE el texto
+# y DESPLAZA las señales de sonido/animacion que el motor consume por POSICION -> desync ->
+# diálogos VACIOS en runtime (datos OK pero render roto). Ahora se tratan como no-strip
+# (blank-readings, mismo tamaño): truncado pero estable. Ver FURIGANA_LECCIONES ❌#12.
+STRIP_ZONA = set()
+# Eventos de gameplay que CRASHEAN con texto-completo (el motor de ruby ❌#9): se tratan como
+# SISTEMA (conservar marcadores, furigana en japones, planas en español) = estable sin crash.
+# Se amplia segun se cazan jugando. Ver FURIGANA_LECCIONES ❌#9.
+DONT_STRIP = {81000040}   # NPC tutorial (回復サイト)
+# Eventos HIPER-SENSIBLES: crashean con CUALQUIER cambio (strip Y blank-readings). Se dejan
+# 100% ORIGINALES (japones, sin traducir): el original no crashea. Se pierde la traduccion de
+# ese NPC pero es ESTABLE. Ej: tutorial 81000040 -> 0x00184AAC al stripear, 0x00ABFCC0 al
+# blank-readear. Se amplia segun los cazamos. Mejor japones estable que crash.
+DONT_TOUCH = {
+    81000040,   # NPC tutorial (回復サイト, "ventana emergente"): cualquier cambio lo tumba
+}
+
+
+def is_grow_safe(dec, string_slots):
+    """True si el evento se puede CRECER (strip a texto completo) sin romper referencias.
+    False si tiene refs a byte-id/lectura/control NO reubicables: su opcode MEZCLA refs con
+    operandos numericos (p.ej. op 0x01026001 = 76% numeros) -> reubicarlas corromperia los
+    numeros = crash Read32 ❌#11. Por eso no estan en string_slots. Al crecer el texto, esos
+    byte-id se desplazan y la ref apunta mal -> DIALOGO VACIO. Esos eventos -> blank-readings
+    (mismo tamaño = no se desplaza nada = sin vacio). Es la clasificacion automatica que
+    sustituye al whack-a-mole de zonas. Ver FURIGANA_LECCIONES ❌#12/#13."""
+    if dec[:4] != b"SSD\x00":
+        return True
+    s10 = struct.unpack_from("<I", dec, 0x10)[0]
+    starts = {}; r = 0
+    for p in dec[s10:].split(b"\x00"):
+        starts[r] = p; r += len(p) + 1
+    for opos, op, slot in _instr_operands(dec[:s10], s10):
+        v = struct.unpack_from("<I", dec, opos)[0]
+        if v and v in starts and (op, slot) not in string_slots:
+            ch = starts[v]
+            # ref a byte-id (1 byte >=0x80) o a chunk TIPADO (lectura/control 0x02-0x1f):
+            # son referencias reales que se rompen al desplazarse. (Dialogo 0x01 / mid-chunk
+            # numerico no se referencian -> no cuentan.)
+            if (len(ch) == 1 and ch[0] >= 0x80) or (len(ch) >= 2 and 2 <= ch[0] <= 0x1f):
+                return False
+    return True
 
 
 def is_strip_event(eid):
@@ -35,6 +76,15 @@ def is_strip_event(eid):
     False = evento PROTEGIDO (apertura/sistema/menu): furigana a mismo tamano (=v25), NO
     se le aplica la traduccion oficial (descuadra el crear-partida). Debe coincidir con
     la decision 'strip' de main()."""
+    if eid in DONT_STRIP:
+        return False                          # crashea al stripear -> blank-readings
+    # EXPERIMENTAL (STRIP_ALL=1): stripear TODO, incluido intro/sistema -> quita el furigana
+    # japones de TODOS los dialogos. El cuelgue ❌#1 (crear-partida) lo causaba el DESBALANCE
+    # marcador<->lectura, ya corregido con drop_readings; validate.py caza el desbalance
+    # offline antes de compilar. Riesgo residual: la apertura (92010200) podria exigir
+    # marcadores aun balanceada -> probar con PARTIDA NUEVA.
+    if os.environ.get("STRIP_ALL"):
+        return True
     return eid < 90000000 or eid in STRIP_ZONA or 92010510 <= eid < 92011000
 # Ademas se STRIPea el bloque de gameplay del cap.1 [92010510, 92011000): zona
 # サークル棟エリア (92010510) y los eventos interactivos siguientes (92010520 "Axel se
@@ -112,6 +162,19 @@ def _furigana_var(orig_body, es):
     return b"\\f".join(out)
 
 
+def _blank_reading(part):
+    """Oculta el japones de una LECTURA furigana SIN romper nada: conserva el prefijo
+    [indice][estilo] (2 bytes) y sustituye el kana por espacios ANCHO COMPLETO del MISMO
+    tamano en bytes. Asi el chunk sigue en su sitio (el motor lo consume = 1 por marcador,
+    balanceado), no se reubica nada (mismo tamano -> sin ❌#9/#10), pero el ruby se dibuja
+    en blanco -> el えんどう deja de verse. Solo para eventos NO-strip (intro/sistema), que
+    no se pueden stripear (❌#1/#12)."""
+    body = part[2:]
+    n = len(body)
+    fill = b"\x81\x40" * (n // 2) + (b"\x20" * (n % 2))   # 0x8140 = espacio ancho completo SJIS
+    return bytes(part[:2]) + fill
+
+
 def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None,
                  grow_fg=False):
     """Redimensiona el dialogo a longitud COMPLETA y reubica SOLO las referencias de
@@ -157,6 +220,12 @@ def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None
             # TODAS sus lecturas (hasta la siguiente linea de dialogo). Asi marcadores y
             # lecturas quedan balanceados como en el original (clave del bloqueo de NPCs).
             content = None
+        elif (not strip) and R._is_reading(part):
+            # INTRO/SISTEMA (no se puede stripear, ❌#1/#12): la lectura NO se elimina
+            # (rompe el balance/crear-partida) pero se VACIA -> el japones del furigana
+            # deja de verse. Mismo tamano, sin reubicar. Arregla el "japones que empuja
+            # el texto" del intro sin tocar nada de lo que crashea.
+            content = _blank_reading(part)
         elif len(part) >= 3 and part[0] in (1, 2, 4):
             marks = R._MK.findall(part)
             clean = _decode_string(part, "sjis")
@@ -268,6 +337,16 @@ def main():
         trans = R.load_translations(game)
         if not trans:
             continue
+        # MAPA GLOBAL {japones: es}: union de TODAS las traducciones (cualquier evento). El
+        # fallback en reencode_ssd lo usa cuando la busqueda por-evento falla -> recupera las
+        # lineas cuyo mismo texto japones esta traducido en OTRO evento (~5575, 48%->~70%
+        # cobertura). NO_GLOBAL=1 lo desactiva (diagnostico). Conflicto jp->es distinto: gana
+        # la ultima vista (suficiente; el grueso son frases NPC/sistema contexto-independientes).
+        gtrans = None
+        if not os.environ.get("NO_GLOBAL"):
+            gtrans = {}
+            for _ev in trans.values():
+                gtrans.update(_ev)
         pkb_off, pkb_size = R.find_file(arc, f"{folder}/data_iz/script/eve.pkb")
         pkh_off, pkh_size = R.find_file(arc, f"{folder}/data_iz/script/eve.pkh")
         pkh = bytes(data[pkh_off:pkh_off + pkh_size])
@@ -293,17 +372,58 @@ def main():
             # sistema/intro (eid>=90000000) para no romper el crear-partida (LECCIONES ❌#1).
             # DEBUG: strip TODO para poner [id] en CADA evento (incluidos los protegidos).
             # Por eso la build DEBUG puede romper el CREAR-PARTIDA -> hay que CARGAR PARTIDA.
-            strip = True if dbg_on else is_strip_event(eid)
+            # strip (texto completo) SOLO si es gameplay Y se puede crecer sin romper refs
+            # (is_grow_safe). Si no -> blank-readings (mismo tamaño, español truncado, sin
+            # vacio). Clasificacion automatica = adios al whack-a-mole de zonas vacias.
+            strip = True if dbg_on else (is_strip_event(eid) and is_grow_safe(decs[eid], string_slots))
             # PRUEBA intro variable-length (GROW_INTRO=1): los eventos protegidos del rango
             # del crear-partida/club (92010100..92010509) CRECEN conservando furigana, para
             # quitar el truncado. Hay que probar que no rompe el crear-partida (❌#1/#9).
             grow_fg = bool(os.environ.get("GROW_INTRO")) and 92010100 <= eid <= 92010509
-            if eid in trans or dbg_on:
+            # BISECCION (EID_LO/EID_HI): traducir SOLO gameplay en ese rango de eid; el resto
+            # original. Para cazar por eliminacion el evento que produce el puntero corrupto.
+            _inrange = (not os.environ.get("EID_LO")) or (int(os.environ["EID_LO"]) <= eid < int(os.environ.get("EID_HI", "99999999")))
+            if eid in DONT_TOUCH:
+                comp = comp_orig                          # HIPER-SENSIBLE -> 100% original SIEMPRE
+                #   (byte-identico al ROM, fisicamente no puede crashear). Doc ❌#12. Independiente
+                #   de SYS_ORIG: estos crashean con CUALQUIER cambio (strip Y blank Y inplace).
+            elif os.environ.get("SYS_ORIG") and (eid >= 90000000 or not _inrange):
+                comp = comp_orig                          # SYS_ORIG (build ultra-estable): sistema/
+                #   intro 100% ORIGINAL. Sin SYS_ORIG el intro se traduce INPLACE (v25, truncado).
+            elif eid in trans or gtrans or dbg_on:
+                #   eid in trans = tiene traduccion por-evento; gtrans = hay fallback global (procesa
+                #   TODOS los eventos para aplicar el global a lineas cuyo jp esta traducido en otro).
                 dec = decs[eid]
-                new_dec, n = reencode_var(dec, trans.get(eid, {}), strip=strip,
-                                          string_slots=string_slots,
-                                          dbg_eid=(eid if dbg_on else None),
-                                          grow_fg=grow_fg)
+                # MOTOR NUEVO (formato SSD correcto via SceneScriptData): el texto se
+                # referencia por INDICE (estable) -> NO se reubica nada (sin offset-fixup),
+                # los diálogos crecen libres (sin truncar), las lecturas se vacían (sin
+                # japonés) y el bytecode queda INTACTO. Adios al vacío/crash/truncado.
+                import ssd_reinsert
+                # sistema/menu/intro (eid>=90000000): conservar marcadores (❌#1 runtime);
+                # gameplay (<90000000): texto completo (crece libre).
+                # FULLTEXT=1: con el PARCHE del CRO (bounds-check ruby en 0xABFCC0) se puede
+                # traducir TODO a texto completo, sistema incluido -> historia entera en español.
+                # SAME_SIZE=1: TODO a mismo tamaño (sin crecer) -> no dispara las funciones de
+                # code.bin que petan al crecer -> ESTABLE jugable de principio a fin (menos
+                # español: truncado + furigana en japones). Sin flags = conservador (sistema jp).
+                if os.environ.get("SAME_SIZE"):
+                    sysflag = True
+                else:
+                    sysflag = (eid >= 90000000 or eid in DONT_STRIP) and not os.environ.get("FULLTEXT")
+                # REGLA UNIFICADA del vaciado de lecturas (ligado a system, no global):
+                #  - system=True (mismo tamaño): se CONSERVAN los marcadores -> la ruby SE invoca
+                #    -> dejar la lectura ORIGINAL (vaciarla peta 0xABFCC0; y no hay cave fiable:
+                #    la zona del CRO es de relocalizacion -> crash 0xAD9E1C).
+                #  - system=False (gameplay STRIP/crecer): se QUITAN los marcadores -> la ruby NO
+                #    se invoca -> se VACIAN las lecturas huerfanas (full-width, no las detecta
+                #    _is_reading -> balance 0 marcadores : 0 lecturas, sin desync ❌bug#2).
+                # NO_BLANK=1 fuerza conservar siempre (solo diagnostico).
+                _blank = (not sysflag) and not os.environ.get("NO_BLANK")
+                new_dec, n = ssd_reinsert.reencode_ssd(dec, trans.get(eid, {}),
+                                                       system=sysflag,
+                                                       blank_readings=_blank,
+                                                       dbg_eid=(eid if dbg_on else None),
+                                                       gtrans=gtrans, eid=eid)
                 if n:
                     comp = compress(new_dec)
                     ev_ok += 1; lines += n

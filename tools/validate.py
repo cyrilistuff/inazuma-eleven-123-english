@@ -22,6 +22,7 @@ from pkb_unpack import parse_index, _decode_string
 from lz10 import decompress
 import reinsert as R
 import reinsert_var as V
+import ssd_reinsert
 
 REPO = R.REPO
 SUF = {"game1": "inazuma1", "game2": "inazuma2", "game3": "inazuma3"}
@@ -105,9 +106,20 @@ def validate(game):
         nstarts = _starts(ntext); ostarts = _starts(od[s10:])
         strpos = {opos for opos, op, slot in V._instr_operands(ncode, s10) if (op, slot) in ss}
 
-        # 2) ningun operando NO-string del codigo cambio (salvo +0x08 = tamano total)
+        # 2) ningun operando NO-string del codigo cambio (salvo +0x08 = tamano total). En modo
+        #    que CRECE (no SAME_SIZE) tambien cambia +0x14 = textSize LEGITIMAMENTE -> se tolera,
+        #    pero se VERIFICA que sea COHERENTE (textSize == longitud real del texto); si no
+        #    cuadra, es corrupcion de verdad. En SAME_SIZE se sigue estricto (textSize NO debe
+        #    cambiar -> caza crecimientos accidentales, peticion del usuario).
+        grow_ok = not os.environ.get("SAME_SIZE")
+        if grow_ok:
+            real_textsize = len(nd) - ssd_reinsert._text_start(nd)   # texto = todo tras las instrucciones
+            if struct.unpack_from("<I", nd, 0x14)[0] != real_textsize:
+                bad_operand += 1
+                if len(ex["operand"]) < 8:
+                    ex["operand"].append((eid, "textSize incoherente"))
         for i in range(0, len(ocode) - 3, 4):
-            if i == 0x08 or i in strpos:
+            if i == 0x08 or i in strpos or (grow_ok and i == 0x14):
                 continue
             if ocode[i:i + 4] != ncode[i:i + 4]:
                 bad_operand += 1

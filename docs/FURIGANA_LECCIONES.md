@@ -4,6 +4,102 @@
 > Cada enfoque de esta lista ya se probó **en emulador** y FALLÓ. No repetir.
 > Cada línea está pagada con una build de ~15 min + una prueba del usuario.
 
+## ✅✅✅ SOLUCIÓN POR INGENIERÍA INVERSA del EJECUTABLE (2026-06) — pendiente confirmar in-game
+
+**El muro del furigana (❌#1/#9/#12, el crash `0x00ABFCC0`) es del CÓDIGO, no de los datos** → se
+parchea el ejecutable. Hallazgo (desensamblando `work/romfs/cro/ina_main1.cro` con **capstone**):
+
+- El crash `unmapped Read8 … PC 0x00ABFCC0` está en **`ina_main1.cro`** (cargado en 0x00A89000;
+  offset de fichero 0x36CC0). La instrucción es **`ldrb r0, [r4]`** — un **bucle que lee una cadena
+  byte a byte** (`cmp r0,#0; beq` = busca el NUL). `r4` sale de `ldr r4,[r0]` (campo de estructura).
+  Con la línea traducida, **`r4` vale BASURA** (0x5F,0x67,0x69,0x6F,0x72,0x77 = `_giorw`, los mismos
+  bytes de los logs) → lee memoria no mapeada → crash.
+
+- **PARCHE (`tools/patch_cro.py`, bounds-check):** los punteros válidos en 3DS son grandes
+  (≥0x100000), los corruptos diminutos (<0x100). Hook en 0xABFCC0 → code cave (hueco de 0x00 en
+  `.text`, 0xAD9E14): `cmp r4,#0x10000; movlo r0,#0` (basura→cadena vacía) `ldrbhs r0,[r4]` (válido→
+  lee normal) `b 0xABFCC4`. La línea corrupta se trata como vacía (el motor salta al final, sin crash);
+  las cadenas válidas se leen igual. Idempotente, integrado en `build_3ds_var.py`.
+
+- **Esto ABRE el texto completo en TODO:** `FULLTEXT=1 python tools/reinsert_var.py` traduce los 911
+  eventos a texto completo (sistema incluido). **Invalida la conclusión de ❌#13** ("texto-completo-en-
+  TODO es IMPOSIBLE"): lo era desde los datos, NO con el parche del código.
+
+**El muro NO era 1 función, eran 4** (cosecha de logs): el texto traducido pasa un puntero corrupto a
+varias funciones de cadena, que petan con `unmapped Read`. Todas son el MISMO patrón (puntero válido
+≥0x100000, corrupto <0x100) → mismo bounds-check:
+
+| # | Función | Módulo | PC | Parche |
+|---|---|---|---|---|
+| 1 | ruby/furigana | `ina_main1.cro` | `0xABFCC0` | `tools/patch_cro.py` |
+| 2 | `strcpy` (`ldrb [r1]; strb [r0]++`) | `code.bin` | `0x14AC5C` | `tools/patch_code.py` |
+| 3 | `getc` (`r1=[r0+0x10]; r0=[r1]`) | `code.bin` | `0x1B3788` | `tools/patch_code.py` |
+| 4 | `strcmp` (`and r3,r0,#3 …`) | `code.bin` | `0x184AAC` | `tools/patch_code.py` |
+
+`code.bin` va **comprimido (BLZ)** → `tools/blz.py` lo descomprime; se parchea; `tools/patch_exefs.py`
+reconstruye el exefs con el `.code` PLANO y pone el flag compress-code (exheader @0xD bit0) a 0 (el
+loader lo carga sin descomprimir, sin recomprimir BLZ). Todo integrado en `build_3ds_var.py`. Caves =
+huecos de 0x00 en `.text`. Con esto, **`FULLTEXT=1` traduce los 911 eventos a texto completo**.
+
+**DÓNDE meter el parche de code.bin (saga cara):** code.bin NO tiene hueco seguro — ❌ in-place = solo
+4 bytes; ❌ los runs de ceros del `.text` son DATOS que el juego lee por índice → machacarlos = **NO
+ARRANCA** (pantalla negra); ❌ extender el `.code` (slack de página / subir `code_size`) → **Azahar
+CIERRA al cargar**; ❌ cave en el CRO (cross-module) → falla por DOS motivos: (a) el salto code.bin→CRO
+peta el arranque temprano (el CRO se carga ~30 s tarde, las funciones se usan antes), y (b) la zona
+@0x50E24+ del CRO **NO es libre** (la rellena la relocación/runtime; escribir ahí PETA `@0xAD9E38`,
+confirmado por el log). **CONCLUSIÓN: los 3 parches de code.bin son IMPOSIBLES de colocar** en este setup.
+
+### ❌❌❌ ACTUALIZACIÓN DEFINITIVA (2026-06): NINGÚN parche en el CRO es fiable — ni el del ruby
+Lo de "solo `@0x50E14` (cave del ruby) es seguro" / "el parche del ruby FUNCIONA" era **FALSO**, una
+conclusión por suerte. Con el log volcando se cazó un crash **DENTRO de mi propio cave del ruby**:
+`ExceptionRaised(exception=1, pc=00AD9E1C, code=00ADB0F8)`. `0xAD9E1C` es la 3ª instrucción del cave
+(`ldrbhs r0,[r4]`); el valor cargado ahí (`0x00ADB0F8`) **NO es mi instrucción — es un puntero**.
+`exception=1` (instrucción indefinida/impredecible, NO un *unmapped Read*) ⇒ **el loader del CRO
+SOBREESCRIBIÓ mi cave al cargar**. Toda la run `@0x50E14` es **zona de RELOCALIZACIÓN**, no espacio
+libre. Por qué "funcionaba" antes: las builds con el cave de getc roto **crasheaban en `@0xAD9E38`
+ANTES de llegar nunca a la ruby (`@0xAD9E1C`)**, así que el cave del ruby **jamás se ejecutó** — el
+"0xABFCC0 desaparecido" solo significaba "crashea antes". **No reintentar parches en `ina_main1.cro`.**
+
+**Consecuencia para el furigana:** sin parche de código fiable, las líneas de diálogo CON furigana
+solo se pueden dejar en **japonés** (mismo tamaño). Vaciar la lectura dispara la ruby `@0xABFCC0` →
+crash (no hay cave que lo salve). El techo ESTABLE = `SAME_SIZE` + `NO_BLANK` (lectura original) +
+no traducir líneas con marcador: todo lo demás (menús, avisos, ítems, líneas planas) → español.
+Flags nuevos: `NO_BLANK=1` (`reencode_ssd` deja la lectura intacta), `SKIP_CRO=1` (`build_3ds_var`
+no parchea el CRO; restaura el `.orig`).
+
+**LOG de Azahar (CLAVE para diagnosticar, antes imposible):** Azahar bufferea y `azahar_log.txt` queda
+en **0 bytes**. Causa: **`instant_debug_log=false`** en `%APPDATA%\Azahar\config\qt-config.ini`. Ponerlo
+a **`true`** → vuelca al instante → el harvest captura el PC exacto. (Además rota `.txt`→`.old.txt` al
+reabrir: el crash de una sesión aparece en `.old.txt` tras la siguiente.) Con esto se CONFIRMÓ el crash
+de gameplay: strcpy/getc/strcmp leyendo punteros `<0x10000` (`0x192..0x20C`). (OJO: que `0xABFCC0` no
+apareciera NO probaba que su parche funcionase — solo que se crasheaba antes; ver la actualización ❌❌❌
+de arriba: el cave del ruby también está roto por la relocalización.)
+
+## ✅✅ SOLUCIÓN DEFINITIVA (2026-06, via Tiniifan/SceneScriptData) — pendiente confirmar in-game
+
+El formato SSD se descifró del TODO gracias a **github.com/Tiniifan/SceneScriptData** (decompilador
+de nuestro formato). Lo que invalida casi toda la lista de abajo:
+- **El bytecode referencia el texto por ÍNDICE de entrada (0..textCount-1), ESTABLE — NO por offset.**
+  Cada instrucción lleva el TIPO de cada arg en **4 bits** (String=0x3). Layout: `id i16, size i16,
+  opcode u16, argsCount u8, unk u8, [4·ceil(argsCount/8) bytes de nibbles de tipo], [argsCount×u32]`.
+- Por eso TODO el **offset-fixup** (❌#8/#11/#12/#13, `build_string_slots`, `is_grow_safe`) estaba
+  MAL: trataba índices estables como offsets y los CORROMPÍA → vacío/crash/Read32/truncado.
+
+**Motor correcto = `tools/ssd_reinsert.py` `reencode_ssd()`:** traduce los diálogos (CRECEN libres,
+sin truncar), VACÍA las lecturas furigana **a MISMO TAMAÑO** (espacios ancho completo 0x8140, NO
+encoger a 2 bytes ni eliminar → el índice no se desplaza Y el motor las consume sin desbordar), y
+**NO toca el bytecode**. Validado offline: **bytecode INTACTO en los 4825 eventos**, estructura válida.
+
+> ⚠️ **RE-APRENDIDO (❌#12 otra vez):** vaciar la lectura ENCOGIÉNDOLA (a 2 bytes) cambia el `textSize`
+> del evento. Con marcadores conservados (modo SAME_SIZE), el motor consume 1 lectura por marcador y
+> al ser de otro tamaño se DESBORDA → `Assertion Failed!` + `resource exceeds limit` → **pantalla
+> negra**. **`tools/validate.py` LO CAZA** (operando corrupto @0x14 = `textSize`). **No saltarse el
+> validador con `SKIP_VALIDATE` en builds SAME_SIZE.** El vaciado correcto es mismo-tamaño.
+Sustituye a `reencode_var` + offset-fixup. Ver [[ssd-format-spec-scenescriptdata]].
+
+PENDIENTE in-game: ¿la apertura sigue colgando al quitar marcadores (❌#1)? ¿hay que traducir el
+texto-display (nombres de zona/objetivos, entradas que no son diálogo ni lectura)?
+
 ## Resumen en una frase
 
 El diálogo va en `eve.pkb` como **bytecode con texto inline**. Las palabras con
@@ -20,13 +116,15 @@ sin un desensamblador que recalcule offsets). Todo lo que rompa esa mecánica �
 | 2 | Marcadores al **final** de la línea (trailing) | CUELGA (v13) | `%NF` intenta dibujar ruby sobre el carácter *siguiente*, que no existe → fuera de límites. |
 | 3 | Marcador seguido de **espacios de 1 byte** (half-width) | CUELGA (v14/v15/v16) | `%NF` espera **N caracteres de ANCHO COMPLETO** (2 bytes, como los kanji). Con 1 byte el motor se desalinea. |
 | 4 | Rellenar páginas ES vacías para casar el conteo (`%NF` sin texto detrás en una página) | CUELGA al crear partida (v20) | Una página solo-marcadores/vacía descuadra el motor. |
-| 5 | Traducir chunks donde el **nº de páginas `\f` ES ≠ JP** | CUELGA (v16/v19/v20) | El reparto de marcadores por página deja de casar 1:1. **Solución: solo traducir si `es.count(\f)==jp.count(\f)`; si no, dejar en japonés.** |
+| 5 | Traducir chunks donde el **nº de páginas `\f` ES ≠ JP** | CUELGA (v16/v19/v20) | El reparto de marcadores por página deja de casar 1:1. **Solución v16: solo traducir si `es.count(\f)==jp.count(\f)`; si no, dejar en japonés.** **MEJORA (2026-06): RE-PAGINAR** — en vez de rechazar la línea, repartir las líneas del ES en EXACTAMENTE `len(orig_pages)` páginas no vacías (`_repaginate` en `reinsert.py`), conservando los marcadores por página original → el conteo casa y se RECUPERA la traducción. Muchas líneas del principio (Willy 92010250…) estaban traducidas pero el traductor usó `\n` donde el JP usa `\f` (p.ej. jp=2 págs, es=1) → se rechazaban. La re-paginación las recupera. **NO se re-pagina la APERTURA (eid 90000000..92010249)**: ahí se mantiene byte-idéntico a la build que crea partida (gate `allow_repaginate` en `reencode_ssd`; cualquier cambio de más en la apertura la congela, ❌#1). Sigue limitado por el presupuesto mismo-tamaño (si los marcadores+texto no caben, se rechaza igual → el intro trunca/queda parcial; es el techo duro del sistema, que NO puede crecer ❌#9). |
 | 6 | Dejar un **`%NF` huérfano** dentro del texto español (venía de algunas líneas `auto-ia`/`revisar`) | CUELGA en zonas concretas (v18/v21/v23) | El marcador suelto, sin N chars de ancho completo detrás, descuadra. **Solución: `reinsert` quita cualquier `%NF` del ES antes de codificar.** |
 | 7 | Cargar un **save state del emulador** hecho con OTRA build | "Cuelga" siempre | NO es bug nuestro: los save states guardan memoria de una build concreta. **Probar siempre con partida NUEVA.** |
 | 8 | **[Longitud variable]** offset-fixup que actualiza **cualquier u32** que coincida con un inicio de chunk | **Error Fatal al avanzar el 1er diálogo** (build var inicial) | Muchos **operandos numéricos** del bytecode (p.ej. `1000`, coordenadas, IDs) coinciden por casualidad con una posición de inicio de chunk → el fixup los "recoloca" (`1000→972`) y **corrompe el evento**. Esos valores apuntan a **chunks vacíos** (NUL consecutivos) o a **diálogo** (que se consume secuencialmente, nunca por offset). **Solución: solo actualizar offsets cuyo destino sea un chunk TIPADO (`part[0]` 0x01–0x1f: lectura furigana / debug / control) o un BYTE-ID (1 byte ≥0x80).** Ver `_is_ref_target()` en `reinsert_var.py`. Pasó de corromper decenas de u32/evento a ~7 referencias reales/evento. |
 | 9 | **Hacer CRECER una línea con furigana** (reinyectar marcadores + texto ES más largo) | **Error Fatal al AVANZAR** (no al mostrar: la línea se ve completa) | El evento queda perfecto a nivel de datos (1 sola ref de texto, recolocada; sin campos de longitud) pero el **runtime del motor de ruby se descuadra** con el diálogo más largo. NO editable desde el evento. **RE-CONFIRMADO (2026-06) con el offset-fixup PRECISO nuevo** (`GROW_INTRO`/`grow_fg`): el dato valida 100% pero **sigue crasheando al avanzar** → es del runtime, no de los datos. **Solución: NO hacer crecer líneas con furigana.** En español el furigana no aporta → en HISTORIA se hace **STRIP** (quitar marcador + vaciar lectura + texto completo); en SISTEMA/INTRO se deja a **mismo tamaño** (=v25). **`tools/validate.py` ahora lo CAZA** (chunks con %NF que crecen) y el build aborta → no se compila una ROM con este crash. |
 | 10 | **REUBICAR** una línea de furigana (aunque NO crezca) por hacer crecer **otra** línea del mismo evento | **Texto vacío + no cierra el diálogo + se congela** (NPC de サークル棟エリア / 92010510) | Si un evento de sistema/intro conserva furigana pero crece una línea PLANA suya, todo lo que va detrás (incluidas las líneas de furigana) **se desplaza**. Reubicar una línea de furigana rompe el ruby igual que hacerla crecer (mismo runtime de ❌#9), aunque su contenido no cambie. **Solución: los eventos que conservan furigana (sistema/intro, eid≥90000000) deben quedar a MISMO TAMAÑO en TODAS sus líneas** (planas incluidas) → byte-idénticos, no se reubica nada. Ver rama `not strip` en `reencode_var`. |
 | 11 | **[Longitud variable]** offset-fixup que reubica un u32 según el **TIPO del chunk** al que apunta (`_is_ref_target`: tipo 0x01–0x1f o byte-id) | **Error Fatal `unmapped Read32 @ … PC 0x001C8D68`** a los ~20 min (al hablar con cierto NPC) | El tipo del chunk NO distingue una referencia de un operando numérico: el diálogo (tipo 0x01) **nunca se referencia** y muchísimos **contadores/índices** del bytecode coinciden por azar con una posición de diálogo (839/901 eventos game1). El fixup los convertía en offsets grandes → un handler los usa como **contador** y lee un array de u32 hasta salirse de la RAM (`Read32` secuencial). **Solución (la que funciona): identificar los slots de string por ESTADÍSTICA, no por tipo.** El bytecode es un stream `<u16 idx><u16 len><u32 opcode><operandos>` (ver FORMATOS.md); un `(opcode,slot)` es offset-de-string si sus valores caen SIEMPRE en inicio de chunk o 0 y **casi nunca a media cadena**. Reubicar SOLO esos. Validado offline: **0 operandos numéricos alterados**. Ver `build_string_slots()`/`_instr_operands()` en `reinsert_var.py` (sustituye a `_is_ref_target`). |
+| 12 | **[Longitud variable] STRIP_ALL**: stripear TODOS los eventos incl. intro/sistema (quitar furigana de TODO) | **PANTALLA NEGRA al crear partida NUEVA** (crash `unmapped Read8 ... PC 0x00ABFCC0`, lee bytes de cadena como puntero: `0x5F,0x67,0x69,0x6F,0x72,0x77` = `_giorw`) | **Re-confirma ❌#1**: la **apertura (92010200) EXIGE sus marcadores** aunque el strip esté BALANCEADO (`drop_readings` no basta). Es del **runtime de consumición de lecturas**, NO detectable offline: `validate` pasa TODOS los checks estructurales (0 operandos, 0 refs rotas, 0 vacíos, 0 ❌#9); el único indicio fue el aviso de desbalance (72/690 ev) pero es **mayormente preexistente del gameplay**. Verificado: **0 eventos referencian lecturas/byte-id por offset** → no hay señal offline limpia. **El MISMO crash `0x00ABFCC0` afecta al tutorial `81000040`** (eid<90000000, stripeado en el build por defecto) → hay eventos de gameplay puntuales que tampoco toleran strip (issue #18). **Solución: NO stripear intro/sistema (eid≥90000000 salvo zonas seguras 92010510+); para quitar el japonés visible del intro sin crashear → conservar marcadores y VACIAR la lectura (espacios ancho completo, mismo tamaño, balanceado) — no quita el truncado pero oculta el japonés (`_blank_reading` en `reinsert_var.py`).** ⚠️ **PERO** hay eventos HIPER-SENSIBLES (mucha densidad de furigana, p.ej. tutorial `81000040` con 473 marcadores) que crashean con CUALQUIER cambio: **strip → `0x00184AAC`, blank-readings → `0x00ABFCC0`** (la traducción INPLACE mismo-tamaño trunca/descuadra algún marcador). **Para esos: `DONT_TOUCH` = dejar 100% ORIGINAL (japonés, sin traducir) → estable, sin crash.** Mejor japonés estable que crash. Se amplía el set según se cazan con la cosecha de logs. |
+| 13 | **[Longitud variable] CRECER (strip a texto completo)** eventos con **refs a byte-id de furigana** | **DIÁLOGO VACÍO** al crecer (**727/900 eventos game1, ~80-90%**) | **LÍMITE DURO confirmado.** Las refs a los byte-id (las etiquetas de 1 byte ≥0x80 que preceden cada lectura) **COMPARTEN opcode con operandos numéricos** (`op 0x01026001` = 76% números, `0x0102700e` = 34%…) → **no se pueden reubicar sin corromper los números = crash Read32 ❌#11.** Por eso `build_string_slots` (correctamente) NO las clasifica. Al CRECER el texto, esos byte-id se desplazan y la ref (sin reubicar) apunta a basura → **vacío**. En versiones viejas SAME-SIZE no pasaba (nada se desplazaba). **Solución: `is_grow_safe(dec, string_slots)` clasifica cada evento — solo CRECE (texto completo) los ~10-22% SIN refs no-reubicables; el resto → blank-readings (mismo tamaño, español truncado pero VISIBLE, sin vacío). Elimina vacío+crash SISTEMÁTICAMENTE (adiós whack-a-mole).** Conclusión: **texto-completo-en-TODO es IMPOSIBLE** con furigana + fixup preciso; lo máximo estable = truncado-visible en la mayoría + completo donde se pueda. |
 
 ## ✅ Enfoque ACTUAL (build var STRIP-historia): texto completo + furigana solo en intro
 
@@ -51,6 +149,17 @@ los eventos de apertura), la estrategia que combina ambas restricciones:
 (`FURIGANA_INPLACE` mismo-tamaño en TODO, v23/v25) arranca, crea partida y muestra
 diálogo en español, pero **trunca** (este es justo el problema que STRIP-historia
 resuelve para el grueso del juego).
+
+### ❌❌ (2026-06) INPLACE del INTRO en el path `ssd_reinsert` → CONGELA el crear-partida
+Porté `_furigana_body_bytes` (INPLACE v25) a `reencode_ssd` para traducir el intro y quité
+`SYS_ORIG`. Offline TODO perfecto (92010100/92010200 mismo tamaño, marcadores 6→6, lecturas
+7→7, balance 0, `validate` verde). **En emulador: CONGELA en la pantalla de título al CREAR
+PARTIDA** (no pasa de ahí). Re-confirma ❌#1/❌#12: el crear-partida (rango **92010100..92010509**)
+EXIGE sus eventos INTACTOS — ni INPLACE mismo-tamaño con marcadores+lecturas balanceados lo
+tolera (al menos en este path, y/o el fallback global mete una traducción de otro evento con
+estructura de página distinta). **No verificado si fue el INPLACE o el global; da igual: regla
+dura = dejar el intro/sistema en JAPONÉS (`SYS_ORIG=1`), el crear-partida no se traduce.** El
+gameplay (`<90000000`) SÍ crece/traduce bien. Build jugable = `SYS_ORIG=1` + fallback global.
 
 ### Hechos confirmados del bytecode (offline, evento 92010100)
 - La sección de texto tiene **una sola** referencia a la zona que se mueve (`code+2960`
@@ -103,6 +212,22 @@ cada offset del bytecode que apunte a una lectura/debug/byte-id movido** (offset
   alterados, 0 referencias nuevas rotas. **PENDIENTE confirmar en emulador.**
 - Nota: `STRIP_ZONA` y el rango `92010510..92011000` siguen marcando qué zonas se STRIPean
   (post-intro, seguras); el fix de arriba corrige CÓMO se hace el strip de las lecturas.
+- **(2026-06) RE-CONFIRMADO y PORTADO al path actual `reencode_ssd`** (motor SSD por índice):
+  el path que CRECE el gameplay vaciaba **TODAS** las lecturas del evento, pero solo quita
+  marcadores de las líneas TRADUCIDAS → las líneas NO traducidas se quedaban con marcador y SIN
+  lectura (huérfanos). Síntoma en datos: eid 10020022 ORIG 30 marcadores/29 lecturas → 5
+  marcadores/**0** lecturas (desbalance). **Fix:** contador `pending` en `reencode_ssd` — solo se
+  vacían las N lecturas de cada línea TRADUCIDA (1 por marcador); las de líneas no traducidas se
+  CONSERVAN (marcador+lectura japoneses, balanceado). `validate.py` lo mide: **48 → 0 eventos
+  desbalanceados**. La regla unificada del vaciado va ligada a `system`: mismo-tamaño (marcadores
+  conservados) → NO vaciar (la ruby se invoca, necesita lectura válida); crecer/STRIP (marcadores
+  quitados) → vaciar solo las de líneas traducidas. **PENDIENTE confirmar en emulador.**
+- **(2026-06) `validate.py` ahora es consciente del crecimiento:** en modo que crece (sin
+  `SAME_SIZE`) tolera el cambio de `textSize@0x14` pero **verifica que sea coherente**
+  (`textSize == len(nd) − _text_start(nd)`); en `SAME_SIZE` sigue estricto. Antes el validador
+  de mismo-tamaño marcaba los 627 `textSize` que crecen como "operando corrupto" (falso positivo)
+  → forzaba `SKIP_VALIDATE` (que apaga TODAS las redes). Ahora el build que crece pasa el
+  validador completo sin saltárselo.
 
 ### 3. BUG ya resuelto (NO reintentar la causa): cuelgue al CREAR PARTIDA
 - **Síntoma (v24/STRIP, v12):** al crear partida nueva se congela en el título/carga,
