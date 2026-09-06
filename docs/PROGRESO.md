@@ -1,4 +1,4 @@
-> Actualización 2026-09-06: candidata IE1 v6 de interfaz instalada para prueba.
+> Actualización 2026-09-06: candidata IE1 v9 instalada para prueba; añade 21 diálogos normales de NPC y conserva la interfaz de v8. Sigue pendiente QA desde partida nueva.
 > Ver [detalle y limitaciones](IE1_UI_Y_CAPITULO1.md). Las etiquetas históricas
 > de estabilidad que aparecen abajo no sustituyen el protocolo QA vigente.
 

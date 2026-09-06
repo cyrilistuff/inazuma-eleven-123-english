@@ -22,9 +22,10 @@ historia en español** (gameplay completo sin truncar; intro a mismo tamaño, al
 truncado). Menús, nombres de jugadores y equipos (ambos juegos), con acentos.
 Parche: [`patch/inazuma123-es-v27.xdelta`](patch/).
 
-La candidata de trabajo más reciente es la **v8 local** (`work/probe_ie1_v8/`),
+La candidata de trabajo más reciente es la **v9 local** (`work/probe_ie1_v9/`),
 preparada para prueba como mod LayeredFS y todavía pendiente de validación
-jugable completa. La instalación activa sigue en v7 hasta cerrar Azahar. Consulta
+jugable completa. Añade 21 diálogos normales de NPC del mapa, con sus registros
+de origen verificados. La v9 está instalada como mod LayeredFS; la v7 se conserva como reversión. Consulta
 [`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md) antes de generar otra build.
 
 **Muros técnicos definitivos** (documentados en [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)):

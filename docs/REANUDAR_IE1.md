@@ -14,11 +14,11 @@ recopilación 3DS japonesa. Se usan los nombres oficiales europeos del glosario
 logs ni recursos oficiales recuperados: todo lo que procede de una ROM permanece
 local en `work/`, que está ignorado por Git.
 
-La candidata v8 es experimental. Amplía la traducción de historia y NPC hasta
-la ruta de la torre y la conversación sobre el cuaderno de David Evans, pero
+La candidata v9 es experimental. Conserva la interfaz y la historia de v8 y añade
+21 diálogos normales de NPC distribuidos por las zonas tempranas del mapa, pero
 **no demuestra que todo el capítulo 1 esté terminado**. La validación offline
-del archivo no equivale a una prueba jugable. La v7 se conserva como reversión
-de la instalación LayeredFS hasta que v8 pase la prueba.
+del archivo no equivale a una prueba jugable. La v9 está instalada como mod
+LayeredFS y la v7 se conserva como reversión hasta que complete la prueba.
 
 ## Estructura de trabajo local
 
@@ -37,10 +37,10 @@ Antes de modificar texto hay que leer `CLAUDE.md`,
 `docs/PROTOCOLO_QA_IE1.md` y `docs/SSD_REGISTROS_IE1.md`. También hay que revisar
 `docs/FURIGANA_LECCIONES.md` para no repetir enfoques ya rechazados.
 
-Las entradas de v8 son work/probe_ie1_v8_inputs/ y la candidata construida es
-work/probe_ie1_v8/archive.fa. Copiar esas entradas al iniciar una v9; nunca
-editar v7 ni la ROM original. V8 usa las métricas latinas nativas para FONT12 y
-FONT8, rótulos de capítulos 1 a 10 y el ajuste aislado del logo Ventisca.
+Las entradas de v9 son work/probe_ie1_v9_inputs/ y la candidata construida es
+work/probe_ie1_v9/archive.fa. Copiar esas entradas al iniciar una v10; nunca
+editar v8, v7 ni la ROM original. V9 conserva las métricas latinas nativas para
+FONT12 y FONT8, rótulos de capítulos 1 a 10 y el ajuste aislado del logo Ventisca.
 
 ## Flujo que se debe seguir
 
@@ -105,6 +105,26 @@ informe contiene 184 sustituciones, sin registros rechazados ni ausentes. Aun
 así, no se instala ni se llama estable hasta cerrar Azahar y completar el
 recorrido de QA.
 
+## Construcción de la candidata v9
+
+La candidata v9 parte de las entradas v8 y añade únicamente 21 registros
+revisados de diálogo normal en 81000040. Se eligieron conversaciones de NPC de
+instituto, accesos, zona comercial y rutas tempranas; no incluye elecciones,
+modales, recuperación ni disparadores de escena. Cada texto nuevo conserva el
+mismo número de páginas que su equivalente japonés y está asociado al SHA-256 de
+su registro original.
+
+    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v9_inputs/reviewed.json --extra-files work/probe_ie1_v9_inputs/extra --output work/probe_ie1_v9/archive.fa
+
+La candidata tiene SHA-256
+6c8f154fce7e37a5d137043ae6783a545eb1f54ce758c43a68a940f1a6b16fff.
+El informe contiene 205 sustituciones, sin rechazadas ni ausentes. La
+comprobación estática confirmó que, frente a v8, los únicos cambios de
+81000040 son esos 21 registros; el bytecode de ese evento permanece idéntico.
+La v9 se instaló con Azahar cerrado. El mod activo coincide con este SHA-256 y
+la v7 quedó conservada en work/probe_ie1_v9/previous-installed.fa como reversión.
+La prueba en Azahar sigue pendiente.
+
 El campo corto del NPC Sr. Veteran admite siete caracteres transportados; v8
 usa Veteran en la placa para no cambiar el tamaño fijo del registro. No ampliar
 el registro ni intentar introducir el nombre completo sin una investigación del
@@ -112,9 +132,12 @@ formato y una regresión en juego.
 
 ## Qué queda pendiente
 
-- Instalar y probar v8 desde partida nueva hasta la primera pachanga y registrar
-  cada NPC.
+- Probar v9 desde partida nueva hasta la primera pachanga y registrar cada NPC,
+  empezando por los 21 diálogos recién añadidos.
 - Completar eventos y NPC restantes del capítulo 1 después de superar esa prueba.
+- En la siguiente tanda, localizar la interfaz de pachangas, el rótulo de límite
+  de tiempo, lugares y misiones pendientes, formación/equipamiento y las
+  métricas de los puntos suspensivos.
 - Localizar y traducir cadenas dinámicas que todavía puedan aparecer en ranuras,
   nombres, equipamiento o pantallas no cubiertas por las texturas sustituidas.
 - Revisar nombres largos omitidos, más descripciones de objetos y cualquier crash

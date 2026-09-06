@@ -99,3 +99,21 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
   permanece en v7. Antes de sustituirlo, cerrar el emulador y conservar v7 como
   reversión. La prueba obligatoria sigue siendo una partida nueva hasta la
   primera pachanga, con los NPC y las escenas recién añadidos.
+
+## Candidata v9 preparada, pendiente de prueba
+
+- Archivo local: work/probe_ie1_v9/archive.fa.
+- SHA-256: 6c8f154fce7e37a5d137043ae6783a545eb1f54ce758c43a68a940f1a6b16fff.
+- Añade 21 diálogos de NPC normales en 81000040: instituto, puertas,
+  aparcamiento, zona comercial y avisos de progreso temprano. No se modificaron
+  elecciones, modales, puntos de recuperación ni activadores de escena.
+- Cada registro nuevo conserva su hash de fuente, usa el mismo número de páginas
+  que el japonés y pasa los límites de SSD. Frente a v8 no cambia ningún otro
+  registro de ese evento ni su bytecode.
+- El informe estático registra 205 sustituciones y no tiene rechazadas ni
+  ausentes. Está instalada como mod LayeredFS; la v7 se conserva en
+  work/probe_ie1_v9/previous-installed.fa. Sigue pendiente la prueba en Azahar
+  con partida nueva.
+- Para la siguiente tanda quedan la interfaz de pachangas, el rótulo rojo de
+  límite de tiempo, más lugares y misiones, formación/equipamiento y el avance
+  excesivo de los puntos suspensivos.
