@@ -1,0 +1,75 @@
+# Menús IE1 y siguiente recorrido
+
+## Tanda de interfaz, 2026-09-06
+
+Los menús señalados usan atlas CTPK en contenedores ARCV, algunos envueltos
+en SSZL. `tools/ui_archive.py` decodifica ese envoltorio. `tools/ctpk_ui.py`
+permite leer y reescribir los píxeles conservando dimensiones y metadatos.
+`tools/translate_ui_textures.py` aplica un manifiesto JSON local con rectángulos
+de texto y produce vistas previas para revisión. Dependencias: Pillow y
+opencv-python-headless (borrado del texto sobre fondos).
+
+Los originales, manifiestos con traducciones y vistas previas permanecen en
+`work/`. La candidata v6 conserva los cambios de diálogo y fuente de v5.
+La revisión de imágenes y el roundtrip de archivos NO prueban el funcionamiento
+en Azahar. Repetir partida nueva, menús, nombre y selección Sí/No con el usuario.
+El teclado necesita resolver su correspondencia de entrada antes de cambiar
+las teclas japonesas por letras latinas; no confundir rótulos con caracteres.
+
+Vídeos: el usuario confirma que vuelven a verse tras el ajuste de presentación
+del emulador. No modificar los vídeos de la ROM ni reabrir ese fallo sin evidencia.
+
+## Siguiente tanda: cobertura del capítulo 1
+
+Petición explícita del usuario del 2026-09-06: avanzar por la progresión del juego,
+sin limitar la traducción a conversaciones mostradas en capturas. Intentar
+completar el capítulo 1; si queda parcial, delimitar exactamente qué falta.
+
+- Inventariar eventos de historia y variantes de NPC según progreso del capítulo.
+- Traducir lugares, objetivos, nombres, equipamiento y pantallas/botones usados
+  durante ese recorrido; conservar opciones, argumentos y referencias de eventos.
+- Revisar el texto oficial español cuando exista correspondencia comprobada.
+- Medir cobertura por registros y eventos realmente reinsertados; separar
+  coincidencias ausentes, pendientes y verificadas. No contar textos del CSV
+  como traducciones activas sin demostrar su reinserción.
+- Probar con el usuario hasta la primera pachanga según PROTOCOLO_QA_IE1.md;
+  ampliar después el recorrido del capítulo. Parar, corregir y repetir cada fallo.
+
+Primera laguna conocida: evento 92010300 aún tiene coincidencias ausentes en v5.
+Priorizar su revisión completa y los siguientes eventos conectados, además de
+NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
+
+## Candidata v6 instalada
+
+- Archivo local: `work/probe_ie1_v6/archive.fa`.
+- SHA256: `649894fc3ef17c643a35589f52d721e4b7797dfe348ae2000adf003f4e5b7cdc`.
+- Instalada con Azahar cerrado mediante enlace duro; copia anterior conservada
+  en `work/probe_ie1_v6/previous-installed.fa`.
+- 15 sustituciones de textura en 7 archivos ARCV (un botón común está duplicado
+  en dos archivos). Menú inicial, volver, Extras, Sí/No, avisos de carga,
+  avisos iniciales, instrucciones y botones de nombre.
+- Pasan los fixtures sintéticos de los ocho formatos de píxel admitidos y SSZL;
+  roundtrip real de cada textura, dimensiones, metadatos y entradas conservados.
+- Verificados los hashes de los 12 recursos adicionales dentro del archivo final.
+  Los 44 registros traducidos coinciden con v5.
+- Vistas previas inspeccionadas; borrado inicial con restos de japonés rechazado
+  y corregido antes de construir la candidata instalada.
+- PENDIENTE: prueba en juego por el usuario. No certificada hasta la primera pachanga.
+- Teclas de entrada hiragana/katakana pendientes; sus rótulos no se han sustituido
+  por letras latinas sin localizar antes la correspondencia funcional.
+
+## Candidata v7 preparada e instalada
+
+- Archivo: `work/probe_ie1_v7/archive.fa`.
+- SHA256: `9d1a80d9cada5c39179356042b5a4f84268617591157373629b8d1776f78e26c`.
+- Incluye menús de Extras y récords, guardado y sobrescritura, teclado latino,
+  botones de partido, logos de la recopilación, pantallas iniciales y el aviso
+  legal completo sin el recorte de la v6.
+- Amplía la historia y los NPC hasta el tramo previo al partido contra la Royal,
+  además de lugares, objetivos, 1.132 nombres cortos y 28 objetos.
+- La copia de la candidata anterior queda en
+  `work/probe_ie1_v7/previous-installed.fa`; el archivo nuevo está enlazado en
+  la carpeta de mods de Azahar.
+- El informe de construcción no contiene sustituciones rechazadas ni registros
+  ausentes. Sigue pendiente la prueba de juego por el usuario y, por tanto, no
+  se certifica todavía como traducción completa del capítulo 1.

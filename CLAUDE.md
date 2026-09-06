@@ -49,6 +49,12 @@ Si descubres un fallo/limitación nuevo, **añádelo a ese documento** en el mom
 
 ## Estado y documentación
 
+- **Criterio obligatorio del usuario para IE1 (2026-09-05):** seguir
+  **[`docs/PROTOCOLO_QA_IE1.md`](docs/PROTOCOLO_QA_IE1.md)**. Probar hasta la primera
+  pachanga, hablar con varios NPC, detenerse ante el primer fallo, corregirlo y
+  repetir su reproducción antes de continuar. No aceptar cajas de diálogo con bugs
+  gráficos ni declarar estabilidad solo con validación offline.
+
 - **⚠️ Lecciones (qué NO funciona): [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)**
 - Avance: [`docs/PROGRESO.md`](docs/PROGRESO.md)
 - Formatos técnicos (B123, ARCV, .STR, .dat, codificación): [`docs/FORMATOS.md`](docs/FORMATOS.md)

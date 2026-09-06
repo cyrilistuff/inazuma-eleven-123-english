@@ -13,12 +13,19 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 
 ## Estado del proyecto
 
-⏸️ **Proyecto pausado/archivado** — preservado para retomar en el futuro.
+🟡 **Desarrollo activo local** — la traducción IE1 se está retomando mediante
+candidatas LayeredFS probadas en Azahar. La guía para continuar el trabajo está en
+[`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md).
 
-🟢 **Build final v27** (estable): **arranca, crea partida**, e **intro + diálogo de
+🟢 **Build histórica v27** (estable según su alcance): **arranca, crea partida**, e **intro + diálogo de
 historia en español** (gameplay completo sin truncar; intro a mismo tamaño, algo
 truncado). Menús, nombres de jugadores y equipos (ambos juegos), con acentos.
 Parche: [`patch/inazuma123-es-v27.xdelta`](patch/).
+
+La candidata de trabajo más reciente es la **v7 local** (`work/probe_ie1_v7/`),
+distribuida para pruebas como mod LayeredFS y todavía pendiente de validación
+jugable completa. Consulta [`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md) antes de
+generar otra build.
 
 **Muros técnicos definitivos** (documentados en [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)):
 parchear el código del juego es inviable (zona de relocalización del CRO); los eventos

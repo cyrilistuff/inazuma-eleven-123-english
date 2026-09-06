@@ -6,11 +6,13 @@
 #
 # Uso:  pwsh -File tools\jugar.ps1 [ruta\build.3ds]
 #       Sin argumento usa la build mas reciente (work\build o roms\*ES*).
-param([string]$Build)
+param(
+    [string]$Build,
+    [string]$Azahar = (Join-Path $env:ProgramFiles "Azahar\azahar.exe")
+)
 
 $ErrorActionPreference = "Stop"
 $REPO   = Split-Path -Parent $PSScriptRoot
-$AZAHAR = "C:\Users\luish\Emuladores\Azahar\azahar-windows-msvc-2125.1.2\azahar.exe"
 $LOG    = Join-Path $env:APPDATA "Azahar\log\azahar_log.txt"
 
 if (-not (Test-Path $AZAHAR)) { Write-Error "No encuentro azahar.exe en $AZAHAR"; exit 1 }
@@ -27,8 +29,15 @@ if (-not $Build -or -not (Test-Path $Build)) {
 }
 Write-Host "[jugar] Build: $Build" -ForegroundColor Cyan
 
-# 2) log limpio -> la cosecha contara SOLO esta partida
-if (Test-Path $LOG) { Clear-Content $LOG }
+# 2) conservar el registro anterior. Azahar rota el log al iniciar otra sesion.
+if (Get-Process azahar -ErrorAction SilentlyContinue) {
+    throw "Azahar ya esta abierto. Cierra la sesion anterior antes de iniciar otra."
+}
+if (Test-Path $LOG) {
+    $history = Join-Path $REPO "logs\sessions"
+    New-Item -ItemType Directory -Force -Path $history | Out-Null
+    Copy-Item -LiteralPath $LOG -Destination (Join-Path $history ("before-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff") + ".log"))
+}
 
 # 3) lanzar y ESPERAR a que se cierre Azahar
 Write-Host "[jugar] Lanzando Azahar... (cierra el emulador al terminar de jugar)" -ForegroundColor Cyan

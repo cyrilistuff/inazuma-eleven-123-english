@@ -1,4 +1,42 @@
+> Actualización 2026-09-06: candidata IE1 v6 de interfaz instalada para prueba.
+> Ver [detalle y limitaciones](IE1_UI_Y_CAPITULO1.md). Las etiquetas históricas
+> de estabilidad que aparecen abajo no sustituyen el protocolo QA vigente.
+
 # Progreso del proyecto
+
+## Retoma 2026-09-05: diagnóstico y prueba pendiente
+
+- Protocolo obligatorio del usuario: [PROTOCOLO_QA_IE1.md](PROTOCOLO_QA_IE1.md).
+- CIA convertida localmente a NCSD conservando programa y manual, verificados
+  contra SHA-256 del TMD y contra las particiones de salida. Script temporal
+  eliminado por petición del usuario. La nueva base NO equivale al cartucho usado
+  para los xdelta antiguos.
+- Descubierto el tamaño por registro de texto inline SSD, omitido por el motor
+  anterior. Ver [SSD_REGISTROS_IE1.md](SSD_REGISTROS_IE1.md). Lectura y roundtrip
+  exactos de 1.240 SSD originales; cinco pruebas sintéticas de regresión pasan.
+- Corregido el falso éxito del validador cuando faltan PKB/PKH o la selección está
+  vacía; tres pruebas de regresión pasan.
+- Preparada prueba local de 92010100, 92010200 y 92010250. Verificado que cambia
+  solo esos eventos y tres fuentes; 16 textos insertados, uno rechazado por longitud.
+  Instalado como mod local de Azahar; el usuario confirmó arranque y diálogo
+  español dentro del club con capturas. QA-001 abierto: cortes dentro de palabras
+  y fragmento al cambiar de página. Evidencias locales en `work/qa_dialogue_001/`.
+  Corregido el reflujo por caracteres en el generador; nueva candidata por avances
+  de FONT12 instalada tras cerrar Azahar: `work/probe_ie1_v2/archive.fa`, SHA-256
+  `a2cb278c36866fedfad569bed436986de59596f1107aab7d3bc433f7050a1c4c`.
+  Cuatro pruebas de reflujo pasan; verificados 16 registros insertados, anchos
+  calculados, instrucciones y demás registros intactos. Pendiente repetir toda
+  esa conversación en Azahar, incluidos los cambios de página y el cierre.
+- Original convertido probado en Azahar 2126.0: llega al recopilatorio; al entrar
+  en IE1 se observó pantalla negra prolongada y 0 FPS de aplicación, sin excepción
+  CPU en el log. Se detuvo esa prueba. En la repetición con región japonesa y
+  control del usuario se observó al personaje jugable frente al club. La
+  configuración anterior era europea; no atribuir una causa única sin aislarla.
+- `tools/jugar.ps1` usa la instalación de Program Files (o parámetro `-Azahar`),
+  conserva el log previo y evita mezclar sesiones simultáneas.
+
+Las conclusiones antiguas siguientes son históricas; no sustituyen las pruebas
+actuales ni demuestran estabilidad de la nueva reinserción.
 
 Leyenda: ⬜ pendiente · 🟡 en curso · ✅ hecho
 

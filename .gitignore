@@ -19,6 +19,9 @@ extracted/
 *.romfs
 *.exefs
 
+# Logos oficiales usados solo como referencia local para las pruebas de UI
+logos/
+
 # ROM traducida intermedia (solo se distribuye el .xdelta, no la ROM)
 *_es.3ds
 *_translated.3ds

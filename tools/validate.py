@@ -23,6 +23,7 @@ from lz10 import decompress
 import reinsert as R
 import reinsert_var as V
 import ssd_reinsert
+import ssd_records
 
 REPO = R.REPO
 SUF = {"game1": "inazuma1", "game2": "inazuma2", "game3": "inazuma3"}
@@ -74,7 +75,7 @@ def validate(game):
 
     r = find(f"{suf}/data_iz/script/eve.pkb")
     if not r:
-        print(f"[{game}] sin eve.pkb"); return True
+        print(f"[{game}] FALLO: sin eve.pkb original"); return False
     po, ps = r
     ho, hs = find(f"{suf}/data_iz/script/eve.pkh")
     odecs = _events(bytes(data[po:po + ps]), parse_index(bytes(data[ho:ho + hs])))
@@ -83,6 +84,9 @@ def validate(game):
     npkb = open(os.path.join(REPO, "work", "eve_var", f"{game}.pkb"), "rb").read()
     npkh = open(os.path.join(REPO, "work", "eve_var", f"{game}.pkh"), "rb").read()
     ndecs = _events(npkb, parse_index(npkh))
+    if odecs.keys() != ndecs.keys():
+        print(f"[{game}] FALLO: el conjunto de eventos ha cambiado")
+        return False
 
     n_mod = 0
     bad_operand = bad_midref = bad_empty = bad_struct = bad_growfg = worse_imb = 0
@@ -97,6 +101,15 @@ def validate(game):
         if od[:4] == b"SSD\x00" and nd[:4] != b"SSD\x00":
             bad_struct += 1; ex["struct"].append(eid); continue
         if nd[:4] != b"SSD\x00":
+            continue
+        # The inline text table has a per-record size byte. Splitting at NUL
+        # cannot validate it and previously accepted corrupted growing text.
+        try:
+            ssd_records.parse(nd)
+        except ValueError as error:
+            bad_struct += 1
+            if len(ex["struct"]) < 8:
+                ex["struct"].append((eid, str(error)))
             continue
         s10 = struct.unpack_from("<I", nd, 0x10)[0]
         if struct.unpack_from("<I", od, 0x10)[0] != s10:
@@ -188,9 +201,21 @@ def validate(game):
 def run(games=("game1", "game2")):
     """Valida los juegos dados. Devuelve True si TODO OK. Llamable desde el build."""
     ok = True
+    games = tuple(games)
+    if not games:
+        print("FALLO: no se ha seleccionado ningun juego")
+        return False
     for g in games:
-        if not os.path.exists(os.path.join(REPO, "work", "eve_var", f"{g}.pkb")):
-            print(f"== {g} == (sin work/eve_var/{g}.pkb, salta)"); continue
+        if g not in SUF:
+            print(f"FALLO: juego desconocido: {g}")
+            ok = False
+            continue
+        missing = [ext for ext in ("pkb", "pkh") if not os.path.isfile(
+            os.path.join(REPO, "work", "eve_var", f"{g}.{ext}"))]
+        if missing:
+            print(f"== {g} == FALLO: faltan artefactos: {', '.join(missing)}")
+            ok = False
+            continue
         ok = validate(g) and ok
     print()
     print("RESULTADO:", "TODO OK ✅" if ok else "HAY FALLOS ❌")

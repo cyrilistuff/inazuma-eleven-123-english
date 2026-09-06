@@ -173,7 +173,7 @@ def rot180(grid):
     return out
 
 
-def patch_font(path, out):
+def patch_font(path, out, fullwidth=False):
     f = Font(path)
     base_cw = {}
     cwdh = {}
@@ -184,7 +184,10 @@ def patch_font(path, out):
         if ord(base) not in f.cmap or cp not in f.cmap:
             print(f"  saltado {ch} (base o cp no en cmap)")
             continue
-        bgi = f.cmap[ord(base)]
+        base_cp = ord(base) + 0xfee0 if fullwidth else ord(base)
+        if base_cp not in f.cmap:
+            raise ValueError('fullwidth base glyph missing')
+        bgi = f.cmap[base_cp]
         tgi = f.cmap[cp]
         grid = f.read_cell(bgi)
         if acc == "acute":
@@ -206,9 +209,9 @@ def patch_font(path, out):
     return f
 
 
-def patch_font_bytes(path):
+def patch_font_bytes(path, fullwidth=False):
     """Devuelve los bytes de la fuente con los glifos ES anadidos (mismo tamano)."""
-    return bytes(patch_font(path, None).data)
+    return bytes(patch_font(path, None, fullwidth=fullwidth).data)
 
 
 if __name__ == "__main__":
