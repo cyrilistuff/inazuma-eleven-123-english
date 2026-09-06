@@ -11,6 +11,7 @@ Mapeo ES -> codepoint griego reutilizado (y su byte SJIS, ver reinsert.py):
 """
 import struct
 import sys
+from pathlib import Path
 
 sys.path.insert(0, "tools")
 from bcfnt import BCFNT
@@ -47,7 +48,7 @@ def morton8(x, y):
 class Font:
     def __init__(self, path):
         self.path = path
-        self.b = BCFNT(open(path, "rb").read())
+        self.b = BCFNT(Path(path).read_bytes())
         self.data = bytearray(self.b.d)
         self.t = self.b.tglp()
         self.cmap = {}

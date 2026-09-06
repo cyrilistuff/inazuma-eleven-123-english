@@ -68,3 +68,24 @@ El generador acepta `--reviewed-json` con `records` (mapa de evento a filas con
 distinto o índice inexistente. `--extra-files` acepta un directorio local con
 rutas ya existentes dentro de archive.fa y registra sus hashes. Los manifiestos
 con traducciones y los recursos binarios se conservan en work, fuera de Git.
+
+## Candidata v8: métricas latinas nativas
+
+Las capturas de v7 aún mostraban letras separadas. La comparación de FONT12
+confirma que los glifos latinos normales y los de ancho completo usan los mismos
+dibujos, pero no los mismos avances: por ejemplo, i avanza 4 píxeles en el
+repertorio normal y 14 en el transportado.
+
+compact_typography.patch_pair con mode=native copia el trío
+left/width/advance del glifo latino normal a su equivalente de ancho completo
+en BCFNT. En NFTR calcula la métrica correspondiente a su escala, conservando
+los offsets, mapas y tamaño del archivo. Los rodamientos negativos se tratan
+como valores con signo; la prueba incluye j además de i para impedir que se
+salte esa ruta.
+
+La candidata local v8 usa este modo en FONT12 y FONT8. El ejemplo de frase que
+tenía 645 píxeles de avances BCFNT con el repertorio japonés pasa a 457 sin
+alterar los bitmaps. FONT12T sigue intacta: su formato no es compatible con el
+editor de cuatro bits. La validación estática y las pruebas unitarias pasan,
+pero la aceptación queda pendiente de comprobar en Azahar que no haya
+solapamiento, cortes ni cambios de página incorrectos.

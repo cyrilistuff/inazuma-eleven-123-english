@@ -45,7 +45,10 @@ def paint(image, operation, font_path):
         if 'source_box' in operation: insert=insert.crop(tuple(operation['source_box']))
         # BOX integrates source pixels at native resolution; texture encoding then
         # applies the original console's channel depth and alpha precision.
-        insert=ImageOps.contain(insert,(x1-x0,y1-y0),Image.Resampling.BOX)
+        scale = operation.get('scale', 1)
+        if not 0 < scale <= 1:
+            raise ValueError('image scale must be in (0, 1]')
+        insert=ImageOps.contain(insert,(round((x1-x0)*scale),round((y1-y0)*scale)),Image.Resampling.BOX)
         draw.rectangle((x0,y0,x1-1,y1-1),fill=tuple(operation.get('background',[0,0,0,0])))
         image.alpha_composite(insert,(x0+(x1-x0-insert.width)//2,y0+(y1-y0-insert.height)//2))
         return 0
@@ -82,7 +85,12 @@ def paint(image, operation, font_path):
     top = y0+(y1-y0-total)//2
     for i,(line,b) in enumerate(zip(lines,boxes)):
         left = x0+(x1-x0-(b[2]-b[0]))//2-b[0]
-        draw.text((left,top+i*step-b[1]),line,font=font,fill=tuple(operation.get('color',[255,255,255,255])))
+        draw.text(
+            (left,top+i*step-b[1]), line, font=font,
+            fill=tuple(operation.get('color',[255,255,255,255])),
+            stroke_width=operation.get('stroke_width', 0),
+            stroke_fill=tuple(operation.get('stroke_fill',[0,0,0,255])),
+        )
     return size
 
 

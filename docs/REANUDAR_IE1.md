@@ -14,10 +14,11 @@ recopilación 3DS japonesa. Se usan los nombres oficiales europeos del glosario
 logs ni recursos oficiales recuperados: todo lo que procede de una ROM permanece
 local en `work/`, que está ignorado por Git.
 
-La candidata v7 es experimental. Amplía la traducción de historia y NPC hasta
-el tramo previo al partido contra la Royal, pero **no demuestra que todo el
-capítulo 1 esté terminado**. La validación offline del archivo no equivale a una
-prueba jugable.
+La candidata v8 es experimental. Amplía la traducción de historia y NPC hasta
+la ruta de la torre y la conversación sobre el cuaderno de David Evans, pero
+**no demuestra que todo el capítulo 1 esté terminado**. La validación offline
+del archivo no equivale a una prueba jugable. La v7 se conserva como reversión
+de la instalación LayeredFS hasta que v8 pase la prueba.
 
 ## Estructura de trabajo local
 
@@ -35,6 +36,11 @@ prueba jugable.
 Antes de modificar texto hay que leer `CLAUDE.md`,
 `docs/PROTOCOLO_QA_IE1.md` y `docs/SSD_REGISTROS_IE1.md`. También hay que revisar
 `docs/FURIGANA_LECCIONES.md` para no repetir enfoques ya rechazados.
+
+Las entradas de v8 son work/probe_ie1_v8_inputs/ y la candidata construida es
+work/probe_ie1_v8/archive.fa. Copiar esas entradas al iniciar una v9; nunca
+editar v7 ni la ROM original. V8 usa las métricas latinas nativas para FONT12 y
+FONT8, rótulos de capítulos 1 a 10 y el ajuste aislado del logo Ventisca.
 
 ## Flujo que se debe seguir
 
@@ -87,9 +93,27 @@ No sustituir una build instalada mientras Azahar esté abierto. El enlace de mod
 actual está en `...\\Azahar\\load\\mods\\00040000000BB800\\romfs\\archive.fa`;
 la ruta exacta puede variar según la instalación del usuario.
 
+## Construcción de la candidata v8
+
+La orden reproducible usada fue:
+
+    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v8_inputs/reviewed.json --extra-files work/probe_ie1_v8_inputs/extra --output work/probe_ie1_v8/archive.fa
+
+La candidata tiene SHA-256
+246341bad13ca68f36c7dffe221647b81fe7936e427138c8fe00fd59db9650f8. El
+informe contiene 184 sustituciones, sin registros rechazados ni ausentes. Aun
+así, no se instala ni se llama estable hasta cerrar Azahar y completar el
+recorrido de QA.
+
+El campo corto del NPC Sr. Veteran admite siete caracteres transportados; v8
+usa Veteran en la placa para no cambiar el tamaño fijo del registro. No ampliar
+el registro ni intentar introducir el nombre completo sin una investigación del
+formato y una regresión en juego.
+
 ## Qué queda pendiente
 
-- Probar v7 desde partida nueva hasta la primera pachanga y registrar cada NPC.
+- Instalar y probar v8 desde partida nueva hasta la primera pachanga y registrar
+  cada NPC.
 - Completar eventos y NPC restantes del capítulo 1 después de superar esa prueba.
 - Localizar y traducir cadenas dinámicas que todavía puedan aparecer en ranuras,
   nombres, equipamiento o pantallas no cubiertas por las texturas sustituidas.

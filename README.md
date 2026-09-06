@@ -22,10 +22,10 @@ historia en español** (gameplay completo sin truncar; intro a mismo tamaño, al
 truncado). Menús, nombres de jugadores y equipos (ambos juegos), con acentos.
 Parche: [`patch/inazuma123-es-v27.xdelta`](patch/).
 
-La candidata de trabajo más reciente es la **v7 local** (`work/probe_ie1_v7/`),
-distribuida para pruebas como mod LayeredFS y todavía pendiente de validación
-jugable completa. Consulta [`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md) antes de
-generar otra build.
+La candidata de trabajo más reciente es la **v8 local** (`work/probe_ie1_v8/`),
+preparada para prueba como mod LayeredFS y todavía pendiente de validación
+jugable completa. La instalación activa sigue en v7 hasta cerrar Azahar. Consulta
+[`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md) antes de generar otra build.
 
 **Muros técnicos definitivos** (documentados en [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)):
 parchear el código del juego es inviable (zona de relocalización del CRO); los eventos

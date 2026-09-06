@@ -1,8 +1,12 @@
 """Synthetic fixtures only: no recovered game assets needed."""
 import struct
+import tempfile
 import unittest
 
+from PIL import Image
+
 from ctpk_ui import decode, encode
+from translate_ui_textures import paint
 from ui_archive import entries, unwrap
 
 
@@ -26,6 +30,24 @@ class UiFormats(unittest.TestCase):
         self.assertEqual(unwrap(wrapped),raw)
         self.assertEqual(entries(raw),[(24,4,123)])
         with self.assertRaises(ValueError): entries(raw[:-1])
+
+    def test_scaled_image_is_centered_inside_its_original_box(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = f'{directory}/logo.png'
+            Image.new('RGBA',(40,20),(255,0,0,255)).save(source)
+            canvas = Image.new('RGBA',(40,20))
+            paint(canvas, {
+                'box': [0,0,40,20],
+                'image': source,
+                'scale': .5,
+            }, 'C:/Windows/Fonts/arialbd.ttf')
+            self.assertEqual(canvas.getbbox(), (10,5,30,15))
+            with self.assertRaises(ValueError):
+                paint(canvas, {
+                    'box': [0,0,40,20],
+                    'image': source,
+                    'scale': 0,
+                }, 'C:/Windows/Fonts/arialbd.ttf')
 
 
 if __name__=='__main__':

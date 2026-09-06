@@ -73,3 +73,29 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 - El informe de construcción no contiene sustituciones rechazadas ni registros
   ausentes. Sigue pendiente la prueba de juego por el usuario y, por tanto, no
   se certifica todavía como traducción completa del capítulo 1.
+
+## Candidata v8 preparada, pendiente de prueba
+
+- Archivo local: work/probe_ie1_v8/archive.fa.
+- SHA-256: 246341bad13ca68f36c7dffe221647b81fe7936e427138c8fe00fd59db9650f8.
+- Incluye 184 registros SSD traducidos y validados estáticamente, sin rechazos
+  ni registros ausentes en los 18 eventos seleccionados. Añade la ruta de la
+  torre y la conversación del cuaderno de David Evans
+  (92010520, 92010550, 92010600, 92010620 y 92010640).
+- El transporte latino de ancho completo ahora toma los avances de cada glifo
+  latino normal en FONT12 y FONT8. Conserva dibujos, mapas y tamaños de archivo;
+  solo ajusta métricas BCFNT/NFTR. Es una corrección dirigida al espacio excesivo
+  entre letras y requiere revisión visual en Azahar.
+- El atlas de títulos contiene los rótulos de los capítulos 1 a 10 y sus
+  indicadores Cap. y números. No se han cambiado coordenadas QNA ni
+  animaciones.
+- En el carrusel solo se reduce Ventisca Eterna al 84 % dentro de su casilla:
+  era el único logo occidental sobredimensionado frente al original. El recorte
+  parcial de la ficha lateral es parte del carrusel original.
+- El registro corto del NPC 1049 muestra Veteran. El nombre canónico
+  Sr. Veteran no cabe en sus 16 bytes con la codificación segura actual; los
+  diálogos variables pueden conservar el nombre completo.
+- La candidata no se ha instalado: Azahar seguía ejecutándose y el mod activo
+  permanece en v7. Antes de sustituirlo, cerrar el emulador y conservar v7 como
+  reversión. La prueba obligatoria sigue siendo una partida nueva hasta la
+  primera pachanga, con los NPC y las escenas recién añadidos.
