@@ -1,0 +1,105 @@
+name: Publicar release
+
+# Monta el paquete DeltaPatcher (DeltaPatcher oficial + parche .xdelta + instrucciones)
+# y publica la release. El parche se genera en local contra la ROM del autor: aquí
+# nunca entra ninguna ROM ni contenido extraído (Norma 2).
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag de la release
+        required: true
+        default: v1
+      patch:
+        description: Nombre del parche (en patch/ o adjunto a un borrador de la release)
+        required: true
+        default: inazuma123-es-v1.xdelta
+      deltapatcher:
+        description: Versión oficial de DeltaPatcher
+        required: true
+        default: v3.1.6
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.tag }}
+      PATCH: ${{ inputs.patch }}
+      DP_VERSION: ${{ inputs.deltapatcher }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Obtener el parche
+        run: |
+          set -euo pipefail
+          mkdir -p dist/pkg
+          if [ -f "patch/$PATCH" ]; then
+            cp "patch/$PATCH" dist/pkg/
+          else
+            id=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq ".[] | select(.tag_name==\"$TAG\") | .id" | head -1)
+            [ -n "$id" ] || { echo "::error::No existe patch/$PATCH ni una release $TAG con el parche"; exit 1; }
+            asset=$(gh api "repos/$GITHUB_REPOSITORY/releases/$id/assets" --jq ".[] | select(.name==\"$PATCH\") | .id")
+            [ -n "$asset" ] || { echo "::error::La release $TAG no tiene $PATCH"; exit 1; }
+            gh api -H "Accept: application/octet-stream" "repos/$GITHUB_REPOSITORY/releases/assets/$asset" > "dist/pkg/$PATCH"
+          fi
+          if [ -f "release/$PATCH.sha256" ]; then
+            (cd dist/pkg && sha256sum -c "../../release/$PATCH.sha256")
+          else
+            echo "::error::Falta release/$PATCH.sha256"; exit 1
+          fi
+
+      - name: Descargar DeltaPatcher oficial
+        run: |
+          set -euo pipefail
+          gh release download "$DP_VERSION" -R marco-calautti/DeltaPatcher -p windows_bin_x86_64.zip -D dist/dp
+          unzip -q dist/dp/windows_bin_x86_64.zip -d dist/dp/x
+          exe=$(find dist/dp/x -type f -iname 'DeltaPatcher*.exe' | head -1)
+          [ -n "$exe" ] || { echo "::error::El zip oficial no contiene DeltaPatcher.exe"; find dist/dp/x; exit 1; }
+          cp "$exe" dist/pkg/DeltaPatcher.exe
+          gh api -H "Accept: application/vnd.github.raw" repos/marco-calautti/DeltaPatcher/license > dist/pkg/LICENCIA_DeltaPatcher.txt
+
+      - name: Montar el paquete
+        run: |
+          set -euo pipefail
+          sed -e "s/@PATCH@/$PATCH/g" -e "s/@TAG@/$TAG/g" release/instrucciones.txt > dist/pkg/instrucciones.txt
+          cp release/TERCEROS.txt dist/pkg/
+          printf '@echo off\r\ncd /d "%%~dp0"\r\nstart "" "%%~dp0DeltaPatcher.exe"\r\n' > dist/pkg/Lanzar_DeltaPatcher.bat
+          (cd dist/pkg && sha256sum -b * > ../SHA256SUMS.txt && mv ../SHA256SUMS.txt .)
+          # Norma 2: el paquete no puede llevar ROMs ni contenido extraído del juego.
+          if find dist/pkg -type f -iregex '.*\.\(3ds\|cia\|nds\|cxi\|cci\|fa\|arc\|bcfnt\|cro\|pkb\|pkh\|str\|dat\)$' | grep -q .; then
+            echo "::error::El paquete contiene archivos prohibidos"; exit 1
+          fi
+          ZIP="inazuma123-es-$TAG-deltapatcher.zip"
+          (cd dist/pkg && zip -q -r "../$ZIP" .)
+          echo "ZIP=$ZIP" >> "$GITHUB_ENV"
+          unzip -l "dist/$ZIP"
+          cat dist/pkg/SHA256SUMS.txt
+
+      - name: Publicar la release
+        run: |
+          set -euo pipefail
+          TITLE="$TAG — Inazuma Eleven 1·2·3 en español"
+          NOTES="release/notas-$TAG.md"
+          [ -f "$NOTES" ] || { echo "::error::Faltan las notas $NOTES"; exit 1; }
+          id=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq ".[] | select(.tag_name==\"$TAG\") | .id" | head -1)
+          if [ -z "$id" ]; then
+            gh release create "$TAG" "dist/$ZIP" "dist/pkg/$PATCH" \
+              --target "$GITHUB_SHA" --title "$TITLE" --notes-file "$NOTES"
+          else
+            names=$(gh api "repos/$GITHUB_REPOSITORY/releases/$id/assets" --jq '.[].name')
+            for f in "dist/$ZIP" "dist/pkg/$PATCH"; do
+              n=$(basename "$f")
+              if ! grep -qx "$n" <<< "$names"; then
+                gh api --method POST -H "Content-Type: application/octet-stream" \
+                  "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$id/assets?name=$n" --input "$f" > /dev/null
+              fi
+            done
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$id" \
+              -f tag_name="$TAG" -f target_commitish="$GITHUB_SHA" -f name="$TITLE" \
+              -f body="$(cat "$NOTES")" -F draft=false -F prerelease=false > /dev/null
+          fi
+          gh release view "$TAG"
