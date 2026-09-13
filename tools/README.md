@@ -1,5 +1,20 @@
 # Herramientas
 
+## Audio y cinemáticas europeas de IE1
+
+- `ie1_media.py --stage`: inventaría los SADL de IE1 DS/3DS y prepara los 70
+  reemplazos europeos en el mod local de volumen 1.
+- `setup_mobipeg.ps1`: descarga y verifica la versión portátil x86 de mobipeg 2.1.
+- `mods_to_moflex.py`: convierte una película `.mods` de DS, incrusta su pista
+  española `.dat` y restaura la orientación MOFLEX `0x16` de la recopilación.
+- `build_ie1_movies.py`: genera las 21 cinemáticas europeas de IE1 en el lote
+  local de volumen 1.
+- `fix_ie1_title_logo.py`: aísla el wordmark europeo y sustituye el rótulo
+  rectangular anterior conservando el balón y el rayo animados del juego.
+- `setup_vgmstream.ps1` + `validate_ie1_media.py`: preparan el decodificador
+  portátil y comprueban los 70 SADL instalados y las 21 películas sin generar
+  WAV ni vídeos temporales. Véase `docs/IE1_AUDIO_CINEMATICAS_V35.md`.
+
 > Los **binarios de terceros no se suben** a este repositorio (ver `.gitignore`,
 > carpeta `tools/bin/`). Aquí solo viven nuestros **scripts** y este índice de
 > enlaces. Descarga/compila cada herramienta desde su fuente oficial.
@@ -50,6 +65,24 @@
 - `extract_nds.ps1` — extrae el sistema de archivos de una ROM NDS a `work/`.
 - `build_patch.ps1` — genera `patch/inazuma123-es.xdelta` a partir de la ROM
   original y la traducida.
+
+### Candidatas IE1 por capas (v28 en adelante)
+- `dialogue_lock.py` — bloqueo de la tipografía v20 aprobada por el usuario
+  (fuentes, codificación fullwidth, métrica 11 px / 220 px). Todo script que
+  toque texto lo valida; no desactivarlo.
+- `translate_ui_textures.py` — aplica un manifiesto JSON de rectángulos de texto a
+  texturas CTPK sin cambiar tamaños ni metadatos. Borrado: relleno plano,
+  `row_sample`, `bright` o `none` (cuando operaciones previas ya restauraron el fondo).
+- `build_ui_revision.py` — genera una candidata `archive.fa` sobre la anterior:
+  eventos SSD con identidad de registros comprobada (`<ui>/events`), capas de
+  archivos repetibles (`--extra`, la última gana) y CRO (`--cro`). Nunca
+  sobrescribe una candidata existente.
+- `verify_candidate.py` — verificación estática de una candidata frente a su base:
+  entradas de las capas, resto del archivo y fuentes idénticos, eventos SSD y
+  literales del CRO permitidos, bloqueo tipográfico.
+- `build_match_content_patch.py` — pachangas, cadena de partidos y nombres de
+  `team.pkb`/`teamtitle.dat`/`clubinfo.dat`.
+- Detalle de la tanda actual y orden completa: `docs/IE1_V29_TANDA.md`.
 
 ### Compilar la build
 > **Guía completa (requisitos, regeneración de datos, tabla de flags):**
