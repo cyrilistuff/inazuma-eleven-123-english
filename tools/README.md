@@ -41,7 +41,10 @@ La fase 1 de la migración (épica #40, subfases F1.0-F1.5) está cerrada. El c�
 [`.github/workflows/toolkit.yml`](../.github/workflows/toolkit.yml) corre en `windows-latest` y
 `ubuntu-latest` (`release.yml` no cambia):
 
-1. `pip install -e tools[dev]`
+1. `pip install -e tools[dev]` — el extra `dev` incluye `opencv-python-headless` porque
+   `nucleo/graficos/pintado.py` importa `cv2` en cuanto una operación lleva `image` o
+   `erase='bright'`; sin él la CI fallaba en los dos SO y solo pasaba en máquinas con OpenCV ya
+   instalado (#58).
 2. `python -m ie123kit.nucleo.compat.guardia bloqueados`: sha256 de los congelados según
    `congelados.sha256` y `SOURCE_HASHES` de `dialogue_lock`.
 3. `python -m ie123kit.nucleo.compat.guardia git`: falla si git rastrea `Roms/`, `work/`, ficheros
@@ -51,6 +54,14 @@ La fase 1 de la migración (épica #40, subfases F1.0-F1.5) está cerrada. El c�
 5. `pytest tools/tests -m "not requiere_rom"`
 
 La CI no se desactiva ni se salta.
+
+Diferencia esperada entre SO (#59): en Linux se saltan los 5 tests de hash de
+`tools/tests/unidad/test_pintado.py` (`test_paint_igual_que_original[simple|izq|condensado|rotado]` y
+`test_paint_condensed_igual_que_original`), porque sus hashes se capturaron con Arial
+(`C:/Windows/Fonts/arial.ttf`), que no se puede redistribuir ni sustituir sin invalidarlos. Las rutas de
+código que cubren (condensado, rotación, texto que no cabe, padding negativo) sí se comprueban en los dos
+SO con la negrita del sistema (Arial o DejaVu) en el bloque «Cobertura independiente de la fuente» de ese
+mismo fichero. Ningún otro test se salta en un SO y no en el otro.
 
 ### Congelados (bloqueo v20)
 

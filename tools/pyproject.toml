@@ -14,7 +14,10 @@ dependencies = ["Pillow", "numpy", "capstone"]
 # ie123 = "ie123kit.cli.main:main" se añade en F2.4
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.5"]
+# opencv-python-headless es necesario para los tests: nucleo/graficos/pintado.py importa cv2
+# en cuanto una operación lleva 'image' (pintado.py:70) o erase='bright'. Sin él la CI fallaba
+# en los dos SO (#58) y solo pasaba en máquinas con OpenCV ya instalado en el entorno.
+dev = ["pytest>=8", "ruff>=0.5", "opencv-python-headless"]
 # Capas gráficas de work/ (v69/v70: borrado de texto sobre fondos); el comprobador
 # de importaciones las trata como externas (EXTERNOS en nucleo/compat/importaciones.py).
 graficos = ["opencv-python-headless", "scipy"]
