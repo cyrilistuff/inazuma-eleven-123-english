@@ -1,6 +1,6 @@
 > Actualización 2026-09-11: v33, partidos de historia, rótulos, CRO, datos y texturas
 >
-> Candidata `work/probe_ie1_v33/archive.fa` (SHA-256
+> Candidata `work/shared/candidatas/probe_ie1_v33/archive.fa` (SHA-256
 > `b65cd7eacc170580b9b24c1da1921fe488b33ab44cd769679d28dc0b48285314`), sobre v32.
 > 4.628 diálogos de los partidos de historia (oficial NDS alineado), 336 rótulos y
 > objetivos, 155 literales del CRO, títulos/Contactos/campos/jugadores, mensajes del
@@ -13,7 +13,7 @@
 
 > Actualización 2026-09-11: v32, blog, textos de partido y pantallas restantes
 >
-> Candidata `work/probe_ie1_v32/archive.fa` instalada (SHA-256
+> Candidata `work/shared/candidatas/probe_ie1_v32/archive.fa` instalada (SHA-256
 > `4043c5c979d4d5f272567edecfba6db96355ab06764d7c1f737567e9a8a7498a`), sobre v31.
 > Futblog completo (310 textos del oficial NDS condensados a las líneas del 3DS),
 > gritos de partido, objetivos restantes, nombres de escuela y 30 texturas de fin de
@@ -23,7 +23,7 @@
 
 > Actualización 2026-09-11: v31, técnicas, objetos y equipos oficiales
 >
-> Candidata `work/probe_ie1_v31/archive.fa` instalada (SHA-256
+> Candidata `work/shared/candidatas/probe_ie1_v31/archive.fa` instalada (SHA-256
 > `e19252b1e6cc2ddf4a0b8b46c7baddea1182d7f7b87bcfae51bd8003eb00f746`), sobre v30.
 > Con la ROM NDS española como fuente oficial: 131 supertécnicas y sus 114
 > descripciones, 261 rótulos de supertécnica en partido, 307 nombres y 300
@@ -34,7 +34,7 @@
 
 > Actualización 2026-09-11: v30, menú de la bolsa y sus pantallas
 >
-> Candidata `work/probe_ie1_v30/archive.fa` instalada (SHA-256
+> Candidata `work/shared/candidatas/probe_ie1_v30/archive.fa` instalada (SHA-256
 > `447f2bd8b44081f5b039c62ce2f20f2fc315713c1106496d847a1eea430f31af`), sobre v29.
 > Traduce el menú de la bolsa, las pantallas de Cambios, Tácticas, Fichar, Fichero,
 > Tienda y subida de nivel, y corrige temas mal traducidos de la guía del sistema.
@@ -44,7 +44,7 @@
 
 > Actualización 2026-09-11: v29, descripciones de jugadores, pantalla VS y equipos
 >
-> Candidata `work/probe_ie1_v29/archive.fa` instalada en Azahar (SHA-256
+> Candidata `work/shared/candidatas/probe_ie1_v29/archive.fa` instalada en Azahar (SHA-256
 > `cbada7a494f1b392dd7f9260830d208986583fef8c10e3c8a68a49fa89eaf465`), generada sobre
 > v28. Incluye las 1.040 descripciones de perfil, las placas y rótulos de campo de
 > la pantalla VS, nombres oficiales Brain/Farm/Inazuma Kids FC/Kasamino en
@@ -54,7 +54,7 @@
 
 > Actualización 2026-09-09: v27, auditoría completa de diálogos
 >
-> La candidata actual era `work/probe_ie1_v27/archive.fa`, instalada en Azahar con hash
+> La candidata actual era `work/shared/candidatas/probe_ie1_v27/archive.fa`, instalada en Azahar con hash
 > `91f816060775190e994f585fae5e09c8adab4cc1998b059f250372387ab10369`. La auditoría
 > directa de los 982 eventos seleccionados encuentra 18.806 diálogos visibles y ningún
 > carácter japonés; el reinserto deja 19.039 textos y 0 rechazos. Se eliminaron los tres
@@ -67,20 +67,20 @@
 > `9000`–`9120`, `9340`, `9341`, `9380`, `9391`, `9700`, `9713` y `9799`)
 > suman 1.953 diálogos de Raimon y 1.836 de eventos compartidos, también sin
 > japonés visible. La auditoría completa queda en
-> `work/probe_ie1_v27/chapter_coverage_audit.json`. La cobertura es estática;
+> `work/shared/candidatas/probe_ie1_v27/chapter_coverage_audit.json`. La cobertura es estática;
 > todavía falta recorrer una partida nueva en Azahar para validar cada capítulo,
 > NPC y transición en juego.
 
 > Distribución 2026-09-09: el parche `patch/inazuma123-es-v27.xdelta` se ha
 > regenerado contra esta candidata y su SHA-256 es
 > `40d81657b9612b4bf232d92e1ae42fc35ddc03f2bbceeb1e94d67187c0e54d47`.
-> El paquete portable local `work/release_inazuma123_es_v27_deltapatcher.zip`
+> El paquete portable local `work/shared/releases/release_inazuma123_es_v27_deltapatcher.zip`
 > contiene las instrucciones, el lanzador, DeltaPatcher portable y solo el
 > parche; la ROM traducida temporal se eliminó después de verificarlo.
 
 > Actualización 2026-09-09: v26 instalada y verificada
 >
-> La candidata actual es `work/probe_ie1_v26/archive.fa`, con hash
+> La candidata actual es `work/shared/candidatas/probe_ie1_v26/archive.fa`, con hash
 > `394b3ea3f986204a5ed7bb9d8fb2a349333d6b15490736cf16f259ca1dcfa27f`.
 > Se corrigieron los 27 registros que aún rechazaba el límite de tamaño y el informe
 > queda con 19.036 textos traducidos, 0 rechazos y 106 registros vacíos/no visibles.
@@ -126,7 +126,7 @@
 > fue eliminada después de comprobar el hash de la instalación.
 
 > Actualización 2026-09-08 (v17): se regeneró `field_t.arc` con el rectángulo
-> interior correcto para «Objetivo»; la candidata v17 (`work/probe_ie1_v17/`)
+> interior correcto para «Objetivo»; la candidata v17 (`work/shared/candidatas/probe_ie1_v17/`)
 > sustituye a v16 en Azahar y conserva su copia de seguridad. El resto de los
 > recursos gráficos permanece igual. Validación: SHA-256 de `archive.fa`
 > `307e3bcec3d084021535b943123e2a511a43cc7274eb54621346d37b19c38cf9`, cero
@@ -136,7 +136,7 @@
 
 ## Actualización 2026-09-09: v23, pachangas y cadena de partidos
 
-La candidata actual es `work/probe_ie1_v23/archive.fa` y ya sustituye a la v22
+La candidata actual es `work/shared/candidatas/probe_ie1_v23/archive.fa` y ya sustituye a la v22
 en la instalación activa de Azahar. Esta tanda añade los diálogos de pachangas
 y de la cadena de partidos del paquete `mch.pkb` (eventos `9420xxxx`), conserva
 los 143 diálogos traducidos del partido de la Royal (`94001500`) y localiza los
@@ -155,7 +155,7 @@ Las v21 y v22 se eliminaron tras verificar la sustitución para no acumular buil
 
 ## Actualización 2026-09-08: v21 y partido de la Royal
 
-La candidata histórica `work/probe_ie1_v21/archive.fa` estuvo instalada en Azahar. Se
+La candidata histórica `work/shared/candidatas/probe_ie1_v21/archive.fa` estuvo instalada en Azahar. Se
 localizó el origen de los diálogos de partido en `mch.pkb` y se tradujeron los
 143 registros visibles del evento `94001500`, incluida la línea de la captura.
 La comprobación estática deja cero japonés visible en ese evento y mantiene los
@@ -181,9 +181,9 @@ no acumular binarios en `work/`; las v21 y v22 también se retiraron al instalar
   solo esos eventos y tres fuentes; 16 textos insertados, uno rechazado por longitud.
   Instalado como mod local de Azahar; el usuario confirmó arranque y diálogo
   español dentro del club con capturas. QA-001 abierto: cortes dentro de palabras
-  y fragmento al cambiar de página. Evidencias locales en `work/qa_dialogue_001/`.
+  y fragmento al cambiar de página. Evidencias locales en `work/ie1/qa/qa_dialogue_001/`.
   Corregido el reflujo por caracteres en el generador; nueva candidata por avances
-  de FONT12 instalada tras cerrar Azahar: `work/probe_ie1_v2/archive.fa`, SHA-256
+  de FONT12 instalada tras cerrar Azahar: `work/shared/candidatas/probe_ie1_v2/archive.fa`, SHA-256
   `a2cb278c36866fedfad569bed436986de59596f1107aab7d3bc433f7050a1c4c`.
   Cuatro pruebas de reflujo pasan; verificados 16 registros insertados, anchos
   calculados, instrucciones y demás registros intactos. Pendiente repetir toda
@@ -237,7 +237,7 @@ objetos/técnicas (#1/#2), juego 3. El motor ya aguanta; el límite es de datos.
 - 🟡 Herramientas (3dstool ✅, extractores propios ✅; xdelta3 pendiente p/ release)
 
 ## Fase 1 — Extracción y mapeo
-- ✅ Extraer RomFS/ExeFS de la ROM 3DS (1·2·3) → `work/romfs`, `work/exefs`
+- ✅ Extraer RomFS/ExeFS de la ROM 3DS (1·2·3) → `work/shared/base_3ds/romfs`, `work/shared/base_3ds/exefs`
 - ✅ Mapa de primer nivel del RomFS 3DS
 - ✅ **`archive.fa` decodificado** (magic `B123` = variante ARC0/XFSA) y
   **extractor propio** `tools/fa_unpack.py` (15.547 archivos, rutas correctas)
@@ -264,7 +264,7 @@ objetos/técnicas (#1/#2), juego 3. El motor ya aguanta; el límite es de datos.
   (SwareJonge) — tiene binario en releases.
 
 ## Fase 2 — Glosario y terminología
-- ✅ Extraído el filesystem de IE1/IE2 NDS (ES) → `work/ie1_es`, `work/ie2_es`
+- ✅ Extraído el filesystem de IE1/IE2 NDS (ES) → `work/ie1/fuentes/nds_es`, `work/ie2_es`
 - ✅ Localizado el texto español oficial en carpetas `data_iz/logic/sp/` y
   `data_iz/script/sp/`: `command.STR` (técnicas), `item.STR` (objetos),
   `unitbase.STR/.dat` (jugadores), `evet.pkb`/`mcht.pkb` (eventos), `team.pkb`
@@ -278,7 +278,7 @@ objetos/técnicas (#1/#2), juego 3. El motor ya aguanta; el límite es de datos.
   (estructura/recuento distintos) → pendiente parsear su índice real
 
 ## Juego 2
-- ✅ Extraído + alineado con NDS IE2 (74% con ES oficial, `translation/game2/dialogo.csv`)
+- ✅ Extraído + alineado con NDS IE2 (74% con ES oficial, `translation/ie2/dialogo.csv`)
 - ✅ **Reinsertado en la build** (multi-juego): 2610 eventos / 24843 líneas ES
 
 ## UI / menús (AMBOS juegos)
@@ -322,7 +322,7 @@ Aislado por bisección:
 - ✅ **Alineado por `event_id`** JP(3DS)↔ES(NDS): 1289 ids comunes; **133 eventos
   con nº de líneas idéntico → ES oficial aplicado** (934 líneas), `tools/align_events.py`
 - ✅ **Alineado fino (Needleman-Wunsch)** con señal de longitud + formato (%s/%d/\n):
-  `translation/game1/dialogo.csv` (29985 líneas). **Cobertura con ES: 66,2%**
+  `translation/ie1/dialogo.csv` (29985 líneas). **Cobertura con ES: 66,2%**
   (oficial 3,1% + revisar 56,4% + auto-dup 6,7%); pendiente 33,8%
   (`tools/align_events.py`, `tools/build_translation.py`)
 - 🟡 Traducir a mano lo `pendiente` (33,8%) y revisar lo `revisar`

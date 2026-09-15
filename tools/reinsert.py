@@ -13,7 +13,7 @@ Acentos: de momento se romanizan (a/e/i/o/u/n, ! ?). La fuente (etapa 6) los
 restaura luego. Solo se aplican lineas con es_final (estado != pendiente).
 
 Uso:
-    python tools/reinsert.py            # patчea work/romfs/archive.fa -> work/archive_es.fa
+    python tools/reinsert.py            # patчea work/shared/base_3ds/romfs/archive.fa -> work/archive_es.fa
 """
 import csv
 import os
@@ -318,7 +318,7 @@ def reencode_event(dec, trans, esize):
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    src = os.path.join(REPO, "work", "romfs", "archive.fa")
+    src = os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa")
     dst = os.path.join(REPO, "work", "archive_es.fa")
     data = bytearray(open(src, "rb").read())
     arc = FaArchive(src)

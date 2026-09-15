@@ -26,7 +26,7 @@ rutas y las huellas de entrada y salida.
 ## Release v1 (build IE1 v33) y publicación con Actions
 
 - Parche: `patch/inazuma123-es-v1.xdelta`, generado en local con
-  `work/v33/_final/build_rom.py` (RomFS con `archive.fa` y `ina_main1.cro` de la
+  `work/ie1/capas/v33/_final/build_rom.py` (RomFS con `archive.fa` y `ina_main1.cro` de la
   candidata v33, ExeFS original) y `xdelta3 -e -9 -B 2147483648`, y comprobado
   reaplicándolo sobre la ROM base (el resultado coincide byte a byte con la ROM
   compilada). Parche de 22.116.160 bytes, SHA-256
@@ -59,7 +59,7 @@ hash de la ROM traducida.
 
 ## Paquete portable preparado
 
-La carpeta de trabajo contiene `work/release_inazuma123_es_v27_deltapatcher.zip`.
+La carpeta de trabajo contiene `work/shared/releases/release_inazuma123_es_v27_deltapatcher.zip`.
 Incluye `instrucciones.txt`, `Lanzar_DeltaPatcher.bat`, el `DeltaPatcher.exe`
 portable 3.1.6, el `.xdelta`, los checksums y el aviso de terceros. Está fuera
 del control de versiones porque el ejecutable es una herramienta de terceros;

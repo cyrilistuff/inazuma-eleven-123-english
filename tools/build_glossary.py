@@ -13,7 +13,7 @@ El 3DS usa Shift-JIS; el NDS una codificacion Latin propia (ver NDS_DEC).
 
 Uso (rutas por defecto a work/, ignorado por git):
     python tools/build_glossary.py
-Salida: CSV en translation/glossary/ (solo nombres/terminos, sin descripciones).
+Salida: CSV en translation/shared/glossary/ (solo nombres/terminos, sin descripciones).
 """
 import csv
 import os
@@ -23,15 +23,15 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # valores por defecto (juego 1); main() los reasigna segun el juego
 DS = os.path.join(REPO, "work", "fa_extract", "inazuma1", "data_iz", "logic")   # 3DS JP
-ES = os.path.join(REPO, "work", "ie1_es", "data_iz", "logic", "sp")             # NDS ES
-OUT = os.path.join(REPO, "translation", "glossary")
+ES = os.path.join(REPO, "work", "ie1", "fuentes", "nds_es", "data_iz", "logic", "sp")             # NDS ES
+OUT = os.path.join(REPO, "translation", "shared", "glossary")
 
 # config por juego: (carpeta 3DS, carpeta NDS ES, salida glosario)
 GAME_CFG = {
-    "game1": ("inazuma1", os.path.join("ie1_es", "data_iz", "logic", "sp"),
-              os.path.join("translation", "glossary")),
-    "game2": ("inazuma2", os.path.join("ie2_es", "data_iz", "logic", "sp"),
-              os.path.join("translation", "game2", "glossary")),
+    "game1": ("inazuma1", os.path.join("ie1", "fuentes", "nds_es", "data_iz", "logic", "sp"),
+              os.path.join("translation", "shared", "glossary")),
+    "game2": ("inazuma2", os.path.join("ie2", "tormenta_de_fuego", "fuentes", "nds_es", "data_iz", "logic", "sp"),
+              os.path.join("translation", "ie2", "glossary")),
 }
 
 # Codificacion Latin propia del NDS ES (inferida por contexto; ampliable)

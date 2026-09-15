@@ -29,14 +29,14 @@ se sobreponen los archivos europeos completos, sin recodificarlos.
 python tools/ie1_media.py --stage
 pwsh -File tools/setup_mobipeg.ps1
 python tools/mods_to_moflex.py `
-  "work/ie1_es/data_iz/movie/sp/am0102.mods" `
-  "work/volumen_1/ie1_media_mod/archive_extra/inazuma1/data_iz/movie/am0102.moflex"
+  "work/ie1/fuentes/nds_es/data_iz/movie/sp/am0102.mods" `
+  "work/ie1/legacy/volumen_1/ie1_media_mod/archive_extra/inazuma1/data_iz/movie/am0102.moflex"
 python tools/build_ui_revision.py `
-  --base work/probe_ie1_v33/archive.fa `
-  --ui work/volumen_1/ie1_media_mod `
-  --extra work/volumen_1/ie1_media_mod/archive_extra `
-  --cro work/probe_ie1_v33/romfs/cro/ina_main1.cro `
-  --output work/probe_ie1_v34/archive.fa
+  --base work/shared/candidatas/probe_ie1_v33/archive.fa `
+  --ui work/ie1/legacy/volumen_1/ie1_media_mod `
+  --extra work/ie1/legacy/volumen_1/ie1_media_mod/archive_extra `
+  --cro work/shared/candidatas/probe_ie1_v33/romfs/cro/ina_main1.cro `
+  --output work/shared/candidatas/probe_ie1_v34/archive.fa
 ```
 
 `mods_to_moflex.py` convierte YCgCo de DS a YCbCr y gira 256x192 a 240x320,

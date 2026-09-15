@@ -20,7 +20,7 @@ automático y con comprobación del límite de cada registro. Se normalizan los
 controles de página/línea para que el reflujo los reconozca.
 
 El informe de esta comprobación se conserva dentro de la candidata actual
-`work/probe_ie1_v21/archive.report.json`; el binario intermedio v20 se eliminó
+`work/shared/candidatas/probe_ie1_v21/archive.report.json`; el binario intermedio v20 se eliminó
 tras instalar v21. El original de las traducciones anteriores sigue en
 `work/probe_ie1_v14_inputs/reviewed.json`. No se conserva una ROM histórica v13
 o v14.

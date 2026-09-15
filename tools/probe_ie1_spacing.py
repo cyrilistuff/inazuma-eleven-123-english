@@ -23,7 +23,7 @@ def main():
     target = output/'archive.fa'
     if target.exists():
         raise FileExistsError(target)
-    arc = FaArchive(str(root/'work/probe_ie1_v17/archive.fa'))
+    arc = FaArchive(str(root/'work/shared/candidatas/probe_ie1_v17/archive.fa'))
     def get(path):
         _, offset, size = next(e for e in arc.entries if e[0] == path)
         return arc.d[offset:offset+size]
@@ -108,7 +108,7 @@ def main():
         pkb.extend(packed)
         break
     replacements={prefix+'pkb':pkb,prefix+'pkh':pkh,'font/FONT12.bcfnt':font.data,'inazuma1/data_iz/font/FONT12.NFTR':nftr}
-    shutil.copyfile(root/'work/probe_ie1_v17/archive.fa',target)
+    shutil.copyfile(root/'work/shared/candidatas/probe_ie1_v17/archive.fa',target)
     with target.open('r+b') as f:
         for path,data in replacements.items():
             f.seek(0,2); f.write(bytes((-f.tell())%16)); off=f.tell(); f.write(data)

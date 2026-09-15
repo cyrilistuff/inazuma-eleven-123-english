@@ -7,7 +7,7 @@
 ## ✅✅✅ SOLUCIÓN POR INGENIERÍA INVERSA del EJECUTABLE (2026-06) — pendiente confirmar in-game
 
 **El muro del furigana (❌#1/#9/#12, el crash `0x00ABFCC0`) es del CÓDIGO, no de los datos** → se
-parchea el ejecutable. Hallazgo (desensamblando `work/romfs/cro/ina_main1.cro` con **capstone**):
+parchea el ejecutable. Hallazgo (desensamblando `work/shared/base_3ds/romfs/cro/ina_main1.cro` con **capstone**):
 
 - El crash `unmapped Read8 … PC 0x00ABFCC0` está en **`ina_main1.cro`** (cargado en 0x00A89000;
   offset de fichero 0x36CC0). La instrucción es **`ldrb r0, [r4]`** — un **bucle que lee una cadena
@@ -258,3 +258,16 @@ emparejar por posición, y en 621 eventos la NDS tiene instrucciones de más que
 **931 frases de la build mostraban otra frase del mismo evento** (p. ej. «¡Tú!» → «Ya puedes
 entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos**
 (`tools/audit_dialogo_ids.py`, formato en `docs/EVENT_SCRIPT_FORMAT.md`).
+
+## ❌ Nombres de objeto en latín de 1 byte para que quepan como en la NDS (v47, 2026-09-15)
+
+- **Idea:** la NDS guarda los nombres de objeto en 1 byte por letra (32 B, fuente proporcional) y cabe
+  «Pulsera popular». En el 3DS el campo es 18 B + NUL en ancho completo (9 letras). Se probó escribir
+  4 nombres en ASCII de 1 byte en `item.dat` sin tocar fuentes.
+- **Resultado en juego:** el menú acepta los bytes y la BCFNT los dibuja proporcionales, pero la NFTR
+  solo tiene métricas del espacio y **la fila del menú se parte tras 10 caracteres** sea cual sea el
+  ancho de las letras («Agua miner|al», «Bola de ar|roz», «Pulsera ju|venil»); el sobrante se monta
+  en la fila siguiente.
+- **Conclusión:** el límite es de caracteres, no de píxeles. Arreglar métricas NFTR/BCFNT no haría caber
+  los nombres oficiales y obligaría a tocar las fuentes bloqueadas. **No reintentar.** Abreviar dentro
+  de 9 caracteres (`work/ie1/capas/v47/objetos/propuesta.md`). Issue #39.

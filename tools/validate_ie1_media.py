@@ -10,15 +10,15 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
-STAGE = REPO / "work" / "volumen_1" / "ie1_media_mod"
+STAGE = REPO / "work" / "ie1" / "legacy" / "volumen_1" / "ie1_media_mod"
 STAGE_SOUND = STAGE / "romfs" / "inazuma1" / "data_iz" / "sound"
 STAGE_MOVIES = STAGE / "archive_extra" / "inazuma1" / "data_iz" / "movie"
 MOVIES_MANIFEST = STAGE / "movies_manifest.json"
 INSTALLED = Path.home() / "AppData" / "Roaming" / "Azahar" / "load" / "mods" / "00040000000BB800" / "romfs"
 INSTALLED_SOUND = INSTALLED / "inazuma1" / "data_iz" / "sound"
-VGMSTREAM = REPO / "work" / "media_tools" / "vgmstream-nightly-win64" / "vgmstream-cli.exe"
-MOBIPEG = REPO / "work" / "media_tools" / "mobipeg-v2.1-x86" / "ffmpeg.exe"
-REPORT = REPO / "work" / "probe_ie1_v35" / "media_validation.json"
+VGMSTREAM = REPO / "work" / "shared" / "herramientas" / "media_tools" / "vgmstream-nightly-win64" / "vgmstream-cli.exe"
+MOBIPEG = REPO / "work" / "shared" / "herramientas" / "media_tools" / "mobipeg-v2.1-x86" / "ffmpeg.exe"
+REPORT = REPO / "work" / "shared" / "candidatas" / "probe_ie1_v35" / "media_validation.json"
 
 
 def digest(path: Path) -> str:

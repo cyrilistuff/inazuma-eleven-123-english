@@ -22,7 +22,7 @@
 
 ## Evidencia local
 
-- Candidata: work/probe_ie1_v35/archive.fa.
+- Candidata: work/shared/candidatas/probe_ie1_v35/archive.fa.
 - SHA-256: bcee069a2263148617de7ace13f5c93e49f3a023e94058e8d437e6531f17df9e.
 - 22 entradas del archivo verificadas byte por byte: 21 MOFLEX y title_t.arc.
 - Las 21 películas se descodifican completas y todos sus descriptores usan

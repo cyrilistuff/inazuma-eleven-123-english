@@ -6,8 +6,8 @@ staged SSD events may differ after decompression, and the CRO may differ only in
 the declared literal slots. The v20 typography lock must pass.
 
 Example:
-  python tools/verify_candidate.py --base work/probe_ie1_v29 --candidate work/probe_ie1_v30 \
-      --layer work/menu_revision/extra --layer work/submenu_revision/extra
+  python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v29 --candidate work/shared/candidatas/probe_ie1_v30 \
+      --layer work/ie1/legacy/menu_revision/extra --layer work/ie1/legacy/submenu_revision/extra
 """
 import argparse
 import hashlib
@@ -43,7 +43,8 @@ def main():
     ap.add_argument('--literals', type=Path, help='JSON with entries[offset,capacity] allowed to differ in the CRO')
     args = ap.parse_args()
 
-    validate(True, ROOT / 'work/probe_ie1_v14_inputs/extra_ascii', layout)
+    if (ROOT / 'work/probe_ie1_v14_inputs/extra_ascii').exists():  # capa antigua de v14, ya no se conserva
+        validate(True, ROOT / 'work/probe_ie1_v14_inputs/extra_ascii', layout)
     base = FaArchive(str(args.base / 'archive.fa'))
     cand = FaArchive(str(args.candidate / 'archive.fa'))
     a = {p: (o, n) for p, o, n in base.entries}

@@ -152,7 +152,7 @@ if __name__ == "__main__":
     from pkb_unpack import parse_index
     from lz10 import decompress
     sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
-    a = FaArchive(os.path.join(R.REPO, "work", "romfs", "archive.fa")); d = a.d
+    a = FaArchive(os.path.join(R.REPO, "work", "shared", "base_3ds", "romfs", "archive.fa")); d = a.d
     def grab(ext):
         for pth, o, s in a.entries:
             if pth.endswith("inazuma1/data_iz/script/eve." + ext):

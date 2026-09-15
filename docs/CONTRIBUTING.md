@@ -7,7 +7,7 @@ Gracias por querer ayudar con la traducción. Lee esto antes de empezar.
 1. **Nunca subas ROMs ni contenido extraído** (ver [`LEGAL.md`](../LEGAL.md)).
    El `.gitignore` los bloquea; no lo desactives.
 2. **Respeta el glosario.** Personajes, técnicas y equipos usan los **nombres
-   europeos oficiales** en español. Consulta `translation/glossary/` antes de
+   europeos oficiales** en español. Consulta `translation/shared/glossary/` antes de
    inventar una traducción.
 3. **Una cosa por commit / PR.** Facilita la revisión.
 
@@ -29,6 +29,6 @@ Gracias por querer ayudar con la traducción. Lee esto antes de empezar.
 
 ## Glosario
 
-Los CSV de `translation/glossary/` tienen columnas:
+Los CSV de `translation/shared/glossary/` tienen columnas:
 `japones, ingles, espanol_oficial, notas`. Si encuentras un término sin entrada,
 añádelo con la fuente (de qué juego/escena lo sacaste).

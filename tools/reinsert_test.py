@@ -30,7 +30,7 @@ def find_file(arc, suffix):
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     fa_path = r"work\archive_patched.fa"
-    src = r"work\romfs\archive.fa"
+    src = r"work\shared\base_3ds\romfs\archive.fa"
     data = bytearray(open(src, "rb").read())
     arc = FaArchive(src)
 

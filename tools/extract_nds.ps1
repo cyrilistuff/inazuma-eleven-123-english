@@ -4,7 +4,7 @@
 .DESCRIPTION
   Requiere ndstool.exe en tools/bin/. Usalo con las ROMs de referencia ES.
 .EXAMPLE
-  pwsh ./tools/extract_nds.ps1 -Rom "roms\Inazuma Eleven.nds" -Name ie1_es
+  pwsh ./tools/extract_nds.ps1 -Rom "Roms\ie1\Inazuma Eleven (2011).nds" -Name ie1\fuentes\nds_es
 #>
 [CmdletBinding()]
 param(

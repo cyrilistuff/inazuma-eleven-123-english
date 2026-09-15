@@ -2,7 +2,7 @@
 
 Estado: **recursos preparados; no instalados ni comprobados en juego**.
 La ROM/mod v27 instalada permanece sin cambios. Se mantiene la instrucción
-local de `work/scope_no_build.md`: preparar las correcciones sin generar ROM.
+local de `work/ie1/legacy/sueltos/scope_no_build.md`: preparar las correcciones sin generar ROM.
 
 ## Cambios preparados
 
@@ -48,17 +48,17 @@ sin cambiar los hashes del bloqueo ni ninguna fuente aprobada.
 
 ## Reproducción y evidencias locales
 
-Todo recurso recuperado permanece en `work/ui_revision/` (no publicar).
+Todo recurso recuperado permanece en `work/ie1/legacy/ui_revision/` (no publicar).
 
-1. `python work/ui_revision/extend_points.py`
-2. `python work/ui_revision/extract_base.py`
-3. `python tools/translate_ui_textures.py work/ui_revision/manifest.json --source work/menu_audit --base work/ui_revision/base --output work/ui_revision/extra --previews work/ui_revision/previews`
-4. `python work/ui_revision/formation_names.py`
-5. `python work/ui_revision/literals.py`
-6. `python work/ui_revision/validate.py`
-7. `python work/ui_revision/extract_events.py` y `python work/ui_revision/objectives.py`
-8. `python work/ui_revision/reserves.py`
-9. `python work/ui_revision/extract_locations.py` y `python work/ui_revision/locations.py`
+1. `python work/ie1/legacy/ui_revision/extend_points.py`
+2. `python work/ie1/legacy/ui_revision/extract_base.py`
+3. `python tools/translate_ui_textures.py work/ie1/legacy/ui_revision/manifest.json --source work/menu_audit --base work/ie1/legacy/ui_revision/base --output work/ie1/legacy/ui_revision/extra --previews work/ie1/legacy/ui_revision/previews`
+4. `python work/ie1/legacy/ui_revision/formation_names.py`
+5. `python work/ie1/legacy/ui_revision/literals.py`
+6. `python work/ie1/legacy/ui_revision/validate.py`
+7. `python work/ie1/legacy/ui_revision/extract_events.py` y `python work/ie1/legacy/ui_revision/objectives.py`
+8. `python work/ie1/legacy/ui_revision/reserves.py`
+9. `python work/ie1/legacy/ui_revision/extract_locations.py` y `python work/ie1/legacy/ui_revision/locations.py`
 
 Estos pasos preparan recursos pequeños, no una ROM. La futura integración debe
 superponer `extra/` a las entradas de v27 y `romfs/` al CRO actual; no sustituir

@@ -2,7 +2,7 @@
 
 Base: candidata v30 instalada (`447f2bd8…a430f31af`). Issues #22 y #23.
 El usuario aportó la ROM NDS española de Inazuma Eleven (código `YEES`) en `Roms/`;
-se extrajo localmente a `work/ie1_es/` (ignorado por Git) con `tools/nds_unpack.py`.
+se extrajo localmente a `work/ie1/fuentes/nds_es/` (ignorado por Git) con `tools/nds_unpack.py`.
 Tipografía v20 bloqueada: el bloqueo pasa en todos los pasos.
 
 ## Fuente oficial y emparejado
@@ -13,7 +13,7 @@ Tipografía v20 bloqueada: el bloqueo pasa en todos los pasos.
   NDS 48 B, nombre de 32 B y descripción en +46).
 - **Equipos**: `team.pkb` de 320 B; iguales hasta el registro 31 y desplazados uno
   a partir del 32 (la NDS inserta un equipo). Glosario versionado:
-  `translation/glossary/equipos.csv` (solo nombres cortos).
+  `translation/shared/glossary/equipos.csv` (solo nombres cortos).
 - Decodificador NDS ampliado (`tools/build_glossary.py`): Á, Í, comillas Shift-JIS y
   «~» usado como ordinal.
 
@@ -38,23 +38,23 @@ Tipografía v20 bloqueada: el bloqueo pasa en todos los pasos.
 ## Reproducción (recursos locales en `work/`, no publicar)
 
 ```text
-python tools/nds_unpack.py "Roms/Inazuma Eleven (2011).nds" work/ie1_es
-python work/tech_revision/build_worklist.py
-python work/item_revision/build_worklist.py
-python work/tech_revision/check.py work/tech_revision/worklist.json work/tech_revision/chunk_*.json
-python work/tech_revision/check.py work/item_revision/worklist.json work/item_revision/chunk_*.json
-python work/tech_revision/apply.py
-python work/item_revision/apply.py
-python work/team_revision/prepare.py
-python tools/translate_ui_textures.py work/team_revision/manifest.json --source work/team_revision/base --base work/team_revision/base --output work/team_revision/extra --previews work/team_revision/previews
-python work/menu_revision/validate.py work/team_revision
-python work/team_revision/events.py
-python work/banner_revision/prepare.py
-python tools/translate_ui_textures.py work/banner_revision/manifest.json --source work/banner_revision/base --base work/banner_revision/base --output work/banner_revision/extra --previews work/banner_revision/previews
-python work/menu_revision/validate.py work/banner_revision
-python tools/build_ui_revision.py --base work/probe_ie1_v30/archive.fa --ui work/team_revision --extra work/team_revision/extra --extra work/tech_revision/extra --extra work/item_revision/extra --extra work/banner_revision/extra --cro work/probe_ie1_v30/romfs/cro/ina_main1.cro --output work/probe_ie1_v31/archive.fa
-python tools/verify_candidate.py --base work/probe_ie1_v30 --candidate work/probe_ie1_v31 --layer work/team_revision/extra --layer work/tech_revision/extra --layer work/item_revision/extra --layer work/banner_revision/extra --events work/team_revision/events
-python work/vs_revision/install.py work/probe_ie1_v31
+python tools/nds_unpack.py "Roms/ie1/Inazuma Eleven (2011).nds" work/ie1/fuentes/nds_es
+python work/ie1/legacy/tech_revision/build_worklist.py
+python work/ie1/legacy/item_revision/build_worklist.py
+python work/ie1/legacy/tech_revision/check.py work/ie1/legacy/tech_revision/worklist.json work/ie1/legacy/tech_revision/chunk_*.json
+python work/ie1/legacy/tech_revision/check.py work/ie1/legacy/item_revision/worklist.json work/ie1/legacy/item_revision/chunk_*.json
+python work/ie1/legacy/tech_revision/apply.py
+python work/ie1/legacy/item_revision/apply.py
+python work/ie1/legacy/team_revision/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/team_revision/manifest.json --source work/ie1/legacy/team_revision/base --base work/ie1/legacy/team_revision/base --output work/ie1/legacy/team_revision/extra --previews work/ie1/legacy/team_revision/previews
+python work/ie1/legacy/menu_revision/validate.py work/ie1/legacy/team_revision
+python work/ie1/legacy/team_revision/events.py
+python work/ie1/legacy/banner_revision/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/banner_revision/manifest.json --source work/ie1/legacy/banner_revision/base --base work/ie1/legacy/banner_revision/base --output work/ie1/legacy/banner_revision/extra --previews work/ie1/legacy/banner_revision/previews
+python work/ie1/legacy/menu_revision/validate.py work/ie1/legacy/banner_revision
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v30/archive.fa --ui work/ie1/legacy/team_revision --extra work/ie1/legacy/team_revision/extra --extra work/ie1/legacy/tech_revision/extra --extra work/ie1/legacy/item_revision/extra --extra work/ie1/legacy/banner_revision/extra --cro work/shared/candidatas/probe_ie1_v30/romfs/cro/ina_main1.cro --output work/shared/candidatas/probe_ie1_v31/archive.fa
+python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v30 --candidate work/shared/candidatas/probe_ie1_v31 --layer work/ie1/legacy/team_revision/extra --layer work/ie1/legacy/tech_revision/extra --layer work/ie1/legacy/item_revision/extra --layer work/ie1/legacy/banner_revision/extra --events work/ie1/legacy/team_revision/events
+python work/ie1/legacy/vs_revision/install.py work/shared/candidatas/probe_ie1_v31
 ```
 
 ## Pendiente
@@ -67,7 +67,7 @@ python work/vs_revision/install.py work/probe_ie1_v31
 
 ## Estado
 
-2026-09-11: candidata `work/probe_ie1_v31/archive.fa` generada e **instalada** en
+2026-09-11: candidata `work/shared/candidatas/probe_ie1_v31/archive.fa` generada e **instalada** en
 Azahar con Azahar cerrado y sin enviar entradas al emulador.
 
 - `archive.fa` candidato e instalado: `e19252b1e6cc2ddf4a0b8b46c7baddea1182d7f7b87bcfae51bd8003eb00f746`
@@ -78,7 +78,7 @@ Azahar con Azahar cerrado y sin enviar entradas al emulador.
 - Validación de textos: 245 de técnicas y 607 de objetos sin problemas; rótulos
   y texturas sin píxeles fuera de sus rectángulos (los 9 rótulos ETC1A4 borran con
   blanco transparente para que el color clave magenta no manche las letras).
-- Limpieza: se borró `work/probe_ie1_v29/archive.fa`; v30 se conserva como base.
+- Limpieza: se borró `work/shared/candidatas/probe_ie1_v29/archive.fa`; v30 se conserva como base.
 
 **No está verificada en juego.** Prueba sugerida: menú de la bolsa → Objetos y
 Equipamiento (nombres y descripciones), Supertécnicas (nombres y descripciones),

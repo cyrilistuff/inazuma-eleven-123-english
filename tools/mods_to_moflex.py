@@ -27,7 +27,8 @@ from PIL import Image, ImageDraw, ImageFont
 REPO = Path(__file__).resolve().parents[1]
 # La compilación x64 v2.1 se bloquea al codificar imágenes complejas en Windows
 # (0xc0000005). La compilación x86 del mismo lanzamiento supera ese caso.
-DEFAULT_MOBIPEG = REPO / "work" / "media_tools" / "mobipeg-v2.1-x86"
+DEFAULT_MOBIPEG = REPO / "work" / "shared" / "herramientas" / "media_tools" / "mobipeg-v2.1-x86"
+SUBTITLE_TICK_RATE = 30  # movie/txt/*.dat: ticks de 30 Hz
 DEFAULT_FONT = Path("C:/Windows/Fonts/arialbd.ttf")
 
 DS_TABLE = {
@@ -172,6 +173,8 @@ def convert(source: Path, target: Path, mobipeg_dir: Path, qp: int,
         raise FileNotFoundError(f"Falta mobipeg portátil en {mobipeg_dir}")
 
     width, height, fps = probe(ffprobe, source)
+    num, _, den = fps.partition("/")
+    fps_value = float(num) / float(den or 1)
     if width % 2 or height % 2:
         raise ValueError("MODS no usa dimensiones pares")
     frame_size = width * height * 3 // 2
@@ -205,7 +208,10 @@ def convert(source: Path, target: Path, mobipeg_dir: Path, qp: int,
                     raise RuntimeError("el descodificador entregó un fotograma truncado")
                 rgb = ycgco420_to_rgb(raw, width, height)
                 image = Image.fromarray(rgb, "RGB")
-                active = next((item.text for item in subtitles if item.start <= frames <= item.end), "")
+                # Los .dat de movie/txt cuentan en ticks de 30 Hz, no en fotogramas del vídeo
+                # (op00: 1763 fotogramas a 20 fps y último subtítulo en 2675 = 1763 * 30/20).
+                tick = frames * SUBTITLE_TICK_RATE / fps_value
+                active = next((item.text for item in subtitles if item.start <= tick <= item.end), "")
                 add_caption(image, active, font_path)
                 image = image.transpose(Image.Transpose.ROTATE_270)
                 image = image.resize((240, 320), Image.Resampling.LANCZOS)

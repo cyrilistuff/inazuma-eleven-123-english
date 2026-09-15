@@ -1,6 +1,6 @@
 # Tanda v38 — resto de pantallas de menú (issue #37)
 
-Base: candidata v37 (`e1a2e936…a552376e`). Capa: `work/v38/pantallas_nds` (apply + validate).
+Base: candidata v37 (`e1a2e936…a552376e`). Capa: `work/ie1/capas/v38/pantallas_nds` (apply + validate).
 No se mueve ninguna coordenada de atlas; tipografía v20 bloqueada (PASS).
 
 ## Revisión por pantalla
@@ -23,7 +23,7 @@ No se mueve ninguna coordenada de atlas; tipografía v20 bloqueada (PASS).
 ## Se quedan
 
 - Rótulos rojos del entrenamiento Centella: ya en español y con estilo propio del 3DS.
-- Resto de hojas en `work/v38/estado` (bolsa, tienda, sistema, uniforme, inalámbrico…): ya en
+- Resto de hojas en `work/ie1/capas/v38/estado` (bolsa, tienda, sistema, uniforme, inalámbrico…): ya en
   español, sin equivalente NDS con la misma forma.
 - Residuos fuera de `a_menu` del informe v33 (escudos de `3ddemo_school`, pictogramas 風林火山 del
   mando de técnicas, `common`/`result`): quedan para otra tanda.
@@ -31,13 +31,13 @@ No se mueve ninguna coordenada de atlas; tipografía v20 bloqueada (PASS).
 ## Candidata
 
 ```
-python work/v38/pantallas_nds/apply.py
-python work/v38/pantallas_nds/validate.py
-python tools/build_ui_revision.py --base work/probe_ie1_v37/archive.fa --ui work/v38/pantallas_nds \
-    --extra work/v38/pantallas_nds/extra --cro work/probe_ie1_v37/romfs/cro/ina_main1.cro \
-    --output work/probe_ie1_v38/archive.fa
-python tools/verify_candidate.py --base work/probe_ie1_v37 --candidate work/probe_ie1_v38 \
-    --layer work/v38/pantallas_nds/extra
+python work/ie1/capas/v38/pantallas_nds/apply.py
+python work/ie1/capas/v38/pantallas_nds/validate.py
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v37/archive.fa --ui work/ie1/capas/v38/pantallas_nds \
+    --extra work/ie1/capas/v38/pantallas_nds/extra --cro work/shared/candidatas/probe_ie1_v37/romfs/cro/ina_main1.cro \
+    --output work/shared/candidatas/probe_ie1_v38/archive.fa
+python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v37 --candidate work/shared/candidatas/probe_ie1_v38 \
+    --layer work/ie1/capas/v38/pantallas_nds/extra
 ```
 
 - `archive.fa`: `bac2944c534950c7a871fff328002610946b3a839b1ffcd9aa711e82c287b962`

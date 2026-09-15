@@ -1,6 +1,6 @@
 # QA estática de pachangas y cadena de partidos en v23
 
-La candidata `work/probe_ie1_v23/archive.fa` incluye los textos de partido del
+La candidata `work/shared/candidatas/probe_ie1_v23/archive.fa` incluye los textos de partido del
 paquete `inazuma1/data_iz/script/mch.pkb` y sus índices `mch.pkh`.
 
 - 183 eventos `9420xxxx` modificados, incluidos los ocho eventos de la cadena

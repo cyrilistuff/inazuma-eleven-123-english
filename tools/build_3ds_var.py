@@ -6,7 +6,7 @@ contenedor cambia de tamano, asi que hay que rehacer romfs -> cxi -> 3ds.
 Pasos:
   1. fa_repack: archive_es.fa (fuentes/UI) + eve_var/*.pkb -> archive_var.fa
   2. extraer partes CXI del .3ds original (exefs/exh/logo/plain) si faltan
-  3. poner archive_var.fa en work/romfs/, 3dstool -ctf romfs (recalcula IVFC)
+  3. poner archive_var.fa en work/shared/base_3ds/romfs/, 3dstool -ctf romfs (recalcula IVFC)
   4. 3dstool -ctf cxi (recalcula hash NCCH) y -ctf 3ds
 Salida: work/build/inazuma123_es_var.3ds
 """

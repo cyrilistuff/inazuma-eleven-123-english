@@ -27,7 +27,7 @@ el editor antiguo asume medio byte por píxel en todas las fuentes. V3 conserva
 FONT12T original en lugar de aplicar ese editor incompatible. FONT12 y FONT8
 tienen formato 11 y la geometría de cuatro bits usada por el editor.
 
-Candidata local: `work/probe_ie1_v3/archive.fa`, SHA-256
+Candidata local: `work/shared/candidatas/probe_ie1_v3/archive.fa`, SHA-256
 `7d3dd8e883733d036e2fa7b76ef31464022004dc23fab74975590dc0817b4589`.
 Instalada con Azahar cerrado. Verificados 15 diálogos y bytecode intacto;
 92010250 registros 8 y 25 quedan originales por longitud. Siete pruebas de

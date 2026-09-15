@@ -1,7 +1,7 @@
 # Tanda v37 — gráficos de la NDS en la interfaz
 
-Base: candidata v36 (`ebc1230b…a4bb00`). Issue #37. Fuente única: ROM NDS española (`work/ie1_es`).
-Línea: `work/v37/graficos_nds` (`piezas_nds.py`, `apply.py`, `validate.py`, `previews/`).
+Base: candidata v36 (`ebc1230b…a4bb00`). Issue #37. Fuente única: ROM NDS española (`work/ie1/fuentes/nds_es`).
+Línea: `work/ie1/capas/v37/graficos_nds` (`piezas_nds.py`, `apply.py`, `validate.py`, `previews/`).
 
 ## Dónde están los gráficos en la NDS
 
@@ -29,13 +29,13 @@ en vez de las oficiales DL/MD/DF/PR.
 ## Candidata
 
 ```
-python work/v37/graficos_nds/apply.py
-python work/v37/graficos_nds/validate.py
-python tools/build_ui_revision.py --base work/probe_ie1_v36/archive.fa --ui work/v37/graficos_nds \
-    --output work/probe_ie1_v37/archive.fa --extra work/v37/graficos_nds/extra \
-    --cro work/probe_ie1_v36/romfs/cro/ina_main1.cro
-python tools/verify_candidate.py --base work/probe_ie1_v36 --candidate work/probe_ie1_v37 \
-    --layer work/v37/graficos_nds/extra
+python work/ie1/capas/v37/graficos_nds/apply.py
+python work/ie1/capas/v37/graficos_nds/validate.py
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v36/archive.fa --ui work/ie1/capas/v37/graficos_nds \
+    --output work/shared/candidatas/probe_ie1_v37/archive.fa --extra work/ie1/capas/v37/graficos_nds/extra \
+    --cro work/shared/candidatas/probe_ie1_v36/romfs/cro/ina_main1.cro
+python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v36 --candidate work/shared/candidatas/probe_ie1_v37 \
+    --layer work/ie1/capas/v37/graficos_nds/extra
 ```
 
 - `archive.fa`: `e1a2e93607a4d3d9348f3d64238acbbcd652e2414a508022c464b753a552376e`

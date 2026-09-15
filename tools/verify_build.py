@@ -2,7 +2,7 @@
 """Verificacion ESTATICA de la build NO_BLANK/SAME_SIZE (sin parches), para validar los
 artefactos ANTES de probar en emulador (ahorra ~15 min por test fallido). Comprueba:
 
-  1. CRO  : work/romfs/cro/ina_main1.cro  ==  .orig   (SKIP_CRO -> sin parche de relocacion)
+  1. CRO  : work/shared/base_3ds/romfs/cro/ina_main1.cro  ==  .orig   (SKIP_CRO -> sin parche de relocacion)
   2. SISTEMA (SYS_ORIG, eid>=90000000 o DONT_TOUCH): bytes COMPRIMIDOS byte-identicos al ROM
      -> crear-partida/intro fisicamente no puede crashear (es el original).
   3. SAME_SIZE: por cada evento traducido, textSize (@0x14) NO cambia + SSD valido.
@@ -49,7 +49,7 @@ def main():
     fails, warns = [], []
 
     # 1) CRO == .orig
-    cro = os.path.join(REPO, "work", "romfs", "cro", "ina_main1.cro")
+    cro = os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "cro", "ina_main1.cro")
     orig = cro + ".orig"
     if not os.path.exists(orig):
         warns.append("no existe ina_main1.cro.orig (no puedo comparar el CRO)")
@@ -62,7 +62,7 @@ def main():
             fails.append(f"CRO DIFIERE del original ({d} bytes / {len(a)}) -> hay parche -> crash 0xAD9E1C")
 
     # cargar pkb ORIGINAL (de archive.fa restaurado) y NUEVO (eve_var)
-    arc = FaArchive(os.path.join(REPO, "work", "romfs", "archive.fa"))
+    arc = FaArchive(os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa"))
     data = arc.d
     po, ps = R.find_file(arc, f"{FOLDER}/data_iz/script/eve.pkb")
     ho, hs = R.find_file(arc, f"{FOLDER}/data_iz/script/eve.pkh")

@@ -25,8 +25,8 @@ FIELD = 16
 
 # game -> (carpeta DS, sufijo del unitbase.dat 3DS dentro de archive.fa)
 GAMES = {
-    "game1": ("ie1_es", "inazuma1/data_iz/logic/unitbase.dat"),
-    "game2": ("ie2_es", "inazuma2/data_iz/logic/unitbase.dat"),
+    "game1": ("ie1/fuentes/nds_es", "inazuma1/data_iz/logic/unitbase.dat"),
+    "game2": ("ie2/tormenta_de_fuego/fuentes/nds_es", "inazuma2/data_iz/logic/unitbase.dat"),
 }
 
 
@@ -75,7 +75,7 @@ def patch_unitbase(orig, ds):
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     from fa_unpack import FaArchive
-    arc = FaArchive(os.path.join(R.REPO, "work", "romfs", "archive.fa"))
+    arc = FaArchive(os.path.join(R.REPO, "work", "shared", "base_3ds", "romfs", "archive.fa"))
     data = arc.d
     for game, (dsdir, suf) in GAMES.items():
         if game not in sys.argv and len(sys.argv) > 1:

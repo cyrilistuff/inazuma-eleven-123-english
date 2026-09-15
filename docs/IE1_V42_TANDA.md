@@ -1,7 +1,7 @@
 # Tanda v42 — maquetación contra rectángulos QNA y literales de equipo (issue #37)
 
-Base: candidata v41 (`47f36ea8…`). Capa: `work/v42/maquetacion` (apply, cro, validate).
-Auditoría nueva: `work/v42/auditoria/celdas.py` (contenido traducido frente al original por rectángulo QNA).
+Base: candidata v41 (`47f36ea8…`). Capa: `work/ie1/capas/v42/maquetacion` (apply, cro, validate).
+Auditoría nueva: `work/ie1/capas/v42/auditoria/celdas.py` (contenido traducido frente al original por rectángulo QNA).
 
 ## Causa de los recortes
 

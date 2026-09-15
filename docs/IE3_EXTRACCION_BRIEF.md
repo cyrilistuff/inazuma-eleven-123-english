@@ -5,7 +5,7 @@ europeo en formato legible. No se reinserta nada en el 1·2·3 todavía.**
 
 ## ROM de partida
 
-- `roms/Inazuma Eleven 3 - Bomb Blast (2013).cia`, código `CTR-P-AXBZ`.
+- `roms/ie3/fuego_explosivo/Inazuma Eleven 3 - Bomb Blast (2013).cia`, código `CTR-P-AXBZ`.
 - CIA **descifrado** (NCCH con NoCrypto): se puede extraer sin claves.
 - Contenido 0 = NCCH en el offset `0x3940`; ExeFS 2.724 unidades, RomFS 3.369.608 unidades
   (unidad = 0x200 B), RomFS con cabecera `IVFC`.
@@ -25,7 +25,7 @@ europeo en formato legible. No se reinserta nada en el 1·2·3 todavía.**
 ### 1. Extraer
 
 ```text
-tools/bin/3dstool.exe -xtf cia "roms/Inazuma Eleven 3 - Bomb Blast (2013).cia" --contents work/ie3_es/contents
+tools/bin/3dstool.exe -xtf cia "roms/ie3/fuego_explosivo/Inazuma Eleven 3 - Bomb Blast (2013).cia" --contents work/ie3_es/contents
 tools/bin/3dstool.exe -xtf cxi work/ie3_es/contents.0000.00000000 --exefs work/ie3_es/exefs.bin --romfs work/ie3_es/romfs.bin --exh work/ie3_es/exheader.bin
 tools/bin/3dstool.exe -xtf romfs work/ie3_es/romfs.bin --romfs-dir work/ie3_es/romfs
 tools/bin/3dstool.exe -xtf exefs work/ie3_es/exefs.bin --exefs-dir work/ie3_es/exefs
@@ -37,7 +37,7 @@ los contenidos de otra forma, ajustar la ruta del paso 2.)
 ### 2. Inventario
 
 Generar `work/ie3_es/inventario.json` con cada archivo del RomFS: ruta, tamaño, SHA-256 y los 4 primeros
-bytes (magic). Comparar la estructura con el 1·2·3 japonés (`work/romfs`), donde el juego 3 vive en
+bytes (magic). Comparar la estructura con el 1·2·3 japonés (`work/shared/base_3ds/romfs`), donde el juego 3 vive en
 `inazuma3/` y `inazuma3_ogre/` dentro de `archive.fa`.
 Preguntas que el inventario debe responder:
 - ¿Hay `archive.fa` o los archivos van sueltos? (`tools/fa_unpack.py` lee `archive.fa`.)

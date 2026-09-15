@@ -1,13 +1,13 @@
 # Tanda v43 — nombres de equipo cortos y botones del partido (issue #37)
 
-Base: candidata v42 (`c002ef54…`, CRO `039fcf3b…`). Capas: `work/v43/equipos`, `work/v43/botones`. Candidata construida como `work/probe_ie1_v44` (`725bd025…`).
+Base: candidata v42 (`c002ef54…`, CRO `039fcf3b…`). Capas: `work/ie1/capas/v43/equipos`, `work/ie1/capas/v43/botones`. Candidata construida como `work/shared/candidatas/probe_ie1_v44` (`725bd025…`).
 
 ## 1. Nombres de equipo (`logic/team.pkb`)
 
 El cuadro de equipo pinta el nombre con paso fijo. El japonés más largo mide 11 caracteres;
 122 nombres oficiales NDS pasaban de ahí («Miserias del rugby», 18) y se salían del gráfico.
 Se sustituyen por formas cortas de 11 caracteres o menos, derivadas del oficial
-(`work/v43/equipos/cortos.json`, p. ej. «Miserias R.», «Sumo gordos», «Flechas C.», «Royal Acad.»).
+(`work/ie1/capas/v43/equipos/cortos.json`, p. ej. «Miserias R.», «Sumo gordos», «Flechas C.», «Royal Acad.»).
 
 ## 2. Gráficos
 

@@ -9,10 +9,10 @@ y asumen tablas comprimidas -> de ahi este parser propio.
 Descompresion Level-5 portada de StudioElevenLib (Tiniifan) / Kuriimu.
 
 Uso:
-    python tools/fa_unpack.py work/romfs/archive.fa --tree            # listar todo
-    python tools/fa_unpack.py work/romfs/archive.fa --tree --filter sItx
-    python tools/fa_unpack.py work/romfs/archive.fa -o work/fa_extract --filter inazuma1
-    python tools/fa_unpack.py work/romfs/archive.fa -o work/fa_extract # extraer todo
+    python tools/fa_unpack.py work/shared/base_3ds/romfs/archive.fa --tree            # listar todo
+    python tools/fa_unpack.py work/shared/base_3ds/romfs/archive.fa --tree --filter sItx
+    python tools/fa_unpack.py work/shared/base_3ds/romfs/archive.fa -o work/fa_extract --filter inazuma1
+    python tools/fa_unpack.py work/shared/base_3ds/romfs/archive.fa -o work/fa_extract # extraer todo
 
 NOTA: el contenido extraido tiene copyright; va a work/ (ignorado por git).
 """

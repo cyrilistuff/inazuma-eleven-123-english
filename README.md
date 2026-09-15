@@ -47,7 +47,7 @@ de traducción. No es un fallo del motor — es el techo real con lo que hay.
 - **Convención de nombres:** se usan los **nombres europeos oficiales** en español
   (Mark Evans, Axel Blaze, Raimon, etc.), tomados de las versiones oficiales en
   castellano de Inazuma Eleven 1 y 2 (DS). Ver
-  [`translation/glossary/`](translation/glossary/).
+  [`translation/shared/glossary/`](translation/shared/glossary/).
 
 ## Cómo aplicar el parche (para jugadores)
 

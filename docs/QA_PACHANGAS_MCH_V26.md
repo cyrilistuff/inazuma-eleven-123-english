@@ -1,6 +1,6 @@
 # QA estática v26: pachangas, cadena y diálogos IE1
 
-La candidata `work/probe_ie1_v26/archive.fa` está instalada en Azahar y sustituye a las candidatas intermedias.
+La candidata `work/shared/candidatas/probe_ie1_v26/archive.fa` está instalada en Azahar y sustituye a las candidatas intermedias.
 
 - `mch.pkb`: 197 eventos de Royal, pachangas y cadena; 1.422 registros visibles traducidos y sin japonés.
 - `team.pkb`: 158 nombres de equipo traducidos, sin desbordar los campos fijos de 32 bytes.

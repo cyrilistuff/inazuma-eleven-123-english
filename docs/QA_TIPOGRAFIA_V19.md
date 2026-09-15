@@ -11,7 +11,7 @@ de v18. El reflujo de prueba usa un máximo conservador de 20 caracteres por lí
 cortando entre palabras y con tres líneas por página. No se afirma que ese límite
 aproveche todo el contenedor ni que los anchos reales hayan sido resueltos.
 
-Entradas, orden reproducible e informes: `work/probe_ie1_v19/`.
+Entradas, orden reproducible e informes: `work/shared/candidatas/probe_ie1_v19/`.
 La candidata requiere repetición jugable de profesora, Andy, Nelly y puerta
 trasera. Arrancar de nuevo y usar guardados internos del juego; no cargar estados
 rápidos de otras builds. No declarar corregido el espaciado sin esa regresión.

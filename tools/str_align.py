@@ -13,7 +13,7 @@ Salida: CSV (idx, jp, es) en work/ (ignorado por git). NO subir el CSV al repo.
 
 Uso:
     python tools/str_align.py work/fa_extract/inazuma1/data_iz/logic/item.STR \
-                              work/ie1_es/data_iz/logic/sp/item.STR -o work/pair_item.csv
+                              work/ie1/fuentes/nds_es/data_iz/logic/sp/item.STR -o work/pair_item.csv
 """
 import argparse
 import csv

@@ -33,7 +33,7 @@ EVENT_MIN = 94200000
 EVENT_MAX = 94300000
 ROYAL_EVENT = 94001500
 MCH = "inazuma1/data_iz/script/mch."
-ROYAL_MAPPING = ROOT / "translation" / "game1" / "match_94001500.json"
+ROYAL_MAPPING = ROOT / "translation" / "ie1" / "match_94001500.json"
 
 
 # These are the short, one-off opening lines used by the optional school-club
@@ -433,7 +433,7 @@ def patch_teams(arc: FaArchive):
     # Official European names from the Spanish NDS team.pkb, by 3DS record index
     # (the NDS table inserts one extra team at record 32).
     import csv
-    glossary = ROOT / "translation" / "glossary" / "equipos.csv"
+    glossary = ROOT / "translation" / "shared" / "glossary" / "equipos.csv"
     with glossary.open(encoding="utf-8", newline="") as f:
         official = {int(row["idx"]): row for row in csv.DictReader(f)}
     changes = []
@@ -464,7 +464,7 @@ def patch_team_titles(arc: FaArchive):
     source = bytearray(get_bytes(arc, "inazuma1/data_iz/logic/teamtitle.dat"))
     # The title table has 16-byte slots.  The odd slots are metadata; only
     # slots present in the reviewed glossary are touched.
-    glossary = ROOT / "translation" / "glossary" / "titulos_equipo.csv"
+    glossary = ROOT / "translation" / "shared" / "glossary" / "titulos_equipo.csv"
     rows = []
     import csv
     with glossary.open(encoding="utf-8-sig", newline="") as f:
@@ -495,7 +495,7 @@ def main():
     ap.add_argument("--report", type=Path, required=True)
     args = ap.parse_args()
     extra = args.extra_files.resolve()
-    arc = FaArchive(str(ROOT / "work" / "romfs" / "archive.fa"))
+    arc = FaArchive(str(ROOT / "work" / "shared" / "base_3ds" / "romfs" / "archive.fa"))
     pkh, pkb, mch_report = patch_mch(arc)
     team, team_report = patch_teams(arc)
     titles, title_report = patch_team_titles(arc)

@@ -6,7 +6,7 @@ respetando la jerarquia de carpetas. Pensado para inspeccionar las ROMs de
 referencia oficiales en castellano (IE1 / IE2 DS).
 
 Uso:
-    python tools/nds_unpack.py "roms/Inazuma Eleven.nds" work/ie1_es
+    python tools/nds_unpack.py "roms/Inazuma Eleven.nds" work/ie1/fuentes/nds_es
     python tools/nds_unpack.py --tree-only "roms/Inazuma Eleven.nds"
 
 NOTA: el contenido extraido tiene copyright; queda en work/ (ignorado por git).

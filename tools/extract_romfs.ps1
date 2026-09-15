@@ -3,14 +3,14 @@
   Extrae ExeFS y RomFS de la ROM 3DS (descifrada) a la carpeta work/.
 .DESCRIPTION
   Requiere 3dstool.exe en tools/bin/. La ROM debe estar descifrada (NoCrypto).
-  Salida (ignorada por git): work/exefs, work/romfs.
+  Salida (ignorada por git): work/shared/base_3ds/exefs, work/shared/base_3ds/romfs.
 .EXAMPLE
   pwsh ./tools/extract_romfs.ps1
 #>
 [CmdletBinding()]
 param(
-  [string]$Rom = "roms\Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds",
-  [string]$Out = "work"
+  [string]$Rom = "roms\shared\Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds",
+  [string]$Out = "work\shared\base_3ds"
 )
 $ErrorActionPreference = "Stop"
 $repo = Split-Path $PSScriptRoot -Parent

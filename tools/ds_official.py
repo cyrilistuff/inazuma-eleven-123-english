@@ -19,8 +19,8 @@ TEXTO (script/sp/evet.pkb = espanol oficial). Aqui:
 NO sube nada con copyright: los volcados van a work/ (gitignored). El dialogo_oficial.csv
 contiene texto oficial -> tratarlo como el dialogo.csv (glosario/refs, no ROM).
 
-Uso:  python tools/ds_official.py game1   (DS = work/ie1_es)
-      python tools/ds_official.py game2   (DS = work/ie2_es)
+Uso:  python tools/ds_official.py game1   (DS = work/ie1/fuentes/nds_es)
+      python tools/ds_official.py game2   (DS = work/ie2/tormenta_de_fuego/fuentes/nds_es)
 """
 import csv, difflib, os, re, struct, sys
 sys.path.insert(0, "tools")
@@ -43,7 +43,7 @@ DS_TABLE = {
 }
 
 # game -> (carpeta DS extraida, sufijo del eve.pkb/pkh del 3DS dentro de archive.fa)
-DS_DIR = {"game1": "ie1_es", "game2": "ie2_es"}
+DS_DIR = {"game1": "ie1/fuentes/nds_es", "game2": "ie2/tormenta_de_fuego/fuentes/nds_es"}
 T3_SUF = {"game1": "inazuma1", "game2": "inazuma2"}
 
 _CONF = re.compile(rb"^[A-Za-z][A-Za-z0-9]*=%[ds]")     # HikinukiX=%d (config var DS)
@@ -128,7 +128,7 @@ def load_ds_events(game):
 
 
 def load_3ds_events(game):
-    arc = FaArchive(os.path.join(REPO, "work", "romfs", "archive.fa"))
+    arc = FaArchive(os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa"))
     data = arc.d
 
     def find(suf):
@@ -168,7 +168,7 @@ def main():
         print("bytes DS sin mapear (anadir a DS_TABLE):",
               {hex(k): v for k, v in sorted(unmapped.items(), key=lambda x: -x[1])[:12]})
 
-    out_csv = os.path.join(REPO, "translation", game, "dialogo_oficial.csv")
+    out_csv = os.path.join(REPO, "translation", game.replace("game", "ie"), "dialogo_oficial.csv")
     with open(out_csv, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
         w.writerow(["event_id", "japones", "es_oficial"])
@@ -179,3 +179,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

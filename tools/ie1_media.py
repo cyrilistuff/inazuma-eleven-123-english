@@ -18,10 +18,10 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
-DS_SOUND = REPO / "work" / "ie1_es" / "data_iz" / "sound" / "sp"
-CTR_SOUND = REPO / "work" / "romfs" / "inazuma1" / "data_iz" / "sound"
-DS_MOVIE = REPO / "work" / "ie1_es" / "data_iz" / "movie"
-STAGE = REPO / "work" / "volumen_1" / "ie1_media_mod"
+DS_SOUND = REPO / "work" / "ie1" / "fuentes" / "nds_es" / "data_iz" / "sound" / "sp"
+CTR_SOUND = REPO / "work" / "shared" / "base_3ds" / "romfs" / "inazuma1" / "data_iz" / "sound"
+DS_MOVIE = REPO / "work" / "ie1" / "fuentes" / "nds_es" / "data_iz" / "movie"
+STAGE = REPO / "work" / "ie1" / "legacy" / "volumen_1" / "ie1_media_mod"
 STAGE_SOUND = STAGE / "romfs" / "inazuma1" / "data_iz" / "sound"
 STAGE_MOVIE = STAGE / "archive_extra" / "inazuma1" / "data_iz" / "movie" / "am0102.moflex"
 
@@ -138,7 +138,7 @@ def stage_audio(report: dict) -> None:
             "path": str(STAGE_MOVIE.relative_to(REPO)),
             "size": STAGE_MOVIE.stat().st_size,
             "sha256": sha256(STAGE_MOVIE),
-            "source": "work/ie1_es/data_iz/movie/sp/am0102.mods",
+            "source": "work/ie1/fuentes/nds_es/data_iz/movie/sp/am0102.mods",
             "note": "única variante visual dentro de movie/sp; convertida MODS a MOFLEX",
         }
 
@@ -147,8 +147,8 @@ def stage_audio(report: dict) -> None:
     manifest.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     # Reserva la separación acordada sin extraer todavía IE2.
-    (REPO / "work" / "volumen_2" / "fuego_explosivo").mkdir(parents=True, exist_ok=True)
-    (REPO / "work" / "volumen_2" / "ventisca_eterna").mkdir(parents=True, exist_ok=True)
+    (REPO / "work" / "ie3" / "fuego_explosivo").mkdir(parents=True, exist_ok=True)
+    (REPO / "work" / "ie2" / "ventisca_eterna").mkdir(parents=True, exist_ok=True)
 
 
 def main() -> None:

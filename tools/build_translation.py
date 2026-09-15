@@ -2,7 +2,7 @@
 """[Etapa 5] Construye la tabla de traduccion editable del juego 1.
 
 Lee el alineado (work/dialogue/game1_aligned.json de align_events.py) y genera
-translation/game1/dialogo.csv. Reusa el espanol oficial del NDS al maximo:
+translation/ie1/dialogo.csv. Reusa el espanol oficial del NDS al maximo:
 
   estado:
     oficial   -> evento con nº de lineas JP=ES (emparejado posicional, alta conf.)
@@ -48,7 +48,7 @@ def main():
             else:
                 rows.append([eid, jp, "", "pendiente"]); cnt["pendiente"] += 1
 
-    out = os.path.join(REPO, "translation", game, "dialogo.csv")
+    out = os.path.join(REPO, "translation", game.replace("game", "ie"), "dialogo.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)

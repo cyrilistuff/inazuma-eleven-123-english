@@ -13,7 +13,7 @@ from build_ie1_probe import layout
 def get(a,p):
  _,o,n=next(e for e in a.entries if e[0]==p); return bytes(a.d[o:o+n])
 base='inazuma1/data_iz/script/'
-orig=FaArchive('work/romfs/archive.fa'); new=FaArchive('work/probe_ie1_v21/archive.fa')
+orig=FaArchive('work/shared/base_3ds/romfs/archive.fa'); new=FaArchive('work/shared/candidatas/probe_ie1_v21/archive.fa')
 idx0=parse_index(get(orig,base+'mch.pkh')); idx1=parse_index(get(new,base+'mch.pkh'))
 assert len(idx0)==len(idx1)
 for a,b in zip(idx0,idx1): assert a[0]==b[0]
@@ -29,7 +29,7 @@ for i,(a,b) in enumerate(zip(rows0,rows1)):
   visible.append(i); txt=b.body.decode('shift_jis','replace')
   if any('\u3040'<=c<='\u30ff' or '\u4e00'<=c<='\u9fff' for c in txt): jp.append((i,txt))
 assert len(visible)==143 and not jp
-mapping=json.loads(Path('translation/game1/match_94001500.json').read_text(encoding='utf-8'))
+mapping=json.loads(Path('translation/ie1/match_94001500.json').read_text(encoding='utf-8'))
 assert rows1[24].body==encode_fullwidth(approved_layout(mapping['records']['24'], layout))
 origpkb=get(orig,base+'mch.pkb'); newpkb=get(new,base+'mch.pkb'); unchanged=0
 for (e,o,n),(ee,oo,nn) in zip(idx0,idx1):
@@ -44,7 +44,7 @@ font_hashes={
 }
 for f,h in font_hashes.items():
  assert hashlib.sha256(get(new,f)).hexdigest()==h,f
-sha=hashlib.sha256(Path('work/probe_ie1_v21/archive.fa').read_bytes()).hexdigest()
+sha=hashlib.sha256(Path('work/shared/candidatas/probe_ie1_v21/archive.fa').read_bytes()).hexdigest()
 report={'archive_sha256':sha,'mch_event':eid,'mch_visible_records':len(visible),'mch_japanese_visible_records':len(jp),'mch_other_events_unchanged':unchanged,'instructions_unchanged_for_royal_event':True,'approved_fonts_hashes':True,'runtime_verified':False}
-Path('work/probe_ie1_v21/validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+Path('work/shared/candidatas/probe_ie1_v21/validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report,ensure_ascii=False))

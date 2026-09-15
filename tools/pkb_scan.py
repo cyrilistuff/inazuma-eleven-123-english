@@ -14,7 +14,7 @@ issue #3 en GitHub.
 
 Uso:
     python tools/pkb_scan.py work/fa_extract/inazuma1/data_iz/script/eve.pkb --enc sjis
-    python tools/pkb_scan.py work/ie1_es/data_iz/script/sp/evet.pkb --enc nds
+    python tools/pkb_scan.py work/ie1/fuentes/nds_es/data_iz/script/sp/evet.pkb --enc nds
 """
 import argparse
 import sys

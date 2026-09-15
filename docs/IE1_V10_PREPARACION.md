@@ -43,10 +43,10 @@ No equivalen a 21 NPC ni a un capítulo completo.
 
 Tras liberar espacio, se construye e instala v10 con Azahar cerrado.
 SHA256: e711c314625139a1857285463f8a1704b199bb89fff5230cda20e1f25da89f7e.
-Archivo: work/probe_ie1_v10/archive.fa. Informe: archive.report.json.
+Archivo: work/shared/candidatas/probe_ie1_v10/archive.fa. Informe: archive.report.json.
 205 traducciones idénticas a v9, sin rechazos ni registros ausentes; 26 archivos
 adicionales comprobados contra sus hashes. Copia del mod anterior:
-work/probe_ie1_v10/previous-installed.fa (v9). El bloqueo de espacio descrito
+work/shared/candidatas/probe_ie1_v10/previous-installed.fa (v9). El bloqueo de espacio descrito
 arriba corresponde al intento anterior y ya está resuelto.
 
 Mapa y ampliación de NPC quedan para la siguiente build por instrucción del

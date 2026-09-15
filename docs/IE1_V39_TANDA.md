@@ -1,10 +1,10 @@
 # Tanda v39 — nombres de escuela y pictogramas del mando (issue #37)
 
-Base: candidata v38 (`bac2944c…c287b962`). Capa: `work/v39/escudos_pictogramas` (apply + validate).
+Base: candidata v38 (`bac2944c…c287b962`). Capa: `work/ie1/capas/v39/escudos_pictogramas` (apply + validate).
 
 | Pantalla · textura | Antes | Ahora | Origen |
 |---|---|---|---|
-| Intro de partido · 3ddemo_school ts001r–ts015r, ts020r, ts042r (17) | barra roja con 帝国, 尾刈斗, 野生… (ts001r: «Raimon» sobre un resto de 帝) | barra limpia con el nombre europeo oficial (Royal Academy, Occult, Wild, Brain, Otaku, Shuriken, Farm, Kirkwood, Zeus, Inazuma Kids FC, Umbrella, Sallys, Veteranos, Centella, Raimon, Ultra Zeus) | `translation/glossary/equipos.csv` |
+| Intro de partido · 3ddemo_school ts001r–ts015r, ts020r, ts042r (17) | barra roja con 帝国, 尾刈斗, 野生… (ts001r: «Raimon» sobre un resto de 帝) | barra limpia con el nombre europeo oficial (Royal Academy, Occult, Wild, Brain, Otaku, Shuriken, Farm, Kirkwood, Zeus, Inazuma Kids FC, Umbrella, Sallys, Veteranos, Centella, Raimon, Ultra Zeus) | `translation/shared/glossary/equipos.csv` |
 | Mando de técnicas · top_plt_b01/b02 | pictogramas 風 林 山 火 | iconos de afinidad aire, bosque, montaña, fuego | NDS `menu_special_comand/HWD_I03` |
 | Mando de técnicas · tec_button_b01 | botón 戻 (rojo y gris) y rayas rojas bajo el icono | flecha de volver (de `command_return_b01`); rayas borradas | 3DS |
 

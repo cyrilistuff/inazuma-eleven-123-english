@@ -12,7 +12,7 @@ la sesión anterior dejó preparado y sin instalar.
 
 ## Contenido
 
-1. **Lote `work/ui_followup` (sesión anterior)**: Continuar al reanudar el
+1. **Lote `work/ie1/legacy/ui_followup` (sesión anterior)**: Continuar al reanudar el
    partido, PT en la animación de supertécnica, pestañas Equipo/Reservas, botón
    Datos, confirmaciones de fichaje y etiquetas NV/PE/PT. 8 texturas en 3 archivos.
 2. **Descripciones de perfil** (`logic/unitbase.STR`): las 1.040 descripciones,
@@ -45,34 +45,34 @@ Zeus oscuro, 秘密の倉庫 = Almacén secreto, 商店街 = Solar del barrio (c
 ## Reproducción (recursos locales en `work/`, no publicar)
 
 ```text
-python work/ui_followup/prepare.py
-python tools/translate_ui_textures.py work/ui_followup/manifest.json --source work/menu_audit --base work/ui_followup/base --output work/ui_followup/extra --previews work/ui_followup/previews
-python work/ui_followup/validate.py
-python work/vs_revision/prepare.py
-python tools/translate_ui_textures.py work/vs_revision/manifest.json --source work/vs_revision/base --base work/vs_revision/base --output work/vs_revision/extra --previews work/vs_revision/previews
-python work/vs_revision/teams.py
-python work/vs_revision/validate.py
-python work/vs_revision/events.py
-python work/vs_revision/literals.py
-python work/desc_revision/check_desc.py work/desc_revision/chunk_0*.json
-python work/desc_revision/apply.py
-python tools/build_ui_revision.py --base work/probe_ie1_v28/archive.fa --ui work/vs_revision --extra work/ui_followup/extra --extra work/vs_revision/extra --extra work/desc_revision/extra --cro work/vs_revision/romfs/cro/ina_main1.cro --output work/probe_ie1_v29/archive.fa
-python work/vs_revision/install.py work/probe_ie1_v29
+python work/ie1/legacy/ui_followup/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/ui_followup/manifest.json --source work/menu_audit --base work/ie1/legacy/ui_followup/base --output work/ie1/legacy/ui_followup/extra --previews work/ie1/legacy/ui_followup/previews
+python work/ie1/legacy/ui_followup/validate.py
+python work/ie1/legacy/vs_revision/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/vs_revision/manifest.json --source work/ie1/legacy/vs_revision/base --base work/ie1/legacy/vs_revision/base --output work/ie1/legacy/vs_revision/extra --previews work/ie1/legacy/vs_revision/previews
+python work/ie1/legacy/vs_revision/teams.py
+python work/ie1/legacy/vs_revision/validate.py
+python work/ie1/legacy/vs_revision/events.py
+python work/ie1/legacy/vs_revision/literals.py
+python work/ie1/legacy/desc_revision/check_desc.py work/ie1/legacy/desc_revision/chunk_0*.json
+python work/ie1/legacy/desc_revision/apply.py
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v28/archive.fa --ui work/ie1/legacy/vs_revision --extra work/ie1/legacy/ui_followup/extra --extra work/ie1/legacy/vs_revision/extra --extra work/ie1/legacy/desc_revision/extra --cro work/ie1/legacy/vs_revision/romfs/cro/ina_main1.cro --output work/shared/candidatas/probe_ie1_v29/archive.fa
+python work/ie1/legacy/vs_revision/install.py work/shared/candidatas/probe_ie1_v29
 ```
 
 ## Estado
 
-2026-09-11: candidata `work/probe_ie1_v29/archive.fa` generada e **instalada** en
+2026-09-11: candidata `work/shared/candidatas/probe_ie1_v29/archive.fa` generada e **instalada** en
 Azahar (mod `00040000000BB800`), con Azahar cerrado y sin enviar entradas al emulador.
 
 - `archive.fa` candidato e instalado: `cbada7a494f1b392dd7f9260830d208986583fef8c10e3c8a68a49fa89eaf465`
 - `ina_main1.cro` candidato e instalado: `4a73fb4930733c07cdda0b678a4baca9e5d8e13ece3654104cfffbee6fda9e19`
-- Verificación estática (`work/vs_revision/verify_v29.py`): 52 entradas iguales a
+- Verificación estática (`work/ie1/legacy/vs_revision/verify_v29.py`): 52 entradas iguales a
   sus capas; el resto del archivo, incluidas las 22 fuentes, idéntico a v28; solo
   cambian los 7 eventos preparados (1.286 idénticos tras descomprimir); el CRO solo
   difiere en los 6 literales; bloqueo tipográfico PASS.
 - Descripciones: 1.040/1.040 validadas, máximo 2 líneas, ningún byte fuera de sus huecos.
-- Limpieza: se borró `work/probe_ie1_v27/archive.fa` (conservando sus informes);
+- Limpieza: se borró `work/shared/candidatas/probe_ie1_v27/archive.fa` (conservando sus informes);
   v28 se mantiene porque es la base reproducible de v29.
 
 **No está verificada en juego.** Prueba sugerida para el usuario: ficha de un

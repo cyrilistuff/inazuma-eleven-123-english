@@ -43,7 +43,7 @@ def voice_name(text):
 
 
 def main():
-    archive = FaArchive(str(ROOT / 'work/probe_ie1_v35/archive.fa'))
+    archive = FaArchive(str(ROOT / 'work/shared/candidatas/probe_ie1_v35/archive.fa'))
     files = {p: bytes(archive.d[o:o+s]) for p,o,s in archive.entries
              if p in ('inazuma1/data_iz/script/eve.pkb', 'inazuma1/data_iz/script/eve.pkh')}
     stem = 'inazuma1/data_iz/script/eve'
@@ -81,7 +81,7 @@ def main():
                           'nds_instruction':ds_owner,'current':current,
                           'nds':source,'same_normalized':source is not None and normalize(source)==normalize(current)})
         report.append({'event':eid,'voices':voices,'dialogue':pairs})
-    target = ROOT/'work/volumen_1/ie1_media_mod/voiced_text_audit.json'
+    target = ROOT/'work/ie1/legacy/volumen_1/ie1_media_mod/voiced_text_audit.json'
     target.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     pairs=[p for e in report for p in e['dialogue']]
     print(json.dumps({'events_with_SAD':len(report),'dialogue_records':len(pairs),

@@ -1,6 +1,6 @@
 # Tanda v41 — teclado de nombre alineado con la rejilla (38)
 
-Base: candidata v40 (`e9c2f5a7…dc7667ab`). Capa: `work/v41/teclado`.
+Base: candidata v40 (`e9c2f5a7…dc7667ab`). Capa: `work/ie1/capas/v41/teclado`.
 
 **Síntoma:** en el teclado de nombre y al crear partida, el cursor no cae sobre la letra o queda entre dos,
 y en las filas bajas se escribe otra letra.

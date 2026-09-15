@@ -4,7 +4,7 @@
 
 Capturas del usuario muestran palabras partidas y una página que empieza con
 un fragmento de palabra. Candidata inicial `work/probe_ie1/archive.fa`.
-Evidencia en `work/qa_dialogue_001/`. El generador recomponía por caracteres los
+Evidencia en `work/ie1/qa/qa_dialogue_001/`. El generador recomponía por caracteres los
 saltos calculados por ancho de fuente. La candidata v2 usa avances de FONT12 y
 132 píxeles por línea; instalada con Azahar cerrado. Regresión visual pendiente.
 
@@ -12,7 +12,7 @@ saltos calculados por ancho de fuente. La candidata v2 usa avances de FONT12 y
 
 El usuario aclara que no ocurrió la congelación: fue un error suyo y ahora
 percibe mayor fluidez. Se retira como fallo confirmado; no investigar un bloqueo
-basándose en ese aviso. Logs conservados en `work/qa_cinematic_002/`.
+basándose en ese aviso. Logs conservados en `work/ie1/qa/qa_cinematic_002/`.
 QA-001 sigue abierto: nuevas capturas muestran espaciado irregular/solapamientos
 y poco aprovechamiento del ancho. No aceptar v2 como corrección visual completa.
 
@@ -39,7 +39,7 @@ funcionan. Se conserva esa tipografía. Las capturas muestran rótulos de lugar 
 objetivo cortados, el nombre William demasiado largo y la conversación opcional
 de Willy todavía japonesa. El resto de la historia aún tiene huecos.
 
-V5 instalada: `work/probe_ie1_v5/archive.fa`, SHA-256
+V5 instalada: `work/shared/candidatas/probe_ie1_v5/archive.fa`, SHA-256
 `15ba60d4d600a510724dbcd57c312f446e1f51578e57ba394e8036ca666ca679`.
 44 registros verificados, sin rechazos por tamaño. Nombres cortos Caseta/Clubes,
 objetivo Ve al campo, nombre Willy y ambas conversaciones tutoriales revisadas.
@@ -51,7 +51,7 @@ QA-003: el usuario confirma audio durante el opening negro. Se encontró el avis
 oficial https://github.com/azahar-emu/azahar/issues/2495 (otro juego de la serie).
 Un mantenedor recomienda desactivar skip present duplicate frames. Se aplicó
 `use_skip_duplicate_frames=false` solo al título 00040000000BB800, con Azahar
-cerrado y copia de la configuración en work/probe_ie1_v5. Pendiente prueba visual;
+cerrado y copia de la configuración en work/shared/candidatas/probe_ie1_v5. Pendiente prueba visual;
 no dar por demostrado que sea la misma causa ni por solucionado el vídeo.
 
 Pendiente localizar recursos de Extras, pantallas de avisos, nombre/teclado y

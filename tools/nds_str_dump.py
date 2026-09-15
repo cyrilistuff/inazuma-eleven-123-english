@@ -12,8 +12,8 @@ de glosario. El contenido extraido tiene copyright -> usar solo como referencia,
 no subir los volcados al repo (van a work/, ignorado por git).
 
 Uso:
-    python tools/nds_str_dump.py work/ie1_es/data_iz/logic/sp/command.STR
-    python tools/nds_str_dump.py work/ie1_es/data_iz/logic/sp/command.STR -o work/glos/cmd.txt
+    python tools/nds_str_dump.py work/ie1/fuentes/nds_es/data_iz/logic/sp/command.STR
+    python tools/nds_str_dump.py work/ie1/fuentes/nds_es/data_iz/logic/sp/command.STR -o work/glos/cmd.txt
 """
 import argparse
 import sys

@@ -1,6 +1,6 @@
 # Tanda v40 — rótulos del minimapa, barras 1P/2P y mensajes (issue #37)
 
-Base: candidata v39 (`f0aba68f…00fdf870`). Capa: `work/v40/rotulos_1p2p` (apply + validate).
+Base: candidata v39 (`f0aba68f…00fdf870`). Capa: `work/ie1/capas/v40/rotulos_1p2p` (apply + validate).
 
 ## 1. Rótulo de lugar del minimapa (eve.pkb, 0x4037 argumento 3)
 
@@ -16,7 +16,7 @@ emparejó con frases NDS largas. Vuelven a un nombre corto coherente con el rest
 | サッカー部室 | Caseta del club (144) | Caseta club (107) | 92030900, 92081300 |
 | 鉄塔 | Torre Inazuma (128) | Torre (50) | 92010600 |
 
-Tras el cambio, el rótulo más ancho mide 107 px. Detalle en `work/v40/rotulos_1p2p/rotulos.json`.
+Tras el cambio, el rótulo más ancho mide 107 px. Detalle en `work/ie1/capas/v40/rotulos_1p2p/rotulos.json`.
 
 ## 2. Barras de equipo de la intro (3ddemo_school)
 

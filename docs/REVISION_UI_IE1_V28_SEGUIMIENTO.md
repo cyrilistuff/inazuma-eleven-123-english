@@ -3,7 +3,7 @@
 El usuario confirma que v28 muestra parte de las correcciones, pero sigue
 encontrando elementos pendientes. Esto no constituye aprobación de toda la ROM.
 
-Preparación local en `work/ui_followup/`, con v28 como base:
+Preparación local en `work/ie1/legacy/ui_followup/`, con v28 como base:
 
 - Botón de reanudar el partido: «Técnicas» sustituido por «Continuar».
 - Indicador de la animación de supertécnica: TP sustituido por PT.
@@ -28,7 +28,7 @@ resolver campos cortos.
 Reproducción:
 
 ```text
-python work/ui_followup/prepare.py
-python tools/translate_ui_textures.py work/ui_followup/manifest.json --source work/menu_audit --base work/ui_followup/base --output work/ui_followup/extra --previews work/ui_followup/previews
-python work/ui_followup/validate.py
+python work/ie1/legacy/ui_followup/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/ui_followup/manifest.json --source work/menu_audit --base work/ie1/legacy/ui_followup/base --output work/ie1/legacy/ui_followup/extra --previews work/ie1/legacy/ui_followup/previews
+python work/ie1/legacy/ui_followup/validate.py
 ```

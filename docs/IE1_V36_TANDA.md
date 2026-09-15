@@ -2,9 +2,9 @@
 
 Base: candidata v35 (`bcee069a…3f17df9e`: v33 + audio europeo + 21 cinemáticas localizadas).
 Motivo: reportes de jugadores sobre diálogos incorrectos y el nombre de Max (issues #35 y #36).
-Referencia única: la ROM NDS española (`work/ie1_es`). Tipografía v20 bloqueada: el bloqueo pasa.
+Referencia única: la ROM NDS española (`work/ie1/fuentes/nds_es`). Tipografía v20 bloqueada: el bloqueo pasa.
 
-## 1. Diálogos (#36, `work/v36/dialogo_ids`)
+## 1. Diálogos (#36, `work/ie1/capas/v36/dialogo_ids`)
 
 **Causa.** `tools/ds_official.py` alineaba el diálogo NDS con el 3DS por orden de líneas. Cada
 frase tiene un identificador de instrucción, y en 621 eventos la NDS lleva instrucciones de más
@@ -38,7 +38,7 @@ maquetados con `dialogue_lock.approved_layout` y codificados a ancho completo.
 registro, solo cambian los 4.823 declarados, re-codificación exacta, mismos `%s`/`%d` que el
 japonés, sin japonés ni marcas de furigana, ida y vuelta LZ10.
 
-## 2. Nombres (#35, `work/v36/nombres`)
+## 2. Nombres (#35, `work/ie1/capas/v36/nombres`)
 
 **Causa.** El 3DS pinta en el recuadro del hablante el campo `+16` de `unitbase.dat`. La NDS guarda
 en `+32` el nombre corto oficial (Max, Timmy, King, Styx, Creepy…), que casi nunca es la primera
@@ -52,15 +52,15 @@ apóstrofo («OReilly»): ni `'` ni `’` tienen glifo en las fuentes NFTR. Solo
 ## Candidata
 
 ```
-python work/v36/dialogo_ids/prepare.py
-python work/v36/dialogo_ids/apply.py
-python work/v36/dialogo_ids/validate.py
-python work/v36/nombres/apply.py
-python tools/build_ui_revision.py --base work/probe_ie1_v35/archive.fa --ui work/v36/dialogo_ids \
-    --output work/probe_ie1_v36/archive.fa --extra work/v36/nombres/extra \
-    --cro work/probe_ie1_v35/romfs/cro/ina_main1.cro
-python tools/verify_candidate.py --base work/probe_ie1_v35 --candidate work/probe_ie1_v36 \
-    --layer work/v36/nombres/extra --events work/v36/dialogo_ids/events
+python work/ie1/capas/v36/dialogo_ids/prepare.py
+python work/ie1/capas/v36/dialogo_ids/apply.py
+python work/ie1/capas/v36/dialogo_ids/validate.py
+python work/ie1/capas/v36/nombres/apply.py
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v35/archive.fa --ui work/ie1/capas/v36/dialogo_ids \
+    --output work/shared/candidatas/probe_ie1_v36/archive.fa --extra work/ie1/capas/v36/nombres/extra \
+    --cro work/shared/candidatas/probe_ie1_v35/romfs/cro/ina_main1.cro
+python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v35 --candidate work/shared/candidatas/probe_ie1_v36 \
+    --layer work/ie1/capas/v36/nombres/extra --events work/ie1/capas/v36/dialogo_ids/events
 ```
 
 - `archive.fa`: `ebc1230b5bfc2a448c2f0232dea9a1fddd6ee3c4bca957efd3a885fa4ea4bb00`

@@ -41,10 +41,10 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 
 ## Candidata v6 instalada
 
-- Archivo local: `work/probe_ie1_v6/archive.fa`.
+- Archivo local: `work/shared/candidatas/probe_ie1_v6/archive.fa`.
 - SHA256: `649894fc3ef17c643a35589f52d721e4b7797dfe348ae2000adf003f4e5b7cdc`.
 - Instalada con Azahar cerrado mediante enlace duro; copia anterior conservada
-  en `work/probe_ie1_v6/previous-installed.fa`.
+  en `work/shared/candidatas/probe_ie1_v6/previous-installed.fa`.
 - 15 sustituciones de textura en 7 archivos ARCV (un botón común está duplicado
   en dos archivos). Menú inicial, volver, Extras, Sí/No, avisos de carga,
   avisos iniciales, instrucciones y botones de nombre.
@@ -60,7 +60,7 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 
 ## Candidata v7 preparada e instalada
 
-- Archivo: `work/probe_ie1_v7/archive.fa`.
+- Archivo: `work/shared/candidatas/probe_ie1_v7/archive.fa`.
 - SHA256: `9d1a80d9cada5c39179356042b5a4f84268617591157373629b8d1776f78e26c`.
 - Incluye menús de Extras y récords, guardado y sobrescritura, teclado latino,
   botones de partido, logos de la recopilación, pantallas iniciales y el aviso
@@ -68,7 +68,7 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 - Amplía la historia y los NPC hasta el tramo previo al partido contra la Royal,
   además de lugares, objetivos, 1.132 nombres cortos y 28 objetos.
 - La copia de la candidata anterior queda en
-  `work/probe_ie1_v7/previous-installed.fa`; el archivo nuevo está enlazado en
+  `work/shared/candidatas/probe_ie1_v7/previous-installed.fa`; el archivo nuevo está enlazado en
   la carpeta de mods de Azahar.
 - El informe de construcción no contiene sustituciones rechazadas ni registros
   ausentes. Sigue pendiente la prueba de juego por el usuario y, por tanto, no
@@ -76,7 +76,7 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 
 ## Candidata v8 preparada, pendiente de prueba
 
-- Archivo local: work/probe_ie1_v8/archive.fa.
+- Archivo local: work/shared/candidatas/probe_ie1_v8/archive.fa.
 - SHA-256: 246341bad13ca68f36c7dffe221647b81fe7936e427138c8fe00fd59db9650f8.
 - Incluye 184 registros SSD traducidos y validados estáticamente, sin rechazos
   ni registros ausentes en los 18 eventos seleccionados. Añade la ruta de la
@@ -102,7 +102,7 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
 
 ## Candidata v9 preparada, pendiente de prueba
 
-- Archivo local: work/probe_ie1_v9/archive.fa.
+- Archivo local: work/shared/candidatas/probe_ie1_v9/archive.fa.
 - SHA-256: 6c8f154fce7e37a5d137043ae6783a545eb1f54ce758c43a68a940f1a6b16fff.
 - Añade 21 diálogos de NPC normales en 81000040: instituto, puertas,
   aparcamiento, zona comercial y avisos de progreso temprano. No se modificaron
@@ -112,7 +112,7 @@ NPC opcionales, sin esperar nuevas capturas para localizar sus textos.
   registro de ese evento ni su bytecode.
 - El informe estático registra 205 sustituciones y no tiene rechazadas ni
   ausentes. Está instalada como mod LayeredFS; la v7 se conserva en
-  work/probe_ie1_v9/previous-installed.fa. Sigue pendiente la prueba en Azahar
+  work/shared/candidatas/probe_ie1_v9/previous-installed.fa. Sigue pendiente la prueba en Azahar
   con partida nueva.
 - Para la siguiente tanda quedan la interfaz de pachangas, el rótulo rojo de
   límite de tiempo, más lugares y misiones, formación/equipamiento y el avance

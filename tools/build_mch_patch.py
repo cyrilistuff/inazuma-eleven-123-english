@@ -16,7 +16,7 @@ from build_ie1_probe import layout
 
 EVENT_ID = 94001500
 PACKAGE = 'inazuma1/data_iz/script/mch.'
-MAPPING = ROOT / 'translation' / 'game1' / 'match_94001500.json'
+MAPPING = ROOT / 'translation' / 'ie1' / 'match_94001500.json'
 
 
 def _entry(arc, suffix):
@@ -38,7 +38,7 @@ def main():
         raise ValueError('mapping event_id mismatch')
     translations = {int(k): v for k, v in mapping['records'].items()}
 
-    arc = FaArchive(str(ROOT / 'work' / 'romfs' / 'archive.fa'))
+    arc = FaArchive(str(ROOT / 'work' / 'shared' / 'base_3ds' / 'romfs' / 'archive.fa'))
     _, pkh = _entry(arc, PACKAGE + 'pkh')
     _, pkb = _entry(arc, PACKAGE + 'pkb')
     index = parse_index(pkh)

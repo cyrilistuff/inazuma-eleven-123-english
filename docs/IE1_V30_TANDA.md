@@ -18,7 +18,7 @@ Tipografía v20 bloqueada: solo se editan texturas; ningún diálogo ni fuente c
    anterior (用語 «Puerta» → Glosario, 練習試合 «Entrenamiento» → Amistosos,
    イナビカリ → Centella, 技アタッチ → Asignar técnicas, ナイスボーナス →
    Bonificación) y traduce Altavoz/Auriculares (texto girado) y «Online».
-3. **Pantallas que abre la bolsa** (`work/submenu_revision`):
+3. **Pantallas que abre la bolsa** (`work/ie1/legacy/submenu_revision`):
    - Cambios (`select_player_b`): etiquetas, botones Sí/No/Cancelar/Aceptar en sus
      tres estados, títulos y pestañas Equipo/Reservas en sus cuatro estados.
    - Tácticas (`formation_b`): Banquillo, frase de pareja de supertécnica, botones
@@ -35,7 +35,7 @@ Tipografía v20 bloqueada: solo se editan texturas; ningún diálogo ni fuente c
 Método: el texto incrustado en caras planas se borra con el color de la cara
 medido dentro del rango de filas y columnas donde ese color supera el 30 %, de
 modo que marcos, biseles e iconos A/B/L/R no se pintan. Cada lote pasa
-`work/menu_revision/validate.py`: fuera de los rectángulos declarados no cambia
+`work/ie1/legacy/menu_revision/validate.py`: fuera de los rectángulos declarados no cambia
 ningún píxel, ni metadatos ni la geometría QNA; bloqueo tipográfico PASS.
 
 ## Pendiente que requiere decisión
@@ -50,27 +50,27 @@ ningún píxel, ni metadatos ni la geometría QNA; bloqueo tipográfico PASS.
 ## Reproducción
 
 ```text
-python work/menu_revision/prepare.py
-python tools/translate_ui_textures.py work/menu_revision/manifest.json --source work/menu_revision/base --base work/menu_revision/base --output work/menu_revision/extra --previews work/menu_revision/previews
-python work/menu_revision/validate.py
-python work/submenu_revision/prepare.py
-python tools/translate_ui_textures.py work/submenu_revision/manifest.json --source work/submenu_revision/base --base work/submenu_revision/base --output work/submenu_revision/extra --previews work/submenu_revision/previews
-python work/menu_revision/validate.py work/submenu_revision
-python tools/build_ui_revision.py --base work/probe_ie1_v29/archive.fa --ui work/menu_revision --extra work/menu_revision/extra --extra work/submenu_revision/extra --cro work/probe_ie1_v29/romfs/cro/ina_main1.cro --output work/probe_ie1_v30/archive.fa
-python tools/verify_candidate.py --base work/probe_ie1_v29 --candidate work/probe_ie1_v30 --layer work/menu_revision/extra --layer work/submenu_revision/extra
-python work/vs_revision/install.py work/probe_ie1_v30
+python work/ie1/legacy/menu_revision/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/menu_revision/manifest.json --source work/ie1/legacy/menu_revision/base --base work/ie1/legacy/menu_revision/base --output work/ie1/legacy/menu_revision/extra --previews work/ie1/legacy/menu_revision/previews
+python work/ie1/legacy/menu_revision/validate.py
+python work/ie1/legacy/submenu_revision/prepare.py
+python tools/translate_ui_textures.py work/ie1/legacy/submenu_revision/manifest.json --source work/ie1/legacy/submenu_revision/base --base work/ie1/legacy/submenu_revision/base --output work/ie1/legacy/submenu_revision/extra --previews work/ie1/legacy/submenu_revision/previews
+python work/ie1/legacy/menu_revision/validate.py work/ie1/legacy/submenu_revision
+python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v29/archive.fa --ui work/ie1/legacy/menu_revision --extra work/ie1/legacy/menu_revision/extra --extra work/ie1/legacy/submenu_revision/extra --cro work/shared/candidatas/probe_ie1_v29/romfs/cro/ina_main1.cro --output work/shared/candidatas/probe_ie1_v30/archive.fa
+python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v29 --candidate work/shared/candidatas/probe_ie1_v30 --layer work/ie1/legacy/menu_revision/extra --layer work/ie1/legacy/submenu_revision/extra
+python work/ie1/legacy/vs_revision/install.py work/shared/candidatas/probe_ie1_v30
 ```
 
 ## Estado
 
-2026-09-11: candidata `work/probe_ie1_v30/archive.fa` generada e **instalada** en
+2026-09-11: candidata `work/shared/candidatas/probe_ie1_v30/archive.fa` generada e **instalada** en
 Azahar con Azahar cerrado y sin enviar entradas al emulador. Issue #23.
 
 - `archive.fa` candidato e instalado: `447f2bd8b44081f5b039c62ce2f20f2fc315713c1106496d847a1eea430f31af`
 - `ina_main1.cro`: el de v29, sin cambios (`4a73fb49…6fda9e19`).
 - `tools/verify_candidate.py`: 9 entradas iguales a sus capas; el resto del archivo,
   las 22 fuentes, los eventos y el CRO idénticos a v29; bloqueo tipográfico PASS.
-- Limpieza: se borró `work/probe_ie1_v28/archive.fa`; v29 se conserva como base de v30.
+- Limpieza: se borró `work/shared/candidatas/probe_ie1_v28/archive.fa`; v29 se conserva como base de v30.
 
 **No está verificada en juego.** Prueba sugerida: abrir la bolsa y entrar en
 Plantilla/Cambios, Tácticas, Fichar, Fichero y una tienda; comprobar los botones

@@ -1,7 +1,7 @@
 # V13: tanda reunida, pendiente de prueba jugable
 
 2026-09-07. Entradas congeladas en work/probe_ie1_v13_inputs; salida en
-work/probe_ie1_v13/archive.fa. No usar las entradas de v12 para reproducir la
+work/shared/candidatas/probe_ie1_v13/archive.fa. No usar las entradas de v12 para reproducir la
 antigua candidata v12: se ampliaron durante esta tanda y se congelaron como v13.
 
 ## Contenido y comprobaciones
@@ -47,7 +47,7 @@ La carga de este módulo modificado también requiere QA en Azahar.
 
 ## Instalación y regresión
 
-Consultar work/probe_ie1_v13/installation.json para hashes instalados y presencia
+Consultar work/shared/candidatas/probe_ie1_v13/installation.json para hashes instalados y presencia
 previa del CRO. Copia del archivo antes instalado en previous-installed.fa.
 Si previousCroExisted es false, revertir exige retirar únicamente el CRO añadido
 al directorio del mod; no tocar el CRO de la ROM base. Si es true, restaurar

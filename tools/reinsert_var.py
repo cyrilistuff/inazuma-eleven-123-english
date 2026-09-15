@@ -326,7 +326,7 @@ def reencode_var(dec, trans, strip=False, string_slots=frozenset(), dbg_eid=None
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    src = os.path.join(REPO, "work", "romfs", "archive.fa")
+    src = os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa")
     data = open(src, "rb").read()
     arc = FaArchive(src)
     outdir = os.path.join(REPO, "work", "eve_var")

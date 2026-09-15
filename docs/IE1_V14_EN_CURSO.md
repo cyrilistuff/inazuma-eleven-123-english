@@ -40,8 +40,8 @@ la instalación.
 ## Estado de compilación
 
 La orden de no generar la build fue sustituida por la indicación posterior del
-usuario. Se generaron `work/probe_ie1_v17/archive.fa` y
-`work/probe_ie1_v17/inazuma123_ie1_v17.3ds` con cero rechazos y se conservaron
+usuario. Se generaron `work/shared/candidatas/probe_ie1_v17/archive.fa` y
+`work/shared/candidatas/probe_ie1_v17/inazuma123_ie1_v17.3ds` con cero rechazos y se conservaron
 las candidatas anteriores y la ROM original. La instalación activa de Azahar
 coincide con el SHA-256 de v17; la candidata aún requiere la prueba guiada y no
 se debe llamar estable hasta completar ese recorrido.
@@ -64,7 +64,7 @@ la tanda de correcciones: esperar una nueva indicación de compilación.
 
 Nueva captura: rótulo del edificio principal, segunda planta, aula de segundo.
 Traducción prevista, sujeta al espacio: «Edificio principal 2F · Aula de 2.º».
-Inventario local iniciado en `work/v14_location_audit/`: 41 texturas de minimapas
+Inventario local iniciado en `work/ie1/capas/v14_location_audit/`: 41 texturas de minimapas
 mr01 extraídas para identificar las zonas. El rótulo se ha localizado en los
 eventos 92070100 y 92080100, opcode 4037, junto a sus órdenes de minimapa 3070.
 La traducción aplicada a los datos de trabajo es «Edificio principal 2F Aula 2».
@@ -244,7 +244,7 @@ La traducción aplicada a los datos de trabajo es «Edificio principal 2F Aula 2
 - La auditoría directa de los registros visibles `0x301d/arg1` en 9202–9210 y
   8100 no encuentra japonés pendiente en NPC ni historia. Solo permanecen tres
   pausas intencionadas de 9210 (`ウ…。`, `う…。` y `…。…ん…。`), registradas en
-  `work/probe_ie1_v15/visible_jp_audit.txt`.
+  `work/shared/candidatas/probe_ie1_v15/visible_jp_audit.txt`.
 
 ## Limpieza local
 
@@ -262,13 +262,13 @@ entradas v13/v14 y los datos necesarios para continuar.
   reinserción y lectura. Se mantienen los bytes de instrucciones. La última tanda
   suma 267 limpiezas semánticas y de marcadores antiguos, más ocho transiciones
   visibles de 9201, 50 correcciones de alineación en variantes 9700 y 18 pares
-  de NPC/partidillo de 8100. Informe local: `work/probe_ie1_v17/validation.json`.
+  de NPC/partidillo de 8100. Informe local: `work/shared/candidatas/probe_ie1_v17/validation.json`.
 - La orden ejecutada para v17 usa el codificador ASCII de BCFNT. El modo
   experimental de ancho completo duplicaría los bytes de las frases largas y
   rechazaría 33 registros; con ASCII el máximo actual es 245 bytes y no queda
   ningún rechazo de longitud. La copia tipográfica coherente está en
   `work/probe_ie1_v14_inputs/extra_ascii/` y el archivo generado es
-  `work/probe_ie1_v17/archive.fa`.
+  `work/shared/candidatas/probe_ie1_v17/archive.fa`.
 - Estrategias: las opciones vistas en japonés son literales del CRO, además de
   las texturas. Sustituciones acotadas: Normal, Cubrir y Atacar, con ASCII para
   respetar la capacidad original. Su apariencia exige regresión en juego.
@@ -288,7 +288,7 @@ entradas v13/v14 y los datos necesarios para continuar.
   pasión, amistad, objetos, objetivo, mapa, técnica y mensajes de partido ya
   tienen texto español. Los símbolos de afinidad y el botón de técnicas usan
   las referencias gráficas preparadas.
-- El nombre de la aplicación vive en `work/exefs/icon.icn` (SMDH). Se conserva
+- El nombre de la aplicación vive en `work/shared/base_3ds/exefs/icon.icn` (SMDH). Se conserva
   el título japonés original y el slot español contiene «Inazuma Eleven 1-2-3!!»
   en la build v17; queda comprobar su presentación en el menú.
 
@@ -301,11 +301,11 @@ entradas v13/v14 y los datos necesarios para continuar.
   cada evento se muestra en el momento correcto.
 - Queda revisar visualmente iconos, estados inactivos y el botón táctico
   independiente de la segunda fila del atlas de técnicas.
-- El título de ventana está confirmado en SMDH, `work/exefs/icon.icn`, no en FA.
+- El título de ventana está confirmado en SMDH, `work/shared/base_3ds/exefs/icon.icn`, no en FA.
   El slot español está integrado en la build v17 y pendiente de comprobación en
   el menú.
 - La candidata v17 está instalada con Azahar cerrado y tiene copia de reversión
-  registrada en `work/probe_ie1_v17/installation.json`. La regresión jugable la
+  registrada en `work/shared/candidatas/probe_ie1_v17/installation.json`. La regresión jugable la
   conduce el usuario; no se declara estabilidad a partir de validaciones offline.
 
 No publicar entradas, capturas, gráficos, literales ni archivos del juego.
@@ -313,6 +313,6 @@ No publicar entradas, capturas, gráficos, literales ni archivos del juego.
 ## Instalación v17 — 2026-09-08
 Instalada en el mod de Azahar 00040000000BB800 con `archive.fa` y el CRO actual.
 Los hashes coinciden con la candidata. La copia de reversión está en
-`work/probe_ie1_v17/installation.json`. La v16 queda respaldada en su carpeta.
+`work/shared/candidatas/probe_ie1_v17/installation.json`. La v16 queda respaldada en su carpeta.
 Prueba jugable pendiente; el usuario
 controla el emulador.

@@ -1,29 +1,29 @@
-> Retoma 2026-09-11 (v33): `work/probe_ie1_v33/archive.fa` está instalada en Azahar
+> Retoma 2026-09-11 (v33): `work/shared/candidatas/probe_ie1_v33/archive.fa` está instalada en Azahar
 > (hash `b65cd7ea…48285314`, CRO `44d4e206…` con 158 literales nuevos). Base
-> reproducible: v32 (se conserva; el `archive.fa` de v31 se borró). Cada línea de trabajo vive en `work/v33/<línea>/`
-> con su `validate.py`; mapa de propiedad en `work/v33/ownership.json`; pendientes de
-> texturas ya cambiadas en `work/v33/tex_residual/report.json`. Detalle en
+> reproducible: v32 (se conserva; el `archive.fa` de v31 se borró). Cada línea de trabajo vive en `work/ie1/capas/v33/<línea>/`
+> con su `validate.py`; mapa de propiedad en `work/ie1/capas/v33/ownership.json`; pendientes de
+> texturas ya cambiadas en `work/ie1/capas/v33/tex_residual/report.json`. Detalle en
 > [IE1_V33_TANDA.md](IE1_V33_TANDA.md).
 
-> Retoma 2026-09-11 (v32, histórica): `work/probe_ie1_v32/archive.fa` estuvo instalada en Azahar
+> Retoma 2026-09-11 (v32, histórica): `work/shared/candidatas/probe_ie1_v32/archive.fa` estuvo instalada en Azahar
 > (hash `4043c5c9…a8a7498a`, CRO igual que v31). Base reproducible: v31 (se conserva;
 > el `archive.fa` de v30 se borró). Cadenas oficiales del ejecutable NDS en
-> `work/ie1_es/bin/strings.txt`. Detalle y pendientes en
+> `work/ie1/fuentes/nds_es/bin/strings.txt`. Detalle y pendientes en
 > [IE1_V32_TANDA.md](IE1_V32_TANDA.md).
 
-> Retoma 2026-09-11 (v31, histórica): `work/probe_ie1_v31/archive.fa` estuvo instalada en Azahar
+> Retoma 2026-09-11 (v31, histórica): `work/shared/candidatas/probe_ie1_v31/archive.fa` estuvo instalada en Azahar
 > (hash `e19252b1…eb00f746`, CRO igual que v30). Base reproducible: v30 (se conserva;
 > el `archive.fa` de v29 se borró). La ROM NDS española está extraída en
-> `work/ie1_es/` y es la fuente de nombres oficiales. Orden completa, pendientes y
+> `work/ie1/fuentes/nds_es/` y es la fuente de nombres oficiales. Orden completa, pendientes y
 > prueba sugerida en [IE1_V31_TANDA.md](IE1_V31_TANDA.md).
 
-> Retoma 2026-09-11 (v30, histórica): `work/probe_ie1_v30/archive.fa` estuvo instalada en Azahar
+> Retoma 2026-09-11 (v30, histórica): `work/shared/candidatas/probe_ie1_v30/archive.fa` estuvo instalada en Azahar
 > (hash `447f2bd8…a430f31af`, CRO igual que v29). Base reproducible: v29 (se conserva;
 > el `archive.fa` de v28 se borró). Añade el menú de la bolsa y sus pantallas. Orden
 > completa y prueba sugerida en [IE1_V30_TANDA.md](IE1_V30_TANDA.md). Siguiente
 > bloqueo: nombres oficiales de supertécnicas y objetos (#22).
 
-> Retoma 2026-09-11 (v29, histórica): `work/probe_ie1_v29/archive.fa` y su CRO estuvieron instalados
+> Retoma 2026-09-11 (v29, histórica): `work/shared/candidatas/probe_ie1_v29/archive.fa` y su CRO estuvieron instalados
 > en Azahar (hash `cbada7a4…9eaf465`). Base reproducible: v28 (se conserva). Añade
 > descripciones de jugadores, pantalla VS, nombres oficiales de equipo, PE/PT de
 > objetos y el lote `ui_followup`. Orden completa y prueba sugerida en
@@ -35,7 +35,7 @@
 > 19.039 textos insertados y 0 rechazos. Hash candidato/instalado:
 > `91f816060775190e994f585fae5e09c8adab4cc1998b059f250372387ab10369`.
 
-> Retoma 2026-09-09 (v26): `work/probe_ie1_v26/archive.fa` está instalada en Azahar.
+> Retoma 2026-09-09 (v26): `work/shared/candidatas/probe_ie1_v26/archive.fa` está instalada en Azahar.
 > Hash candidato/instalado: `394b3ea3f986204a5ed7bb9d8fb2a349333d6b15490736cf16f259ca1dcfa27f`.
 > La candidata queda con 0 rechazos de registros y conserva la caja y tipografía
 > aprobadas. Continuar con la prueba guiada de capítulo 2 y pachangas desde partida nueva.
@@ -73,7 +73,7 @@ diálogo de la profesora (81000090/287). Pendiente de prueba del usuario; no es 
 build completa aprobada. El estado v17 de abajo es el antecedente.
 
 Ver [IE1_V14_EN_CURSO.md](IE1_V14_EN_CURSO.md). La candidata local v17 está generada en
-`work/probe_ie1_v17/archive.fa` y `work/probe_ie1_v17/inazuma123_ie1_v17.3ds`,
+`work/shared/candidatas/probe_ie1_v17/archive.fa` y `work/shared/candidatas/probe_ie1_v17/inazuma123_ie1_v17.3ds`,
 instalada como mod de Azahar y pendiente de verificación en juego. Incluye 50
 correcciones de variantes en 9700, 18 pares de NPC y partidillos en 8100, reflujo
 de 208 px, fuente `FONT12T` restaurada y el rótulo «Objetivo» ajustado dentro de
@@ -113,22 +113,22 @@ LayeredFS y la v7 se conserva como reversión hasta que complete la prueba.
 ## Estructura de trabajo local
 
 - `tools/`: scripts de extracción, análisis, edición y construcción.
-- `translation/glossary/`: nombres y términos oficiales.
+- `translation/shared/glossary/`: nombres y términos oficiales.
 - `docs/`: formatos, decisiones, incidencias y protocolo de pruebas.
 - `work/`: ROM extraída, cachés, manifiestos, previews y builds locales; no se
   versiona.
-- `work/archive_entries.json`: índice cacheado del `archive.fa`; permite buscar
+- `work/ie1/legacy/sueltos/archive_entries.json`: índice cacheado del `archive.fa`; permite buscar
   sin cargar repetidamente el archivo completo.
 - `work/probe_ie1_v7_inputs/`: entradas de la candidata v7: `reviewed.json`,
   `ui.json`, `items.json`, `keyboard.json`, `extra/` y vistas previas.
-- `work/probe_ie1_v7/archive.fa`: candidata v7 construida.
+- `work/shared/candidatas/probe_ie1_v7/archive.fa`: candidata v7 construida.
 
 Antes de modificar texto hay que leer `CLAUDE.md`,
 `docs/PROTOCOLO_QA_IE1.md` y `docs/SSD_REGISTROS_IE1.md`. También hay que revisar
 `docs/FURIGANA_LECCIONES.md` para no repetir enfoques ya rechazados.
 
 Las entradas de v9 son work/probe_ie1_v9_inputs/ y la candidata construida es
-work/probe_ie1_v9/archive.fa. Copiar esas entradas al iniciar una v10; nunca
+work/shared/candidatas/probe_ie1_v9/archive.fa. Copiar esas entradas al iniciar una v10; nunca
 editar v8, v7 ni la ROM original. V9 conserva las métricas latinas nativas para
 FONT12 y FONT8, rótulos de capítulos 1 a 10 y el ajuste aislado del logo Ventisca.
 
@@ -162,12 +162,12 @@ FONT12 y FONT8, rótulos de capítulos 1 a 10 y el ajuste aislado del logo Venti
 La orden reproducible usada fue:
 
 ```text
-python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v7_inputs/reviewed.json --extra-files work/probe_ie1_v7_inputs/extra --output work/probe_ie1_v7/archive.fa
+python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v7_inputs/reviewed.json --extra-files work/probe_ie1_v7_inputs/extra --output work/shared/candidatas/probe_ie1_v7/archive.fa
 ```
 
 La v7 instalada tiene SHA-256
 `9d1a80d9cada5c39179356042b5a4f84268617591157373629b8d1776f78e26c`. La copia
-anterior está en `work/probe_ie1_v7/previous-installed.fa`. La build incluye
+anterior está en `work/shared/candidatas/probe_ie1_v7/previous-installed.fa`. La build incluye
 menús, guardado, teclado latino, botones de partido, logos, pantallas iniciales,
 lugares, objetivos, 1.132 nombres cortos, 28 objetos y los eventos indicados en
 la orden. Los vídeos no se modifican.
@@ -176,7 +176,7 @@ Para comprobar una instalación local:
 
 ```text
 Get-Process -Name azahar -ErrorAction SilentlyContinue
-Get-FileHash work/probe_ie1_v7/archive.fa -Algorithm SHA256
+Get-FileHash work/shared/candidatas/probe_ie1_v7/archive.fa -Algorithm SHA256
 ```
 
 No sustituir una build instalada mientras Azahar esté abierto. El enlace de mods
@@ -187,7 +187,7 @@ la ruta exacta puede variar según la instalación del usuario.
 
 La orden reproducible usada fue:
 
-    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v8_inputs/reviewed.json --extra-files work/probe_ie1_v8_inputs/extra --output work/probe_ie1_v8/archive.fa
+    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v8_inputs/reviewed.json --extra-files work/probe_ie1_v8_inputs/extra --output work/shared/candidatas/probe_ie1_v8/archive.fa
 
 La candidata tiene SHA-256
 246341bad13ca68f36c7dffe221647b81fe7936e427138c8fe00fd59db9650f8. El
@@ -204,7 +204,7 @@ modales, recuperación ni disparadores de escena. Cada texto nuevo conserva el
 mismo número de páginas que su equivalente japonés y está asociado al SHA-256 de
 su registro original.
 
-    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v9_inputs/reviewed.json --extra-files work/probe_ie1_v9_inputs/extra --output work/probe_ie1_v9/archive.fa
+    python tools/build_ie1_probe.py --events 92010100 92010200 92010250 92010300 92010340 92010400 92010500 92010520 92010550 92010600 92010620 92010640 81000040 91010000 92010510 92104100 92104200 83000040 --fullwidth --reviewed-json work/probe_ie1_v9_inputs/reviewed.json --extra-files work/probe_ie1_v9_inputs/extra --output work/shared/candidatas/probe_ie1_v9/archive.fa
 
 La candidata tiene SHA-256
 6c8f154fce7e37a5d137043ae6783a545eb1f54ce758c43a68a940f1a6b16fff.
@@ -212,7 +212,7 @@ El informe contiene 205 sustituciones, sin rechazadas ni ausentes. La
 comprobación estática confirmó que, frente a v8, los únicos cambios de
 81000040 son esos 21 registros; el bytecode de ese evento permanece idéntico.
 La v9 se instaló con Azahar cerrado. El mod activo coincide con este SHA-256 y
-la v7 quedó conservada en work/probe_ie1_v9/previous-installed.fa como reversión.
+la v7 quedó conservada en work/shared/candidatas/probe_ie1_v9/previous-installed.fa como reversión.
 La prueba en Azahar sigue pendiente.
 
 El campo corto del NPC Sr. Veteran admite siete caracteres transportados; v8

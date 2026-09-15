@@ -106,7 +106,7 @@ asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_ali
   Cada registro de `unitbase.dat` apunta a su descripción con un **u16 en `+94`
   en unidades de 32 bytes** (`offset = u16 × 32`; verificado en Mark, Nathan, Jack…).
   Los 1.034 textos con salto usan exactamente **dos líneas**. Se traducen en su
-  propio hueco, sin mover offsets (`work/desc_revision/apply.py`).
+  propio hueco, sin mover offsets (`work/ie1/legacy/desc_revision/apply.py`).
 - **`team.pkb`** (nombres de equipo): registros de **320 bytes**, nombre en un campo
   fijo de 32 bytes en `+0`. Nombres oficiales ES confirmados en el diálogo NDS:
   Occult, Brain, Farm, Inazuma Kids FC.
@@ -133,7 +133,7 @@ asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_ali
 `0xB2→á, 0xBA→é, 0xBE→í, 0xC4→ó, 0xCA→ú, 0xC2→ñ, 0xCC→ü, 0xB5→ä, 0xA5→¿,
 0xDF→¡, 0xD9→Í`. El 3DS usa Shift-JIS con furigana `[kanji/lectura]`.
 
-Glosario generado: ver [`translation/glossary/`](../translation/glossary/) y
+Glosario generado: ver [`translation/shared/glossary/`](../translation/shared/glossary/) y
 `tools/build_glossary.py`. Resultado: ~1327 parejas exactas (jugadores, títulos
 de equipo, menús).
 

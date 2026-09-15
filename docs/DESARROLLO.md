@@ -36,7 +36,7 @@ Build final **v27**: arranca, **crea partida**, e **intro + diálogo de historia
 | `tools/` — todo el pipeline (Python + PowerShell) | `roms/` — tus ROMs legales |
 | `docs/` — formatos y lecciones | `work/` — extracción + builds intermedios (regenerable) |
 | `translation/*/dialogo.csv` — traducciones del proyecto | `translation/*/dialogo_oficial.csv` — texto oficial Nintendo (copyright) |
-| `translation/glossary/` — glosarios (términos cortos) | `tools/bin/` — binarios de terceros |
+| `translation/shared/glossary/` — glosarios (términos cortos) | `tools/bin/` — binarios de terceros |
 | `patch/*.xdelta` — el parche distribuible | `logs/` — cosecha de errores local |
 
 ---
@@ -82,7 +82,7 @@ cd "inazuma-eleven-123-spanish"
 pip install keystone-engine
 # 1) copia los binarios a tools/bin/ (3dstool.exe, xdelta3.exe, ext_key.txt)
 # 2) copia tu ROM 3DS descifrada a roms/
-#    roms/Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds
+#    roms/shared/Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds
 # 3) (opcional) copia las ROMs NDS ES a roms/ si vas a regenerar el oficial
 ```
 
@@ -94,19 +94,19 @@ El repo trae `dialogo.csv` y los glosarios, pero **NO** `dialogo_oficial.csv` (c
 extracción de la ROM. Para reconstruirlos desde tus ROMs:
 
 ```bash
-# A) extraer el 3DS (una sola vez) -> work/romfs/, work/exefs/
+# A) extraer el 3DS (una sola vez) -> work/shared/base_3ds/romfs/, work/shared/base_3ds/exefs/
 pwsh -File tools/extract_romfs.ps1
 
 # B) desempaquetar el contenedor Level-5 archive.fa -> work/fa_extract/
-python tools/fa_unpack.py work/romfs/archive.fa -o work/fa_extract
+python tools/fa_unpack.py work/shared/base_3ds/romfs/archive.fa -o work/fa_extract
 
-# C) extraer las NDS ES (referencia oficial) -> work/ie1_es/, work/ie2_es/
+# C) extraer las NDS ES (referencia oficial) -> work/ie1/fuentes/nds_es/, work/ie2_es/
 pwsh -File tools/extract_nds.ps1 -Rom "roms/Inazuma Eleven.nds" -Name ie1_es
 pwsh -File tools/extract_nds.ps1 -Rom "roms/Inazuma Eleven 2 - Tormenta de Fuego.nds" -Name ie2_es
 
 # D) regenerar el diálogo OFICIAL (alinea 3DS-JP <-> NDS-ES) — GITIGNORED, copyright
-python tools/ds_official.py game1     # -> translation/game1/dialogo_oficial.csv
-python tools/ds_official.py game2     # -> translation/game2/dialogo_oficial.csv
+python tools/ds_official.py game1     # -> translation/ie1/dialogo_oficial.csv
+python tools/ds_official.py game2     # -> translation/ie2/dialogo_oficial.csv
 
 # E) (opcional) regenerar glosarios (jugadores/equipos/menús)
 python tools/build_glossary.py game1

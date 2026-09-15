@@ -1,6 +1,6 @@
 # QA estática v27: diálogos IE1, pachangas y NPC
 
-La candidata `work/probe_ie1_v27/archive.fa` está instalada en Azahar.
+La candidata `work/shared/candidatas/probe_ie1_v27/archive.fa` está instalada en Azahar.
 
 - `eve.pkb`: 19.039 textos insertados en 982 eventos; 0 rechazos de longitud.
 - Auditoría directa de `0x301d`, argumento 1: 18.806 diálogos visibles y 0 caracteres japoneses, incluidos 9202–9209, 9210 y las 82 zonas 8100 de Raimon.

@@ -64,7 +64,7 @@ def _imbalance(dec):
 
 def validate(game):
     suf = SUF[game]
-    arc = FaArchive(os.path.join(REPO, "work", "romfs", "archive.fa"))
+    arc = FaArchive(os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa"))
     data = arc.d
 
     def find(s):

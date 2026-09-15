@@ -1,0 +1,132 @@
+id,japones,espanol_oficial,nombre_3ds
+1,フェイント,Regate,Regate
+2,とっぱ,Rebasar,Rebasar
+3,かわす,Esquivar,Esquivar
+10,タックル,Carga,Carga
+11,スライディング,Segada,Segada
+12,ブロック,Bloqueo,Bloqueo
+20,シュート,Tiro,Tiro
+21,ループシュート,Vaselina,Vaselina
+22,ボレーシュート,Volea,Volea
+23,ヘディング,Testarazo,Testarazo
+30,キャッチ,Atajo,Atajo
+31,パンチング,Despeje,Despeje
+101,ぶんしんフェイント,Regate múltiple,Regate múltiple
+102,しっぷうダッシュ,Entrada huracán,Entrada huracán
+103,たつまきせんぷう,Torbellino dragón,Torbell. dragón
+104,イリュージョンＢＬ,Espejismo de balón,Espejismo balón
+105,ダッシュアクセル,Acelerón,Acelerón
+106,じごくぐるま,Rueda infernal,Rueda infernal
+107,ヒートタックル,Corte flamígero,Corte flamígero
+108,ジグザグスパーク,Zigzag chispeante,Zigzag chisp.
+109,たまのりピエロ,Equilibrismo,Equilibrismo
+110,のろい,Maldición,Maldición
+111,スーパーアルマジロ,Superarmadillo,Superarmadillo
+112,どくぎりのじゅつ,Niebla venenosa,Niebla venenosa
+113,スーパースキャン,Escáner ataque,Escáner ataque
+114,ごりむちゅう,Confusión,Confusión
+115,ブーストグライダー,Potenciación,Potenciación
+116,ざんぞう,Espejismo,Espejismo
+117,モグラフェイント,Regate topo,Regate topo
+118,カマイタチ,Remolino cortante,Remol. cortante
+119,モンキーターン,Giro de mono,Giro de mono
+120,ザ・ウォール,El muro,El muro
+122,キラースライド,Barrido defensivo,Barrido defens.
+123,コイルターン,Giro bobina,Giro bobina
+124,アースクェイク,Sismo,Sismo
+125,クイックドロウ,Robo rápido,Robo rápido
+126,くものいと,Telaraña,Telaraña
+127,サイクロン,Ciclón,Ciclón
+128,フェイクボール,Bola falsa,Bola falsa
+129,かげぬい,Ataque sombrío,Ataque sombrío
+130,しこふみ,Pisotón de sumo,Pisotón de sumo
+131,ホーントレイン,Embestida,Embestida
+132,ハリケーンアロー,Flecha huracán,Flecha huracán
+133,スピニングカット,Corte giratorio,Corte giratorio
+134,スーパースキャン,Escáner defensa,Escáner defensa
+135,おんりょう,Gravedad,Gravedad
+136,ドッペルゲンガー,Doppelgänger,Doppelganger
+137,かごめかごめ,Trama,Trama
+138,ハーヴェスト,Vendimia,Vendimia
+139,さばきのてっつい,Apisonadora,Apisonadora
+140,イナズマおとし,Trampolín relámpago,Trampol. relám.
+141,ドラゴンクラッシュ,Remate dragón,Remate dragón
+142,ツインブースト,Remate combinado,Remate combin.
+143,ファイアトルネード,Tornado de fuego,Tornado fuego
+144,ひゃくれつショット,Chut de 100 toques,Chut 100 toques
+145,イナズマ１ごう,Súper relámpago,Súper relámpago
+146,グレネードショット,Chut granada,Chut granada
+147,デスゾーン,Triángulo letal,Triángulo letal
+148,ファントムシュート,Tiro fantasma,Tiro fantasma
+149,ホークショット,Remate halcón,Remate halcón
+150,メテオアタック,Ataque meteorito,Ataque meteor.
+151,スネークショット,Remate serpiente,Remate serpien.
+152,スピニングシュート,Tiro giratorio,Tiro giratorio
+153,すいせいシュート,Tiro del cometa,Tiro del cometa
+154,ローリングキック,Disparo rodante,Disparo rodante
+155,ぶんしんシュート,Remate múltiple,Remate múltiple
+156,ダイナマイトＳＨ,Tiro dinamita,Tiro dinamita
+157,パトリオットＳＨ,Remate misil,Remate misil
+158,スパイラルショット,Remate espiral,Remate espiral
+159,フリーズショット,Chut congelante,Chut congelante
+161,トルネードキャッチ,Atajo tornado,Atajo tornado
+162,ゴッドハンド,Mano celestial,Mano celestial
+163,パワーシールド,Escudo de fuerza,Escudo fuerza
+164,ねっけつパンチ,Despeje de fuego,Despeje fuego
+165,シュートポケット,Campo de fuerza,Campo de fuerza
+166,ゆがむくうかん,Espiral distorsión,Espiral distor.
+167,カウンターＳＴＲ,Puño vengativo,Puño vengativo
+168,ゴールずらし,Deslizamiento,Deslizamiento
+169,トリプルＤＦ,Defensa triple,Defensa triple
+170,プレッシャーパンチ,Despeje a presión,Despeje presión
+171,タフネスブロック,Bloque dureza,Bloque dureza
+172,フルパワーシールド,Escudo fuerza total,Escudo total
+173,まきわりチョップ,Despeje de leñador,Despeje leñador
+174,つむじ,Torbellino,Torbellino
+175,ロケットこぶし,Despeje cohete,Despeje cohete
+176,ワイルドクロー,Garra salvaje,Garra salvaje
+177,ギガントウォール,Muralla gigante,Muralla gigante
+178,こがらし,Hojarasca,Hojarasca
+179,キラーブレード,Cuchilla asesina,Cuchil. asesina
+180,つなみウォール,Muralla tsunami,Muralla tsunami
+181,ばくれつパンチ,Despeje explosivo,Despeje explos.
+182,マジン・ザ・ハンド,Mano mágica,Mano mágica
+183,むげんのかべ,Muralla infinita,Muralla infin.
+190,クロスドライブ,Pase cruzado,Pase cruzado
+191,かみかくし,Rapto divino,Rapto divino
+192,サイコショット,Psicorremate,Psicorremate
+193,コンドルダイブ,Ataque cóndor,Ataque cóndor
+194,ラン・ボール・ラン,Balón rodante,Balón rodante
+195,トライアングルＺ,Triángulo Z,Triángulo Z
+196,ドこんじょうバット,Bateo total,Bateo total
+197,リフレクトバスター,Disparo con rebotes,Disparo rebotes
+198,クンフーヘッド,Cabezazo kung-fu,Cabezazo kungfu
+199,シャインドライブ,Tiro cegador,Tiro cegador
+200,ディバインアロー,Flecha divina,Flecha divina
+201,バックトルネード,Tornado inverso,Tornado inverso
+202,ターザンキック,Remate Tarzán,Remate Tarzán
+203,ゴッドノウズ,Sabiduría divina,Sabiduría div.
+204,ドラゴントルネード,Tornado dragón,Tornado dragón
+205,つちだるま,Bola de fango,Bola de fango
+206,ほのおのかざみどり,Pájaro de fuego,Pájaro de fuego
+207,イナズマブレイク,Ruptura relámpago,Ruptura relámp.
+208,ザ・ギャラクシー,Tiro galáctico,Tiro galáctico
+209,皇帝ペンギン２ごう,Pingüino emp. n.º2,Pingüino emp. 2
+210,ヘブンズタイム,Hora celestial,Hora celestial
+211,ジャッジスルー,Coz,Coz
+212,ダッシュストーム,Entrada tormenta,Entrada tormen.
+213,ムーンサルト,Luna creciente,Luna creciente
+214,マジック,Truco de magia,Truco de magia
+215,ザ・フェニックス,Fénix,Fénix
+216,コロドラシュート,Tiro chispadraco,T. chispadraco
+217,ダークトルネード,Tornado oscuro,Tornado oscuro
+218,イナズマおとし,Trampolín relámpago,Trampol. relám.
+219,イナズマブレイク,Ruptura relámpago,Ruptura relámp.
+230,メガクェイク,Mega terremoto,Mega terremoto
+231,ブレードアタック,Ataque afilado,Ataque afilado
+232,うしろのしょうめん,Sorpresa,Sorpresa
+242,クリア,Patadón,Patadón
+245,無人ゴールシュート,Tiro a meta vacía,Tiro meta vacía
+246,ＰＫシュート,Tiro de penalti,Tiro de penalti
+249,ＰＫキャッチ,Atajo de penalti,Atajo penalti
+250,ＰＫパンチング,Despeje de penalti,Despeje penalti

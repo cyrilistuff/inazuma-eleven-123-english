@@ -40,7 +40,7 @@ solo "en la cabeza" o en el chat. En concreto:
 
 - Traducción al **español de España**, con **nombres europeos oficiales**
   (Mark Evans, Axel Blaze, Raimon…). Fuente canónica: el texto oficial ES de las
-  ROMs NDS (ver `translation/glossary/`).
+  ROMs NDS (ver `translation/shared/glossary/`).
 - Commits incrementales y descriptivos. Documenta los formatos en `docs/FORMATOS.md`
   y el avance en `docs/PROGRESO.md`.
 - Herramientas en `tools/` (Python/PowerShell, sin GUI: el proyecto se maneja por CLI).
@@ -52,6 +52,13 @@ Antes de tocar la **reinserción de diálogo / furigana** (`tools/reinsert.py`),
 YA se probó en emulador y FALLÓ (con el motivo). Cada entrada costó una build de
 ~15 min + una prueba del usuario. **No reintentar lo que está marcado como ❌.**
 Si descubres un fallo/limitación nuevo, **añádelo a ese documento** en el momento.
+
+## Norma 5 — Arquitectura por juego
+
+Todo recurso se guarda en la carpeta de su juego (`ie1/`, `ie2/<versión>/`, `ie3/<versión>/`) o en
+`shared/` si es común a la recopilación, tanto en `work/` como en `Roms/` y `translation/`. Nada nuevo en
+la raíz de `work/`. Ver **[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md)**; tras instalar una candidata,
+`python tools/limpiar_work.py --borrar`.
 
 ## Estado y documentación
 
@@ -65,4 +72,4 @@ Si descubres un fallo/limitación nuevo, **añádelo a ese documento** en el mom
 - Avance: [`docs/PROGRESO.md`](docs/PROGRESO.md)
 - Formatos técnicos (B123, ARCV, .STR, .dat, codificación): [`docs/FORMATOS.md`](docs/FORMATOS.md)
 - Herramientas: [`tools/README.md`](tools/README.md)
-- Glosario: [`translation/glossary/`](translation/glossary/)
+- Glosario: [`translation/shared/glossary/`](translation/shared/glossary/)

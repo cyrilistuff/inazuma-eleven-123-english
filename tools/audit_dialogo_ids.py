@@ -13,10 +13,10 @@ frases repetidas eso equivale a emparejar por posición. Una línea de más o de
 desplaza todas las siguientes. Este script mide cuánto de eso llegó a los CSV.
 
 Salida (work/, gitignored: contiene texto oficial):
-  work/audit_dialogo/pares_por_id.csv     event_id, string_id, japones, es_nds
-  work/audit_dialogo/desalineados.csv     filas de dialogo_oficial.csv que NO coinciden con el id
-  work/audit_dialogo/build_vs_nds.csv     filas de dialogo.csv cuyo es_final contradice al id
-  work/audit_dialogo/resumen.json
+  work/ie1/legacy/audit_dialogo/pares_por_id.csv     event_id, string_id, japones, es_nds
+  work/ie1/legacy/audit_dialogo/desalineados.csv     filas de dialogo_oficial.csv que NO coinciden con el id
+  work/ie1/legacy/audit_dialogo/build_vs_nds.csv     filas de dialogo.csv cuyo es_final contradice al id
+  work/ie1/legacy/audit_dialogo/resumen.json
 
 Uso: python tools/audit_dialogo_ids.py
 """
@@ -35,7 +35,7 @@ import reinsert as R      # noqa: E402
 import pkb_unpack as P    # noqa: E402
 
 REPO = R.REPO
-OUT = os.path.join(REPO, "work", "audit_dialogo")
+OUT = os.path.join(REPO, "work", "ie1", "legacy", "audit_dialogo")
 
 
 def tabla_nds(buf):
@@ -169,7 +169,7 @@ def main():
     # 1) dialogo_oficial.csv frente al emparejado exacto
     of_total = of_ok = of_mal = of_ambiguo = of_sin_ref = 0
     malos = []
-    with open(os.path.join(REPO, "translation", "game1", "dialogo_oficial.csv"), encoding="utf-8") as f:
+    with open(os.path.join(REPO, "translation", "ie1", "dialogo_oficial.csv"), encoding="utf-8") as f:
         for row in csv.DictReader(f):
             of_total += 1
             key = (int(row["event_id"]), row["japones"])
@@ -194,7 +194,7 @@ def main():
     # 2) dialogo.csv (lo que usa la build) frente al emparejado exacto
     b_total = b_con_ref = b_igual = b_editado = b_contradice = 0
     contradice = []
-    with open(os.path.join(REPO, "translation", "game1", "dialogo.csv"), encoding="utf-8") as f:
+    with open(os.path.join(REPO, "translation", "ie1", "dialogo.csv"), encoding="utf-8") as f:
         for row in csv.DictReader(f):
             b_total += 1
             cand = por_jp.get((int(row["event_id"]), row["japones"]))

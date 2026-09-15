@@ -16,7 +16,7 @@ basura, cadena vacia / no-igual. Caves en el run de 716 ceros @ file 0x50E14 (lo
 """
 import os
 
-CRO_REL = os.path.join("work", "romfs", "cro", "ina_main1.cro")
+CRO_REL = os.path.join("work", "shared", "base_3ds", "romfs", "cro", "ina_main1.cro")
 LOAD = 0xA89000      # direccion de carga de ina_main1 (estable; del log)
 CRASH = 0x36CC0      # file offset de `ldrb r0,[r4]` del ruby (= PC 0xABFCC0 - LOAD)
 CAVE = 0x50E14       # cave del ruby (16 bytes), inicio del run de 716 ceros

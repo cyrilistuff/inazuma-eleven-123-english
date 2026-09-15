@@ -1,7 +1,7 @@
 # QA estática del partido de la Royal en v21
 
 Esta candidata quedó supersedida por v23. Sus 143 registros se conservan y se
-reinsertan en `work/probe_ie1_v23/`; el informe vigente de la tanda completa es
+reinsertan en `work/shared/candidatas/probe_ie1_v23/`; el informe vigente de la tanda completa es
 [QA_PACHANGAS_MCH_V23.md](QA_PACHANGAS_MCH_V23.md).
 
 La captura del usuario corresponde al paquete `inazuma1/data_iz/script/mch.pkb`,

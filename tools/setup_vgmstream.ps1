@@ -3,7 +3,7 @@ param()
 
 $ErrorActionPreference = "Stop"
 $repo = Split-Path $PSScriptRoot -Parent
-$root = Join-Path $repo "work\media_tools"
+$root = Join-Path $repo "work\shared\herramientas\media_tools"
 $archive = Join-Path $root "vgmstream-win64.zip"
 $target = Join-Path $root "vgmstream-nightly-win64"
 

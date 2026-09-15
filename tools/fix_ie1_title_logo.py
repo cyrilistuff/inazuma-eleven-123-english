@@ -18,11 +18,11 @@ from ui_archive import entries, unwrap
 REPO = Path(__file__).resolve().parents[1]
 ENTRY = "inazuma1/data_iz/pic2d/title/title_t.arc"
 TEXTURE = "ie01_title_t_tlogo.tga"
-DEFAULT_BASE = REPO / "work" / "probe_ie1_v36" / "archive.fa"
-DEFAULT_SOURCE = REPO / "work" / "trailer" / "incoming" / "logo_ie1_es.png"
-DEFAULT_OUTPUT = (REPO / "work" / "volumen_1" / "ie1_media_mod" / "archive_extra" /
+DEFAULT_BASE = REPO / "work" / "shared" / "candidatas" / "probe_ie1_v36" / "archive.fa"
+DEFAULT_SOURCE = REPO / "work" / "shared" / "trailer" / "incoming" / "logo_ie1_es.png"
+DEFAULT_OUTPUT = (REPO / "work" / "ie1" / "legacy" / "volumen_1" / "ie1_media_mod" / "archive_extra" /
                   "inazuma1" / "data_iz" / "pic2d" / "title" / "title_t.arc")
-DEFAULT_PREVIEW = REPO / "work" / "volumen_1" / "ie1_media_mod" / "title_logo_preview.png"
+DEFAULT_PREVIEW = REPO / "work" / "ie1" / "legacy" / "volumen_1" / "ie1_media_mod" / "title_logo_preview.png"
 
 
 def archive_payload(archive: FaArchive, wanted: str) -> bytes:

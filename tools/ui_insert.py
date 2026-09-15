@@ -108,7 +108,7 @@ def patch_records(data, off, size, pairs, stride, namelen):
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     data = bytearray(open(ARC, "rb").read())
-    arc = FaArchive(os.path.join(REPO, "work", "romfs", "archive.fa"))
+    arc = FaArchive(os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa"))
     idx = {p: (o, s) for p, o, s in arc.entries}
 
     def find(folder, rel):

@@ -9,7 +9,7 @@
 #>
 [CmdletBinding()]
 param(
-  [string]$Original   = "roms\Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds",
+  [string]$Original   = "roms\shared\Inazuma Eleven 1-2-3 - Endou Mamoru Densetsu.3ds",
   [Parameter(Mandatory)] [string]$Translated,
   [string]$Patch = "patch\inazuma123-es.xdelta"
 )

@@ -13,7 +13,7 @@ from fa_unpack import FaArchive
 from font_patch import patch_font_bytes
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(REPO, "work", "romfs", "archive.fa")
+SRC = os.path.join(REPO, "work", "shared", "base_3ds", "romfs", "archive.fa")
 DST = os.path.join(REPO, "work", "archive_es.fa")
 FONTS = ["font/FONT12T.bcfnt", "font/FONT12.bcfnt", "font/FONT8.bcfnt"]
 

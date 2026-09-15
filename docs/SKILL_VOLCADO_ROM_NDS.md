@@ -5,8 +5,8 @@ description: Checklist y lecciones para volcar y verificar la localización de I
 
 # Volcado y análisis desde la ROM NDS → 3DS
 
-Referencia única: la ROM NDS española extraída en `work/ie1_es` (`data_iz/…`, `bin/strings.txt`).
-Original japonés 3DS: `work/v33/base/orig/…`. Nada extraído se sube (Norma 2). Leer antes
+Referencia única: la ROM NDS española extraída en `work/ie1/fuentes/nds_es` (`data_iz/…`, `bin/strings.txt`).
+Original japonés 3DS: `work/ie1/capas/v33/base/orig/…`. Nada extraído se sube (Norma 2). Leer antes
 `CLAUDE.md`, `AGENTS.md` y `docs/FURIGANA_LECCIONES.md`.
 
 ## 0. Antes de tocar nada
@@ -29,8 +29,10 @@ Original japonés 3DS: `work/v33/base/orig/…`. Nada extraído se sube (Norma 2
 | Campos de partido | `fieldinf.dat +144` (20 B) | `fieldinf.dat` | índice |
 | Títulos / Contactos | `rpgtitle.STR`, `JinmyakuData.dat` | equivalentes NDS | índice |
 | Literales del ejecutable | `cro/ina_main1.cro` | `bin/` | referencia verificada en código |
-| Equipos | texturas | `translation/glossary/equipos.csv` | — |
+| Equipos | texturas | `translation/shared/glossary/equipos.csv` | — |
 | Teclado | `fcode0/1/2.txt` + `name_b` font_hira01/kana01 | — | rejilla de 20×20 px |
+| Frases con voz | `eve.pkb`, primera frase tras la llamada `NN_N.SAD` | `evet.pkb`, idem | `work/ie1/capas/v51/voces/auditoria.py` |
+| Sprites de DS heredados | `pic3d/*.SPD/SPL/pac_` | `pic3d/sp/*` | nombre de paquete |
 | Texturas de UI | `.arc` ARCV (SSZL) con CTPK | sprites SFP `pic3d/sp/*.SPL/SPD`, `pic2d/**/*.pac_` | celda del atlas |
 
 ## 2. Diálogos: método que funciona
@@ -56,31 +58,36 @@ Original japonés 3DS: `work/v33/base/orig/…`. Nada extraído se sube (Norma 2
 - Avances de `font/FONT12.NFTR` con `tools/nftr_metrics.read_metrics` (claves Shift-JIS).
 - Hueco disponible = ancho del japonés original más ancho del mismo tipo de texto
   (rótulo del minimapa: 117 px). Todo lo que lo supere se desborda en juego.
-- Script de referencia: `work/v39/estado/medir_rotulos.py`. Validar la candidata con él.
+- Script de referencia: `work/ie1/capas/v39/estado/medir_rotulos.py`. Validar la candidata con él.
 
 - **Nombres de equipo, supertécnicas y objetos**: se vuelcan por ID desde la NDS (`team.pkb`,
   `command.STR`, `item.dat`), pero después hay que **medir cada nombre contra el hueco de su pantalla**.
   El cuadro de equipo pinta con paso fijo: máximo 11 caracteres (el japonés más largo).
+- **Objetos**: campo de 18 B + NUL (9 letras de ancho completo). Latín de 1 byte **no sirve**: el menú
+  parte la fila tras 10 caracteres aunque las letras sean estrechas (prueba v47, issue #39).
+- **Títulos de equipo** (`rpgtitle.STR`): hueco de 32 B pero búfer de 18 B: máximo 9 caracteres.
 
 ## 4b. Literales del CRO
 
-- Hueco = del inicio al siguiente dato **y** sin referencias dentro (`work/v33/cro/analysis/crorefs.py`).
+- Hueco = del inicio al siguiente dato **y** sin referencias dentro (`work/ie1/capas/v33/cro/analysis/crorefs.py`).
 - Solo ancho completo (las métricas ASCII de las fuentes solo tienen el espacio).
 - **No superar el número de caracteres del japonés** si a continuación va un número u otro texto: el
   juego lo pinta en posición fija («Jug.» se montaba con «10»).
 - **El juego copia el literal a un búfer del tamaño del japonés**: más bytes que el original salen como
   basura («Niv. Equ?7&», «Ran»). Límite real = longitud en bytes del japonés.
+- **Comprobar el glifo en la fuente que pinta esa pantalla** (a menudo `FONT12.NFTR`, no la BCFNT): los
+  números romanos existen en la BCFNT pero no en la NFTR y salían en blanco.
 - **Nunca dejar un literal vacío**: pinta basura («*&»). Usar un espacio de ancho completo.
 
 ## 5. Texturas de UI: checklist por pantalla
 
 0. Colocar cada pieza en su **rectángulo QNA** (`tools/qna_regions.py`), no en la celda de 16/32/64 px,
-   con la alineación y el ancho del japonés; auditar con `work/v42/auditoria/celdas.py`.
+   con la alineación y el ancho del japonés; auditar con `work/ie1/capas/v42/auditoria/celdas.py`.
 1. Volcar **todas** las texturas del `.arc` (no solo las ya pintadas) de la candidata actual y del
-   original japonés; hoja ampliada con rejilla de 16 px (`work/v38/estado/`).
+   original japonés; hoja ampliada con rejilla de 16 px (`work/ie1/capas/v38/estado/`).
 2. Por cada texto: ¿japonés visible, resto de trazo, artefacto, término no oficial, texto cambiado?
-   El informe `work/v33/tex_residual/report.json` está desfasado: comprobar sobre la candidata.
-3. **Buscar primero la pieza NDS** (`work/v37/graficos_nds/piezas_nds.py`):
+   El informe `work/ie1/capas/v33/tex_residual/report.json` está desfasado: comprobar sobre la candidata.
+3. **Buscar primero la pieza NDS** (`work/ie1/capas/v37/graficos_nds/piezas_nds.py`):
    - posiciones DL/MD/DF/PR: `menu_member/NID_I00`
    - afinidad aire/bosque/fuego/montaña: `menu_special_comand/HWD_I03` (sustituye 風林火山)
    - tipos de técnica: `HWD_I02`; «PT»: `HWD_N01`
@@ -140,9 +147,9 @@ Herramientas: `tools/ie1_media.py`, `tools/mods_to_moflex.py`, `tools/build_ie1_
 
 ### Subtítulos sin retraso (checklist)
 
-1. **Unidad de los `.dat`**: confirmar si los intervalos son fotogramas del vídeo o ticks de 60 Hz.
-   El incrustado actual compara con el índice de fotograma (`item.start <= frame <= item.end`). Si son
-   ticks, hay que escalar por `fps_vídeo / 60` o el subtítulo llega tarde y se alarga.
+1. **Unidad de los `.dat`: ticks de 30 Hz (comprobado)**. `op00` tiene 1.763 fotogramas a 20 fps y su último
+   subtítulo acaba en 2.675 = 1.763 × 30/20. `mods_to_moflex.py` usa `tick = fotograma × 30 / fps`
+   (`SUBTITLE_TICK_RATE`). Tratar los ticks como fotogramas retrasa los subtítulos ×1,5 y corta los finales.
 2. **fps**: el MOFLEX debe declarar el mismo `r_frame_rate` que el `.mods` de origen. Nunca forzar
    24 fps sobre un origen distinto: el vídeo, y con él el subtítulo, deriva respecto a la voz.
 3. **No perder ni duplicar fotogramas** en la conversión: el número de fotogramas MOFLEX debe ser igual
@@ -179,3 +186,67 @@ python tools/verify_candidate.py --base work/probe_ie1_v(N-1) --candidate work/p
 - `runtime_verified=false` hasta que el usuario pruebe (`docs/PROTOCOLO_QA_IE1.md`).
 - Dar al usuario una lista corta de qué probar y dónde.
 - Fallo nuevo o enfoque que no funciona → añadirlo a `docs/FURIGANA_LECCIONES.md` y a esta skill.
+
+## 10. Lo que se quedó sin traducir en IE1 y hay que revisar de entrada en IE2/IE3
+
+Lista de comprobación nacida de la prueba en juego de IE1 (v36–v56). Cada punto costó una o varias
+candidatas; en el siguiente juego se revisa **antes** de la primera prueba.
+
+### Texto que no está donde se busca primero
+- **Diálogos de pachanga (`script/mch.pkb`)**: además de `eve.pkb`. Tandas antiguas los dejaron en latín de
+  1 byte (letras juntas y montadas). Convertir solo instrucción `0x301d` argumento 1 a ancho completo
+  (`work/ie1/capas/v55/pachangas`). Reempaquetar `mch.pk*` aparte: `build_ui_revision` solo reempaqueta `eve.pk*`.
+- **Eventos protegidos** (crear partida, tutorial): se excluyen del volcado masivo y conservan texto viejo.
+  Si llevan **voz**, la frase debe ser la oficial NDS (auditoría `work/ie1/capas/v51/voces/auditoria.py`).
+- **Reparto en cajas**: 3 líneas × 20 caracteres; lo que sobra abre caja nueva. Repartir por frases con el
+  salto de caja explícito (`por_frases` en `work/ie1/capas/v51/voces/apply.py`), sin tocar el ajuste bloqueado.
+- **Literales del CRO** en menús: caja de partida (nivel, jugadores, capítulo), ventana de equipo,
+  estrategias (がんばれ/まもれ/せめろ), cabecera de estadísticas de tienda (キック…ガッツ), tienda
+  (かう/うる, nombres de tienda con furigana), tabla de números del capítulo (一…十, punteros).
+- **Nombres de NPC genéricos** (`unitbase.dat +16`): alumnos, alumnas, profesores y apellidos sueltos que la
+  NDS no nombra (en DS no había recuadro de hablante). Filtrar `ダミー` (no sale). Se rotulan por papel.
+- **Nombre principal de jugador** (`unitbase.dat +0`): la ficha de Formación lo usa; no basta con `+16`.
+- **Títulos de equipo** (`rpgtitle.STR`): búfer de 9 caracteres aunque el hueco sea de 32 B.
+
+### Gráficos que no son texturas CTPK
+- **Sprites de DS heredados** (`pic3d/*.pac_`, `*.SPL/SPD`): burbujas de partido (ナイス!, ミス!), もどる,
+  はい/いいえ, リプレイ, placas de escuela, menús de pausa. La NDS española trae los mismos en
+  `pic3d/sp/` con el mismo formato: copiar tal cual (`work/ie1/capas/v56/sprites`). `mln_i02` no es 4 bpp.
+- **Fondos `.lzs`** fuera de los `.arc` (p. ej. créditos de la canción del opening,
+  `menu/data_replace/title_movie_bg/*.lzs` = SSZL(CTPK)). Reenvolver en SSZL con literales.
+- **Placas pintadas sobre el campo** (`form_ground_*`: GK → POR) y posiciones FW/MF/DF/GK en otras vistas.
+
+### Medidas y límites que el juego impone
+- Rectángulo QNA real por pieza, alineación del japonés y ancho máximo cuando va un número al lado.
+- Equipos: 9 caracteres (el cuadro de pachanga sale pegado al borde de la pantalla).
+- Objetos: 9 caracteres (18 B). Latín de 1 byte no sirve: el menú parte la fila tras 10 caracteres.
+  Botas/guantes/pulseras: quitar la palabra del tipo (el icono lo indica) aunque el nombre se repita.
+- Supertécnicas en objetos (manuales): el menú de Técnicas usa textura con el nombre entero; los mensajes
+  usan el nombre de objeto de 9. Abreviar solo la palabra genérica con abreviatura fija («R.», «Tor.»),
+  nunca la distintiva. Al usuario le importan los nombres oficiales: no renombrar.
+- Glifos: la caja de partida y otros menús pintan con **FONT12.NFTR**, que no tiene romanos ni números en
+  círculo; comprobar en esa fuente antes de usar un carácter especial. El guion `-` no existe en ancho
+  completo en Shift-JIS.
+
+### Medios
+- **Subtítulos de cinemáticas y opening**: ticks de 30 Hz (sección 7).
+- **Voces y efectos** (`sound/*.SED/SWD/SMD`): la NDS española los trae en `sound/sp/sound.pb` (índice
+  `sound.ph`: nombre 24 B + offset + tamaño). En IE1 3DS los `.SWD` pesan más que los de DS y las voces de
+  gol se parten en `3D_003_NNa…z`: no sustituir en bloque; identificar el banco (grito del título, gol)
+  y probar pares SED+SWD de uno en uno.
+- **Pantalla de aviso/créditos del proyecto**: se añade al final de `movie/logo_l5.moflex`
+  (`work/ie1/capas/v54/pantalla_inicio`: fuente del juego, lista de colaboradores). Confirmar en juego que el
+  arranque reproduce el vídeo entero.
+
+### Distribución
+- Nunca alojar `archive.fa`, `.SAD` ni ningún fichero del juego. Para herramientas de terceros: xdelta por
+  fichero contra el original + manifiesto con SHA-256 (`work/paquete_v55/generar.py`).
+
+### Fuente mejor que la NDS: la versión europea de 3DS (CTR-N-JEUP)
+
+- La CIA europea descifrada trae `archive.fa` con carpetas `es/`, `en/`, `fr/`, `it/` (1.179 ficheros por idioma) y `romfs/es/inazuma1/data_iz/sound` (184 voces oficiales en formato 3DS: SAD, voces de gol `3D_003_NNa…z`, `2D_020_*`).
+- Las voces se instalan tal cual por LayeredFS: mismo nombre que la japonesa.
+- `es/…/unitbase.dat` tiene 96 B por registro alineados con el japonés (nombre en +0 y corto en +32, ASCII de 1 byte). Sirvió para detectar NPC desplazados en 1167–1265. Los registros ≥1266 son «ダミー» en japonés.
+- Su texto es de 1 byte con fuentes europeas: sirve como fuente de traducción, no como fichero para copiar.
+
+- **Texturas `.lzs`/`.arc` SSZL: comprimir de verdad** (`tools/sszl.py`). Envolver solo con literales dejó `ie99_title_movie_bg_b01.lzs` en 147 KB frente a 24 KB: el juego no la cargó y en el opening se quedó la ventana de «Cargando» en lugar de los créditos de T-Pistonz.

@@ -11,9 +11,9 @@ from mods_to_moflex import DEFAULT_FONT, DEFAULT_MOBIPEG, convert, read_subtitle
 
 
 REPO = Path(__file__).resolve().parents[1]
-DS_MOVIE = REPO / "work" / "ie1_es" / "data_iz" / "movie"
+DS_MOVIE = REPO / "work" / "ie1" / "fuentes" / "nds_es" / "data_iz" / "movie"
 DS_TEXT = DS_MOVIE / "txt" / "sp"
-TARGET = (REPO / "work" / "volumen_1" / "ie1_media_mod" / "archive_extra" /
+TARGET = (REPO / "work" / "ie1" / "legacy" / "volumen_1" / "ie1_media_mod" / "archive_extra" /
           "inazuma1" / "data_iz" / "movie")
 
 

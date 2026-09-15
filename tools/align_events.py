@@ -13,7 +13,7 @@ work/ (ignorado por git) porque contiene texto extraido (copyright).
 Uso:
     python tools/align_events.py \
         work/fa_extract/inazuma1/data_iz/script/eve.pkh  work/fa_extract/inazuma1/data_iz/script/eve.pkb \
-        work/ie1_es/data_iz/script/sp/evet.pkh           work/ie1_es/data_iz/script/sp/evet.pkb \
+        work/ie1/fuentes/nds_es/data_iz/script/sp/evet.pkh           work/ie1/fuentes/nds_es/data_iz/script/sp/evet.pkb \
         -o work/dialogue/game1_aligned.json
 """
 import argparse
