@@ -1,0 +1,7 @@
+# Ficheros bloqueados (tipografía v20, AGENTS.md / tools/dialogue_lock.py):
+# se versionan con sus bytes exactos, sin conversión de fin de línea.
+tools/dialogue_typography.py -text
+tools/font_patch.py -text
+tools/dialogue_lock.py -text
+tools/build_ie1_probe.py -text
+tools/build_ui_revision.py -text

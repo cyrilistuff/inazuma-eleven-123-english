@@ -64,7 +64,7 @@ def main():
     seen_explicit = set()
     if any(eid not in opts.events for eid, _ in explicit):
         ap.error('reviewed event not selected')
-    source = ROOT/'work/romfs/archive.fa'
+    source = ROOT/'work/shared/base_3ds/romfs/archive.fa'
     if opts.output.resolve() == source.resolve():
         ap.error('output must not overwrite the original archive')
     arc = FaArchive(str(source))

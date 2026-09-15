@@ -1,0 +1,2191 @@
+{
+ "spec": {
+  "scores": [
+   {
+    "lens": "Diseño A: comunidad y GUI primero (paquete inazuma, `inazuma <objetivo> <accion>`)",
+    "score": 6.4,
+    "strengths": "Subpuntuaciones: usabilidad para novatos y GUI 9, cohesión de API 8, seguridad de migración 3, mantenibilidad 7, preparación de release 6. Tiene el mejor vocabulario uniforme: un único verbo por acción, idéntico en todos los objetivos, con `doctor`, `init`, códigos de salida y `--json`. Resuelve bien el registro declarativo `assets.toml` con cadena de contenedores (fa>sszl>ctpk), las incidencias NOT_SUPPORTED para IE2/IE3 y la guía de novato. El bloqueo tipográfico queda como validador obligatorio del servicio, sin interruptor.",
+    "weaknesses": "Mueve al paquete `dialogue_typography.py` y `dialogue_lock.py`. El bloqueo hashea bytes crudos relativos a `parents[1]`, así que validate() fallaría en 26 capas y habría que actualizar hashes, algo que AGENTS.md prohíbe. Archiva `ds_official` con shim que lanza ImportError, pero lo importan 5 capas (v33 eve_labels/mch_story, v36 dialogo_ids/nombres). Fusiona `ds_roster` en ie1 aunque llega por importación transitiva desde `reinsert`, que usa el `layout` bloqueado. Además, `construir(objetivo)` ignora que un único archive.fa contiene los tres juegos y el menú. No hay gate de hash de candidata por fase, y convierte `tr_prepare`/`tr_merge` en API sin pasar por las reglas de FURIGANA_LECCIONES."
+   },
+   {
+    "lens": "Diseño B: biblioteca primero (inazuma_kit, src layout, Protocol tipado)",
+    "score": 6.8,
+    "strengths": "Subpuntuaciones: usabilidad para novatos y GUI 7, cohesión de API 9, seguridad de migración 4, mantenibilidad 8, preparación de release 8. Tiene la mejor disciplina de biblioteca: codecs puros bytes→bytes, `__all__`, mypy estricto en nucleo y servicios, errores tipados, CancelToken explícito sin asyncio y datos de juego fuera del código. La API de FaArchive (`read`/`find_entry`/copy-on-write) y la de eventos (`rebuild(events: dict)`) están bien diseñadas. Es el único con suite de contrato sobre un paquete falso y gate de cobertura.",
+    "weaknesses": "Coloca `dialogue_lock` en `juegos/ie1`, pero FONT_HASHES bloquea `font/FONT12.bcfnt`, `FONT12T` y `FONT8`, que están en la raíz de archive.fa y los comparten los tres juegos y el menú. El bloqueo es de la recopilación, no de IE1. Moverlo rompe también `parents[1]`. Archiva `ds_roster` y marca como delete dos tests, sin revisar las cadenas transitivas (reinsert → ds_roster, reinsert_var, ssd_reinsert). Aplica ruff/mypy sin excluir los ficheros bloqueados, cuando un reformateo cambia el hash. Promueve a ie1 código ya sustituido (`fix_ie1_title_logo`, `build_match_content_patch`). Unifica las tres tablas NDS aunque difieren en bytes (0xB5, comillas SJIS)."
+   },
+   {
+    "lens": "Diseño C: seguridad de migración primero (ie123kit, tools/ plano permanente)",
+    "score": 7.2,
+    "strengths": "Subpuntuaciones: usabilidad para novatos y GUI 7, cohesión de API 6, seguridad de migración 9, mantenibilidad 6, preparación de release 8. Es el único que no toca físicamente los cuatro ficheros bloqueados. Mantiene congelado `build_ui_revision.py`, que v55 ejecuta con exec() tras str.replace. Usa shims con alias en `sys.modules`, para que la mutación de globales estilo V37 siga funcionando. Tiene línea base de fallos previos (v33/gamestring), superficie dir() capturada, gates por módulo, política SSZL sin unificar y copia (no traslado) hacia `work/juego_principal`.",
+    "weaknesses": "Deja una doble superficie permanente: tools/ plano más un paquete que importa hacia atrás desde tools/ con un hack de sys.path dentro de nucleo. Mantiene importable código peligroso en `_legacy` y usa diez etapas pesadas. Su golden set (v65/v66) ya no existe: hoy solo hay probe_ie1_v66 y v67. Propone `.gitattributes tools/*.py -text` para todo tools/, pero no ha detectado que `tools/font_patch.py` tiene EOL mixto en el árbol de trabajo. Su hash aprobado (04cf7ff5…) no se reproduce ni desde el blob LF de HEAD (91519b5d…) ni con conversión CRLF (b9ec8032…): un clon limpio rompe hoy el bloqueo. También ignora que la candidata es de toda la recopilación, y el CLI por juego repite el defecto de A."
+   }
+  ],
+  "package_name": "ie123kit. Es el nombre de importación y coincide con la API propuesta en docs/toolkit/catalogo_auditoria.json. Se distribuye como `ie123kit` desde `tools/pyproject.toml` y la orden de consola es `ie123`. El código vive en `tools/src/ie123kit/` para respetar la Norma 3 («herramientas en tools/»). Decisión final del propietario: ver open_questions.",
+  "tree": "tools/                                   # Norma 3: todo sigue bajo tools/\n  pyproject.toml                         # paquete ie123kit (src layout), script `ie123 = ie123kit.cli.main:main`, extras [dev]=pytest\n  README.md                              # inicio rápido + tabla de equivalencias órdenes antiguas -> `ie123`\n  ── CAPA DE COMPATIBILIDAD PLANA (sys.path de las capas de work/) ──\n  dialogue_typography.py                 # BLOQUEADO v20 (hash de bytes crudos). Intacto, -text en .gitattributes\n  font_patch.py                          # BLOQUEADO v20 (EOL mixto actual = bytes aprobados). Intacto, -text\n  dialogue_lock.py                       # BLOQUEADO (parents[1] = raíz). Intacto, -text\n  build_ie1_probe.py                     # BLOQUEADO (LAYOUT_HASH de `layout` + alias R). Intacto, -text\n  build_ui_revision.py                   # CONGELADO: v55/pachangas/empaquetar.py hace exec() de su texto. -text\n  <29 shims generados>.py                # 3-8 líneas sin lógica: añaden src/ a sys.path y hacen sys.modules[__name__] = módulo real\n  _archivo/                              # NO importable (sin __init__, fuera de sys.path). README.md con motivo + enlace a FURIGANA_LECCIONES/issue\n    <27 módulos retirados>.py  tests/\n  build_patch.ps1 extract_nds.ps1 extract_romfs.ps1 jugar.ps1 setup_mobipeg.ps1 setup_vgmstream.ps1   # fase 2: envoltorios finos de `ie123`\n  bin/                                   # binarios externos (git-ignored), localizados vía nucleo/config/herramientas.py\n  src/ie123kit/\n    __init__.py                          # __version__, API_VERSION; sin efectos al importar\n    nucleo/                              # MOTOR: no sabe nada de ningún juego; no importa juego_principal/ie1/ie2/ie3/servicio\n      config/     raiz.py (find_root: IE123_ROOT o subir hasta AGENTS.md+tools/pyproject.toml; prohibido parents[N])\n                  ajustes.py (ie123.toml + ie123.local.toml + IE123_*), herramientas.py (3dstool, xdelta3, mobipeg x86 v2.1, vgmstream, ffmpeg)\n      tipos.py                           # (fase 2) AssetRef, Resultado, Incidencia, Progreso, CancelToken: dataclasses JSON\n      juego.py                           # (fase 2) JuegoBase/AccionesJuego: interfaz uniforme que implementa cada juego\n      errores.py                         # FormatoError, ValidacionError(codigo, ruta, detalle), BloqueoTipograficoError\n      util.py                            # sha256_bytes/sha256_file, escribir_json (UTF-8, ensure_ascii=False)\n      compresion/ lz10.py  blz.py  sszl.py (unwrap, compress, compress_literal, reenvolver_como(politica='keep'|'raw'|'sszl'))\n      contenedores/ fa.py (FaArchive B123: .d/.entries/_name congelados + read/index/glob/exists; fe_offset_of, append alineado 16)\n                    arcv.py (entries(off,size,crc), rebuild)  nds_rom.py (FNT/FAT)  exefs.py (hashes/relleno ExeFS, experimental)\n      registros/  tabla_fija.py (RecordTable/TableSpec: nunca trunca)  rangos.py (diff_ranges, assert_only_changed)\n      texto/      ancho_completo.py (re-export de tools/dialogue_typography + decode_fullwidth inverso nuevo)\n                  tipografia_v20.py (perfil bloqueado de la RECOPILACIÓN: re-export de build_ie1_probe.layout, approved_layout, lista de fuentes)\n                  nds_latin.py (NDS_DEC, NDS_SJIS, dec_es, dec_jp, decode_cadena; DS_TABLE/decode_ds como tabla distinta, sin unificar bytes)\n                  sjis_portador.py (es_encode truncante, GREEK, BOX_W, avance FONT12: semántica de reinsert intacta)\n      eventos/    packnum.py (parse_index, entry_data, rebuild(pkh,pkb,reemplazos,align))  ssd.py (parse/replace)\n                  instrucciones.py (fase 2: EventPack eve|mch, instructions, stage)  alineado_ids.py (tabla_nds, tabla_3ds, emparejar por ID)\n      graficos/   ctpk.py  qna.py  pac_sprite.py  pintado.py (paint, paint_condensed)\n                  texturas.py (fase 2: iter_ctpk, find_texture, apply_plan, validate_plan, previsualizaciones)\n      fuentes/    bcfnt.py (lectura)  glifos.py (re-export de tools/font_patch bloqueado)  nftr.py (read_metrics, ancho, cabe)\n      ejecutable/ smdh.py (patch_title...)  cro.py (fase 2: Cro, CroPatcher literales y reubicaciones con rango declarado)\n      media/      moflex.py (rotación 0x16, yuv420, probe, encoder mobipeg/ffmpeg)  subtitulos_dat.py (.dat<->SRT, 30 Hz)\n                  audio.py (SADL inspección/SAD<->WAV vía vgmstream; SWD/SED solo lectura en fase 2)\n      construir/  candidata.py (base + aportaciones -> archive.fa + CROs + build.json)  capas.py (Capa(__file__), capa.toml)\n                  instalar.py (Azahar LayeredFS con rehash)  rom.py (3dstool)  parche.py (xdelta3)  limpieza.py  registro_azahar.py\n      validar/    bloqueo.py (llama al tools/dialogue_lock.validate intacto; fuentes extraídas de la candidata)\n                  contenido.py (guardia git ls-files, Norma 2)  candidata.py (diff genérico: solo entradas/rangos declarados)\n      compat/     shims.py (generador)  superficie.py (snapshot dir()/firmas)  importaciones.py (comprobador AST de work/)  golden.py\n    juego_principal/                     # la recopilación: menú, selector, cargas, OP, banner. Solo importa nucleo\n      __init__.py (JUEGO)  activos.toml  acciones.py\n      # menu/title.arc (selector), menu/common.arc (pantallas de carga), menu/content|result|sd|extra.arc, menu/data_replace/**,\n      # movie/OP.moflex, movie/logo_l5.moflex, cro/ina_menu.cro, message/jp/GameString.*, common/system/passing/face2d.arc,\n      # font/*.bcfnt (solo lectura: bloqueadas), import/sItxInazuma123.itx, ExeFS banner.bnr/icon.icn (SMDH)\n    ie1/  __init__.py  activos.toml  acciones.py\n          texto/ eventos.py (diálogo eve)  mch.py  tablas.py (item.dat/STR, unitbase +16)  glosario.py\n          graficos/ teclado.py (ROWS, rejilla 20 px)  nds_piezas.py (API estable sobre V37 sin tocar su fichero)\n          media/ voces.py (inventario SAD EU-3DS)  cinematicas.py + cinematicas.toml (21 películas, 0x16)\n          verificar.py (reglas EVE/CRO ina_main1/fuentes/media)  datos/ (pcs_conocidos.toml, rangos de eventos protegidos)\n    ie2/  comun/ (reglas y datos comunes a las dos versiones)  tormenta_de_fuego/  ventisca_eterna/     # cada una: __init__, activos.toml, acciones.py\n    ie3/  comun/  rayo_celeste/  fuego_explosivo/  amenaza_del_ogro/                               # ie2.* e ie3.* solo importan nucleo y su propio comun\n    _legado/                             # importable SOLO a través de shims; excluido del servicio y del registro\n      reinsert.py reinsert_var.py ssd_reinsert.py ds_official.py ds_roster.py validate.py build_glossary.py pkb_unpack.py ...  # fachadas con globales y main() originales\n    servicio/                            # (fase 2) capa headless: CLI y GUI solo hablan con esto\n      api.py (ServicioToolkit)  proyecto.py (Workspace)  registro_activos.py  trabajos.py (hilos, eventos, cancelación)  esquemas/ (*.schema.json)\n    cli/  main.py (argparse 1:1 sobre ServicioToolkit, --json)  legado.py (tabla de equivalencias)\n  tests/\n    unidad/ (codecs con fixtures sintéticos)  compat/ (baseline_importaciones.json, superficie_v0.json, test_bloqueo_bytes.py)\n    arquitectura/ (reglas de importación por AST)  contrato/ (suite parametrizada sobre los 8 objetivos)  golden/ (solo hashes: candidatas.sha256, capas_v67.sha256)\n    requiere_rom/ (marcados; se saltan en CI)\nwork/ (git-ignored)\n  shared/ base_3ds/  candidatas/<cadena global vNN>/ (archive.fa + romfs/cro/*.cro + manifest.json)  releases/  herramientas/  verificacion/\n  juego_principal/ capas/vNN/<linea>/  qa/  exportaciones/  registro.json  historico.json (capas antiguas de work/ie1 que tocan el menú)\n  ie1/ fuentes/  capas/vNN/<linea>/  qa/  legacy/  exportaciones/  registro.json\n  ie2/ {tormenta_de_fuego,ventisca_eterna,shared}/  ie3/ {rayo_celeste,fuego_explosivo,amenaza_del_ogro,shared}/\ntranslation/ juego_principal/ (nuevo: glosario de menús)  ie1/  ie2/  ie3/  shared/",
+  "module_mapping": [
+   {
+    "old": "tools/fa_unpack.py",
+    "new": "ie123kit/nucleo/contenedores/fa.py",
+    "action": "move",
+    "note": "67 capas lo importan. El traslado es literal, cambiando solo las líneas de importación, con shim de alias en sys.modules. Se congelan .d, .entries (path, abs_off, size), data_off, de_off, fe_off, de_cnt y _name(). read/index/glob/exists se añaden en fase 2 sin tocar ese contrato. v33/eve_labels/validate.py pasa un Stub."
+   },
+   {
+    "old": "tools/fa_repack.py",
+    "new": "ie123kit/nucleo/contenedores/fa.py",
+    "action": "merge",
+    "note": "fe_offset_of y la anexión alineada a 16 bytes se integran en fa.py. El shim es obligatorio, porque build_ie1_probe (bloqueado) lo importa transitivamente. Su main() solo lo usaba build_3ds_var y va a _archivo. ROOT pasa de parents[1] a find_root."
+   },
+   {
+    "old": "tools/lz10.py",
+    "new": "ie123kit/nucleo/compresion/lz10.py",
+    "action": "move",
+    "note": "23 capas lo importan. Alias en sys.modules para que siga funcionando la mutación de la global MAX_CAND. Primer candidato de la subfase 1.3."
+   },
+   {
+    "old": "tools/blz.py",
+    "new": "ie123kit/nucleo/compresion/blz.py",
+    "action": "move",
+    "note": "Solo descompresión. Mantiene la CLI documentada `python tools/blz.py in out` mediante shim hasta la fase 2 (`ie123 nds blz`). No se reintroduce la recompresión BLZ (FURIGANA_LECCIONES)."
+   },
+   {
+    "old": "tools/sszl.py",
+    "new": "ie123kit/nucleo/compresion/sszl.py",
+    "action": "merge",
+    "note": "Absorbe unwrap (desde ui_archive). compress y compress_literal siguen siendo funciones con nombre propio, y no se cambia ningún valor por defecto, porque v54, v64 y v65 dependen de su política exacta. reenvolver_como(politica) llega en fase 2 y es explícita."
+   },
+   {
+    "old": "tools/ui_archive.py",
+    "new": "ie123kit/nucleo/contenedores/arcv.py (+ unwrap en nucleo/compresion/sszl.py)",
+    "action": "split",
+    "note": "33 capas lo importan. La fachada _legado/ui_archive.py re-exporta entries y unwrap con el orden de tuplas (off, size, crc)."
+   },
+   {
+    "old": "tools/nds_unpack.py",
+    "new": "ie123kit/nucleo/contenedores/nds_rom.py",
+    "action": "move",
+    "note": "Extractor en Python puro de las ROM NDS ES; sustituye a ndstool, que no está en tools/bin. Se conserva la estructura de salida outdir/data_iz/... Shim de CLI hasta `ie123 extraer nds`."
+   },
+   {
+    "old": "tools/pkb_unpack.py",
+    "new": "ie123kit/nucleo/eventos/packnum.py + nucleo/texto/nds_latin.py (decode_cadena)",
+    "action": "split",
+    "note": "parse_index lo usan 20 capas y _decode_string (privado) 8 tools. La fachada _legado conserva los nombres privados. lz10_decompress, copia literal, pasa a ser alias de lz10.decompress. El paquete importa NDS_DEC explícitamente. El fallback silencioso a {} solo ocurría si se ejecutaba fuera de la raíz, nunca en la invocación documentada."
+   },
+   {
+    "old": "tools/pkb_scan.py",
+    "new": "tools/_archivo/pkb_scan.py",
+    "action": "archive",
+    "note": "Diagnóstico sin importadores. Su premisa (texto en bytecode sin LZ10) es errónea según EVENT_SCRIPT_FORMAT.md."
+   },
+   {
+    "old": "tools/ssd_records.py",
+    "new": "ie123kit/nucleo/eventos/ssd.py",
+    "action": "move",
+    "note": "Implementación correcta del formato SSD, importada por 18 capas. Traslado literal con alias. Su test pasa a tests/unidad."
+   },
+   {
+    "old": "tools/ssd_reinsert.py",
+    "new": "ie123kit/_legado/ssd_reinsert.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: ignora el byte de tamaño de registro y genera tablas inválidas. Solo lo importan transitivamente reinsert y reinsert_var, así que conserva shim. Su CLI se niega a ejecutarse y remite a ssd.replace."
+   },
+   {
+    "old": "tools/reinsert.py",
+    "new": "ie123kit/nucleo/texto/sjis_portador.py (es_encode, GREEK, BOX_W, _advance, FONTS) + ie123kit/_legado/reinsert.py (load_translations, main etapa 7)",
+    "action": "split",
+    "note": "El `layout` bloqueado usa R.BOX_W y R._advance por nombre, por lo que la fachada _legado debe exponerlos idénticos. es_encode mantiene su truncado, que usan v43/equipos y v50, y NO se unifica con encode_fullwidth."
+   },
+   {
+    "old": "tools/reinsert_var.py",
+    "new": "ie123kit/_legado/reinsert_var.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: el offset-fixup corrompía eventos (FURIGANA_LECCIONES ❌#8/#11/#13). Es transitivo desde reinsert, por eso conserva shim. Su CLI se niega a ejecutarse."
+   },
+   {
+    "old": "tools/reinsert_test.py",
+    "new": "tools/_archivo/reinsert_test.py",
+    "action": "archive",
+    "note": "Prueba de concepto de la etapa 7. Nadie la referencia."
+   },
+   {
+    "old": "tools/recompress_test.py",
+    "new": "tools/_archivo/recompress_test.py",
+    "action": "archive",
+    "note": "Diagnóstico v9 con efectos al importar y rutas inexistentes (work/fa_extract). No debe quedar importable."
+   },
+   {
+    "old": "tools/dialogue_typography.py",
+    "new": "tools/dialogue_typography.py (re-exportado por ie123kit/nucleo/texto/ancho_completo.py)",
+    "action": "keep_script",
+    "note": "BLOQUEADO v20 (SOURCE_HASHES 8e983419…), importado por 44 capas. No se mueve, reformatea ni renombra. Se le aplica `-text` en .gitattributes para que un clon con autocrlf=true no lo convierta a CRLF. ruff/black lo excluyen."
+   },
+   {
+    "old": "tools/dialogue_lock.py",
+    "new": "tools/dialogue_lock.py (envuelto por ie123kit/nucleo/validar/bloqueo.py)",
+    "action": "keep_script",
+    "note": "BLOQUEADO y dependiente de parents[1]. Es un validador de TODA la recopilación: FONT_HASHES incluye font/FONT12|FONT12T|FONT8.bcfnt, que están en la raíz de archive.fa, e inazuma1/.../FONT*.NFTR. El servicio lo llama siempre, sin opción para saltarlo."
+   },
+   {
+    "old": "tools/font_patch.py",
+    "new": "tools/font_patch.py (re-exportado por ie123kit/nucleo/fuentes/glifos.py)",
+    "action": "keep_script",
+    "note": "BLOQUEADO (04cf7ff5…). OJO: su EOL actual es mixto y el hash aprobado no se reproduce desde git (blob LF 91519b5d…, CRLF b9ec8032…). En la fase 1.0 se fijan esos bytes exactos con `-text`, previa confirmación del propietario y sin cambiar ni un byte ni el hash. Hace `from bcfnt import BCFNT`, así que el shim de bcfnt es permanente."
+   },
+   {
+    "old": "tools/build_ie1_probe.py",
+    "new": "tools/build_ie1_probe.py (layout re-exportado por ie123kit/nucleo/texto/tipografia_v20.py)",
+    "action": "keep_script",
+    "note": "BLOQUEADO: LAYOUT_HASH cubre el texto de `layout` y su alias R. El fichero queda intacto. Su main() (candidatas v7-v27) es legado y no se porta, porque construir/candidata.py lo sustituye. Las 26 capas lo importan solo por `layout`, así que el código nuevo usa tipografia_v20 con importación perezosa."
+   },
+   {
+    "old": "tools/build_ui_revision.py",
+    "new": "ie123kit/nucleo/construir/candidata.py + nucleo/eventos/packnum.py (rebuild); el fichero original queda congelado en tools/",
+    "action": "split",
+    "note": "Es el ensamblador actual (probe_ie1_v67/archive.build.json). v55/pachangas/empaquetar.py hace exec() de su TEXTO tras str.replace de 'inazuma1/data_iz/script/eve.pkh/.pkb', así que no puede sustituirse por un shim. Un test comprueba que esos literales siguen presentes. La lógica se generaliza en el paquete: eve|mch y todas las CRO."
+   },
+   {
+    "old": "tools/ds_official.py",
+    "new": "ie123kit/nucleo/texto/nds_latin.py (DS_TABLE, decode_ds) + ie123kit/_legado/ds_official.py (load_ds_events, load_3ds_events, ds_lines, jp_lines, align, main)",
+    "action": "split",
+    "note": "Prohibido para regenerar (#36), pero 5 capas lo importan (v33 eve_labels y mch_story, v36 dialogo_ids y nombres). La fachada _legado se conserva. main()/align() se niegan a ejecutarse sin --legado-lo-se, y se excluye del servicio. DS_TABLE se mantiene como tabla distinta de NDS_DEC (0xD9=É, 0xA6=Í)."
+   },
+   {
+    "old": "tools/ds_roster.py",
+    "new": "ie123kit/_legado/ds_roster.py",
+    "action": "archive",
+    "note": "Sustituido por v36/nombres (+16, fullwidth, 7 caracteres). Es transitivo desde reinsert, por eso conserva shim. La regla +16/NUL (issue #16) se reimplementa en ie1/texto/tablas.py en la fase 2."
+   },
+   {
+    "old": "tools/audit_dialogo_ids.py",
+    "new": "ie123kit/nucleo/eventos/alineado_ids.py (tabla_nds, tabla_3ds, emparejar) + ie123kit/ie1/verificar.py (auditoría IE1)",
+    "action": "split",
+    "note": "Método canónico de emparejamiento por ID (18.343 pares). Lo usan 1 capa y v51/voces/auditoria.py, así que la fachada _legado conserva los nombres. Es genérico: IE2 lo reutilizará desde nucleo."
+   },
+   {
+    "old": "tools/audit_ie1_voiced_text.py",
+    "new": "tools/_archivo/audit_ie1_voiced_text.py",
+    "action": "archive",
+    "note": "Sustituido por work/ie1/capas/v51/voces/auditoria.py (por ID). Sin importadores. Su regla (película o voz posterior acota la búsqueda) se documenta en ie1/media/voces.py."
+   },
+   {
+    "old": "tools/build_glossary.py",
+    "new": "ie123kit/nucleo/texto/nds_latin.py (NDS_DEC, NDS_SJIS, dec_es, dec_jp) + nucleo/registros/tabla_fija.py (names_from_dat, strings_from_str) + acción `glosario` de cada juego (fase 2)",
+    "action": "split",
+    "note": "Lo importan 4 capas y pkb_unpack. La fachada _legado conserva REPO/DS/ES/OUT como globales que main() reasigna. La semántica de dec_es (salto de línea→espacio, '~'→'º', colapso de espacios) debe quedar intacta."
+   },
+   {
+    "old": "tools/build_translation.py",
+    "new": "tools/_archivo/build_translation.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: sobrescribe translation/ie*/dialogo.csv con emparejamiento por orden (#36)."
+   },
+   {
+    "old": "tools/str_align.py",
+    "new": "tools/_archivo/str_align.py",
+    "action": "archive",
+    "note": "Emparejamiento por índice ingenuo (item.STR 300 frente a 603). Su tabla NDS_FIX queda superada por nds_latin."
+   },
+   {
+    "old": "tools/nds_str_dump.py",
+    "new": "tools/_archivo/nds_str_dump.py",
+    "action": "archive",
+    "note": "Volcado ASCII trivial de la fase 2 inicial. Sin importadores."
+   },
+   {
+    "old": "tools/tr_prepare.py",
+    "new": "tools/_archivo/tr_prepare.py",
+    "action": "archive",
+    "note": "Flujo de lotes IA de 2026-06-14 ya terminado, con rutas rotas. Sus invariantes pasan a validaciones de `textos importar`: %NF fuera y conteo de \\f."
+   },
+   {
+    "old": "tools/tr_merge.py",
+    "new": "tools/_archivo/tr_merge.py",
+    "action": "archive",
+    "note": "Mitad de fusión del mismo flujo. La regla «solo rellenar pendiente o vacío» se convierte en validación del importador de textos en fase 2."
+   },
+   {
+    "old": "tools/align_events.py",
+    "new": "tools/_archivo/align_events.py",
+    "action": "archive",
+    "note": "Alineador por orden (Needleman-Wunsch), fallido según #36. dialogue_runs/is_furigana siguen en la fachada _legado de pkb_unpack."
+   },
+   {
+    "old": "tools/patch_code.py",
+    "new": "tools/_archivo/patch_code.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: saltos a cuevas de la CRO imposibles (crash 0xAD9E38). NO_CODE_PATCH=1 queda como regla documentada."
+   },
+   {
+    "old": "tools/patch_cro.py",
+    "new": "tools/_archivo/patch_cro.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: la cueva 0x50E14 es zona de reubicación (crash 0xAD9E1C). El CroPatcher de nucleo (fase 2) solo edita literales y reubicaciones declaradas, nunca cuevas."
+   },
+   {
+    "old": "tools/patch_exefs.py",
+    "new": "ie123kit/nucleo/contenedores/exefs.py (hashes y relleno ExeFS) + tools/_archivo/patch_exefs.py (ruta code.bin/exheader)",
+    "action": "split",
+    "note": "La primitiva ExeFS se necesita para banner.bnr/icon.icn de juego_principal y se marca experimental. No se cambia code_size (Azahar se cierra)."
+   },
+   {
+    "old": "tools/patch_smdh_title.py",
+    "new": "ie123kit/nucleo/ejecutable/smdh.py (usado por juego_principal)",
+    "action": "move",
+    "note": "Importado por v33/smdh. Se conservan patch_title, TITLE_TABLE_OFFSET, TITLE_SLOT_SIZE y SMDH_MAGIC. Nunca sobrescribe el SMDH fuente."
+   },
+   {
+    "old": "tools/ie1_keyboard.py",
+    "new": "ie123kit/ie1/graficos/teclado.py",
+    "action": "move",
+    "note": "v41/teclado importa ROWS. La rejilla de 20 px y el mapa de 314 bytes con CRLF son reglas de IE1."
+   },
+   {
+    "old": "tools/ie1_tables.py",
+    "new": "ie123kit/nucleo/registros/tabla_fija.py (genérico) + ie123kit/ie1/texto/tablas.py (TableSpec item.dat/STR)",
+    "action": "split",
+    "note": "Sin importadores. Se toma la regla más estricta de v33/data/lib.encode_field: nunca truncar, emparejar el texto JP antes de editar y ranuras de 32 bytes."
+   },
+   {
+    "old": "tools/validate.py",
+    "new": "ie123kit/_legado/validate.py",
+    "action": "archive",
+    "note": "Validador del pipeline eve_var abandonado. Conserva shim durante la fase 1, porque el nombre `validate` colisiona en sys.path con los validate.py de las capas y no debe alterarse su resolución. Se retira en fase 2 solo si el comprobador AST y la importación real lo permiten."
+   },
+   {
+    "old": "tools/verify_build.py",
+    "new": "tools/_archivo/verify_build.py",
+    "action": "archive",
+    "note": "Comprobaciones SAME_SIZE de la era v27. Sin llamadores."
+   },
+   {
+    "old": "tools/verify_candidate.py",
+    "new": "ie123kit/nucleo/validar/candidata.py (diff genérico, sha, rangos declarados) + ie123kit/ie1/verificar.py (EVE, ina_main1.cro, fuentes)",
+    "action": "split",
+    "note": "Paso de verificación documentado. El shim de CLI reenvía el mismo argv hasta `ie123 verificar`. runtime_verified sigue siendo False."
+   },
+   {
+    "old": "tools/verify_v21.py",
+    "new": "tools/_archivo/verify_v21.py",
+    "action": "archive",
+    "note": "Aserciones puntuales contra v21, que ya no existe."
+   },
+   {
+    "old": "tools/ctpk_ui.py",
+    "new": "ie123kit/nucleo/graficos/ctpk.py",
+    "action": "move",
+    "note": "33 capas lo importan. encode(decode(x)) == x byte a byte y los bloques ETC1A4 no editados se copian literalmente."
+   },
+   {
+    "old": "tools/qna_regions.py",
+    "new": "ie123kit/nucleo/graficos/qna.py",
+    "action": "move",
+    "note": "Solo lectura. En fase 2 exporta los rectángulos como sidecar .qna.json junto al PNG. Índice 0xFFFFFFFF = parte sin textura."
+   },
+   {
+    "old": "tools/translate_ui_textures.py",
+    "new": "ie123kit/nucleo/graficos/pintado.py (paint, paint_condensed) + nucleo/graficos/texturas.py (bucle de manifiesto → apply_plan, fase 2)",
+    "action": "split",
+    "note": "Lo usan 9 capas y V37. La salida ARCV sin envolver ('raw') y la fuente por defecto arialbd se mantienen en la ruta del shim para no alterar bytes. En el paquete la fuente pasa a ser un ajuste con nombre."
+   },
+   {
+    "old": "tools/legacy_sprite.py",
+    "new": "ie123kit/nucleo/graficos/pac_sprite.py",
+    "action": "move",
+    "note": "Sprites DS PAC 4bpp, activos. «legacy» no significa obsoleto. Se preservan los índices de paleta duplicados."
+   },
+   {
+    "old": "tools/fix_ie1_title_logo.py",
+    "new": "tools/_archivo/fix_ie1_title_logo.py",
+    "action": "archive",
+    "note": "Rehecho por v60, v62, v63 y v67/titulo_logo. Tenía una ruta fija a Downloads."
+   },
+   {
+    "old": "tools/bcfnt.py",
+    "new": "ie123kit/nucleo/fuentes/bcfnt.py",
+    "action": "move",
+    "note": "Shim PERMANENTE: el font_patch.py bloqueado hace `from bcfnt import BCFNT`. La semántica de parse no cambia (claves TGLP, offsets relativos al cuerpo)."
+   },
+   {
+    "old": "tools/nftr_metrics.py",
+    "new": "ie123kit/nucleo/fuentes/nftr.py",
+    "action": "move",
+    "note": "Lo usan 3 capas. Solo lectura. Bearing con signo ('<bBB'). En fase 2 añade ancho() y cabe() para el límite de 117 px."
+   },
+   {
+    "old": "tools/compact_typography.py",
+    "new": "tools/_archivo/compact_typography.py",
+    "action": "archive",
+    "note": "Experimentos v4/v8 superados por el bloqueo v20. No debe ser alcanzable desde construir."
+   },
+   {
+    "old": "tools/build_match_content_patch.py",
+    "new": "tools/_archivo/build_match_content_patch.py",
+    "action": "archive",
+    "note": "Produjo mch v23-v27; sustituido por v33/mch_story y v55/pachangas. Sus invariantes (solo 0x301D arg 1, conjunto visible == claves) pasan como reglas a ie1/texto/mch.py en fase 2."
+   },
+   {
+    "old": "tools/build_mch_patch.py",
+    "new": "tools/_archivo/build_mch_patch.py",
+    "action": "archive",
+    "note": "Variante solo Royal (v21), contenida en la anterior."
+   },
+   {
+    "old": "tools/build_3ds.py",
+    "new": "tools/_archivo/build_3ds.py",
+    "action": "archive",
+    "note": "Constructor in situ de la etapa 8 (parches v1-v9)."
+   },
+   {
+    "old": "tools/build_3ds_var.py",
+    "new": "tools/_archivo/build_3ds_var.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: sin SKIP_CRO/NO_CODE_PATCH aplica parches fallidos."
+   },
+   {
+    "old": "tools/build_fontui.py",
+    "new": "tools/_archivo/build_fontui.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: diagnóstico v7 con efectos al importar. Pasa FONT12T por el editor 4bpp incompatible."
+   },
+   {
+    "old": "tools/ui_insert.py",
+    "new": "tools/_archivo/ui_insert.py",
+    "action": "archive",
+    "note": "obsolete_dangerous: escribía unitbase +0 en ASCII sin NUL (issue #16)."
+   },
+   {
+    "old": "tools/probe_ie1_spacing.py",
+    "new": "tools/_archivo/probe_ie1_spacing.py",
+    "action": "archive",
+    "note": "Experimento v18 retirado. Sus fuentes chocan con el bloqueo v20."
+   },
+   {
+    "old": "tools/test_compact_typography.py",
+    "new": "tools/_archivo/tests/test_compact_typography.py",
+    "action": "archive",
+    "note": "Prueba un módulo archivado. Ya se saltaba porque falta work/fa_extract."
+   },
+   {
+    "old": "tools/test_dialogue_lock.py",
+    "new": "tools/tests/unidad/texto/test_dialogue_lock.py",
+    "action": "move",
+    "note": "No se debilita ni se actualizan hashes. Se ejecuta contra los originales de tools/ y además comprueba identidad con nucleo.validar.bloqueo."
+   },
+   {
+    "old": "tools/test_dialogue_typography.py",
+    "new": "tools/tests/unidad/texto/test_ancho_completo.py",
+    "action": "move",
+    "note": "Los bytes esperados son el transporte aprobado v20. Añade la identidad nucleo.texto.ancho_completo.encode_fullwidth is dialogue_typography.encode_fullwidth."
+   },
+   {
+    "old": "tools/test_legacy_sprite.py",
+    "new": "tools/tests/unidad/graficos/test_pac_sprite.py + tools/tests/unidad/compresion/test_lz10.py",
+    "action": "split",
+    "note": "El caso compress_optimal pasa a compresion."
+   },
+   {
+    "old": "tools/test_probe_layout.py",
+    "new": "tools/tests/unidad/texto/test_tipografia_v20.py",
+    "action": "move",
+    "note": "Añade la identidad nucleo.texto.tipografia_v20.layout is build_ie1_probe.layout."
+   },
+   {
+    "old": "tools/test_ssd_records.py",
+    "new": "tools/tests/unidad/eventos/test_ssd.py",
+    "action": "move",
+    "note": "Sintético, sin cambios de expectativa."
+   },
+   {
+    "old": "tools/test_ui_formats.py",
+    "new": "tools/tests/unidad/graficos/test_formatos_ui.py",
+    "action": "move",
+    "note": "Cubre ctpk, qna, arcv y paint. Se mantiene verde."
+   },
+   {
+    "old": "tools/test_validate_inputs.py",
+    "new": "tools/_archivo/tests/test_validate_inputs.py",
+    "action": "archive",
+    "note": "Prueba validate.py, que queda en cuarentena en _legado."
+   },
+   {
+    "old": "tools/ie1_media.py",
+    "new": "ie123kit/nucleo/media/audio.py (inspect_sad genérico) + ie123kit/ie1/media/voces.py (inventario)",
+    "action": "split",
+    "note": "Enfoque v34/v35 (SAD de DS) superado: la fuente es el 3DS europeo. Se conservan las reglas: copiar SADL entero con sha256, no instalar J18/J19 y entrar por LayeredFS romfs/."
+   },
+   {
+    "old": "tools/mods_to_moflex.py",
+    "new": "ie123kit/nucleo/media/moflex.py (set_moflex_rotation, rgb_to_yuv420, ycgco420_to_rgb, probe, encoder) + nucleo/media/subtitulos_dat.py (Subtitle, read_subtitles, add_caption, fit_caption)",
+    "action": "split",
+    "note": "Lo importan v54/pantalla_inicio y v58/cinematicas. DEFAULT_MOBIPEG y DEFAULT_FONT se conservan en la fachada _legado. Layout 0x16 obligatorio. DS_TABLE pasa a ser alias de nds_latin.DS_TABLE."
+   },
+   {
+    "old": "tools/build_ie1_movies.py",
+    "new": "tools/_archivo/build_ie1_movies.py",
+    "action": "archive",
+    "note": "Sustituido por v58/cinematicas/build.py: las 21 películas de v66/v67 son idénticas a su extra/. El manifiesto de datos de ie1/media/cinematicas.toml se toma de v58, no de este script."
+   },
+   {
+    "old": "tools/validate_ie1_media.py",
+    "new": "ie123kit/ie1/verificar.py (reglas de media) + nucleo/media/moflex.py (disposicion_rotacion)",
+    "action": "merge",
+    "note": "Las rutas del stage legado ya no son válidas. Se conservan las invariantes: audio instalado idéntico a la fuente y MOFLEX solo 0x16 decodificable."
+   },
+   {
+    "old": "tools/harvest_log.py",
+    "new": "ie123kit/nucleo/construir/registro_azahar.py",
+    "action": "move",
+    "note": "Lo llama jugar.ps1, que conserva shim de CLI hasta la fase 2. KNOWN_PCS pasa a ser un dato por juego (ie1/datos/pcs_conocidos.toml)."
+   },
+   {
+    "old": "tools/limpiar_work.py",
+    "new": "ie123kit/nucleo/construir/limpieza.py (+ Workspace.limpiar y `ie123 work limpiar` en fase 2)",
+    "action": "move",
+    "note": "Sin rastrear en git: se commitea en la fase 1.0. Conserva shim de CLI, porque CLAUDE.md documenta `python tools/limpiar_work.py --borrar`. Aprende work/juego_principal y una lista blanca de ficheros congelados (V37, v33/eve_labels/common.py, v51/voces). Respeta el marcador .conservar de las candidatas golden."
+   },
+   {
+    "old": "tools/reorganizar_proyecto.py",
+    "new": "tools/_archivo/reorganizar_proyecto.py",
+    "action": "archive",
+    "note": "Migración del 2026-09-16 ya aplicada. La nueva migración a juego_principal es una acción aparte que copia, no mueve."
+   },
+   {
+    "old": "tools/build_patch.ps1",
+    "new": "tools/build_patch.ps1 (fase 2: envoltorio de `ie123 parche`)",
+    "action": "keep_script",
+    "note": "Entrada documentada. La lógica xdelta pasa a nucleo/construir/parche.py solo tras reproducir su .xdelta byte a byte."
+   },
+   {
+    "old": "tools/extract_nds.ps1",
+    "new": "tools/extract_nds.ps1 (fase 2: envoltorio de `ie123 extraer nds`)",
+    "action": "keep_script",
+    "note": "Hoy requiere ndstool.exe, que no existe en tools/bin. El envoltorio usará nds_rom.py en Python puro."
+   },
+   {
+    "old": "tools/extract_romfs.ps1",
+    "new": "tools/extract_romfs.ps1 (fase 2: envoltorio de `ie123 extraer romfs`)",
+    "action": "keep_script",
+    "note": "3dstool vía nucleo/construir/rom.py. Escribe work/shared/base_3ds, que nunca se borra."
+   },
+   {
+    "old": "tools/jugar.ps1",
+    "new": "tools/jugar.ps1 (fase 2: envoltorio de `ie123 instalar --lanzar` + registro_azahar)",
+    "action": "keep_script",
+    "note": "Hoy busca rutas obsoletas (work\\build, roms\\*ES*). Se corrige al convertirlo en envoltorio."
+   },
+   {
+    "old": "tools/setup_mobipeg.ps1",
+    "new": "tools/setup_mobipeg.ps1",
+    "action": "keep_script",
+    "note": "Arranque de herramienta externa (mobipeg x86 v2.1; la x64 crashea). nucleo/config/herramientas.py solo localiza el resultado, y `ie123 doctor` lo comprueba."
+   },
+   {
+    "old": "tools/setup_vgmstream.ps1",
+    "new": "tools/setup_vgmstream.ps1",
+    "action": "keep_script",
+    "note": "Igual que setup_mobipeg."
+   },
+   {
+    "old": "tools/bin/",
+    "new": "tools/bin/ (git-ignored; resuelto por nucleo/config/herramientas.py)",
+    "action": "keep_script",
+    "note": "3dstool.exe y xdelta3.exe. No se empaquetan ni se suben."
+   }
+  ],
+  "script_count_before_after": "ANTES (medido hoy):\n- tools/ tiene 77 ficheros planos con lógica: 71 .py (63 módulos y 8 tests) y 6 .ps1.\n- 60 de esos .py tienen CLI propia, y la documentación contiene 138 referencias a 49 scripts distintos.\n- work/ tiene 186 scripts .py de capa (el encargo estimaba ~250), de los que 110 hacen sys.path.insert de tools/.\n- Hay 27 patrones de código repetido entre capas.\n- Estado según el catálogo: 23 core_active, 11 active, 25 legacy_superseded, 10 obsolete_dangerous y 2 diagnósticos.\n\nDESPUÉS DE LA FASE 1:\n- tools/ conserva 5 ficheros reales intocables: 4 bloqueados más build_ui_revision congelado.\n- tools/ tiene además 29 shims generados sin lógica: 23 nombres importados por capas (menos los 5 reales), 5 transitivos (bcfnt, fa_repack, ds_roster, reinsert_var, ssd_reinsert), 1 `validate` y CLIs documentadas (verify_candidate, limpiar_work, nds_unpack, blz, harvest_log).\n- Siguen los 6 .ps1.\n- tools/_archivo/ recibe 27 retirados.\n- El paquete ie123kit tiene unos 38 módulos con lógica, en lugar de 63 dispersos, y 6 tests en tools/tests.\n- Resultado: de 77 ficheros con lógica en tools/ se pasa a 11 (5 congelados y 6 .ps1). Las CLIs pasan de 60 a 5 heredadas, pendientes de sustituir.\n\nDESPUÉS DE LA FASE 2:\n- Una sola orden, `ie123`, con 12 acciones uniformes × 8 objetivos, más órdenes de proyecto.\n- tools/ queda en 5 congelados, ≤ 24 shims de importación (solo nombres que importan capas antiguas; los de CLI se retiran al actualizar la documentación) y 4 .ps1 finos.\n- setup_mobipeg y setup_vgmstream se mantienen. extract_nds.ps1 pasa a envoltorio de una línea o se archiva según decida el propietario.\n- El paquete crece hasta unos 50 módulos, con las primitivas consolidadas desde los 27 patrones.\n- Las tandas nuevas no crean scripts: son capas declarativas capa.toml más recursos. Solo si hace falta lógica a medida se usa apply.py con Capa(__file__) en unas 10 líneas, frente a las 40-80 de arranque actuales.",
+  "cli": "Orden única: `ie123`, también accesible como `python -m ie123kit`. Cada subcomando es un adaptador argparse 1:1 sobre ServicioToolkit, sin lógica propia. `--json` imprime el Resultado serializado y `--proyecto RUTA` fija la raíz. Los verbos van en español y hay alias en inglés opcionales (ver open_questions).\n\nCódigos de salida:\n- 0: ok\n- 1: incidencias de validación\n- 2: uso incorrecto\n- 3: violación del bloqueo tipográfico\n- 4: falta una herramienta externa\n- 5: operación no soportada por el objetivo\n\nÓRDENES DE PROYECTO (recopilación):\n- `ie123 doctor`: comprueba Python, dependencias, 3dstool, xdelta3, mobipeg x86, vgmstream y ffmpeg, los sha de las ROM, el EOL y hash de los ficheros bloqueados, y el espacio libre (≥ 4 GB).\n- `ie123 proyecto init --rom3ds X [--nds-es-ie1 Y ...]`: crea ie123.local.toml, work/<objetivo>/ (incluido work/juego_principal/) y translation/juego_principal/.\n- `ie123 proyecto estado`\n- `ie123 objetivos`: lista juego_principal, ie1, ie2.tormenta_de_fuego, ie2.ventisca_eterna, ie2.comun, ie3.rayo_celeste, ie3.fuego_explosivo, ie3.amenaza_del_ogro, con sus capacidades.\n- `ie123 extraer romfs|nds [--objetivo ie1]`\n- `ie123 construir --base vNN [--objetivos ie1,juego_principal] [--capas RUTA...] --salida vMM`: construye una candidata de toda la recopilación. Siempre ejecuta el bloqueo v20 y la guardia de contenido. Se niega a sobrescribir.\n- `ie123 verificar --candidata vMM [--golden]`\n- `ie123 instalar --candidata vMM [--lanzar] [--registro]`: instala en Azahar LayeredFS con rehash; se niega si azahar.exe está en ejecución.\n- `ie123 parche --rom-base X --rom-parcheada Y --salida patch/…xdelta`\n- `ie123 work limpiar [--borrar]`\n- `ie123 compat comprobar [--golden]`: ejecuta los gates de migración.\n\nACCIONES POR OBJETIVO (idénticas para los 8; si el objetivo no las soporta devuelven NOT_SUPPORTED con código 5):\n- `ie123 <objetivo> activos [--tipo grafico|texto|cinematica|voz|fuente|ejecutable] [--filtro PATRON]`\n- `ie123 <objetivo> graficos exportar [--id ID|--todos] --a DIR`: genera PNG RGBA más <tex>.qna.json con rectángulos y metadatos CTPK.\n- `ie123 <objetivo> graficos importar --id ID --desde PNG [--simular]`\n- `ie123 <objetivo> textos exportar [--ambito eventos|tablas|cro] [--formato tsv|po] --a DIR`: una fila por registro, con id, jp, es_oficial, traduccion, max_px, max_bytes y estado.\n- `ie123 <objetivo> textos importar --desde DIR [--simular]`\n- `ie123 <objetivo> cinematicas exportar|importar [--id]`: MOFLEX↔MP4+SRT.\n- `ie123 <objetivo> voces exportar|importar [--id]`: SADL→WAV. La importación acepta .SAD validado; WAV→SADL devuelve NOT_SUPPORTED hasta que exista codificador.\n- `ie123 <objetivo> capas listar|aplicar [--hasta vNN]`: aplica capa.toml o apply.py heredado en subproceso con cwd=raíz.\n- `ie123 <objetivo> construir|verificar|instalar`: atajos de las órdenes de proyecto restringidos a las aportaciones de ese objetivo sobre la última candidata.\n- `ie123 <objetivo> estado`\n\nCOMPATIBILIDAD: toda orden documentada `python tools/X.py args` que siga viva reenvía sys.argv sin cambios a la misma main() a través del shim. Los scripts archivados no tienen shim; tools/_archivo/README.md y `ie123 compat equivalencias` indican la orden que los sustituye.",
+  "service_api_for_gui": "Paquete ie123kit.servicio (fase 2). La CLI y la futura GUI solo dependen de esta capa, y la GUI nunca toca ficheros directamente.\n\n1) TIPOS (ie123kit.nucleo.tipos). Son dataclasses congeladas con to_json() y un JSON Schema publicado en servicio/esquemas/*.schema.json:\n- `AssetRef{id, objetivo, tipo, ruta_romfs, cadena_contenedores:['fa','sszl','arcv','ctpk'], subruta, rects?:[{x0,y0,x1,y1,parte}], tamano, editable:bool, estado:'original'|'editado'|'traducido'|'construido', origen:'3ds_jp'|'3ds_eu'|'nds_es'|'manual', vista_previa?, sha256}`\n  - Formato del id: `ie1:grafico:inazuma1/data_iz/a_title/title_t.arc#ie01_title_t_tlogo.tga`\n  - Ejemplo de juego_principal: `juego_principal:cinematica:movie/OP.moflex`\n- `Resultado{ok, datos, incidencias:[Incidencia], artefactos:[ruta], duracion_s, api_version}`\n- `Incidencia{codigo, severidad:'error'|'aviso'|'info', mensaje, activo_id?, ruta?, ubicacion?, pista?}`. Códigos estables: TAMANO_PNG, RECT_QNA, GLIFO_NO_SOPORTADO, EXCEDE_PX, EXCEDE_BYTES, BLOQUEO_V20, NF_HUERFANO, PAGINAS_DISTINTAS, CRO_FUERA_DE_RANGO, LAYOUT_MOFLEX, HERRAMIENTA_AUSENTE, NOT_SUPPORTED, CONTENIDO_EN_GIT.\n- `Progreso{fase, actual, total, mensaje}`\n- `CancelToken{cancelar(), cancelado}`\n\n2) INTERFAZ UNIFORME DE JUEGO (ie123kit.nucleo.juego.JuegoBase, abstracta). La implementan juego_principal, ie1, ie2.* e ie3.*, así que el servicio nunca ramifica por juego:\n- `info() -> InfoObjetivo{id, nombre, prefijos_romfs, cros, capacidades:set}`\n- `activos(ws, tipo=None, filtro=None) -> list[AssetRef]`\n- `exportar(ws, ref, destino, formato=None, progreso, cancel) -> Resultado`\n- `importar(ws, ref, origen, simular=True, progreso, cancel) -> Resultado`. Valida y devuelve un diff antes de escribir. Nunca trunca en silencio.\n- `aportaciones(ws, capas) -> Aportacion{entradas_fa:{ruta:bytes|Path}, eventos:{'eve'|'mch': dir}, literales_cro:{cro: json}, romfs_sueltos:{ruta: Path}}`\n- `reglas_validacion() -> list[Regla]`\n- `perfil_texto(ambito) -> PerfilTexto` (para la recopilación hoy siempre es tipografia_v20)\n\nLa implementación por defecto de JuegoBase delega en nucleo según el tipo de activo, de modo que los juegos solo declaran datos (activos.toml) y reglas.\n\n3) FACHADA (ie123kit.servicio.api.ServicioToolkit(workspace)):\n- `objetivos()`\n- `activos(objetivo, tipo, filtro)`\n- `exportar(objetivo, ids, destino)`\n- `importar(objetivo, id, fichero, simular)`\n- `construir(SolicitudConstruccion{base, objetivos, capas, salida})`: la candidata es de TODA la recopilación, porque un único archive.fa contiene menú, IE1, IE2 e IE3 y las CRO son ina_menu, ina_main1, ina_main2 e ina_main3ogre. Se componen las aportaciones de cada objetivo en orden declarado, con conflictos de entrada como error. Se ejecutan SIEMPRE bloqueo.validate, la guardia de contenido y validar/candidata.\n- `verificar(candidata, golden=None)`\n- `instalar(candidata, emulador='azahar', lanzar=False)`\n- `parche(rom_base, rom_parcheada, salida)`\n- `limpiar(borrar=False)`\n- `doctor()`\n\nTodo método síncrono admite `progreso` y `cancel`.\n\n4) TRABAJOS (servicio/trabajos.py):\n- `enviar(fn, **kw) -> id_trabajo`\n- `estado(id)`\n- `eventos(id)`: iterador de Progreso e Incidencia para el hilo de la GUI.\n- `cancelar(id)`\n\nLos eventos también se registran en JSONL en work/shared/verificacion/trabajos/. No depende de asyncio: la GUI ejecuta en un hilo de trabajo (QThread o executor).\n\n5) PROYECTO (servicio/proyecto.py Workspace):\n- `ie123.toml` (en git, sin contenido de ROM): objetivos habilitados, convención de nombres de candidata y ruta de los manifiestos golden.\n- `ie123.local.toml` (ignorado): rutas y sha256 de ROM, directorio de Azahar, fuente TTF y herramientas.\n- `Workspace.dirs(objetivo)` devuelve work/<objetivo>/{capas, qa, exportaciones, registro.json}. Para ie2/ie3 incluye versión: work/ie2/tormenta_de_fuego/…, y su comun corresponde a work/ie2/shared/ según ARQUITECTURA.md.\n- Las candidatas forman una cadena global inmutable en work/shared/candidatas/<nombre_vNN>/ con manifest.json (base y su sha, capas y sus hashes, salidas sha256, objetivos incluidos, runtime_verified:false).\n\n6) REGISTRO DE ACTIVOS (servicio/registro_activos.py):\n- Se construye a partir de `activos.toml` de cada juego, que es declarativo: familias con prefijo romfs, cadena de contenedores, perfil de texto, ámbito y contrapartida NDS/EU.\n- Añade un escaneo perezoso: índice FaArchive, hijos ARCV, texturas CTPK, rectángulos QNA y registros SSD.\n- Se cachea en work/<objetivo>/registro.json con clave sha de la base.\n- El estado de cada activo sale de comparar con la base y con la última candidata.\n\n7) EDICIÓN DESDE GUI: cada importación confirmada crea una capa nueva work/<objetivo>/capas/vNN/gui_<aaaammdd_hhmm>/ con capa.toml (operaciones reemplazar_entrada, textura_png, textos_tsv, literal_cro, cinematica_mp4, voz_sad) más sus recursos. Nunca se edita una candidata existente. Las capas Python antiguas siguen siendo ejecutables como capas de tipo `script`.\n\n8) CÓMO APARECE work/juego_principal/:\n- `ie123 proyecto init` crea work/juego_principal/{capas,qa,exportaciones} y translation/juego_principal/.\n- `ie123 proyecto migrar-juego-principal --simular` escribe work/juego_principal/historico.json con la lista de capas existentes en work/ie1/capas que tocan activos del menú, como v33/smdh, v54/pantalla_inicio, v58/carga y v58/logos. NO las mueve, porque sus rutas parents[N] y los importlib de V37 dependen de su sitio.\n- Las capas nuevas del menú van a work/juego_principal/capas/vNN/<linea>, con numeración vNN global compartida con la cadena de candidatas.\n- limpieza.py y docs/ARQUITECTURA.md incorporan la nueva carpeta.",
+  "library_api": "REGLAS DE IMPORTACIÓN. Las verifica tools/tests/arquitectura/test_importaciones.py, que analiza por AST todo src/:\n- ie123kit.nucleo.* no importa juego_principal, ie1, ie2, ie3, servicio ni cli.\n- juego_principal e ie1 importan solo ie123kit.nucleo.\n- ie2.<version> importa solo nucleo e ie2.comun (análogo para ie3). Ningún juego importa otro.\n- servicio importa nucleo y descubre los juegos mediante un registro explícito, sin importaciones cruzadas. cli importa solo servicio.\n- _legado solo lo importan los shims de tools/.\n- Prohibido en src/: `parents[` o `dirname(dirname`, rutas absolutas de máquina (C:/Users, Downloads), print/sys.exit en nucleo y efectos al importar.\n\nAPI ESTABLE DE NUCLEO (nombres en `__all__`, codecs puros sobre bytes/Path/PIL.Image, binarios externos inyectados vía config.herramientas):\n- compresion:\n  - `lz10.compress/decompress/compress_optimal/compress_store`\n  - `blz.decompress`\n  - `sszl.unwrap/compress/compress_literal`\n  - `sszl.reenvolver_como(original, nuevo_raw, politica='keep'|'raw'|'sszl', crecimiento_max=None)` (fase 2)\n- contenedores:\n  - `fa.FaArchive(path)` con .d, .entries, _name() congelados, y `.read(ruta)` (KeyError con rutas parecidas), `.index`, `.glob(prefijo)`, `.exists(ruta)`\n  - `fa.fe_offset_of`\n  - `fa.reemplazar_entrada(handle, arc, ruta, payload)` (anexión alineada 16)\n  - `arcv.entries/rebuild`\n  - `nds_rom.extraer(rom, destino)`\n  - `exefs.reconstruir`\n- registros:\n  - `tabla_fija.RecordTable(data, TableSpec).get/text/set_text(..., max_chars, max_bytes)`: lanza excepción, nunca trunca\n  - `rangos.diff_ranges`, `rangos.assert_only_changed`\n- texto:\n  - `ancho_completo.encode_fullwidth` (el mismo objeto que dialogue_typography) y `decode_fullwidth` (inverso exacto, nuevo)\n  - `tipografia_v20.layout` (el mismo objeto que build_ie1_probe.layout), `approved_layout(texto)`, `FUENTES_BLOQUEADAS`\n  - `nds_latin.NDS_DEC/NDS_SJIS/dec_es/dec_jp/decode_cadena` y `nds_latin.DS_TABLE/decode_ds`, distintos y documentados\n  - `sjis_portador.es_encode(s, budget)` (trunca, heredado), `GREEK`, `BOX_W`, `avance`\n- eventos:\n  - `packnum.parse_index/entry_data/rebuild(pkh, pkb, reemplazos, comprimir=True, align=4|'auto')`\n  - `ssd.parse/replace/TextRecord`\n  - `alineado_ids.tabla_nds/tabla_3ds/emparejar`\n  - `instrucciones.EventPack.from_archive(arc, 'eve'|'mch').events()/instructions(eid)/find(eid, opcode, argumento)/stage(...)` (fase 2)\n- graficos:\n  - `ctpk.decode/encode/metadata`\n  - `qna.regions` y `QnaLayout` (fase 2)\n  - `pac_sprite.decode/encode/index`\n  - `pintado.paint/paint_condensed`\n  - `texturas.iter_ctpk/find_texture/load_texture/apply_plan(base, plan, salida, previews, rewrap='raw')/validate_plan` (fase 2), además de ayudas de imagen (preview_pair, paste_centered, fit_into, drop_shadow)\n- fuentes:\n  - `bcfnt.BCFNT`\n  - `glifos.Font/PLAN/patch_font_bytes` (re-export del bloqueado)\n  - `nftr.read_metrics/ancho/cabe`\n- ejecutable:\n  - `smdh.patch_title`\n  - `cro.Cro(data).segments/relocations/retarget` y `cro.CroPatcher(base).literal(offset, esperado, nuevo, capacidad, encoder=encode_fullwidth)` (fase 2)\n- media:\n  - `moflex.set_moflex_rotation/disposicion/from_mp4/to_mp4`\n  - `subtitulos_dat.leer/escribir/a_srt/desde_srt`\n  - `audio.inspect_sad/sad_a_wav`\n- construir:\n  - `candidata.construir(base, salida, aportaciones, rehusar_sobrescribir=True) -> build.json`\n  - `capas.Capa(__file__).raiz/aqui/extra(rel)/romfs(rel)` y `capas.ejecutar(main)`\n  - `instalar.azahar(candidata, title_id='00040000000BB800')`\n  - `rom.build_3ds`, `parche.xdelta`, `limpieza.objetivos/limpiar`, `registro_azahar.parse/merge`\n- validar:\n  - `bloqueo.validar(candidata_o_dir_fuentes)`: llama al tools/dialogue_lock.validate intacto\n  - `contenido.guardia_git()`\n  - `candidata.verificar(base, candidata, capas, literales)`\n- config:\n  - `raiz.find_root()`\n  - `ajustes.cargar()`\n  - `herramientas.localizar(nombre)`\n\nLos módulos bloqueados se exponen por re-export con importación perezosa de tools/. No se copian, y los tests verifican la identidad de objetos.",
+  "configuration": "RESOLUCIÓN, por orden de precedencia: flags de CLI > variables IE123_* (IE123_ROOT, IE123_AZAHAR, IE123_FUENTE_TTF, IE123_HERRAMIENTAS) > ie123.local.toml (raíz, git-ignored) > ie123.toml (raíz, en git) > valores por defecto. Los valores por defecto reproducen exactamente el comportamiento de hoy.\n\n1) ie123.toml (en git, sin secretos ni contenido): [proyecto] idioma='es-ES', nombres_europeos=true; [candidatas] patron='probe_ie1_v{n}', conservar=2 y golden=['probe_ie1_v66','probe_ie1_v67']; [objetivos] habilitados con su versión; [golden] manifiestos='tools/tests/golden'.\n\n2) ie123.local.toml (ignorado; lo crea `ie123 proyecto init`): [roms] rutas y sha256 (3DS JP, NDS ES IE1/IE2, 3DS EU IE1/IE3); [azahar] mods_dir, cuyo valor por defecto es %APPDATA%/Azahar/load/mods; [fuentes] ttf_ui, que por defecto es C:/Windows/Fonts/arialbd.ttf y es el valor actual en 11 capas; [herramientas] 3dstool, xdelta3, mobipeg (x86 v2.1), vgmstream, ffmpeg, con valor por defecto tools/bin y work/shared/herramientas/media_tools.\n\n3) Datos de juego como ficheros de paquete, no como código: juego_principal/activos.toml, ie1/activos.toml, ie1/media/cinematicas.toml, ie1/datos/pcs_conocidos.toml, rangos de eventos protegidos (DONT_TOUCH 81000040, apertura 90000000..92010249) y prefijos romfs (inazuma1/, inazuma2/, inazuma3/, inazuma3_ogre/, menu/, movie/, font/, message/, patchscript/).\n\n4) Rutas rancias convertidas en ajustes con nombre y error claro: work/probe_ie1_v14_inputs/extra_ascii, que no existe y citan 29 scripts, pasa a `bloqueo.fuentes`. Por defecto, bloqueo.validar extrae las 5 fuentes aprobadas de la candidata base a un temporal. Los logos de C:/Users/luish/Downloads pasan a `recursos_usuario.dir`, las bases fijadas probe_ie1_vNN a `candidata('anterior')` y work/romfs y work/exefs.bin a `base_3ds()`.\n\n5) Lo que la configuración NO puede tocar: los hashes del bloqueo v20 (viven en tools/dialogue_lock.py), la política SSZL de capas ya aprobadas, el encoder de diálogo y el layout 0x16. No existe clave para desactivar validadores.\n\n6) Raíz: find_root busca IE123_ROOT o sube hasta encontrar AGENTS.md junto a tools/pyproject.toml. Los shims de tools/ conservan parents[1] porque siguen en tools/.",
+  "compatibility": "GARANTÍAS, verificadas con los gates:\n\n(a) Shims generados. `python -m ie123kit.nucleo.compat.shims generar` escribe tools/<nombre>.py. Contenido:\n- Sin paquete instalado: `sys.path.insert(0, <tools>/src)` si falta.\n- `import importlib, sys; sys.modules[__name__] = importlib.import_module('ie123kit.…')`.\n- Si es CLI: `if __name__ == '__main__': sys.modules[__name__].main()` con el mismo argv.\n\nConsecuencias:\n- Como el shim es un alias del módulo real, la mutación de globales (lz10.MAX_CAND, build_glossary.REPO/DS/ES/OUT, validate.REPO) actúa sobre el objeto que usa el código.\n- Los módulos divididos o fusionados apuntan a una fachada ie123kit/_legado/<nombre>.py que conserva nombres públicos y privados (pkb_unpack._decode_string, FaArchive._name, reinsert.BOX_W/_advance/es_encode) y su main().\n- No se emiten avisos por stdout/stderr salvo con IE123_AVISOS=1, para no alterar informes ni bytes.\n- El código trasladado se copia literalmente (git mv y cambio de líneas de importación). Las refactorizaciones van en commits posteriores y solo tras pasar los gates.\n\n(b) Ficheros bloqueados físicamente intactos: tools/dialogue_typography.py, tools/font_patch.py, tools/dialogue_lock.py y tools/build_ie1_probe.py.\n- .gitattributes pone `-text` en esos 4 y en build_ui_revision.py.\n- Hallazgo: font_patch.py tiene hoy EOL mixto. Su hash aprobado 04cf7ff5… solo coincide con el árbol de trabajo actual, no con el blob de HEAD (91519b5d…) ni con un clon CRLF (b9ec8032…). Hay que fijar esos bytes exactos en git (commit con -text) para que un clon limpio o la CI no rompan validate(). No cambia ningún byte ni hash, pero afecta a ficheros bloqueados, así que requiere confirmación explícita del propietario.\n- ruff/black los excluyen.\n- tools/tests/compat/test_bloqueo_bytes.py compara sha256 contra la línea base y ejecuta validate() con fuentes extraídas de probe_ie1_v67.\n\n(c) Ficheros consumidos como texto o por ruta, congelados:\n- tools/build_ui_revision.py (exec en v55; un test comprueba los literales eve.pkh/.pkb).\n- work/ie1/capas/v37/graficos_nds/apply.py (14 capas lo cargan con importlib y mutan BASE/PLAN/HERE).\n- v33/eve_labels/common.py (chdir al importar).\n- v51/voces/apply.py (lee argv al importar).\n\nLa lista blanca de limpieza.py los protege. ie1/graficos/nds_piezas.py solo los envuelve.\n\n(d) Nombres que colisionan en sys.path (validate, apply, common, prepare, check, lib): tools/validate.py se mantiene durante la fase 1 para que el orden de resolución no cambie.\n\n(e) Rutas y cwd: las 48 capas dependientes de cwd siguen funcionando porque la invocación documentada es desde la raíz. gs_common.py de v33/gamestring (parents[2]) ya está roto: se registra en la línea base como fallo previo y se abre issue, sin arreglarlo en silencio.\n\n(f) Bytes de salida: no se cambian políticas por defecto (SSZL raw/keep/literal, fuente arialbd, truncado de es_encode, tabla DS_TABLE frente a NDS_DEC).\n\n(g) Retirada de shims: módulo a módulo, y solo cuando el comprobador AST y un smoke de importación real muestren cero importadores en work/ y el propietario lo apruebe. Los 5 ficheros congelados y el shim de bcfnt nunca se retiran.\n\n(h) Capas antiguas: nunca se reescriben dentro de la migración. `ie123 <objetivo> capas aplicar` las ejecuta en subproceso con cwd=raíz.",
+  "packaging_and_release": "- tools/pyproject.toml usa setuptools con src layout: requires-python >= 3.12, dependencias Pillow, numpy y capstone, extra [dev] con pytest y ruff (ruff excluye los ficheros bloqueados y _archivo/). Se instala en desarrollo con `pip install -e tools[dev]`. Sin instalar, los shims añaden src/ a sys.path, de modo que un clon nuevo y las capas existentes no necesitan pip.\n- Script de consola: `ie123`. Versión del kit independiente del parche (ie123kit 0.x, tag `toolkit-v0.N`). `API_VERSION` semántica del servicio, que la GUI comprueba al abrir el proyecto.\n- No se publica en PyPI. A los jugadores solo se distribuye el .xdelta con DeltaPatcher mediante el workflow existente .github/workflows/release.yml, que no cambia (Norma 2).\n- CI nueva, .github/workflows/toolkit.yml, en windows-latest y ubuntu-latest:\n  - checkout (gracias a `-text` los bytes bloqueados coinciden en ambos SO)\n  - `pip install -e tools[dev]`\n  - `python -m pytest tools/tests -m \"not requiere_rom\"` (unidad, arquitectura, contrato, compat sin ROM, esquemas JSON)\n  - sha256 de los 4 ficheros bloqueados\n  - guardia `git ls-files`, que falla si se rastrean Roms/, work/, .3ds/.cia/.nds/.fa/.arc/.lzs/.STR/.dat/.pkb/.pkh/.bcfnt/.NFTR/.moflex/.mods/.SAD o PNG de más de 256 KB fuera de logos/ autorizados\n- Los gates con ROM (regeneración golden y hash de candidata) se ejecutan en local con `ie123 compat comprobar --golden` antes de cada merge de fase. Su resultado se anota en el issue.\n- Paso previo obligatorio: commitear limpiar_work.py (hoy sin rastrear) y decidir los 40 ficheros de tools/ con cambios sin commitear. La línea base golden debe reflejar código commiteado.\n- Documentación:\n  - tools/README.md: inicio rápido y tabla de equivalencias.\n  - docs/toolkit/GUIA_NOVATO.md: de la ROM a la candidata en 5 órdenes.\n  - docs/toolkit/OBJETIVOS.md: capacidades por objetivo.\n  - tools/_archivo/README.md: por qué se retiró cada script, con enlaces a FURIGANA_LECCIONES e issues.\n  - Actualización de docs/ARQUITECTURA.md (juego_principal, tools/src) y de las órdenes de CLAUDE.md/AGENTS.md, sin tocar el bloqueo tipográfico.",
+  "tests_plan": "Cinco niveles. Ningún fixture contiene datos extraídos (Norma 2): son sintéticos y se generan en el propio test.\n\n1) UNIDAD (tools/tests/unidad, CI):\n- Se trasladan los 6 tests activos: bloqueo, ancho completo, layout v20, ssd, formatos UI, pac_sprite y lz10.\n- Hoy: 27 tests, OK con 1 skip. Tras archivar test_compact_typography y test_validate_inputs se fija el nuevo recuento esperado en el issue.\n- Round-trip decode(encode(x)) == x para lz10 (incluido compress_optimal mínimo), sszl (unwrap∘compress), arcv, ctpk en todos los formatos, pac_sprite, ssd, packnum.rebuild, fa (archivo B123 sintético con 3 entradas), smdh, subtitulos_dat↔SRT y decode_fullwidth∘encode_fullwidth.\n- Las entradas malformadas lanzan FormatoError.\n- Test que fija las diferencias entre NDS_DEC y DS_TABLE (0xB5, comillas SJIS) para impedir unificarlas por accidente.\n\n2) ARQUITECTURA (CI):\n- Reglas de importación por AST: nucleo no importa juegos, un juego no importa otro, ie2.* solo su comun.\n- Sin parents[N] ni rutas de máquina en src/, sin efectos al importar (se importa cada módulo en un subproceso limpio y se comprueba que no hay escritura ni salida).\n- Los shims no contienen lógica (AST: solo alias).\n\n3) COMPAT (tools/tests/compat):\n- (a) Superficie: dir() y firmas de los 71 módulos, capturadas en la fase 1.0 en superficie_v0.json. Los módulos con efectos al importar se capturan por AST. Se exige igualdad en cada shim.\n- (b) Identidades: encode_fullwidth, layout y el objeto validate del paquete son los de tools/.\n- (c) test_bloqueo_bytes: sha256 de los 4 bloqueados y de build_ui_revision igual a la línea base, más literales eve.pkh/.pkb presentes.\n- (d) Comprobador de importaciones de work/ (ie123kit.nucleo.compat.importaciones, stdlib pura, ejecutable antes de existir el paquete):\n  - Recorre work/**/*.py y extrae por AST los `import X` y `from X import …` absolutos.\n  - Resuelve cada nombre con importlib.util.find_spec usando sys.path = [carpeta del script, carpetas hermanas insertadas por el propio script cuando son literales, tools/].\n  - Resuelve `importlib.util.spec_from_file_location` con rutas literales.\n  - Verifica que los nombres importados desde un módulo de tools (`from fa_unpack import FaArchive`) existen en su superficie.\n  - Salida: conjunto de no resueltos, que debe ser ⊆ baseline_importaciones.json.\n- (e) Smoke de importación real, solo local: importa en subproceso con cwd=raíz cada módulo de tools/ que usan las capas.\n\n4) CONTRATO (fase 2, CI):\n- Suite parametrizada sobre los 8 objetivos: implementan JuegoBase; activos.toml valida contra su esquema; toda capacidad declarada es invocable y las no declaradas devuelven NOT_SUPPORTED.\n- Resultados serializables (json.dumps(to_json())) y conformes a su JSON Schema.\n- Progreso monótono, cancelación respetada, `importar(simular=True)` no escribe nada (hash del árbol antes y después).\n- Incidencias en lugar de excepciones para PNG de tamaño erróneo, texto que excede px/bytes, glifo no soportado y %NF huérfano.\n- Flujo GUI sin cabeza sobre un proyecto sintético: abrir, listar, exportar PNG, modificar un píxel dentro del rect QNA, importar con simulación, importar, construir, verificar. Solo cambia esa entrada y el bloqueo pasa.\n\n5) GOLDEN, local con ROM (@requiere_rom, tools/tests/requiere_rom):\n- (a) Regenerar work/ie1/capas/v67/titulo_logo/apply.py, cuya base probe_ie1_v66 existe hoy. Antes se hace copia de seguridad de su extra/ en el temporal del sistema y después se compara sha256 de cada fichero de extra/ con capas_v67.sha256. Si hay diferencia se restaura y el gate falla.\n- (b) Reconstruir la candidata: `python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v66/archive.fa --ui work/ie1/capas/v67/titulo_logo --output <TEMP>/ie123_regen/probe_ie1_v67/archive.fa`. El sha256 debe ser 72ef7133924e981e4736e240368f716140ca35f62a5c131d7f01c1ead9cffa91 (archive_sha256 de probe_ie1_v67/archive.build.json) y la CRO resultante debe coincidir con probe_ie1_v67/romfs/cro/ina_main1.cro. En fase 2 se exige lo mismo con `ie123 construir`.\n- (c) `ie123 verificar` devuelve el mismo informe que verify_candidate.py (sin campos de tiempo ni rutas absolutas).\n- (d) bloqueo.validar sobre probe_ie1_v67.\n- (e) Round-trips de exportar e importar sin cambios sobre menu/title.arc e inazuma1/data_iz/a_title/title_t.arc: las entradas quedan idénticas.\n\n6) EMULADOR: manual y obligatorio según docs/PROTOCOLO_QA_IE1.md para cualquier fase que cambie código de construcción o instalación. Se prueba hasta la primera pachanga hablando con varios NPC, y el proceso se detiene en el primer fallo. Ningún test automático marca runtime_verified=true.",
+  "migration_phases": [
+   {
+    "title": "F1.0: Línea base, protección de bytes y registro de trabajo (no se mueve código)",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Abrir en GitHub la épica «Toolkit ie123kit» y un issue por subfase F1.0-F2.5, añadidos al Project board (Norma 1). Sin autenticación de gh, redactarlos en docs/ISSUES_PENDIENTES.md.",
+     "Resolver el árbol sucio: commitear tools/limpiar_work.py (hoy sin rastrear) y decidir con el propietario los 40 ficheros de tools/ con cambios sin commitear, para que la línea base refleje código versionado.",
+     "Con la confirmación explícita del propietario (afecta a ficheros bloqueados, aunque no cambia bytes): crear .gitattributes con `-text` para dialogue_typography.py, font_patch.py, dialogue_lock.py, build_ie1_probe.py y build_ui_revision.py. Commitear sus bytes actuales exactos y comprobar que el sha256 de font_patch.py sigue siendo 04cf7ff5… y el de dialogue_typography.py 8e983419….",
+     "Crear tools/tests/compat/ con scripts stdlib: importaciones.py (comprobador AST de work/), superficie.py (dir y firmas de los 71 módulos; por AST los que tienen efectos al importar) y golden.py (capturar y comprobar).",
+     "Capturar baseline_importaciones.json con los fallos previos, incluido v33/gamestring (parents[2]), y abrir un issue por ese fallo. Capturar también superficie_v0.json y golden/: sha de los 5 ficheros congelados, capas_v67.sha256 (extra/ de v67/titulo_logo) y candidatas.sha256 (archive.fa y CRO de probe_ie1_v66 y v67). Solo hashes.",
+     "Proteger las candidatas golden: marcador .conservar en probe_ie1_v66 y v67, que limpiar_work respeta (cambio mínimo y aditivo en limpiar_work.py), y no ejecutar `--borrar` sobre ellas hasta cerrar la fase 2."
+    ],
+    "verification_gate": "Se ejecuta en local desde la raíz y todas las órdenes deben devolver 0:\n(1) `python -m unittest discover -s tools -p \"test_*.py\"` devuelve «Ran 27 tests … OK (skipped=1)».\n(2) `python tools/tests/compat/importaciones.py --work work --baseline tools/tests/compat/baseline_importaciones.json` termina con 0 no resueltos nuevos.\n(3) `python tools/tests/compat/golden.py comprobar --capa work/ie1/capas/v67/titulo_logo` regenera extra/ byte a byte.\n(4) `python tools/build_ui_revision.py --base work/shared/candidatas/probe_ie1_v66/archive.fa --ui work/ie1/capas/v67/titulo_logo --output %TEMP%/ie123_regen/probe_ie1_v67/archive.fa` produce archive sha256 72ef7133924e981e4736e240368f716140ca35f62a5c131d7f01c1ead9cffa91 y la CRO coincide con probe_ie1_v67.\n(5) Tras `git worktree add %TEMP%/ie123_clon HEAD`, el sha256 de tools/font_patch.py y tools/dialogue_typography.py en el clon coincide con SOURCE_HASHES, lo que prueba que el bloqueo se reproduce desde git."
+   },
+   {
+    "title": "F1.1: Esqueleto del paquete y reglas de arquitectura",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Crear tools/pyproject.toml y tools/src/ie123kit/ con nucleo/, juego_principal/, ie1/, ie2/{comun,tormenta_de_fuego,ventisca_eterna}/, ie3/{comun,rayo_celeste,fuego_explosivo,amenaza_del_ogro}/ y _legado/, solo con __init__.py sin efectos.",
+     "Implementar nucleo/config/raiz.py (find_root por IE123_ROOT o AGENTS.md + tools/pyproject.toml) y nucleo/errores.py.",
+     "Mover los comprobadores de F1.0 a ie123kit/nucleo/compat/, dejando en tools/tests/compat envoltorios que los llaman, y añadir el generador shims.py sin aplicarlo aún.",
+     "Añadir tools/tests/arquitectura/test_importaciones.py (reglas nucleo↛juegos, juego↛juego, ie2.*→solo ie2.comun, sin parents[N], sin rutas de máquina) y la exclusión de ruff para los ficheros bloqueados."
+    ],
+    "verification_gate": "(1) `pip install -e tools[dev]` y después `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde, con los tests de tools/ intactos.\n(2) `python -m unittest discover -s tools -p \"test_*.py\"` sigue devolviendo 27 OK (1 skip).\n(3) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline tools/tests/compat/baseline_importaciones.json` devuelve 0.\n(4) `python -m ie123kit.nucleo.compat.golden comprobar --capa work/ie1/capas/v67/titulo_logo --candidata probe_ie1_v67` devuelve 0, lo que exige extra/ idéntico y archive sha 72ef7133…fa91.\n(5) El sha de los 5 ficheros congelados es igual a golden/."
+   },
+   {
+    "title": "F1.2: Archivar los 27 scripts retirados",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Con el comprobador AST, confirmar cero importadores en tools/ y work/ para cada uno: pkb_scan, reinsert_test, recompress_test, build_translation, str_align, nds_str_dump, tr_prepare, tr_merge, align_events, audit_ie1_voiced_text, patch_code, patch_cro, verify_build, verify_v21, fix_ie1_title_logo, compact_typography, build_match_content_patch, build_mch_patch, build_3ds, build_3ds_var, build_fontui, ui_insert, probe_ie1_spacing, build_ie1_movies, reorganizar_proyecto, test_compact_typography y test_validate_inputs.",
+     "Moverlos con `git mv` a tools/_archivo/ (tests en tools/_archivo/tests/), sin __init__.py, y escribir tools/_archivo/README.md con el motivo de cada uno y enlaces a FURIGANA_LECCIONES y a los issues #9, #16 y #36.",
+     "Actualizar las referencias en docs/DESARROLLO.md, docs/FORMATOS.md, tools/README.md y docs/SKILL_VOLCADO_ROM_NDS.md hacia el README de _archivo o hacia la herramienta que los sustituye. No se crean stubs en tools/.",
+     "Si un script archivado aparece importado en el smoke real (no solo en AST), revertir su traslado y pasarlo a la lista de _legado de F1.4."
+    ],
+    "verification_gate": "(1) `python -m unittest discover -s tools -p \"test_*.py\"` en verde con el recuento nuevo anotado en el issue (27 menos los tests de los 2 ficheros archivados) y `python -m pytest tools/tests -m \"not requiere_rom\"` en verde.\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(3) `python -m ie123kit.nucleo.compat.golden comprobar --capa work/ie1/capas/v67/titulo_logo --candidata probe_ie1_v67` devuelve 0 (extra/ idéntico y archive sha 72ef7133…fa91).\n(4) `git ls-files tools/_archivo` lista los 27 y `python -c \"import sys; sys.path.insert(0,'tools'); import pkb_scan\"` falla con ModuleNotFoundError."
+   },
+   {
+    "title": "F1.3: Traslado 1:1 de los módulos de motor a nucleo con shims de alias",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Un commit por módulo, en este orden: lz10, blz, sszl (absorbe unwrap), ui_archive→contenedores/arcv, nds_unpack→nds_rom, qna_regions→qna, legacy_sprite→pac_sprite, nftr_metrics→nftr, bcfnt, ctpk_ui→ctpk, ssd_records→eventos/ssd, fa_unpack (y fa_repack fusionado)→contenedores/fa, patch_smdh_title→ejecutable/smdh, harvest_log→construir/registro_azahar y limpiar_work→construir/limpieza.",
+     "Cada traslado es literal. Solo se cambian las líneas de importación y `sys.path.insert(0,'tools')` pasa a importaciones del paquete. Se sustituye parents[1] por find_root en fa_repack, mods_to_moflex y limpiar_work.",
+     "Generar el shim de cada módulo con `python -m ie123kit.nucleo.compat.shims generar <nombre>`. Para ui_archive y fa_repack se genera una fachada en _legado/ que re-exporta la unión de nombres.",
+     "Tras cada commit, ejecutar el gate completo. Si falla, revertir ese módulo antes de pasar al siguiente."
+    ],
+    "verification_gate": "Por cada módulo y al final de la subfase:\n(1) `python -m pytest tools/tests -m \"not requiere_rom\"` más `python -m unittest discover -s tools -p \"test_*.py\"` en verde.\n(2) `python -m ie123kit.nucleo.compat.superficie comparar tools/tests/compat/superficie_v0.json` sin diferencias en los módulos trasladados.\n(3) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(4) `python -m ie123kit.nucleo.compat.golden comprobar --capa work/ie1/capas/v67/titulo_logo --candidata probe_ie1_v67` devuelve 0. La capa v67 importa fa_unpack, ui_archive, ctpk_ui y sszl, así que ejercita los shims, y se exige archive sha 72ef7133…fa91.\n(5) `python -m ie123kit.nucleo.validar.bloqueo --candidata work/shared/candidatas/probe_ie1_v67/archive.fa` devuelve 0 (fuentes extraídas a temporal, SOURCE_HASHES y LAYOUT_HASH intactos)."
+   },
+   {
+    "title": "F1.4: Divisiones, fachadas de legado y reparto por juego",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Crear las fachadas _legado para los módulos divididos que siguen importados (pkb_unpack, build_glossary, ds_official, reinsert, translate_ui_textures, mods_to_moflex y audit_dialogo_ids) con sus globales, nombres privados y main(). Mover su lógica a nucleo/eventos/packnum, texto/nds_latin (DS_TABLE y NDS_DEC separadas), texto/sjis_portador, graficos/pintado, media/moflex, media/subtitulos_dat y eventos/alineado_ids.",
+     "Poner en cuarentena en _legado, con shim, ds_roster, reinsert_var, ssd_reinsert y validate. Sus CLI se niegan a ejecutarse sin --legado-lo-se, y quedan excluidos del futuro registro de activos.",
+     "Dividir verify_candidate (nucleo/validar/candidata + ie1/verificar), ie1_tables (registros/tabla_fija + ie1/texto/tablas), ie1_media (media/audio + ie1/media/voces), validate_ie1_media (ie1/verificar) y patch_exefs (contenedores/exefs + archivo de la ruta code.bin). Trasladar ie1_keyboard a ie1/graficos/teclado.",
+     "Crear nucleo/texto/ancho_completo.py, tipografia_v20.py y fuentes/glifos.py como re-exports perezosos de los ficheros bloqueados, y nucleo/validar/bloqueo.py sobre dialogue_lock.validate. Crear nucleo/construir/candidata.py a partir de build_ui_revision, dejando el fichero congelado en tools/.",
+     "Escribir juego_principal/activos.toml, ie1/activos.toml y los activos.toml de ie2 e ie3 (solo prefijos: inazuma2/, inazuma3/, inazuma3_ogre/, CRO ina_main2/ina_main3ogre, capacidades vacías). Son solo rutas y datos cortos."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\"` en verde, incluidos los tests de identidad (tipografia_v20.layout is build_ie1_probe.layout, ancho_completo.encode_fullwidth is dialogue_typography.encode_fullwidth) y el test de diferencias NDS_DEC/DS_TABLE.\n(2) `python -m ie123kit.nucleo.compat.superficie comparar …` sin diferencias en los 71 nombres que siguen con shim o fachada.\n(3) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(4) `python -m ie123kit.nucleo.compat.golden comprobar --capa work/ie1/capas/v67/titulo_logo --candidata probe_ie1_v67` devuelve 0 (archive sha 72ef7133…fa91).\n(5) `python tools/verify_candidate.py --base work/shared/candidatas/probe_ie1_v66 --candidate work/shared/candidatas/probe_ie1_v67 --layer work/ie1/capas/v67/titulo_logo` produce un informe igual al capturado en F1.0, sin campos de tiempo.\n(6) Test de arquitectura en verde: ie1 no importa ie2 ni ie3, y nucleo no importa juegos."
+   },
+   {
+    "title": "F1.5: Tests trasladados, documentación y cierre de la fase 1",
+    "owner_phase": "fase1_segmentacion",
+    "steps": [
+     "Mover los 6 tests activos a tools/tests/unidad (test_legacy_sprite se divide en pac_sprite y lz10). Las expectativas no cambian.",
+     "Regenerar todos los shims desde el generador y comprobar por AST que no contienen lógica. Confirmar que tools/ solo tiene los 5 congelados, 29 shims, 6 .ps1, bin/, _archivo/, src/, tests/, pyproject.toml y README.md.",
+     "Actualizar tools/README.md (mapa antiguo→nuevo), docs/ARQUITECTURA.md (tools/src, _archivo, reglas de importación) y las referencias de CLAUDE.md/AGENTS.md a rutas de herramientas, sin tocar el texto del bloqueo tipográfico.",
+     "Añadir .github/workflows/toolkit.yml (tests sin ROM, sha de bloqueados, guardia git ls-files) y cerrar los issues de la fase 1."
+    ],
+    "verification_gate": "GATE DE FASE 1, todo desde la raíz:\n(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde en local y en toolkit.yml (windows-latest y ubuntu-latest).\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline tools/tests/compat/baseline_importaciones.json` devuelve 0, es decir, cada import de los 186 scripts de work/ resuelve igual que en la línea base.\n(3) `python -m pytest tools/tests/requiere_rom -q` regenera work/ie1/capas/v67/titulo_logo con extra/ byte a byte igual a capas_v67.sha256.\n(4) La reconstrucción con build_ui_revision (shim y paquete) desde probe_ie1_v66 reproduce archive sha256 72ef7133924e981e4736e240368f716140ca35f62a5c131d7f01c1ead9cffa91 y la CRO de probe_ie1_v67.\n(5) Clon limpio con `git worktree add`: sha de los 4 bloqueados igual a SOURCE_HASHES y test_dialogue_lock en verde dentro del clon."
+   },
+   {
+    "title": "F2.1: Contrato, tipos, proyecto y servicio sin cabeza",
+    "owner_phase": "fase2_preparacion_gui",
+    "steps": [
+     "Implementar nucleo/tipos.py (AssetRef, Resultado, Incidencia, Progreso, CancelToken con to_json) y nucleo/juego.py (JuegoBase con delegación por tipo de activo en nucleo).",
+     "Implementar servicio/proyecto.py (Workspace, ie123.toml, ie123.local.toml, Workspace.dirs, manifiestos de candidata), servicio/registro_activos.py (activos.toml + escaneo perezoso + work/<objetivo>/registro.json), servicio/trabajos.py (hilos, eventos JSONL, cancelación), servicio/api.py y servicio/esquemas/*.schema.json.",
+     "Crear un JuegoFalso sobre un archive.fa sintético en tools/tests/contrato para validar el servicio sin ROM.",
+     "Añadir ie123.toml (en git) y ie123.local.toml a .gitignore."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde, incluida la suite de contrato: json.dumps de todo Resultado conforme a su esquema, progreso monótono, cancelación y `importar(simular=True)` sin escrituras (hash del árbol antes y después).\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(3) `python -m ie123kit.nucleo.compat.golden comprobar --capa work/ie1/capas/v67/titulo_logo --candidata probe_ie1_v67` devuelve 0 (archive sha 72ef7133…fa91).\n(4) Test de arquitectura: servicio no es importado por nucleo ni por los juegos."
+   },
+   {
+    "title": "F2.2: Primitivas consolidadas desde los patrones de capas",
+    "owner_phase": "fase2_preparacion_gui",
+    "steps": [
+     "Añadir, sin alterar el contrato congelado: FaArchive.read/index/glob/exists; texturas.iter_ctpk/find_texture/apply_plan/validate_plan con rewrap explícito ('raw' por defecto, como V37); ayudas de imagen; qna.QnaLayout; cro.Cro/CroPatcher (solo literales y reubicaciones declaradas); registros.RecordTable y rangos; eventos.instrucciones.EventPack; y packnum.rebuild parametrizado para eve y mch (sustituye el hack exec solo para capas NUEVAS).",
+     "Generalizar construir/candidata.py a todas las CRO (ina_menu, ina_main1, ina_main2, ina_main3ogre) y a aportaciones por objetivo. Añadir construir/instalar.py (Azahar: se niega si azahar.exe corre, rehash por fichero, installation.json), rom.py (3dstool con RomFS temporal), parche.py (xdelta3) y capas.py (Capa(__file__), capa.toml).",
+     "Test de equivalencia: ejecutar el PLAN de la capa v67 con texturas.apply_plan hacia un directorio temporal y compararlo con su extra/."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde, con round-trips de las primitivas nuevas sobre datos sintéticos.\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(3) `python -m pytest tools/tests/requiere_rom -q`: la regeneración de v67 da extra/ idéntico, el apply_plan equivalente produce los mismos bytes, y `python -m ie123kit.cli construir --base probe_ie1_v66 --capas work/ie1/capas/v67/titulo_logo --salida %TEMP%/ie123_regen2/probe_ie1_v67` da archive sha256 72ef7133…fa91 y la CRO idéntica.\n(4) Con la misma ROM base y ROM parcheada, `ie123 parche` genera un .xdelta byte a byte igual al de tools/build_patch.ps1 (misma versión y flags de xdelta3)."
+   },
+   {
+    "title": "F2.3: Paquetes de juego completos, juego_principal y work/juego_principal",
+    "owner_phase": "fase2_preparacion_gui",
+    "steps": [
+     "ie1/acciones.py: gráficos (PNG + .qna.json), textos (TSV/PO por evento, mch, tablas y literales de ina_main1.cro, con layout v20, bloqueo y reglas %NF, \\f, 0x301D arg 1, +16/NUL de unitbase y rangos protegidos), cinemáticas (MOFLEX↔MP4+SRT, layout 0x16, mobipeg x86), voces (SAD→WAV; importar .SAD validado; WAV→SADL NOT_SUPPORTED) y aportaciones desde capas.",
+     "juego_principal/acciones.py sobre menu/title.arc, common.arc, content.arc, result.arc, sd.arc, extra.arc y data_replace/**, movie/OP.moflex y logo_l5.moflex, cro/ina_menu.cro (literales), message/jp/GameString, SMDH/banner/icon (ExeFS experimental) y font/*.bcfnt como solo lectura bloqueada.",
+     "ie2.* e ie3.*: InfoObjetivo con prefijos y capacidades vacías (NOT_SUPPORTED) hasta que exista su extracción. ie2/comun e ie3/comun con las reglas compartidas.",
+     "`ie123 proyecto init` crea work/juego_principal/{capas,qa,exportaciones} y translation/juego_principal/. `ie123 proyecto migrar-juego-principal --simular` escribe historico.json con las capas de work/ie1/capas que tocan el menú, sin moverlas. limpieza.py y docs/ARQUITECTURA.md incorporan juego_principal (quinto ámbito junto a shared, ie1, ie2 e ie3)."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde: contrato parametrizado sobre los 8 objetivos y esquemas de activos.toml válidos.\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(3) `python -m pytest tools/tests/requiere_rom -q`: `ie123 juego_principal activos --json` incluye menu/title.arc, menu/common.arc, menu/data_replace, movie/OP.moflex, movie/logo_l5.moflex, cro/ina_menu.cro y SMDH; exportar e importar sin cambios cada textura de menu/title.arc e inazuma1/data_iz/a_title/title_t.arc deja las entradas byte a byte idénticas; exportar e importar textos sin cambios en ie1 produce 0 eventos preparados; la regeneración de v67 es idéntica.\n(4) `ie123 construir --base probe_ie1_v66 --capas work/ie1/capas/v67/titulo_logo --salida %TEMP%/…` reproduce archive sha 72ef7133…fa91.\n(5) Existe work/juego_principal/ y `ie123 work limpiar` (sin --borrar) no lista nada de base_3ds, fuentes, ficheros congelados ni candidatas con .conservar."
+   },
+   {
+    "title": "F2.4: CLI `ie123`, scripts finos y retirada de shims de CLI",
+    "owner_phase": "fase2_preparacion_gui",
+    "steps": [
+     "Implementar cli/main.py como adaptador 1:1 del servicio (--json, códigos de salida 0-5), `ie123 doctor` y `ie123 compat comprobar [--golden]`, que ejecuta los cuatro gates.",
+     "Convertir build_patch.ps1, extract_romfs.ps1, extract_nds.ps1 y jugar.ps1 en envoltorios de una orden, corrigiendo las rutas obsoletas de jugar.ps1.",
+     "Actualizar la documentación (CLAUDE.md: `ie123 work limpiar --borrar`; SKILL_VOLCADO_ROM_NDS.md, tools/README.md y GUIA_NOVATO.md). Después retirar los shims que solo servían para CLI (verify_candidate, nds_unpack, blz, harvest_log y limpiar_work), siempre que el comprobador AST confirme que ninguna capa los importa y el propietario lo apruebe.",
+     "Construir una candidata completa con `ie123 construir` e instalarla con `ie123 instalar` para la QA en emulador."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde, incluida la validación de toda salida `--json` contra los esquemas.\n(2) `ie123 compat comprobar --golden` devuelve 0. Internamente ejecuta el comprobador de importaciones (0 nuevos no resueltos), la regeneración de v67 (idéntica), la reconstrucción de probe_ie1_v67 (sha 72ef7133…fa91) y bloqueo.validar.\n(3) `ie123 doctor` devuelve 0 en la máquina del propietario.\n(4) QA manual según docs/PROTOCOLO_QA_IE1.md con la candidata instalada por `ie123 instalar`, hasta la primera pachanga hablando con varios NPC y sin fallos gráficos en cajas de diálogo. Resultado anotado en el issue; runtime_verified solo lo pone la persona."
+   },
+   {
+    "title": "F2.5: Preparación final para la GUI",
+    "owner_phase": "fase2_preparacion_gui",
+    "steps": [
+     "Congelar API_VERSION 1.0 y publicar servicio/esquemas/*.schema.json con ejemplos. Documentar en docs/toolkit/API_SERVICIO.md el ciclo abrir → listar → exportar → editar → importar(simular) → importar → construir → verificar → instalar.",
+     "Implementar las capas GUI (work/<objetivo>/capas/vNN/gui_<fecha>/capa.toml) y su aplicación dentro de `construir`.",
+     "Añadir un cliente sin cabeza de referencia (tools/tests/contrato/test_flujo_gui.py) que recorre el ciclo completo sobre un proyecto sintético y, marcado requiere_rom, sobre la base real.",
+     "Cerrar la épica y los issues, actualizar docs/PROGRESO.md y abrir el issue de la GUI con la tecnología elegida por el propietario."
+    ],
+    "verification_gate": "(1) `python -m pytest tools/tests -m \"not requiere_rom\" -q` en verde en toolkit.yml, incluido test_flujo_gui sintético: solo cambia la entrada editada, el bloqueo pasa y todos los eventos serializan según esquema.\n(2) `python -m ie123kit.nucleo.compat.importaciones --work work --baseline …` devuelve 0.\n(3) `python -m pytest tools/tests/requiere_rom -q`: el flujo GUI real sobre inazuma1/data_iz/a_title/title_t.arc genera una capa gui_* y una candidata cuya única entrada distinta de la base es esa. La regeneración de v67 es idéntica, y la reconstrucción de probe_ie1_v67 sigue dando sha 72ef7133…fa91."
+   }
+  ],
+  "open_questions_for_owner": [
+   "Nombre del paquete y de la orden. Propuesta por defecto: paquete `ie123kit` (coincide con el catálogo de auditoría) y orden `ie123`. Alternativa: `inazuma` para ambos, más fácil de recordar pero genérico.",
+   "Ubicación del código. Por defecto, `tools/src/ie123kit` con `tools/pyproject.toml`, que respeta la Norma 3 («herramientas en tools/»). ¿Prefieres `src/` y `pyproject.toml` en la raíz? Exigiría modificar la Norma 3 de CLAUDE.md.",
+   "Fijar en git los bytes exactos de los ficheros bloqueados con `-text` en .gitattributes. Hoy `tools/font_patch.py` solo coincide con su hash aprobado en tu árbol de trabajo (EOL mixto), y un clon limpio rompería dialogue_lock.validate(). Por defecto: sí, sin cambiar ni un byte ni un hash. Toca ficheros del bloqueo tipográfico, así que necesito tu autorización explícita.",
+   "Alcance del bloqueo v20 fuera de IE1. Las fuentes font/*.bcfnt están en la raíz de archive.fa y las comparten el menú, IE2 e IE3. Por defecto: el bloqueo y el perfil `tipografia_v20` se aplican a toda la recopilación, y cualquier perfil distinto para IE2/IE3 requerirá una petición tipográfica tuya expresa.",
+   "Cambios sin commitear. Hay 40 ficheros de tools/ modificados y `tools/limpiar_work.py` sin rastrear. Por defecto se commitean tal cual antes de la línea base F1.0. ¿Hay alguno que deba descartarse?",
+   "Qué se archiva. Por defecto, los 27 de tools/_archivo más 4 en cuarentena importable (ds_roster, reinsert_var, ssd_reinsert, validate) y fachadas de legado para ds_official y reinsert. ¿Prefieres borrar del árbol los obsolete_dangerous (quedarían en el historial de git) en lugar de archivarlos?",
+   "Idioma de la CLI. Por defecto, verbos y mensajes en español (`exportar`, `importar`, `construir`) con alias en inglés (`export`, `import`, `build`) para contribuidores de fuera. ¿Solo español?",
+   "Formato de edición de textos. Por defecto, TSV UTF-8 (id, jp, es_oficial, traduccion, max_px, max_bytes, estado), editable en hojas de cálculo, con exportación PO opcional para Poedit/Weblate. ¿Otro formato?",
+   "Nombre de las candidatas. Hoy son `probe_ie1_vNN`, pero contienen toda la recopilación. Por defecto se mantiene el nombre durante la fase 1 y en la fase 2 se admite el alias `candidata_vNN` sin renombrar las existentes. ¿Renombrar?",
+   "Correspondencia de versiones en la RomFS. inazuma2/ agrupa Tormenta de Fuego y Ventisca Eterna, e inazuma3/ con inazuma3_ogre/ agrupa Rayo Celeste, Fuego Explosivo y La amenaza del Ogro. Por defecto, los activos comunes van en ie2.comun/ie3.comun y lo específico de cada versión se declara cuando se decodifique el discriminador. ¿Tienes ya ese mapeo?",
+   "Licencia del toolkit (el repo no tiene LICENSE). Por defecto, MIT para el código de tools/, con LEGAL.md aclarando que no cubre datos del juego ni los binarios externos de tools/bin (3dstool, xdelta3, mobipeg, vgmstream). Alternativa: GPL-3.0 para obligar a compartir derivados.",
+   "Tecnología de la GUI futura. Por defecto, PySide6 (LGPL) como aplicación de escritorio en el mismo proceso, llamando a ServicioToolkit desde un QThread, sin servidor. Alternativa: interfaz web local (FastAPI + navegador) sobre la misma API JSON.",
+   "Codificación de voces. No existe codificador WAV→SADL en el proyecto, y hoy se copian SAD europeos íntegros. Por defecto `voces importar` acepta solo .SAD validado y WAV devuelve NOT_SUPPORTED. ¿Quieres un issue para investigar un codificador?",
+   "Retirada de shims de importación. Por defecto se mantienen mientras exista cualquier capa antigua que los importe, porque no se reescriben capas; los 5 ficheros congelados y el shim de bcfnt son permanentes. ¿Aceptas retirar capas antiguas (por ejemplo, anteriores a v58) para poder eliminar shims?",
+   "Golden de migración. Solo existen probe_ie1_v66 y v67, así que el gate de regeneración solo cubre la capa v67/titulo_logo. Por defecto se marcan con `.conservar` y no se ejecuta `limpiar_work --borrar` sobre ellas hasta cerrar la fase 2. ¿Aceptas ese espacio en disco o prefieres conservar otra pareja?"
+  ],
+  "risks": [
+   "Rotura del bloqueo v20 por EOL. tools/font_patch.py tiene hoy EOL mixto y su hash aprobado no se reproduce desde git: un clon limpio, la CI o una reescritura de autocrlf hacen fallar validate() en 26 capas. Mitigación: `-text` en .gitattributes con los bytes actuales (con autorización), comprobación en un clon con worktree en F1.0 y test de sha en CI.",
+   "Modificación accidental de ficheros bloqueados por formateadores, limpiezas de importaciones o reubicación. Mitigación: ficheros físicamente congelados en tools/, exclusión de ruff/black, test de sha y re-export por identidad sin copiar código.",
+   "Identidad de módulo en shims. Si un shim copia nombres en lugar de hacer alias, las mutaciones de globales (MAX_CAND, REPO, V37.BASE/PLAN) no llegan al código real y cambian bytes en silencio. Mitigación: alias en sys.modules, fachadas _legado que conservan globales y test de superficie y de identidad.",
+   "exec() de texto en v55/pachangas. Si build_ui_revision.py deja de contener los literales eve.pkh/.pkb, str.replace no hace nada y se reconstruye el pack equivocado. Mitigación: el fichero se congela y un test comprueba esos literales.",
+   "Redirección silenciosa de la raíz. Código trasladado que conserve parents[N] resolvería ROOT=tools/src. Mitigación: find_root, test AST que prohíbe parents[ en src/ y shims que siguen en tools/.",
+   "Cambios de bytes al unificar políticas: SSZL raw/keep/literal, es_encode truncante frente a encode_fullwidth, DS_TABLE frente a NDS_DEC, o la fuente arialbd por defecto. Mitigación: funciones con nombre propio, sin cambiar valores por defecto en la ruta de shims, test de diferencias de tablas y gate golden por módulo.",
+   "Golden insuficiente: solo existen probe_ie1_v66 y v67, así que la regeneración byte a byte cubre la capa v67 (fa_unpack, ui_archive, ctpk_ui, sszl) pero no las rutas de eventos ni de CRO. Mitigación: equivalencia por funciones sobre datos sintéticos para packnum y ssd, informe de verify_candidate comparado con la línea base y QA en emulador obligatoria en F2.4.",
+   "Scripts de capa imposibles de probar en CI (git-ignored, dependen de ROM y de rutas de máquina como Downloads). Mitigación: comprobador AST ejecutable sin ROM, línea base de fallos previos y gates con ROM obligatorios en local antes de cada merge.",
+   "Colisiones de nombres en sys.path (validate, apply, common, prepare, check, lib). Retirar tools/validate.py podría cambiar la resolución de alguna capa. Mitigación: se conserva en fase 1 y solo se retira con evidencia AST más smoke real.",
+   "Reutilización de código peligroso. ds_official (#36), reinsert_var y ssd_reinsert siguen importables por compatibilidad. Mitigación: ubicación _legado, CLI que se niega sin flag explícito, exclusión del servicio y del registro, y tools/_archivo no importable para el resto.",
+   "Filtración de contenido protegido (Norma 2) a través de exportaciones, registro.json, manifiestos golden o fixtures. Mitigación: exportaciones y cachés solo bajo work/ (ignorado), golden solo con hashes, fixtures sintéticos y guardia git ls-files en el servicio y en CI.",
+   "Sobreestimar capacidades. juego_principal (ina_menu.cro, title.arc), IE2 e IE3 no están auditados como IE1, y no hay codificador WAV→SADL. Mitigación: capacidades declaradas por objetivo, NOT_SUPPORTED explícito y ExeFS marcado como experimental.",
+   "Conflictos de la candidata compartida. Varios objetivos pueden aportar la misma entrada de archive.fa (por ejemplo font/ o common.arc). Mitigación: el orden de aportaciones es declarado, un conflicto es error y overridden_by_later_overlay aparece en build.json.",
+   "La validación offline se confunde con estabilidad. Mitigación: runtime_verified siempre False en informes automáticos y QA en emulador según PROTOCOLO_QA_IE1 antes de declarar estable cualquier cambio de construcción o instalación.",
+   "Desvío de foco. La infraestructura para la GUI puede retrasar la traducción. Mitigación: la fase 1 no añade funciones nuevas, cada subfase es un issue pequeño con gate ejecutable y la fase 2 solo empieza con el gate de fase 1 en verde."
+  ]
+ },
+ "designs": [
+  {
+   "lens": "COMMUNITY/GUI-FIRST: a newcomer (and later a GUI) should get from their own ROM to a patched build in any language by learning one uniform vocabulary: `inazuma <objetivo> <accion>`, where the target is juego_principal, ie1, ie2.tormenta_de_fuego and so on. Every target exposes the same actions through one headless service (`servicio`) that returns JSON-serializable results. The CLI and the future GUI are thin clients of that service. Format code lives once in `nucleo`. Game packages only declare their assets (a registry) and their game-specific rules, and they never import each other. The 71 flat modules plus the .ps1 scripts collapse to about 35 package modules. Obsolete, dangerous and one-off scripts go to `archivo/`, which is not importable. The v20 dialogue lock and the #36 ban become validators the service always runs.",
+   "package_name": "inazuma_toolkit (import name `inazuma`; console script `inazuma`)",
+   "tree": "tools/\n  pyproject.toml                  # package inazuma_toolkit, entry point inazuma=inazuma.cli:main\n  README.md                       # quick start: ROM -> workspace -> build -> install\n  inazuma/\n    __init__.py                   # __version__, API_VERSION\n    nucleo/                       # engine only, no knowledge of any game\n      config.py                   # Paths/Workspace roots, tool discovery (ctrtool, xdelta, vgmstream, mobipeg)\n      tipos.py                    # Result, Issue, Progress, AssetRef dataclasses (JSON)\n      progreso.py                 # ProgressCallback, CancelToken\n      contenedores/ fa.py (B123 read+repack) sszl_arc.py (SSZL child table) nds_rom.py (FNT/FAT) exefs.py\n      compresion/  lz10.py blz.py sszl.py\n      texto/       fullwidth.py (dialogue_typography) nds_charset.py (NDS_DEC/dec_es) str_table.py (.STR NUL tables) wrap.py (pixel layout engine; parameters passed in, hash-locked v20 profile lives in ie1)\n      eventos/     pkb.py (PackNum pkh/pkb) ssd.py (ssd_records) alineado.py (gap-pattern ID alignment, generic part)\n      graficos/    ctpk.py qna.py atlas_paint.py (translate_ui_textures) pac_sprite.py (legacy_sprite) png_io.py\n      fuentes/     bcfnt.py (parse + glyph patch) nftr.py\n      ejecutable/  cro.py (literals/relocations) smdh.py\n      media/       moflex.py (mods->moflex, moflex<->mp4 via ffmpeg) subs_dat.py (.dat<->SRT) sadl.py (SAD<->WAV via vgmstream) swd_sed.py\n      construir/   capas.py (LayeredFS layer model, replaces apply.py boilerplate) candidata.py (base->candidate, two-candidate policy) parche.py (xdelta) azahar.py (install/mods dir, harvest log) limpieza.py (limpiar_work)\n      validar/     bloqueo_dialogo.py (dialogue_lock v20) no_contenido.py (git ls-files guard) verificar.py (generic candidate diff)\n    juegos/\n      base.py                     # abstract JuegoBase: the uniform action interface + AssetRegistry\n      registro.py                 # discovers targets: juego_principal, ie1, ie2.*, ie3.*\n      juego_principal/  __init__.py (menu/title.arc, plogo, menu/common.arc, menu/data_replace, OP.moflex, logo_l5.moflex, ina_menu.cro, SMDH/banner) assets.toml\n      ie1/  __init__.py assets.toml tipografia_v20.py (layout profile + hash) teclado.py tablas.py eventos.py (dialogue/mch writer) media.py (voice/movie manifests) verificar.py\n      ie2/  comun/ tormenta_de_fuego/ ventisca_eterna/   (each __init__.py + assets.toml; comun holds shared IE2 rules)\n      ie3/  comun/ rayo_celeste/ fuego_explosivo/ amenaza_del_ogro/\n    servicio/\n      api.py                      # ToolkitService: open_workspace, targets, list_assets, export, import_, build, verify, install, patch\n      workspace.py                # project model (inazuma.toml): ROM paths, language, per-target overrides, candidates\n      trabajos.py                 # job runner (sync/async, progress events, cancel)\n      esquemas.py                 # JSON schema of results and errors (for the GUI)\n    cli/  main.py (argparse subcommands mapping 1:1 to service calls, --json output)\n    compat/ shims.py              # generates flat alias modules for the work/ layers (see compatibility)\n  scripts/                        # PowerShell kept thin, calling the CLI\n    setup_vgmstream.ps1 setup_mobipeg.ps1 extract_romfs.ps1 extract_nds.ps1 build_patch.ps1 jugar.ps1\n  tests/ nucleo/ juegos/ servicio/ fixtures_sinteticos/\n  archivo/                        # NOT on sys.path; README per script explaining why it failed (links FURIGANA_LECCIONES)\nwork/ (git-ignored) juego_principal/{extraido,capas,candidatas}  ie1/...  ie2/<version>/...  ie3/<version>/...  shared/  exports/<target>/{graficos,textos,media,audio}",
+   "module_mapping": [
+    {
+     "old": "fa_unpack.py",
+     "new": "inazuma/nucleo/contenedores/fa.py",
+     "action": "merge",
+     "note": "B123 reader; merged with fa_repack"
+    },
+    {
+     "old": "fa_repack.py",
+     "new": "inazuma/nucleo/contenedores/fa.py",
+     "action": "merge",
+     "note": "FileEntry lookup and repack in the same module"
+    },
+    {
+     "old": "lz10.py",
+     "new": "inazuma/nucleo/compresion/lz10.py",
+     "action": "move",
+     "note": "unchanged codec"
+    },
+    {
+     "old": "blz.py",
+     "new": "inazuma/nucleo/compresion/blz.py",
+     "action": "move",
+     "note": "ExeFS code.bin"
+    },
+    {
+     "old": "sszl.py",
+     "new": "inazuma/nucleo/compresion/sszl.py",
+     "action": "merge",
+     "note": "compressor plus the unwrap from ui_archive"
+    },
+    {
+     "old": "ui_archive.py",
+     "new": "inazuma/nucleo/contenedores/sszl_arc.py",
+     "action": "split",
+     "note": "unwrap goes to compresion/sszl; child table goes to contenedores"
+    },
+    {
+     "old": "nds_unpack.py",
+     "new": "inazuma/nucleo/contenedores/nds_rom.py",
+     "action": "move",
+     "note": "source ROM extraction; used by the 'extraer' action"
+    },
+    {
+     "old": "pkb_unpack.py",
+     "new": "inazuma/nucleo/eventos/pkb.py",
+     "action": "move",
+     "note": "PackNum pkh/pkb"
+    },
+    {
+     "old": "pkb_scan.py",
+     "new": "archivo/pkb_scan.py",
+     "action": "archive",
+     "note": "WIP diagnostic superseded by ssd.py"
+    },
+    {
+     "old": "dialogue_typography.py",
+     "new": "inazuma/nucleo/texto/fullwidth.py",
+     "action": "move",
+     "note": "encode_fullwidth; locked behaviour, tests kept"
+    },
+    {
+     "old": "dialogue_lock.py",
+     "new": "inazuma/nucleo/validar/bloqueo_dialogo.py",
+     "action": "move",
+     "note": "mandatory validator in build(); cannot be disabled from the CLI/GUI"
+    },
+    {
+     "old": "ssd_records.py",
+     "new": "inazuma/nucleo/eventos/ssd.py",
+     "action": "move",
+     "note": "canonical SSD record parse/replace"
+    },
+    {
+     "old": "ssd_reinsert.py",
+     "new": "archivo/ssd_reinsert.py",
+     "action": "archive",
+     "note": "obsolete, dangerous NUL splitting (FURIGANA_LECCIONES)"
+    },
+    {
+     "old": "reinsert.py",
+     "new": "inazuma/nucleo/eventos/ssd.py + juegos/ie1/eventos.py",
+     "action": "split",
+     "note": "generic helpers go to nucleo; stage-7 legacy code goes to archivo/reinsert_stage7.py"
+    },
+    {
+     "old": "reinsert_var.py",
+     "new": "archivo/reinsert_var.py",
+     "action": "archive",
+     "note": "obsolete variable-length builder"
+    },
+    {
+     "old": "reinsert_test.py",
+     "new": "archivo/reinsert_test.py",
+     "action": "archive",
+     "note": "stage-7 proof of concept"
+    },
+    {
+     "old": "recompress_test.py",
+     "new": "archivo/recompress_test.py",
+     "action": "archive",
+     "note": "v9 diagnostic with import-time side effects"
+    },
+    {
+     "old": "ds_official.py",
+     "new": "archivo/ds_official.py",
+     "action": "archive",
+     "note": "do not use for regeneration (#36); the NDS decoder lives in nucleo/texto/nds_charset"
+    },
+    {
+     "old": "ds_roster.py",
+     "new": "inazuma/juegos/ie1/tablas.py",
+     "action": "merge",
+     "note": "speaker names as a table rule; legacy CLI removed"
+    },
+    {
+     "old": "audit_dialogo_ids.py",
+     "new": "inazuma/nucleo/eventos/alineado.py + juegos/ie1/verificar.py",
+     "action": "split",
+     "note": "generic gap alignment goes to nucleo; IE1 audit becomes verify --check ids"
+    },
+    {
+     "old": "audit_ie1_voiced_text.py",
+     "new": "inazuma/juegos/ie1/verificar.py",
+     "action": "merge",
+     "note": "becomes the voiced-text check inside verify"
+    },
+    {
+     "old": "build_glossary.py",
+     "new": "inazuma/nucleo/texto/nds_charset.py + servicio action 'glosario'",
+     "action": "split",
+     "note": "decoder goes to nucleo; generation becomes a service action"
+    },
+    {
+     "old": "build_translation.py",
+     "new": "archivo/build_translation.py",
+     "action": "archive",
+     "note": "obsolete, dangerous overwrite of translation/"
+    },
+    {
+     "old": "str_align.py",
+     "new": "inazuma/nucleo/texto/str_table.py",
+     "action": "merge",
+     "note": ".STR table read/write used by text export"
+    },
+    {
+     "old": "nds_str_dump.py",
+     "new": "archivo/nds_str_dump.py",
+     "action": "archive",
+     "note": "ASCII strings dumper; trivial"
+    },
+    {
+     "old": "tr_prepare.py",
+     "new": "inazuma/servicio/api.py (export_text --pendientes)",
+     "action": "merge",
+     "note": "dedup of pending text becomes an export option"
+    },
+    {
+     "old": "tr_merge.py",
+     "new": "inazuma/servicio/api.py (import_text)",
+     "action": "merge",
+     "note": "positional JSON merge replaced by ID-keyed import with validation"
+    },
+    {
+     "old": "align_events.py",
+     "new": "inazuma/nucleo/eventos/alineado.py",
+     "action": "merge",
+     "note": "legacy aligner folded into the generic aligner"
+    },
+    {
+     "old": "patch_code.py",
+     "new": "archivo/patch_code.py",
+     "action": "archive",
+     "note": "dangerous ARM branches; failed approach"
+    },
+    {
+     "old": "patch_cro.py",
+     "new": "archivo/patch_cro.py",
+     "action": "archive",
+     "note": "dangerous code cave"
+    },
+    {
+     "old": "patch_exefs.py",
+     "new": "inazuma/nucleo/contenedores/exefs.py",
+     "action": "move",
+     "note": "ExeFS rebuild primitive, only if still needed"
+    },
+    {
+     "old": "patch_smdh_title.py",
+     "new": "inazuma/nucleo/ejecutable/smdh.py (used by juegos/juego_principal)",
+     "action": "move",
+     "note": "banner/title is a juego_principal asset"
+    },
+    {
+     "old": "ie1_keyboard.py",
+     "new": "inazuma/juegos/ie1/teclado.py",
+     "action": "move",
+     "note": "IE1 name-entry keyboard"
+    },
+    {
+     "old": "ie1_tables.py",
+     "new": "inazuma/juegos/ie1/tablas.py",
+     "action": "move",
+     "note": "fixed-size name fields"
+    },
+    {
+     "old": "validate.py",
+     "new": "archivo/validate.py",
+     "action": "archive",
+     "note": "eve_var check for an abandoned pipeline"
+    },
+    {
+     "old": "verify_build.py",
+     "new": "archivo/verify_build.py",
+     "action": "archive",
+     "note": "SAME_SIZE eve_var check"
+    },
+    {
+     "old": "verify_candidate.py",
+     "new": "inazuma/nucleo/validar/verificar.py + juegos/ie1/verificar.py",
+     "action": "split",
+     "note": "generic candidate diff plus IE1 rules"
+    },
+    {
+     "old": "verify_v21.py",
+     "new": "archivo/verify_v21.py",
+     "action": "archive",
+     "note": "one-off assertion"
+    },
+    {
+     "old": "ctpk_ui.py",
+     "new": "inazuma/nucleo/graficos/ctpk.py",
+     "action": "move",
+     "note": "CTPK<->PNG"
+    },
+    {
+     "old": "qna_regions.py",
+     "new": "inazuma/nucleo/graficos/qna.py",
+     "action": "move",
+     "note": "rects exported as a JSON sidecar next to the PNG"
+    },
+    {
+     "old": "translate_ui_textures.py",
+     "new": "inazuma/nucleo/graficos/atlas_paint.py",
+     "action": "move",
+     "note": "paint text/image into rects; hardcoded paths removed"
+    },
+    {
+     "old": "legacy_sprite.py",
+     "new": "inazuma/nucleo/graficos/pac_sprite.py",
+     "action": "move",
+     "note": "DS PAC 4bpp sprites"
+    },
+    {
+     "old": "fix_ie1_title_logo.py",
+     "new": "archivo/fix_ie1_title_logo.py",
+     "action": "archive",
+     "note": "one-off; the result is stored as a PNG asset in the registry"
+    },
+    {
+     "old": "bcfnt.py",
+     "new": "inazuma/nucleo/fuentes/bcfnt.py",
+     "action": "merge",
+     "note": "parser plus font_patch"
+    },
+    {
+     "old": "font_patch.py",
+     "new": "inazuma/nucleo/fuentes/bcfnt.py",
+     "action": "merge",
+     "note": "same-size glyph patching"
+    },
+    {
+     "old": "nftr_metrics.py",
+     "new": "inazuma/nucleo/fuentes/nftr.py",
+     "action": "move",
+     "note": "NFTR metrics"
+    },
+    {
+     "old": "compact_typography.py",
+     "new": "archivo/compact_typography.py",
+     "action": "archive",
+     "note": "superseded by the v20 lock"
+    },
+    {
+     "old": "build_ie1_probe.py",
+     "new": "inazuma/juegos/ie1/tipografia_v20.py + nucleo/texto/wrap.py",
+     "action": "split",
+     "note": "hash-locked layout profile stays in ie1; the wrap engine goes to nucleo; probe build goes to construir/candidata"
+    },
+    {
+     "old": "build_ui_revision.py",
+     "new": "inazuma/nucleo/construir/candidata.py",
+     "action": "merge",
+     "note": "base->candidate archive.fa assembly"
+    },
+    {
+     "old": "build_match_content_patch.py",
+     "new": "inazuma/juegos/ie1/eventos.py",
+     "action": "merge",
+     "note": "mch overlays as IE1 event text assets"
+    },
+    {
+     "old": "build_mch_patch.py",
+     "new": "inazuma/juegos/ie1/eventos.py",
+     "action": "merge",
+     "note": "superseded Royal-only variant"
+    },
+    {
+     "old": "build_3ds.py",
+     "new": "archivo/build_3ds.py",
+     "action": "archive",
+     "note": "stage-8 in-place builder"
+    },
+    {
+     "old": "build_3ds_var.py",
+     "new": "archivo/build_3ds_var.py",
+     "action": "archive",
+     "note": "obsolete, dangerous"
+    },
+    {
+     "old": "build_fontui.py",
+     "new": "archivo/build_fontui.py",
+     "action": "archive",
+     "note": "v7 diagnostic with side effects"
+    },
+    {
+     "old": "ui_insert.py",
+     "new": "archivo/ui_insert.py",
+     "action": "archive",
+     "note": "in-place patcher, dangerous"
+    },
+    {
+     "old": "probe_ie1_spacing.py",
+     "new": "archivo/probe_ie1_spacing.py",
+     "action": "archive",
+     "note": "failed v18 experiment"
+    },
+    {
+     "old": "test_compact_typography.py",
+     "new": "archivo/tests/",
+     "action": "archive",
+     "note": "tests an archived module"
+    },
+    {
+     "old": "test_dialogue_lock.py",
+     "new": "tests/nucleo/test_bloqueo_dialogo.py",
+     "action": "move",
+     "note": "kept green"
+    },
+    {
+     "old": "test_dialogue_typography.py",
+     "new": "tests/nucleo/test_fullwidth.py",
+     "action": "move",
+     "note": "kept green"
+    },
+    {
+     "old": "test_legacy_sprite.py",
+     "new": "tests/nucleo/test_pac_sprite.py",
+     "action": "move",
+     "note": "synthetic"
+    },
+    {
+     "old": "test_probe_layout.py",
+     "new": "tests/juegos/ie1/test_tipografia_v20.py",
+     "action": "move",
+     "note": "hash lock"
+    },
+    {
+     "old": "test_ssd_records.py",
+     "new": "tests/nucleo/test_ssd.py",
+     "action": "move",
+     "note": "synthetic"
+    },
+    {
+     "old": "test_ui_formats.py",
+     "new": "tests/nucleo/test_graficos.py",
+     "action": "move",
+     "note": "synthetic"
+    },
+    {
+     "old": "test_validate_inputs.py",
+     "new": "archivo/tests/",
+     "action": "archive",
+     "note": "validate.py archived"
+    },
+    {
+     "old": "ie1_media.py",
+     "new": "inazuma/juegos/ie1/media.py",
+     "action": "merge",
+     "note": "SAD inventory becomes the voice asset manifest"
+    },
+    {
+     "old": "mods_to_moflex.py",
+     "new": "inazuma/nucleo/media/moflex.py",
+     "action": "move",
+     "note": "plus MP4 export/import"
+    },
+    {
+     "old": "build_ie1_movies.py",
+     "new": "inazuma/juegos/ie1/media.py",
+     "action": "merge",
+     "note": "the batch becomes a registry iteration"
+    },
+    {
+     "old": "validate_ie1_media.py",
+     "new": "inazuma/juegos/ie1/verificar.py",
+     "action": "merge",
+     "note": "media check"
+    },
+    {
+     "old": "harvest_log.py",
+     "new": "inazuma/nucleo/construir/azahar.py",
+     "action": "merge",
+     "note": "used by 'probar'/'install --log'"
+    },
+    {
+     "old": "limpiar_work.py",
+     "new": "inazuma/nucleo/construir/limpieza.py",
+     "action": "move",
+     "note": "'inazuma work limpiar'"
+    },
+    {
+     "old": "reorganizar_proyecto.py",
+     "new": "archivo/reorganizar_proyecto.py",
+     "action": "archive",
+     "note": "one-time migration already done"
+    },
+    {
+     "old": "build_patch.ps1",
+     "new": "scripts/build_patch.ps1",
+     "action": "keep_script",
+     "note": "wrapper over 'inazuma parche'"
+    },
+    {
+     "old": "extract_nds.ps1",
+     "new": "scripts/extract_nds.ps1",
+     "action": "keep_script",
+     "note": "wrapper over 'inazuma extraer --nds'"
+    },
+    {
+     "old": "extract_romfs.ps1",
+     "new": "scripts/extract_romfs.ps1",
+     "action": "keep_script",
+     "note": "ctrtool; wrapper over 'inazuma extraer'"
+    },
+    {
+     "old": "jugar.ps1",
+     "new": "scripts/jugar.ps1",
+     "action": "keep_script",
+     "note": "wrapper over 'inazuma instalar --lanzar'"
+    },
+    {
+     "old": "setup_mobipeg.ps1",
+     "new": "scripts/setup_mobipeg.ps1",
+     "action": "keep_script",
+     "note": "external tool setup; checked by 'inazuma doctor'"
+    },
+    {
+     "old": "setup_vgmstream.ps1",
+     "new": "scripts/setup_vgmstream.ps1",
+     "action": "keep_script",
+     "note": "external tool setup; checked by 'inazuma doctor'"
+    },
+    {
+     "old": "tools/bin",
+     "new": "tools/bin (git-ignored downloads)",
+     "action": "move",
+     "note": "located through nucleo/config tool discovery"
+    }
+   ],
+   "cli": "Uniform grammar: `inazuma <objetivo> <accion> [opciones] [--json]`. Targets are listed by `inazuma objetivos` (juego_principal, ie1, ie2.tormenta_de_fuego, ie2.ventisca_eterna, ie3.rayo_celeste, ie3.fuego_explosivo, ie3.amenaza_del_ogro).\nGlobal commands: `inazuma doctor` (Python, deps, ctrtool/xdelta/vgmstream/mobipeg/ffmpeg, ROM hashes), `inazuma init --rom3ds X --romnds-es Y --idioma es` (creates inazuma.toml and extracts to work/), `inazuma work limpiar [--borrar]`, `inazuma parche --desde ie1:v43`.\nPer-target actions, identical for every target:\n- assets [--tipo grafico|texto|cinematica|voz|fuente]\n- graficos exportar|importar [--id]: PNG plus a .qna.json sidecar with rects\n- textos exportar|importar: one editable file per event/table, TSV/PO with id, jp, es and max-width\n- cinematicas exportar|importar: MOFLEX<->MP4 plus SRT\n- voces exportar|importar: SADL<->WAV\n- construir [--base vN] (new candidate; always runs the dialogue lock and the no-content guard)\n- verificar\n- instalar [--lanzar] (Azahar LayeredFS)\n- estado\nLegacy layer pipelines run as `inazuma ie1 capas aplicar v37/graficos_nds`. Exit codes: 0 ok, 2 validation errors, 3 missing external tool.",
+   "service_api_for_gui": "`inazuma.servicio.api.ToolkitService(workspace: Workspace)`. Every method returns `Result{ok, data, issues:[Issue{code, severity, message, asset_id?, path?, hint?}], artefactos:[path]}`. All fields are JSON-serializable, and the schemas live in servicio/esquemas.py. Every method accepts `progress: Callable[[Progress{fase, actual, total, mensaje}], None]` and `cancel: CancelToken`.\nMethods:\n- objetivos() -> [TargetInfo{id, nombre, plataforma_origen, capacidades:[graficos, textos, cinematicas, voces, fuentes]}]\n- list_assets(target, tipo=None, filtro=None) -> [AssetRef{id, tipo, ruta_rom, contenedor, formato, estado: original|editado|traducido, preview_path?}]\n- export(target, asset_ids, destino) / import_(target, asset_id, archivo, dry_run=True): validates dimensions, QNA rects, text width with the target's layout profile, glyph coverage and the v20 lock, and returns a diff before writing\n- build(target, base=None) -> Candidate{id, ruta, capas}\n- verify(target, candidate)\n- install(target, candidate, emulador='azahar', lanzar=False)\n- make_patch(candidates) -> xdelta\n- job API: trabajos.submit(fn, ...) -> job_id; status(job_id); events(job_id) stream for the GUI thread\nGame packages subclass `juegos.base.JuegoBase`. It has the same abstract methods (registry(), exportadores/importadores per asset type delegating to nucleo, reglas_validacion(), capas_build()), so the service never branches on the game. Workspace model: inazuma.toml at the project root holds ROM paths plus SHA1, target language, active candidates per target (max 2), and the paths translation/<target> and work/<target>. `Workspace.dirs(target)` yields work/juego_principal/{extraido,capas,candidatas,exports}. The asset registry is `juegos/<target>/assets.toml`, declarative (id, type, archive path, container chain e.g. fa>sszl>ctpk, qna file, text profile, NDS source counterpart), so it can be extended without code.",
+   "library_api": "Import rules: `inazuma.nucleo.*` has zero imports from juegos/servicio/cli. `inazuma.juegos.<x>` imports only nucleo, and the relationship is enforced by a test (import-linter-style AST check). Games never import each other. ie2.comun/ie3.comun are only visible to their own versions.\nStable nucleo facade:\n- contenedores.fa.open(path) -> FaArchive(.entries, .read(p), .replace(p, bytes), .write(out))\n- compresion.{lz10, blz, sszl}.{decompress, compress}\n- graficos.ctpk.{decode->PIL.Image, encode}\n- graficos.qna.regions()\n- graficos.atlas_paint.paint(atlas, rects, items)\n- graficos.pac_sprite.{decode, encode}\n- fuentes.bcfnt.{parse, patch_glyphs}\n- fuentes.nftr.metrics\n- texto.fullwidth.encode_fullwidth\n- texto.wrap.layout(text, advances, profile)\n- eventos.pkb.{read_index, iter_events, pack}\n- eventos.ssd.{parse, replace}\n- ejecutable.cro.{literals, relocate_string}\n- ejecutable.smdh.set_title\n- media.moflex.{from_mods, to_mp4, from_mp4}\n- media.sadl.{to_wav, from_wav}\n- construir.candidata.Candidate\n- validar.bloqueo_dialogo.validate\nPure functions work on bytes and Paths, with no module-level side effects and no hardcoded paths (everything comes from config.Paths).",
+   "configuration": "Resolution order: CLI flags, then environment variables INAZUMA_*, then inazuma.toml in the project, then the user config %APPDATA%/inazuma/config.toml (external tool paths, Azahar dir), then defaults.\n- nucleo/config.py discovers the repo ROOT (it replaces ~all `Path(__file__).parents` and the hardcoded work/ paths flagged in the catalog) and the tool binaries in tools/bin.\n- Per-target settings sit in [objetivos.ie1] base_candidata, idioma, perfil_tipografia='v20-locked'. The locked profile hash is in code, not config, so config cannot unlock it.\n- Registries are TOML shipped in the package. They contain no extracted content, only paths/offsets/short terms, which satisfies LEGAL.md.",
+   "compatibility": "About 250 work/ layer scripts do `sys.path.insert(0, ROOT/'tools'); import ctpk_ui, fa_unpack, dialogue_lock...` and importlib-load work/ie1/capas/v37/graficos_nds/apply.py. That is why the move ships `tools/_compat/` (generated by compat/shims.py and kept on the same tools/ path). It holds one flat alias module per active old name (`fa_unpack.py` -> `from inazuma.nucleo.contenedores.fa import *` plus old function names mapped), and each alias emits a DeprecationWarning.\nRules for the shims:\n- Archived modules get shims that raise ImportError with a pointer to archivo/README, so no layer silently uses dangerous code.\n- Layer boilerplate (the 27 patterns) is replaced progressively by nucleo/construir/capas.Capa. `inazuma ie1 capas aplicar` can still run old apply.py files unchanged.\n- The v37/graficos_nds apply.py loader keeps working because its path is untouched. Its reusable logic is promoted to juegos/ie1 while the file stays.\n- Byte-identical regression: rebuild the current approved candidate through old and new paths and compare SHA1 before removing any shim.",
+   "packaging_and_release": "- tools/pyproject.toml, installed with `pip install -e tools`; Python 3.12; deps Pillow, numpy, capstone; optional extras [media] (ffmpeg via PATH).\n- External binaries are fetched by scripts/setup_*.ps1 into tools/bin (git-ignored) and checked by `inazuma doctor`.\n- Release CI (existing Actions DeltaPatcher flow) runs tests, then the no-content guard (git ls-files against extension/magic blacklist), then attaches only the .xdelta plus a toolkit wheel.\n- Semantic API_VERSION for the service so a GUI can check compatibility.\n- docs/toolkit/: GUIA_NOVATO.md (ROM -> build in 5 commands), OBJETIVOS.md (per target capabilities table), FORMATOS.md links, ARCHIVO.md (why each script was retired).",
+   "tests_plan": "1) Keep the 6 active unittests green after the move (lock, fullwidth, pac_sprite, v20 layout hash, ssd, ui formats).\n2) Synthetic round-trip tests for every nucleo codec: lz10/blz/sszl, fa repack, ctpk, bcfnt patch, pkb, cro literals, SRT<->.dat. No ROM data goes in fixtures.\n3) Architecture test: an AST scan forbids juegos->juegos and nucleo->juegos imports and module-level side effects.\n4) Interface conformance: a parametrized test over registro.objetivos() asserts every target implements all JuegoBase actions and that its assets.toml validates against the schema (unimplemented capabilities return a structured NOT_SUPPORTED issue).\n5) Service tests: results json.dumps cleanly; progress is called monotonically; cancel works; import_ dry_run never writes.\n6) Local-only golden tests (skipped without a ROM, marked @requires_rom): old vs new build of the current IE1 candidate must be SHA1-identical, and compat shims must import for all modules used in work/.\n7) Emulator QA stays manual per PROTOCOLO_QA_IE1; the toolkit never declares stability from offline checks.",
+   "migration_steps": [
+    "Open GitHub issues per phase (Norma 1): toolkit skeleton, nucleo moves, archive, juegos packages, service, CLI, GUI readiness.",
+    "Create tools/pyproject.toml and the inazuma/ skeleton with nucleo/config.py; no behaviour change.",
+    "Move core_active codecs into nucleo (fa, lz10, blz, sszl, ctpk, qna, bcfnt, nftr, pkb, ssd, fullwidth, dialogue_lock) with tests; generate _compat shims; verify byte-identical rebuild of the current candidate.",
+    "Move obsolete_dangerous and one-off scripts to archivo/ with a README tied to FURIGANA_LECCIONES; replace their names with ImportError shims.",
+    "Split mixed modules (reinsert, build_ie1_probe, verify_candidate, audit_dialogo_ids, build_glossary, ui_archive), keeping the v20 hash lock in juegos/ie1.",
+    "Write juegos/base.py and the registries; fill ie1 first, then juego_principal (menu/title.arc, plogo, common.arc, data_replace, OP/logo moflex, ina_menu.cro, SMDH), then create ie2/ie3 skeletons that return NOT_SUPPORTED until their extraction lands; create work/juego_principal/ via Workspace.dirs and run limpiar_work to relocate anything at the work/ root.",
+    "Implement servicio (Result/Issue/Progress, workspace inazuma.toml, jobs) and the cli as a thin client; convert .ps1 scripts to wrappers.",
+    "Add export/import round trips per asset type: PNG+QNA, text TSV, MOFLEX<->MP4+SRT, SADL<->WAV.",
+    "Port layer boilerplate to construir/capas gradually, then remove shims only once no work/ script imports them (grep plus golden SHA1).",
+    "Update docs (tools/README, ARQUITECTURA, CLAUDE.md pointers, newcomer guide) and close the issues."
+   ],
+   "risks": [
+    "The byte-identical output of the v20-locked dialogue can silently change during the refactor; mitigate with SHA1 golden rebuilds and keep the hash check in code.",
+    "The ~250 git-ignored work/ layers cannot be tested in CI; shim coverage must be checked locally by importing every module name they reference.",
+    "Archiving a module that some layer still needs would break old candidate reproduction; ImportError shims make this loud, and archived code stays retrievable.",
+    "IE2/IE3 formats may diverge from IE1 assumptions (e.g. SSD/STR variants); nucleo must stay parameterized, and targets report NOT_SUPPORTED instead of guessing.",
+    "Media round trips depend on external tools (mobipeg, vgmstream, ffmpeg) with licensing and availability concerns; doctor checks them and binaries are never committed.",
+    "Import/export files could leak full extracted dialogue into git; exports go under work/ (ignored) and the no-content guard runs in the service and CI.",
+    "Scope creep: the GUI-first abstractions could slow down the actual translation work; phase them behind the working CLI and keep IE1 QA protocol priority."
+   ]
+  },
+  {
+   "lens": "LIBRARY-FIRST: one importable, typed package `inazuma_kit` (src layout) whose core is pure bytes-in/bytes-out format modules with no filesystem or game knowledge; game packages compose those codecs behind a single Protocol (GamePackage); a headless service layer returns JSON-serializable dataclasses; CLI and future GUI are thin clients. Cohesion over convenience: one format = one module, one public name set declared in __all__, mypy --strict on nucleo and services, synthetic-fixture tests for every codec.",
+   "package_name": "inazuma_kit",
+   "tree": "pyproject.toml                     (name=inazuma-kit, py>=3.12, deps Pillow numpy capstone; extras [dev]=pytest mypy ruff)\nsrc/inazuma_kit/\n  __init__.py                      (__version__, re-exports api.open_project)\n  py.typed\n  nucleo/                          # engine-level, zero game knowledge, no imports from juegos/\n    __init__.py\n    errors.py                      FormatError, ValidationError(code, path, detail), LockViolation\n    binio.py                       u16/u32/align/struct readers (from nds_unpack, ssd_records helpers)\n    records.py                     fixed-size record/field editors, string pools (generic half of ie1_tables, ds_roster)\n    compression/  lz10.py  blz.py  sszl.py  level5.py (l5_decompress/is_compressed/l5_method)\n    containers/   archive_fa.py (FaArchive read+FileEntry locate+replace/append+rebuild)  arcv.py  nds_rom.py  exefs.py  smdh.py\n    events/       pkh_pkb.py (PackNum index, entries, repack)  ssd.py (TextRecord parse/replace)  runs.py (dialogue_runs, furigana detect)\n    text/         fullwidth.py (encode_fullwidth, TOKEN)  nds_latin.py (single canonical NDS ES byte table: merges NDS_DEC/DS_TABLE/NDS_FIX)  sjis.py  wrap.py (pixel word-wrap engine, parametrised)\n    graphics/     ctpk.py  qna.py  pac_sprite.py  painter.py (paint/paint_condensed ops, typed PaintOp)  png_io.py\n    fonts/        bcfnt.py  nftr.py  glyph_patch.py (Greek-carrier accent plan as data)  metrics_pair.py\n    code/         cro.py (literals, relocations, code caves primitives)  arm.py (branch encode, capstone disasm helpers)\n    media/        sadl.py (inspect, SADL<->WAV via vgmstream adapter)  moflex.py (MODS->MOFLEX, MP4->MOFLEX via mobipeg adapter)  subtitles.py (subtitle .dat <-> SRT)  swd_sed.py\n    build/        layeredfs.py (overlay tree model)  candidate.py (base+layers -> candidate, manifest, sha256)  verify.py (generic: unchanged-except-declared diff)  xdelta.py  install.py (Azahar mods dir)  azahar_log.py\n    config/       paths.py (Workspace roots, no module-level REPO)  settings.py (toml: tool binaries, Azahar path, fonts)  tools_bin.py (locate xdelta/3dstool/mobipeg/vgmstream)\n  juegos/\n    base.py                        GamePackage Protocol, AssetKind enum, AssetRef, ActionResult, Progress\n    registry.py                    entry-point based discovery: \"juego_principal\",\"ie1\",\"ie2.tormenta_de_fuego\",...\n    juego_principal/               __init__.py (package impl)  assets.py (menu/title.arc, menu/common.arc, plogo, menu/data_replace, OP.moflex, logo_l5.moflex, ina_menu.cro, SMDH/banner)  textos.py  graficos.py  cinematicas.py  build.py\n    ie1/                           __init__.py  assets.py (archive.fa paths inazuma1/...)  textos/ (eventos.py dialogue writer incl. v20 layout, tablas.py items/names, mch.py match content, ids.py NDS<->3DS id pairing)  graficos/ (teclado.py, logo_titulo.py, ui.py)  tipografia/lock.py (dialogue_lock, hashes as data file)  media.py (21 movies, SAD pairs)  code.py (ina_main1.cro literal patches)  glosario.py  verify.py\n    ie2/  comun/ (shared IE2 assets, NDS ES source tables)  tormenta_de_fuego/  ventisca_eterna/   (each: __init__.py assets.py; implement same Protocol, most actions NotImplemented->Capability flags)\n    ie3/  comun/  rayo_celeste/  fuego_explosivo/  amenaza_del_ogro/\n  servicios/                       # headless API; the only layer CLI/GUI call\n    proyecto.py                    Project/Workspace model (project.toml, work/<juego>/..., candidates, layers)\n    activos.py                     AssetRegistry (index.json per game: id, kind, source path in RomFS, editable export path, hash, status)\n    graficos.py textos.py cinematicas.py audio.py construir.py verificar.py instalar.py  (each fn(project, game_id, ..., progress) -> Result dataclass)\n    progreso.py                    ProgressCallback protocol, CancelToken\n    resultados.py                  Result/Issue dataclasses, to_json()\n    capas.py                       Layer model: declarative layer.toml replacing ~250 apply.py (ops: replace_file, patch_events, paint_texture, patch_cro_literal, ...) + LegacyApplyLayer adapter running old apply.py\n  cli/\n    __main__.py                    `inazuma` entry point (argparse subcommands mapping 1:1 onto servicios)\n  _compat/\n    tools_shims/                   generated flat modules copied/installed to tools/*.py: `from inazuma_kit.nucleo.compression.lz10 import *` etc., emitting DeprecationWarning\narchivo/                           (repo root, not packaged) obsolete + one-off scripts kept read-only for history, excluded from tests/lint\nscripts/powershell/                extract_nds.ps1 extract_romfs.ps1 build_patch.ps1 jugar.ps1 setup_mobipeg.ps1 setup_vgmstream.ps1 (thin wrappers calling `python -m inazuma_kit.cli`)\ntests/\n  nucleo/  (synthetic fixtures, byte round-trips, property tests)  juegos/ie1/ (lock, layout, keyboard map)  servicios/ (JSON schema of results, fake game package)  contract/ (every registered GamePackage passes the Protocol conformance suite)  rom/ (marked @requires_rom, skipped in CI)\nwork/  (git-ignored)  shared/  juego_principal/{base,export,capas,candidatas}  ie1/  ie2/<version>/  ie3/<version>/",
+   "module_mapping": [
+    {
+     "old": "fa_unpack.py",
+     "new": "nucleo/containers/archive_fa.py (+ nucleo/compression/level5.py)",
+     "action": "merge",
+     "note": "FaArchive becomes public read API; _name made public; l5_* split to level5.py"
+    },
+    {
+     "old": "fa_repack.py",
+     "new": "nucleo/containers/archive_fa.py",
+     "action": "merge",
+     "note": "fe_offset_of -> FaArchive.find_entry; variable-length rebuild -> FaArchive.rebuild"
+    },
+    {
+     "old": "lz10.py",
+     "new": "nucleo/compression/lz10.py",
+     "action": "move",
+     "note": "MAX_CAND global becomes keyword arg"
+    },
+    {
+     "old": "blz.py",
+     "new": "nucleo/compression/blz.py",
+     "action": "move",
+     "note": "add compress later if needed"
+    },
+    {
+     "old": "sszl.py",
+     "new": "nucleo/compression/sszl.py",
+     "action": "merge",
+     "note": "absorbs ui_archive.unwrap as decompress"
+    },
+    {
+     "old": "ui_archive.py",
+     "new": "nucleo/containers/arcv.py + nucleo/compression/sszl.py",
+     "action": "split",
+     "note": "entries -> arcv.entries; unwrap -> sszl.decompress; add arcv.rebuild"
+    },
+    {
+     "old": "nds_unpack.py",
+     "new": "nucleo/containers/nds_rom.py",
+     "action": "move",
+     "note": "pure function returning file tree; CLI via inazuma extract nds"
+    },
+    {
+     "old": "pkb_unpack.py",
+     "new": "nucleo/events/pkh_pkb.py + nucleo/events/runs.py",
+     "action": "split",
+     "note": "_decode_string made public in nucleo/text; duplicate lz10_decompress removed"
+    },
+    {
+     "old": "pkb_scan.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "WIP diagnostic superseded by ssd.parse"
+    },
+    {
+     "old": "ssd_records.py",
+     "new": "nucleo/events/ssd.py",
+     "action": "move",
+     "note": "core_active; keep tests"
+    },
+    {
+     "old": "ssd_reinsert.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous NUL-split re-encoder; FURIGANA_LECCIONES failure"
+    },
+    {
+     "old": "reinsert.py",
+     "new": "nucleo/text/wrap.py, nucleo/fonts/glyph_patch.py (GREEK), juegos/ie1/textos/eventos.py",
+     "action": "split",
+     "note": "reusable helpers extracted; legacy stage-7 pipeline archived"
+    },
+    {
+     "old": "reinsert_var.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous variable-length builder"
+    },
+    {
+     "old": "reinsert_test.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "stage-7 proof of concept"
+    },
+    {
+     "old": "recompress_test.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "import-time side effects diagnostic"
+    },
+    {
+     "old": "dialogue_typography.py",
+     "new": "nucleo/text/fullwidth.py",
+     "action": "move",
+     "note": "ACCENTS injected from glyph_patch plan data, no font_patch import cycle"
+    },
+    {
+     "old": "dialogue_lock.py",
+     "new": "juegos/ie1/tipografia/lock.py",
+     "action": "move",
+     "note": "hashes kept byte-identical in lock_v20.json; build service calls it unconditionally; source hashes re-pointed to new paths only with explicit user approval"
+    },
+    {
+     "old": "build_ie1_probe.py",
+     "new": "juegos/ie1/textos/eventos.py (layout verbatim) + archivo/ (legacy CLI)",
+     "action": "split",
+     "note": "layout source must stay hash-identical (LAYOUT_HASH); moved function text unchanged"
+    },
+    {
+     "old": "build_ui_revision.py",
+     "new": "nucleo/build/candidate.py + juegos/ie1/build.py",
+     "action": "split",
+     "note": "replace_entry/archive_payload -> archive_fa; rebuild_events -> pkh_pkb.rebuild; IE1 assembly -> ie1.build"
+    },
+    {
+     "old": "verify_candidate.py",
+     "new": "nucleo/build/verify.py + juegos/ie1/verify.py",
+     "action": "split",
+     "note": "generic diff in nucleo, IE1 EVE paths in ie1"
+    },
+    {
+     "old": "validate.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "validates legacy eve_var build"
+    },
+    {
+     "old": "verify_build.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "legacy SAME_SIZE check, import-time argv"
+    },
+    {
+     "old": "verify_v21.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "one-off assertions"
+    },
+    {
+     "old": "build_3ds.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "stage-8 legacy; replaced by build/xdelta + scripts/powershell/build_patch.ps1"
+    },
+    {
+     "old": "build_3ds_var.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous"
+    },
+    {
+     "old": "build_fontui.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "v7 diagnostic"
+    },
+    {
+     "old": "ui_insert.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous in-place patcher; generic record helpers salvaged into nucleo/records.py"
+    },
+    {
+     "old": "probe_ie1_spacing.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "v18 experiment, conflicts with v20 lock"
+    },
+    {
+     "old": "ctpk_ui.py",
+     "new": "nucleo/graphics/ctpk.py",
+     "action": "move",
+     "note": "add typed CtpkMeta dataclass"
+    },
+    {
+     "old": "qna_regions.py",
+     "new": "nucleo/graphics/qna.py",
+     "action": "move",
+     "note": "returns list[QnaRect]"
+    },
+    {
+     "old": "translate_ui_textures.py",
+     "new": "nucleo/graphics/painter.py + servicios/graficos.py",
+     "action": "split",
+     "note": "PaintOp TypedDict; CLI part becomes service import_graphics"
+    },
+    {
+     "old": "legacy_sprite.py",
+     "new": "nucleo/graphics/pac_sprite.py",
+     "action": "move",
+     "note": "DS PAC 4bpp"
+    },
+    {
+     "old": "fix_ie1_title_logo.py",
+     "new": "juegos/ie1/graficos/logo_titulo.py",
+     "action": "merge",
+     "note": "extract_wordmark kept as function; defaults moved to asset registry"
+    },
+    {
+     "old": "ie1_keyboard.py",
+     "new": "juegos/ie1/graficos/teclado.py",
+     "action": "move",
+     "note": "ROWS as data"
+    },
+    {
+     "old": "ie1_tables.py",
+     "new": "nucleo/records.py + juegos/ie1/textos/tablas.py",
+     "action": "split",
+     "note": "generic field/pool editors to nucleo; IE1 item offsets to ie1"
+    },
+    {
+     "old": "bcfnt.py",
+     "new": "nucleo/fonts/bcfnt.py",
+     "action": "move",
+     "note": "read-only parser"
+    },
+    {
+     "old": "font_patch.py",
+     "new": "nucleo/fonts/glyph_patch.py",
+     "action": "move",
+     "note": "PLAN moved to data; Font writer typed"
+    },
+    {
+     "old": "nftr_metrics.py",
+     "new": "nucleo/fonts/nftr.py",
+     "action": "move",
+     "note": ""
+    },
+    {
+     "old": "compact_typography.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "superseded by v20 lock; must not be reachable from build service"
+    },
+    {
+     "old": "build_glossary.py",
+     "new": "nucleo/text/nds_latin.py + juegos/ie1/glosario.py (+ ie2/comun/glosario.py)",
+     "action": "split",
+     "note": "canonical NDS decoder; GAME_CFG per game"
+    },
+    {
+     "old": "ds_official.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "issue #36 do-not-use for regeneration; DS_TABLE merged into nds_latin"
+    },
+    {
+     "old": "ds_roster.py",
+     "new": "archivo/ (patch_unitbase logic -> juegos/ie1/textos/tablas.py if still needed)",
+     "action": "archive",
+     "note": "legacy_superseded"
+    },
+    {
+     "old": "audit_dialogo_ids.py",
+     "new": "juegos/ie1/textos/ids.py",
+     "action": "move",
+     "note": "core_active pairing; exposed via textos service 'align'"
+    },
+    {
+     "old": "audit_ie1_voiced_text.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "read-only diagnostic"
+    },
+    {
+     "old": "build_translation.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous"
+    },
+    {
+     "old": "str_align.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "naive pairing"
+    },
+    {
+     "old": "nds_str_dump.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "trivial strings dump"
+    },
+    {
+     "old": "tr_prepare.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "import-time script"
+    },
+    {
+     "old": "tr_merge.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "import-time script"
+    },
+    {
+     "old": "align_events.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "superseded by ids.py; _sim reusable if needed"
+    },
+    {
+     "old": "build_match_content_patch.py",
+     "new": "juegos/ie1/textos/mch.py",
+     "action": "merge",
+     "note": "single mch module with data tables in translation/ie1"
+    },
+    {
+     "old": "build_mch_patch.py",
+     "new": "juegos/ie1/textos/mch.py",
+     "action": "merge",
+     "note": "Royal-only subset of the above"
+    },
+    {
+     "old": "patch_code.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "obsolete_dangerous code.bin branches"
+    },
+    {
+     "old": "patch_cro.py",
+     "new": "archivo/ (cave primitives -> nucleo/code/cro.py)",
+     "action": "archive",
+     "note": "obsolete_dangerous furigana cave; see FURIGANA_LECCIONES"
+    },
+    {
+     "old": "patch_exefs.py",
+     "new": "nucleo/containers/exefs.py",
+     "action": "move",
+     "note": "no fixed paths; used by juego_principal banner rebuild"
+    },
+    {
+     "old": "patch_smdh_title.py",
+     "new": "nucleo/containers/smdh.py",
+     "action": "move",
+     "note": "called from juego_principal"
+    },
+    {
+     "old": "ie1_media.py",
+     "new": "nucleo/media/sadl.py + juegos/ie1/media.py",
+     "action": "split",
+     "note": "inspect_sad generic; inventory IE1"
+    },
+    {
+     "old": "mods_to_moflex.py",
+     "new": "nucleo/media/moflex.py + nucleo/media/subtitles.py",
+     "action": "split",
+     "note": "DS_TABLE dropped in favour of nds_latin; DEFAULT_FONT from settings"
+    },
+    {
+     "old": "build_ie1_movies.py",
+     "new": "juegos/ie1/media.py",
+     "action": "merge",
+     "note": "batch becomes service cinematicas.import_all"
+    },
+    {
+     "old": "validate_ie1_media.py",
+     "new": "juegos/ie1/verify.py",
+     "action": "merge",
+     "note": "media checks as Issue results"
+    },
+    {
+     "old": "harvest_log.py",
+     "new": "nucleo/build/azahar_log.py",
+     "action": "move",
+     "note": "KNOWN_PCS per game data"
+    },
+    {
+     "old": "limpiar_work.py",
+     "new": "servicios/proyecto.py (clean) + cli `inazuma work limpiar`",
+     "action": "merge",
+     "note": "core_active; also covers work/juego_principal"
+    },
+    {
+     "old": "reorganizar_proyecto.py",
+     "new": "archivo/",
+     "action": "archive",
+     "note": "one-time migration done"
+    },
+    {
+     "old": "test_compact_typography.py",
+     "new": "archivo/",
+     "action": "delete",
+     "note": "tests an archived module"
+    },
+    {
+     "old": "test_dialogue_lock.py",
+     "new": "tests/juegos/ie1/test_lock.py",
+     "action": "move",
+     "note": ""
+    },
+    {
+     "old": "test_dialogue_typography.py",
+     "new": "tests/nucleo/text/test_fullwidth.py",
+     "action": "move",
+     "note": ""
+    },
+    {
+     "old": "test_legacy_sprite.py",
+     "new": "tests/nucleo/graphics/test_pac_sprite.py",
+     "action": "split",
+     "note": "lz10 optimal test -> tests/nucleo/compression"
+    },
+    {
+     "old": "test_probe_layout.py",
+     "new": "tests/juegos/ie1/test_layout.py",
+     "action": "move",
+     "note": ""
+    },
+    {
+     "old": "test_ssd_records.py",
+     "new": "tests/nucleo/events/test_ssd.py",
+     "action": "move",
+     "note": ""
+    },
+    {
+     "old": "test_ui_formats.py",
+     "new": "tests/nucleo/graphics/test_ui_formats.py",
+     "action": "move",
+     "note": "split sszl/arcv cases later"
+    },
+    {
+     "old": "test_validate_inputs.py",
+     "new": "archivo/",
+     "action": "delete",
+     "note": "tests archived validate.py"
+    },
+    {
+     "old": "build_patch.ps1",
+     "new": "scripts/powershell/build_patch.ps1 -> nucleo/build/xdelta.py",
+     "action": "keep_script",
+     "note": "wrapper calling inazuma build patch"
+    },
+    {
+     "old": "extract_nds.ps1",
+     "new": "scripts/powershell/extract_nds.ps1",
+     "action": "keep_script",
+     "note": "calls inazuma extract nds"
+    },
+    {
+     "old": "extract_romfs.ps1",
+     "new": "scripts/powershell/extract_romfs.ps1",
+     "action": "keep_script",
+     "note": "external 3dstool; writes work/shared/base_3ds"
+    },
+    {
+     "old": "jugar.ps1",
+     "new": "scripts/powershell/jugar.ps1 -> nucleo/build/install.py",
+     "action": "keep_script",
+     "note": "install + launch Azahar"
+    },
+    {
+     "old": "setup_mobipeg.ps1",
+     "new": "scripts/powershell/setup_mobipeg.ps1",
+     "action": "keep_script",
+     "note": "tools_bin locates result"
+    },
+    {
+     "old": "setup_vgmstream.ps1",
+     "new": "scripts/powershell/setup_vgmstream.ps1",
+     "action": "keep_script",
+     "note": "tools_bin locates result"
+    },
+    {
+     "old": "tools/bin",
+     "new": "tools/bin (unchanged, referenced by config/tools_bin.py)",
+     "action": "keep_script",
+     "note": "external binaries, not packaged"
+    }
+   ],
+   "cli": "Single entry point `inazuma` (python -m inazuma_kit.cli), subcommands mirror services, all with --json for machine output and --project PATH:\ninazuma proyecto init|info|work-limpiar [--borrar]\ninazuma juegos listar                       (juego_principal, ie1, ie2.tormenta_de_fuego, ...)\ninazuma extraer nds|romfs <juego>\ninazuma graficos listar|exportar|importar <juego> [--asset ID] [--dir DIR]   (PNG + <name>.qna.json rects)\ninazuma textos exportar|importar|alinear <juego> [--formato csv|po]\ninazuma cinematicas exportar|importar <juego> [--asset ID]                   (MOFLEX<->MP4+SRT)\ninazuma audio exportar|importar <juego>                                      (SADL<->WAV)\ninazuma capas listar|aplicar <juego> [--hasta vNN]  (runs layer.toml or legacy apply.py)\ninazuma construir <juego|todo> [--base candidata] -> candidate + manifest\ninazuma verificar <juego> [--candidata vNN]\ninazuma instalar azahar [--candidata vNN]; inazuma parche xdelta\nExit codes: 0 ok, 1 validation issues, 2 usage, 3 lock violation. The CLI has no logic beyond argument parsing and rendering Result objects.",
+   "service_api_for_gui": "servicios/* functions, all typed and side-effect-scoped to the Project workspace:\n- open_project(root) -> Project ; Project.games() -> list[GameInfo(id, title, variants, capabilities: set[Capability])]\n- AssetRegistry: list_assets(project, game_id, kind: AssetKind|None) -> list[AssetRef(id, kind, romfs_path, container_chain, export_path, sha256, status: original|edited|built)]\n- graficos.export(project, game_id, asset_ids, progress, cancel) -> ExportResult ; graficos.import_(project, game_id, asset_id, png_path) -> ImportResult (validates size/format/palette, returns issues)\n- textos.export/import_ (event text as CSV/PO rows with id, source_jp, official_es, translation, max_px; import runs ie1 layout + dialogue lock and returns per-row Issue list, never silently truncates)\n- cinematicas.export/import_ (MP4+SRT), audio.export/import_ (WAV)\n- construir.build_candidate(project, game_ids, progress) -> BuildResult(candidate_id, files, manifest_path, issues)\n- verificar.verify(project, candidate_id) -> VerifyResult ; instalar.install_azahar(project, candidate_id) -> InstallResult\nContract: every result is a frozen dataclass with to_json(); errors that are user-fixable are Issue(severity, code, asset_id, message, location) inside results, programming/format corruption raises FormatError; ProgressCallback(stage: str, done: int, total: int, message: str) and CancelToken passed explicitly; long operations are synchronous functions a GUI runs in a worker thread (no asyncio dependency). GamePackage Protocol in juegos/base.py: id, capabilities, assets(workspace), export(asset, dest), import_(asset, src) -> list[Issue], layers(), build(workspace, base, out, progress), verify(...). juego_principal implements the same Protocol for the compilation menu (title.arc, common.arc, plogo, data_replace, OP.moflex, logo_l5.moflex, ina_menu.cro literals, SMDH title/banner). Capabilities not yet implemented (IE2/IE3) are declared absent so the GUI greys them out.",
+   "library_api": "Stable public surface = names in each module's __all__ plus inazuma_kit.api:\nnucleo.compression: lz10.compress/decompress/compress_optimal, blz.decompress, sszl.compress/decompress, level5.decompress\nnucleo.containers: FaArchive.open(path)|from_bytes, .entries, .read(path), .find_entry(suffix), .replace(path, payload) -> FaArchive (copy-on-write), .to_bytes(); arcv.entries/rebuild; nds_rom.iter_files; exefs.build; smdh.patch_title\nnucleo.events: pkh_pkb.parse_index/read_event/rebuild(events: dict[int, bytes]); ssd.parse/replace, TextRecord\nnucleo.text: fullwidth.encode(text) ; nds_latin.decode(bytes) ; wrap.layout(text, advance, width, lines_per_page)\nnucleo.graphics: ctpk.decode/encode/metadata; qna.regions -> list[QnaRect]; pac_sprite.decode/encode/index; painter.paint(image, PaintOp, font)\nnucleo.fonts: BCFNT, nftr.read_metrics, glyph_patch.apply(plan)\nnucleo.media: sadl.inspect/to_wav/from_wav; moflex.from_mods/from_mp4; subtitles.read_dat/write_dat/to_srt/from_srt\nnucleo.build: Candidate, LayeredFs, verify.diff_trees, xdelta.make, install.to_azahar\nAll codecs are pure (bytes->bytes / Image), no print, no sys.exit, no module-level paths; mypy --strict; external binaries only through config.tools_bin adapters injected as parameters.",
+   "configuration": "project.toml at repo root: [paths] roms=\"Roms\", work=\"work\", translation=\"translation\"; [tools] xdelta, 3dstool, mobipeg, vgmstream (default tools/bin/...); [azahar] mods_dir; [fonts] ui_font. Per-user overrides in %APPDATA%/inazuma-kit/settings.toml or INAZUMA_* env vars. config/paths.Workspace derives work/<game_id>/ (base, export, capas, candidatas, logs) including work/juego_principal/ created by `inazuma proyecto init` and populated by `inazuma extraer romfs juego_principal` (menu/, cro/ina_menu.cro, movie OP/logo_l5, exefs banner/SMDH), per docs/ARQUITECTURA.md. Game data (event ranges, archive paths, keyboard rows, lock hashes, KNOWN_PCS) lives in package data files (juegos/<g>/data/*.json|toml), not code. Layers: work/<g>/capas/vNN/<linea>/layer.toml; legacy apply.py still supported.",
+   "compatibility": "~250 work/ layers import bare names after sys.path.insert(tools) and importlib-load work/ie1/capas/v37/graficos_nds/apply.py. Keep tools/ as a compatibility directory of generated one-line shims (fa_unpack.py -> `from inazuma_kit.nucleo.containers.archive_fa import FaArchive, l5_decompress, is_compressed, l5_method`) for every module still imported from work/ (including private names like pkb_unpack._decode_string, FaArchive._name, build_ie1_probe.layout, dialogue_lock.*), each warning once. Shims for archived modules re-export from archivo/ only if a layer imports them; otherwise ImportError with message pointing to the replacement. dialogue_lock SOURCE_HASHES/LAYOUT_HASH: layout function text moved verbatim so LAYOUT_HASH is unchanged; source file paths in SOURCE_HASHES must not be silently re-hashed — keep hashing the original content via a pinned copy, and ask the user before updating the lock. Package installed editable (pip install -e .) so shims resolve. Candidates built before/after migration must be byte-identical (golden sha256 of last approved candidate).",
+   "packaging_and_release": "src-layout pyproject (hatchling), console_script `inazuma`, package data for juegos/*/data. Not published to PyPI (repo private tooling); version tag toolkit-vX.Y independent of patch versions. GitHub Actions: ruff + mypy (strict on nucleo/servicios) + pytest non-ROM suite on windows-latest; existing release workflow keeps shipping only the .xdelta (+ DeltaPatcher). git ls-files guard step fails if roms/, work/, .fa/.arc/.STR/.bcfnt/.moflex etc. are tracked (Norma 2). archivo/ excluded from wheel and lint.",
+   "tests_plan": "1) nucleo unit tests with synthetic fixtures only (no ROM data in git): round-trip decode(encode(x))==x for lz10/sszl/arcv/ctpk (all pixel formats)/pac/ssd/pkh_pkb/subtitles/smdh; malformed-input tests assert FormatError. 2) Port the 6 core tests (lock, typography, layout, ssd, ui_formats, sprite). 3) Contract suite: parametrized over registry, every GamePackage satisfies Protocol, declared capabilities callable, results JSON-serializable (json.dumps(to_json())). 4) Service tests with a FakeGame package and tmp workspace: progress callback monotonic, cancel honoured, issues instead of exceptions for bad PNG size / overlong text / non-fullwidth text (lock). 5) @requires_rom golden tests (local only): rebuild the approved IE1 candidate from layers via old apply.py path and via new services; sha256 identical to recorded manifest; verify service reports no unexpected diffs. 6) Shim test: import every tools/*.py shim name used by work/ layers (list generated from the audit catalog import counts). Coverage gate 85% on nucleo. Norma 4: no test re-enables archived furigana/code-cave approaches.",
+   "migration_steps": [
+    "Open GitHub issues (Norma 1): epic 'Toolkit inazuma_kit' + one per step below; add to Project board.",
+    "Record golden baseline: sha256 manifest of the currently approved IE1 candidate and outputs of verify_candidate; generate the list of bare imports used by work/ layers.",
+    "Create pyproject + src/inazuma_kit skeleton, errors, config/paths (no behaviour change); pip install -e .",
+    "Move pure codecs into nucleo (compression, containers, events, text, graphics, fonts, media) with module text mostly unchanged; add __all__ and types; port tests.",
+    "Generate tools/ shims pointing to new locations; run all layers for latest candidate and compare to golden hashes.",
+    "Move IE1-specific code into juegos/ie1 (lock, layout verbatim, keyboard, tables, mch, ids, media, logo) and verify LAYOUT_HASH unchanged; get explicit user OK for any lock path change.",
+    "Move obsolete/diagnostic scripts to archivo/ (23 modules + 2 tests) after confirming no layer imports them.",
+    "Implement juegos/base.py Protocol, registry, AssetRegistry and servicios; wire IE1 capabilities; create juego_principal package and work/juego_principal layout, extracting menu assets.",
+    "Implement CLI over services; rewrite PowerShell scripts as thin wrappers; update tools/README.md, docs/ARQUITECTURA.md, docs/DESARROLLO.md.",
+    "Introduce declarative layer.toml; convert the 27 boilerplate layer patterns progressively, keeping LegacyApplyLayer for the rest.",
+    "Add IE2/IE3 package stubs with empty capabilities; CI guard for tracked sensitive files; after one release cycle with no shim warnings in layers, remove shims."
+   ],
+   "risks": [
+    "Moving build_ie1_probe.layout or dialogue_lock sources changes SOURCE_HASHES/LAYOUT_HASH and would block builds or tempt disabling the v20 lock; mitigate by moving text verbatim and requiring user approval for lock updates.",
+    "Layers rely on private names and import-time side effects (pkb_unpack._decode_string, FaArchive._name, module globals like MAX_CAND, REPO); shims must preserve them exactly.",
+    "Refactoring codecs could alter output bytes (e.g. lz10 match choice) and change candidates; golden sha256 comparison is mandatory before each merge.",
+    "Merging the three NDS ES byte tables (NDS_DEC, DS_TABLE, NDS_FIX) may differ on 0xB5/0xD9 edge cases; ds_official is flagged dangerous (#36).",
+    "Archiving obsolete_dangerous modules could break an old layer still importing them; detect via import scan first.",
+    "juego_principal assets (ina_menu.cro, title.arc) are not yet audited in the same depth as IE1; capabilities may be overstated.",
+    "Scope creep: GUI-oriented abstractions for IE2/IE3 before those formats are decoded; keep them as declared-absent capabilities.",
+    "Accidentally committing extracted data as test fixtures; fixtures must be synthetic and CI guard enforced."
+   ]
+  },
+  {
+   "lens": "MIGRATION-SAFETY-FIRST. Zero breakage of the ~250 git-ignored work/ layers, byte-identical rebuilds of approved candidates (v65/v66 and the v27 xdelta), and the v20 typography lock untouched. Rules that shape the design: (1) tools/ stays importable as a flat directory forever. Each moved module leaves a small shim at tools/<name>.py that re-exports the new module with `from ie123kit.x.y import *` plus its private names. (2) The three hash-locked sources are NOT moved. tools/dialogue_typography.py, tools/font_patch.py and the body of build_ie1_probe.layout, including the `R` name bound to reinsert, stay byte-for-byte where they are. dialogue_lock hashes raw bytes relative to parents[1]. The new package wraps them by importing them from tools/; it never copies them. (3) Moves happen in small stages. Each stage must pass a gate: unit tests, an import-smoke run of every work/ layer, a byte-identical rebuild of the reference candidates (sha256), and dialogue_lock.validate(). (4) No code is unified if unifying it would change output bytes. The SSZL policies, es_encode versus encode_fullwidth, and the V37 globals contract each keep their own function. (5) Every path is found from a marker (pyproject.toml) or IE123_ROOT, never parents[N]. The shims keep the old parents[1] semantics because they still live in tools/.",
+   "package_name": "ie123kit (src layout: src/ie123kit, installed editable with `pip install -e .`; subpackages nucleo, juego_principal, ie1, ie2, ie3, servicio, cli, _legacy)",
+   "tree": "pyproject.toml                      # marker for root discovery, entry point `ie123 = ie123kit.cli.main:main`\nsrc/ie123kit/\n  __init__.py                       # __version__, no side effects\n  nucleo/                           # engine formats; knows nothing about any game\n    config/ paths.py (find_root via pyproject/IE123_ROOT, WorkLayout per game), settings.py (toml: azahar dir, fonts, tool bins), errors.py (ValidationError, LockViolation, codes)\n    contenedores/ fa.py (FaArchive: .d/.entries kept, +read/index/glob/exists, cache), fa_repack.py, arcv.py (ex ui_archive), nds_rom.py (ex nds_unpack), exefs.py\n    compresion/ lz10.py, sszl.py (unwrap, compress, compress_literal: explicit policy enum), blz.py\n    graficos/ ctpk.py, qna.py, pac_sprite.py (ex legacy_sprite), pintado.py (ex translate_ui_textures core + drawing helpers), png_io.py\n    fuentes/ bcfnt.py, nftr.py, compact.py (ex compact_typography, frozen/legacy)\n    texto/ fullwidth.py (thin re-export of tools/dialogue_typography, LOCKED), lock.py (re-export of tools/dialogue_lock), nds_latin.py (NDS_DEC/dec_es from build_glossary), es_encode_sjis1.py (reinsert.es_encode, kept separate), registros.py (fixed-width fields, ex ie1_tables generics)\n    eventos/ pkb.py (ex pkb_unpack; NDS_DEC imported explicitly, no silent {}), ssd.py (ex ssd_records), alineado.py (gap-pattern aligner, ex audit_dialogo_ids core)\n    ejecutable/ cro.py (literals + relocations helpers), code_bin.py (read-only BLZ/ARM helpers), smdh.py (ex patch_smdh_title)\n    media/ moflex.py (ex mods_to_moflex), subtitulos_dat.py, sadl.py (SADL<->WAV via vgmstream), swd_sed.py, herramientas.py (mobipeg/vgmstream/ffmpeg discovery)\n    build/ candidata.py (layered overlay assembly, ex build_ui_revision generic part), verificar.py (declared-range diff, sha256, ex verify_candidate generic), instalar.py (Azahar LayeredFS mods), rom.py (3dstool wrapper), xdelta.py, azahar_log.py (ex harvest_log)\n    capas/ layer.py (Layer(__file__): root, here, extra(), romfs(); run() decorator), plan.py (texture_plan_replace, assert_only_declared_ranges_changed)\n  juego_principal/                  # the compilation shell\n    __init__.py -> GAME = JuegoPrincipal(GameSpec id=\"juego_principal\")\n    recursos.py  # menu/title.arc (selector), plogo, menu/common.arc (loading screens), menu/data_replace, OP.moflex, logo_l5.moflex, ina_menu.cro, SMDH/banner\n    acciones.py  # implements GameActions\n  ie1/\n    __init__.py spec.py (paths inazuma1/, romfs NDS ES source)\n    dialogo/ layout.py (re-exports tools/build_ie1_probe.layout, LOCKED), eventos.py, nombres.py\n    ui/ teclado.py (ex ie1_keyboard), tablas.py (ex ie1_tables IE1-specific parts), graficos_nds.py (stable API over V37 helpers, V37 file itself untouched)\n    media/ voces.py, cinematicas.py (21 movie manifest, ex build_ie1_movies)\n    verificar.py (ex verify_candidate IE1 rules)\n    acciones.py\n  ie2/ comun/ (shared IE2 data, spec base), tormenta_de_fuego/, ventisca_eterna/   # each: spec.py, acciones.py (stubs returning NotImplemented results)\n  ie3/ comun/, rayo_celeste/, fuego_explosivo/, amenaza_del_ogro/                    # same shape\n  servicio/\n    contrato.py (GameActions Protocol, AssetRef, Result, Progress, Issue dataclasses; to_json)\n    registro.py (AssetRegistry: kinds graphic/text/cinematic/voice/font/executable; ids \"ie1:graphic:menu/common.arc#tex3@rect12\")\n    proyecto.py (Workspace: project.toml, base ROM hash, candidate chain, per-game work dirs)\n    tareas.py (Job runner, cancel token, progress callbacks, JSONL event log)\n    api.py (ToolkitService facade: open_workspace, list_games, list_assets, export, import_, build, verify, install)\n  cli/ main.py (argparse subcommands mapping 1:1 to ToolkitService; --json output), legacy.py\n  _legacy/ (archived modules, importable only through tools/ shims: reinsert_var, ssd_reinsert, build_3ds*, ui_insert, ...)\ntools/                              # FLAT, PERMANENT COMPAT LAYER\n  dialogue_typography.py  font_patch.py  build_ie1_probe.py  dialogue_lock.py   # untouched originals (lock)\n  <every other old name>.py         # 3-10 line shims re-exporting ie123kit (or _legacy); CLI shims forward argv to the same main()\n  *.ps1                             # kept; build_patch/jugar call `ie123` internally once stage 5 is done\n  bin/\ntests/ unit/ (moved tools/test_*.py + new), compat/ (shim import matrix, layer import smoke), golden/ (sha256 manifests of approved candidates, git-committed, hashes only)\narchive/tools_obsoletos/            # git history copies with README (ds_official do-not-use #36, etc.)\nwork/ juego_principal/{extraido,capas,candidatas,extra}  ie1/  ie2/<version>/  ie3/<version>/  shared/",
+   "module_mapping": [
+    {
+     "old": "tools/fa_unpack.py",
+     "new": "ie123kit/nucleo/contenedores/fa.py",
+     "action": "move",
+     "note": "67 layer imports. Shim is required. The FaArchive .d/.entries (path, abs_off, size) contract stays frozen and the new methods are additive. Keep the module-level names entries/unwrap re-exported."
+    },
+    {
+     "old": "tools/fa_repack.py",
+     "new": "ie123kit/nucleo/contenedores/fa_repack.py",
+     "action": "move",
+     "note": "Pulled in transitively by build_ie1_probe (locked importer), so a shim is required. ROOT moves from parents[1] to paths.find_root."
+    },
+    {
+     "old": "tools/ui_archive.py",
+     "new": "ie123kit/nucleo/contenedores/arcv.py",
+     "action": "move",
+     "note": "33 layer imports. The SSZL unwrap stays here as a re-export of nucleo/compresion/sszl.unwrap."
+    },
+    {
+     "old": "tools/lz10.py",
+     "new": "ie123kit/nucleo/compresion/lz10.py",
+     "action": "move",
+     "note": "23 imports. Pure codec, lowest risk. Good first stage-1 candidate."
+    },
+    {
+     "old": "tools/sszl.py",
+     "new": "ie123kit/nucleo/compresion/sszl.py",
+     "action": "move",
+     "note": "Keeps compress and the literal-only variant as separate named functions. No default policy change, because v54, v64 and v65 depend on their own outputs."
+    },
+    {
+     "old": "tools/blz.py",
+     "new": "ie123kit/nucleo/compresion/blz.py",
+     "action": "move",
+     "note": "Read-only BLZ decompression."
+    },
+    {
+     "old": "tools/nds_unpack.py",
+     "new": "ie123kit/nucleo/contenedores/nds_rom.py",
+     "action": "move",
+     "note": "Keep the CLI through the shim and `ie123 nds extract`."
+    },
+    {
+     "old": "tools/ctpk_ui.py",
+     "new": "ie123kit/nucleo/graficos/ctpk.py",
+     "action": "move",
+     "note": "33 imports. Byte-identical encode verified by golden textures."
+    },
+    {
+     "old": "tools/qna_regions.py",
+     "new": "ie123kit/nucleo/graficos/qna.py",
+     "action": "move",
+     "note": "The rect export used by GUI graphics listing."
+    },
+    {
+     "old": "tools/legacy_sprite.py",
+     "new": "ie123kit/nucleo/graficos/pac_sprite.py",
+     "action": "move",
+     "note": "DS PAC 4bpp sprites."
+    },
+    {
+     "old": "tools/translate_ui_textures.py",
+     "new": "ie123kit/nucleo/graficos/pintado.py",
+     "action": "move",
+     "note": "Generic painting core. The --font default becomes a setting, but the shim keeps the old arialbd default for byte identity. Its SSZL raw-ARCV output policy is preserved."
+    },
+    {
+     "old": "tools/bcfnt.py",
+     "new": "ie123kit/nucleo/fuentes/bcfnt.py",
+     "action": "move",
+     "note": "Locked font_patch.py does `from bcfnt import BCFNT` with sys.path 'tools', so the shim is mandatory and permanent."
+    },
+    {
+     "old": "tools/nftr_metrics.py",
+     "new": "ie123kit/nucleo/fuentes/nftr.py",
+     "action": "move",
+     "note": "NFTR text-width helper."
+    },
+    {
+     "old": "tools/font_patch.py",
+     "new": "tools/font_patch.py (wrapped by ie123kit/nucleo/fuentes/font_patch.py re-export)",
+     "action": "keep_script",
+     "note": "LOCKED by dialogue_lock raw-byte hash. Never moved or reformatted. .gitattributes gets `tools/*.py -text` to prevent autocrlf changes."
+    },
+    {
+     "old": "tools/compact_typography.py",
+     "new": "ie123kit/_legacy/compact_typography.py",
+     "action": "archive",
+     "note": "Superseded v18 experiment. The shim stays because its test exists. Not exposed in the service."
+    },
+    {
+     "old": "tools/dialogue_typography.py",
+     "new": "tools/dialogue_typography.py (re-exported by ie123kit/nucleo/texto/fullwidth.py)",
+     "action": "keep_script",
+     "note": "LOCKED (44 imports). Untouched. The package imports it by adding tools/ to sys.path inside nucleo/texto/_locked.py."
+    },
+    {
+     "old": "tools/dialogue_lock.py",
+     "new": "tools/dialogue_lock.py (re-exported by ie123kit/nucleo/texto/lock.py)",
+     "action": "keep_script",
+     "note": "Its hash lookup is parents[1]-relative, so it stays in tools/. Every service build() calls validate() as a mandatory gate."
+    },
+    {
+     "old": "tools/build_ie1_probe.py",
+     "new": "tools/build_ie1_probe.py (layout re-exported by ie123kit/ie1/dialogo/layout.py). Non-layout helpers split to ie123kit/ie1/dialogo/probe.py",
+     "action": "split",
+     "note": "LAYOUT_HASH covers the layout source plus its R binding. The file itself is left byte-identical. New code imports from ie1.dialogo, and the heavy transitive import is avoided lazily there, not by editing the file."
+    },
+    {
+     "old": "tools/ssd_records.py",
+     "new": "ie123kit/nucleo/eventos/ssd.py",
+     "action": "move",
+     "note": "18 imports. Has test_ssd_records."
+    },
+    {
+     "old": "tools/pkb_unpack.py",
+     "new": "ie123kit/nucleo/eventos/pkb.py",
+     "action": "move",
+     "note": "The silent `NDS_DEC = {}` fallback is removed in the package (explicit import of nucleo/texto/nds_latin). The shim keeps the old behavior."
+    },
+    {
+     "old": "tools/pkb_scan.py",
+     "new": "archive/tools_obsoletos/pkb_scan.py",
+     "action": "archive",
+     "note": "WIP diagnostic, no importers."
+    },
+    {
+     "old": "tools/build_glossary.py",
+     "new": "ie123kit/nucleo/texto/nds_latin.py + ie123kit/cli glossary command",
+     "action": "split",
+     "note": "NDS_DEC/dec_es is engine code (4 imports plus pkb_unpack). Glossary generation becomes a service action."
+    },
+    {
+     "old": "tools/reinsert.py",
+     "new": "ie123kit/nucleo/texto/es_encode_sjis1.py + ie123kit/_legacy/reinsert.py",
+     "action": "split",
+     "note": "Locked layout references R.BOX_W/R._advance, so tools/reinsert.py stays an importable shim that exposes those exact names. es_encode keeps its truncating semantics separately."
+    },
+    {
+     "old": "tools/reinsert_var.py",
+     "new": "ie123kit/_legacy/reinsert_var.py",
+     "action": "archive",
+     "note": "obsolete_dangerous. Transitively imported by reinsert, so the shim is kept. Its CLI main refuses to run without --legacy-i-know."
+    },
+    {
+     "old": "tools/ssd_reinsert.py",
+     "new": "ie123kit/_legacy/ssd_reinsert.py",
+     "action": "archive",
+     "note": "obsolete_dangerous. Transitive import only. Refusing CLI."
+    },
+    {
+     "old": "tools/reinsert_test.py",
+     "new": "archive/tools_obsoletos/reinsert_test.py",
+     "action": "archive",
+     "note": "Stage-7 proof of concept."
+    },
+    {
+     "old": "tools/recompress_test.py",
+     "new": "archive/tools_obsoletos/recompress_test.py",
+     "action": "archive",
+     "note": "Has side effects at import. Must not stay importable."
+    },
+    {
+     "old": "tools/ds_official.py",
+     "new": "ie123kit/_legacy/ds_official.py",
+     "action": "archive",
+     "note": "Do-not-use for regeneration (#36), but 5 layers import it, so the shim is kept and emits a DeprecationWarning (stderr only, so output bytes are unchanged)."
+    },
+    {
+     "old": "tools/ds_roster.py",
+     "new": "ie123kit/_legacy/ds_roster.py",
+     "action": "archive",
+     "note": "Transitive through reinsert. Shim."
+    },
+    {
+     "old": "tools/audit_dialogo_ids.py",
+     "new": "ie123kit/nucleo/eventos/alineado.py + ie123kit/ie1/dialogo/eventos.py",
+     "action": "split",
+     "note": "The gap-pattern aligner is generic, and the IE1 id tables go to ie1. 1 layer import, so a shim is needed."
+    },
+    {
+     "old": "tools/align_events.py",
+     "new": "ie123kit/_legacy/align_events.py",
+     "action": "merge",
+     "note": "Superseded by the alineado.py aligner. Archived."
+    },
+    {
+     "old": "tools/build_translation.py",
+     "new": "archive/tools_obsoletos/build_translation.py",
+     "action": "archive",
+     "note": "obsolete_dangerous. It overwrites translation files."
+    },
+    {
+     "old": "tools/str_align.py",
+     "new": "archive/tools_obsoletos/str_align.py",
+     "action": "archive",
+     "note": "Naive index pairing, superseded."
+    },
+    {
+     "old": "tools/nds_str_dump.py",
+     "new": "ie123kit/cli (`ie123 nds strings`) using nucleo/contenedores/nds_rom",
+     "action": "merge",
+     "note": "Small ASCII dumper folded into a CLI diagnostic."
+    },
+    {
+     "old": "tools/tr_prepare.py",
+     "new": "archive/tools_obsoletos/tr_prepare.py",
+     "action": "archive",
+     "note": "Module-level script. Its workflow is replaced by the text export/import actions."
+    },
+    {
+     "old": "tools/tr_merge.py",
+     "new": "archive/tools_obsoletos/tr_merge.py",
+     "action": "archive",
+     "note": "Same as tr_prepare."
+    },
+    {
+     "old": "tools/audit_ie1_voiced_text.py",
+     "new": "ie123kit/ie1/media/voces.py (audit function)",
+     "action": "merge",
+     "note": "Read-only diagnostic that becomes voices.verify()."
+    },
+    {
+     "old": "tools/patch_code.py",
+     "new": "archive/tools_obsoletos/patch_code.py",
+     "action": "archive",
+     "note": "obsolete_dangerous code.bin branch patches. Read helpers salvaged into nucleo/ejecutable/code_bin.py."
+    },
+    {
+     "old": "tools/patch_cro.py",
+     "new": "archive/tools_obsoletos/patch_cro.py",
+     "action": "archive",
+     "note": "obsolete_dangerous code cave. The CRO literal/relocation helpers come from the layer patterns instead."
+    },
+    {
+     "old": "tools/patch_exefs.py",
+     "new": "ie123kit/nucleo/contenedores/exefs.py",
+     "action": "move",
+     "note": "Legacy, but the ExeFS rebuild is a valid engine primitive. Marked experimental in the registry."
+    },
+    {
+     "old": "tools/patch_smdh_title.py",
+     "new": "ie123kit/nucleo/ejecutable/smdh.py (used by juego_principal/recursos.py)",
+     "action": "move",
+     "note": "Banner/title is a compilation-shell asset. 1 layer import."
+    },
+    {
+     "old": "tools/ie1_keyboard.py",
+     "new": "ie123kit/ie1/ui/teclado.py",
+     "action": "move",
+     "note": "1 import. Shim."
+    },
+    {
+     "old": "tools/ie1_tables.py",
+     "new": "ie123kit/nucleo/texto/registros.py + ie123kit/ie1/ui/tablas.py",
+     "action": "split",
+     "note": "Fixed-width field editors are generic, and the IE1 offsets are game data."
+    },
+    {
+     "old": "tools/validate.py",
+     "new": "ie123kit/_legacy/validate_eve_var.py",
+     "action": "archive",
+     "note": "Name collides with the layers' `validate` modules. Shim tools/validate.py is kept, because layer sys.path order already resolves correctly today and must not change."
+    },
+    {
+     "old": "tools/verify_build.py",
+     "new": "ie123kit/_legacy/verify_build.py",
+     "action": "archive",
+     "note": "eve_var-era checks."
+    },
+    {
+     "old": "tools/verify_candidate.py",
+     "new": "ie123kit/nucleo/build/verificar.py + ie123kit/ie1/verificar.py",
+     "action": "split",
+     "note": "Declared-range/sha machinery is generic, and the IE1 rules are per game. The CLI shim forwards the same argv."
+    },
+    {
+     "old": "tools/verify_v21.py",
+     "new": "archive/tools_obsoletos/verify_v21.py",
+     "action": "archive",
+     "note": "One-off."
+    },
+    {
+     "old": "tools/fix_ie1_title_logo.py",
+     "new": "archive/tools_obsoletos/fix_ie1_title_logo.py",
+     "action": "archive",
+     "note": "One-off. Hard-coded Downloads path."
+    },
+    {
+     "old": "tools/build_ui_revision.py",
+     "new": "ie123kit/nucleo/build/candidata.py + ie123kit/ie1/dialogo/eventos.py (rebuild_events)",
+     "action": "split",
+     "note": "The tools/build_ui_revision.py FILE must remain textually intact: v55 exec()s it after str.replace on the eve.pkh/.pkb literals. Keep the original as tools/build_ui_revision.py (frozen copy), not a shim, until v55 is retired."
+    },
+    {
+     "old": "tools/build_match_content_patch.py",
+     "new": "ie123kit/_legacy/build_match_content_patch.py",
+     "action": "archive",
+     "note": "Superseded by the layers."
+    },
+    {
+     "old": "tools/build_mch_patch.py",
+     "new": "ie123kit/_legacy/build_mch_patch.py",
+     "action": "archive",
+     "note": "Superseded."
+    },
+    {
+     "old": "tools/build_3ds.py",
+     "new": "archive/tools_obsoletos/build_3ds.py",
+     "action": "archive",
+     "note": "Stage-8 in-place builder."
+    },
+    {
+     "old": "tools/build_3ds_var.py",
+     "new": "archive/tools_obsoletos/build_3ds_var.py",
+     "action": "archive",
+     "note": "obsolete_dangerous."
+    },
+    {
+     "old": "tools/build_fontui.py",
+     "new": "archive/tools_obsoletos/build_fontui.py",
+     "action": "archive",
+     "note": "obsolete_dangerous. Side effects at import."
+    },
+    {
+     "old": "tools/ui_insert.py",
+     "new": "archive/tools_obsoletos/ui_insert.py",
+     "action": "archive",
+     "note": "obsolete_dangerous in-place patcher."
+    },
+    {
+     "old": "tools/probe_ie1_spacing.py",
+     "new": "archive/tools_obsoletos/probe_ie1_spacing.py",
+     "action": "archive",
+     "note": "v18 typography experiment. Recorded as failed in FURIGANA_LECCIONES."
+    },
+    {
+     "old": "tools/test_compact_typography.py",
+     "new": "tests/unit/test_compact_typography.py",
+     "action": "move",
+     "note": "Marked skip-if-inputs-missing."
+    },
+    {
+     "old": "tools/test_dialogue_lock.py",
+     "new": "tests/unit/test_dialogue_lock.py",
+     "action": "move",
+     "note": "Also runs in the compat suite against tools/ originals."
+    },
+    {
+     "old": "tools/test_dialogue_typography.py",
+     "new": "tests/unit/test_dialogue_typography.py",
+     "action": "move",
+     "note": "Locked-module test."
+    },
+    {
+     "old": "tools/test_legacy_sprite.py",
+     "new": "tests/unit/test_pac_sprite.py",
+     "action": "move",
+     "note": "Imports the new path and a shim parity test."
+    },
+    {
+     "old": "tools/test_probe_layout.py",
+     "new": "tests/unit/test_ie1_layout.py",
+     "action": "move",
+     "note": "Asserts ie1.dialogo.layout is tools' layout object (identity)."
+    },
+    {
+     "old": "tools/test_ssd_records.py",
+     "new": "tests/unit/test_ssd.py",
+     "action": "move",
+     "note": "No behavior change."
+    },
+    {
+     "old": "tools/test_ui_formats.py",
+     "new": "tests/unit/test_ui_formats.py",
+     "action": "move",
+     "note": "Covers ctpk/qna/arcv."
+    },
+    {
+     "old": "tools/test_validate_inputs.py",
+     "new": "archive/tools_obsoletos/test_validate_inputs.py",
+     "action": "archive",
+     "note": "Tests an archived validator."
+    },
+    {
+     "old": "tools/ie1_media.py",
+     "new": "ie123kit/ie1/media/voces.py",
+     "action": "merge",
+     "note": "SADL inventory becomes list_assets(kind=voice). The generic SADL code goes to nucleo/media/sadl.py."
+    },
+    {
+     "old": "tools/mods_to_moflex.py",
+     "new": "ie123kit/nucleo/media/moflex.py",
+     "action": "move",
+     "note": "2 imports. ROOT via paths.find_root. Encoder tool paths via settings."
+    },
+    {
+     "old": "tools/build_ie1_movies.py",
+     "new": "ie123kit/ie1/media/cinematicas.py",
+     "action": "merge",
+     "note": "The 21-movie manifest becomes data (ie1/media/cinematicas.toml)."
+    },
+    {
+     "old": "tools/validate_ie1_media.py",
+     "new": "ie123kit/ie1/media/voces.py + cinematicas.py verify()",
+     "action": "merge",
+     "note": "v35 checks become verify actions."
+    },
+    {
+     "old": "tools/harvest_log.py",
+     "new": "ie123kit/nucleo/build/azahar_log.py",
+     "action": "move",
+     "note": "Used by the install/QA flow (`ie123 azahar log`)."
+    },
+    {
+     "old": "tools/limpiar_work.py",
+     "new": "ie123kit/servicio/proyecto.py (Workspace.clean) + cli `ie123 work limpiar [--borrar]`",
+     "action": "merge",
+     "note": "Shim keeps `python tools/limpiar_work.py --borrar`, as documented in CLAUDE.md. It learns work/juego_principal/."
+    },
+    {
+     "old": "tools/reorganizar_proyecto.py",
+     "new": "archive/tools_obsoletos/reorganizar_proyecto.py",
+     "action": "archive",
+     "note": "One-time migration already done. A new migrate-work step for juego_principal lives in cli."
+    },
+    {
+     "old": "tools/build_patch.ps1",
+     "new": "tools/build_patch.ps1 (calls `ie123 build patch`)",
+     "action": "keep_script",
+     "note": "Documented entry point. The xdelta logic moves to nucleo/build/xdelta.py. The ps1 becomes a thin wrapper only after the golden xdelta gate passes."
+    },
+    {
+     "old": "tools/extract_nds.ps1",
+     "new": "tools/extract_nds.ps1 -> `ie123 extraer nds --juego ...`",
+     "action": "keep_script",
+     "note": "Wrapper retained for docs."
+    },
+    {
+     "old": "tools/extract_romfs.ps1",
+     "new": "tools/extract_romfs.ps1 -> `ie123 extraer romfs`",
+     "action": "keep_script",
+     "note": "Uses tools/bin/3dstool through nucleo/build/rom.py."
+    },
+    {
+     "old": "tools/jugar.ps1",
+     "new": "tools/jugar.ps1 -> `ie123 instalar --azahar` + launch",
+     "action": "keep_script",
+     "note": "Install logic moves to nucleo/build/instalar.py."
+    },
+    {
+     "old": "tools/setup_mobipeg.ps1",
+     "new": "tools/setup_mobipeg.ps1",
+     "action": "keep_script",
+     "note": "External tool bootstrap. nucleo/media/herramientas.py only discovers the result."
+    },
+    {
+     "old": "tools/setup_vgmstream.ps1",
+     "new": "tools/setup_vgmstream.ps1",
+     "action": "keep_script",
+     "note": "Same as setup_mobipeg."
+    },
+    {
+     "old": "tools/bin/",
+     "new": "tools/bin/ (resolved via settings.tool_bin)",
+     "action": "keep_script",
+     "note": "Path stays. Found through config, not hard-coded."
+    },
+    {
+     "old": "tools/README.md",
+     "new": "tools/README.md (compat notice) + docs/toolkit/README.md",
+     "action": "keep_script",
+     "note": "Documents the shim policy and the command equivalence table."
+    },
+    {
+     "old": "work/ie1/capas/v37/graficos_nds/apply.py (layer, not tools)",
+     "new": "untouched; ie123kit/ie1/ui/graficos_nds.py wraps helpers",
+     "action": "keep_script",
+     "note": "14 layers importlib it and mutate its globals. It is never cleaned by limpiar_work (whitelist)."
+    }
+   ],
+   "cli": "One entry point, `ie123` (also `python -m ie123kit`). Every subcommand is a thin argparse adapter over ToolkitService, and `--json` prints the Result object. Structure: `ie123 proyecto init|estado`; `ie123 juegos` (lists juego_principal, ie1, ie2/tormenta_de_fuego, ...); `ie123 <juego> assets [--tipo graphic|text|cinematic|voice|font] [--filtro]`; `ie123 <juego> exportar <asset-id|--tipo> --a DIR`; `ie123 <juego> importar <asset-id> --desde FILE [--dry-run]`; `ie123 <juego> build --base vNN --capas ... --salida vMM`, which always runs dialogue_lock.validate first and cannot be bypassed; `ie123 <juego> verificar <candidata> [--golden]`; `ie123 <juego> instalar <candidata> --azahar`; `ie123 extraer nds|romfs`; `ie123 build patch` (xdelta); `ie123 work limpiar [--borrar]`; `ie123 azahar log`; `ie123 compat check`, which runs the shim import matrix and the layer import smoke test. Legacy: every old `python tools/X.py args` keeps working through a shim whose `if __name__=='__main__'` forwards sys.argv unchanged to the moved main(). Documented commands (138 references) stay valid. Archived dangerous scripts print a refusal plus the replacement command and exit 2.",
+   "service_api_for_gui": "ie123kit.servicio. The CLI and the future GUI both depend only on this layer.\n- contrato.py: `class GameActions(Protocol)`: spec() -> GameSpec; list_assets(kind=None, query=None) -> list[AssetRef]; export_asset(ref, dest, fmt=None, progress=None) -> Result; import_asset(ref, src, dry_run=False, progress=None) -> Result (the Issue list includes size budget, glyph coverage, lock violations and QNA rect mismatch); export_text(scope, dest, fmt='po'|'tsv'|'json'); import_text(src, dry_run); export_cinematic(ref, dest) -> MP4+SRT; import_cinematic(ref, mp4, srt); export_voice(ref, wav); import_voice(ref, wav); build_candidate(BuildRequest, progress, cancel) -> Result[CandidateInfo]; verify(candidate, golden=None) -> Result[VerifyReport]; install(candidate, target='azahar') -> Result.\n- Dataclasses, all JSON-serializable through to_json(): AssetRef(id, game, kind, container_path, subpath, rect?, size, editable, status: original|translated|overridden, source: 3ds_jp|nds_es|manual); Result(ok, data, issues: list[Issue], artifacts: list[path], duration); Issue(code, severity, message, asset_id?, hint?); Progress(stage, done, total, message); callbacks are plain callables, and tareas.Job wraps them for threads/async plus a CancelToken.\n- registro.py AssetRegistry: built from each game's recursos declarations and a lazy scan (FaArchive index + ARCV children + QNA rects), cached in work/<juego>/registro.json keyed by base ROM sha.\n- proyecto.py Workspace: project.toml at root (ROM paths and their sha256, selected base candidates per game, azahar dir, font dir). It resolves work/<juego>/{extraido,capas,candidatas,extra,export}. Candidates are an immutable chain vNN, each with a manifest.json (inputs, layer hashes, outputs sha256).\n- api.py ToolkitService(workspace): games() -> list[GameSpec], game(id) -> GameActions, plus job helpers. The GUI never touches files directly. Edits land as new layers under work/<juego>/capas/gui_<ts>/ (declarative layer.toml + assets). Existing Python layers stay runnable as `script` layers, invoked in a subprocess with cwd=root for byte identity.\n- juego_principal implements the same Protocol over title.arc, common.arc, data_replace, plogo, OP.moflex, logo_l5.moflex, ina_menu.cro literals and SMDH. ie2/ie3 variants return Result(ok=False, issues=[Issue('not_implemented')]) until their extraction lands, so the GUI can list them.",
+   "library_api": "Import rules: games import only ie123kit.nucleo (and servicio.contrato). There are no ie1<->ie2 imports. Enforced by an import-linter contract in tests/compat. nucleo never imports a game package. Key APIs:\n- nucleo.contenedores.fa: FaArchive.open(path) with .d, .entries, .read(p), .index, .glob(prefix), .exists(p); repack(archive, replacements) -> bytes.\n- nucleo.compresion: lz10.compress/decompress, sszl.unwrap/compress/compress_literal, blz.decompress.\n- nucleo.contenedores.arcv: children(data) -> [(off,size,crc)].\n- nucleo.graficos: ctpk.decode/encode, qna.regions(qna) -> [(tex, rect)], pac_sprite.decode/encode/metadata, pintado.paint_text/paste_image(atlas, rect, ...).\n- nucleo.fuentes: bcfnt.BCFNT, nftr.widths.\n- nucleo.texto: fullwidth.encode_fullwidth (locked re-export), lock.validate, nds_latin.dec_es, es_encode_sjis1.es_encode, registros.FixedField.\n- nucleo.eventos: pkb.PackNum read/write, ssd.parse/replace, alineado.align.\n- nucleo.ejecutable: cro.patch_literal/patch_reloc with range assertion, smdh.set_title.\n- nucleo.media: moflex.from_mods/to_mp4/from_mp4, subtitulos_dat.read/write/to_srt/from_srt, sadl.to_wav/from_wav.\n- nucleo.build: candidata.assemble(base, overlays), verificar.diff_declared(base, cand, declared_ranges), instalar.azahar(candidate, title_id), rom.build_3ds, xdelta.make.\n- nucleo.capas.layer: Layer(__file__) and run(). These are optional for new layers only. Old layers are never rewritten as part of the migration.\n- nucleo.config.paths.find_root(): IE123_ROOT env var, else walk up to pyproject.toml.",
+   "configuration": "Three levels, all optional, and defaults reproduce today's behavior exactly. (1) project.toml at the repo root, committed without secrets or ROM content: games enabled, candidate naming, golden manifest path. (2) ie123.local.toml, git-ignored: absolute ROM paths, Azahar user dir (default %APPDATA%/Azahar), font paths (default C:/Windows/Fonts/arialbd.ttf), mobipeg/vgmstream/ffmpeg/3dstool paths (default tools/bin). (3) Env overrides IE123_ROOT, IE123_AZAHAR, IE123_FONTS. Per-game spec files (ie1/spec.toml) hold data-path conventions: romfs prefix inazuma1/, NDS ES source dir, movie manifest. Missing stale paths from the catalog, such as work/probe_ie1_v14_inputs/extra_ascii and C:/Users/luish/Downloads/*.png, become named settings. Settings resolution raises a ValidationError with the key name instead of silently falling back. The pkb NDS_DEC case is fixed only in the package; the shim path keeps the old fallback.",
+   "compatibility": "Guarantees and mechanisms:\n(a) Shims. For each moved module, tools/<name>.py contains `import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'src'))` + `from ie123kit.nucleo.x import *` + explicit re-export of private names the catalog lists as used (e.g. R.BOX_W, R._advance, FaArchive, entries, unwrap). The shim also sets `sys.modules[__name__]` aliasing so module identity is shared (monkeypatching V37-style globals still works). A tests/compat/test_shim_surface.py snapshot compares dir(old module) captured before migration with dir(shim).\n(b) Locked files are physically untouched: tools/dialogue_typography.py, tools/font_patch.py, tools/build_ie1_probe.py, tools/dialogue_lock.py. `.gitattributes: tools/*.py -text` plus ruff/black exclusion on these four. Stage gate: dialogue_lock.validate() passes, and the hashes are checked unchanged against the values recorded before the migration.\n(c) Files consumed as text are frozen: tools/build_ui_revision.py (exec'd by v55 with str.replace), work/ie1/capas/v37/graficos_nds/apply.py, v33/eve_labels/common.py and v51/voces/apply.py (argv at import). The limpiar_work whitelist protects them.\n(d) Module names `validate`, `apply`, `common` in tools/ are kept, so the sys.path resolution order seen by layers is unchanged.\n(e) Paths: shims live in tools/, so parents[1]==root still holds for any code path that stays in tools; package code uses find_root. The 48 cwd-dependent layers keep working because the documented invocation remains running from the repo root.\n(f) Output bytes: no default changes (SSZL policy, fonts, es_encode truncation). Golden gate: tests/golden/*.sha256 of v65/v66 candidate outputs, all extra/ files of the last 10 layers, and patch/inazuma123-es-v27.xdelta. Hashes only, no content (Norma 2).\n(g) The already-broken v33/gamestring (parents[2]) is recorded as a pre-existing failure in the layer-smoke baseline, not fixed silently. An issue is opened.",
+   "packaging_and_release": "pyproject.toml (setuptools, src layout, python>=3.12, deps pillow, numpy, capstone; extras [media] for nothing Python-side beyond docs, [dev] pytest, import-linter, ruff). Editable install for development; without install the shims add src/ to sys.path, so fresh clones and existing layers need no pip step. Console script `ie123`. Distribution to players is unchanged: only the .xdelta via the GitHub Actions DeltaPatcher release. The toolkit is versioned independently (ie123kit 0.x) and tagged `toolkit-v0.N`. Releases never include work/, roms/, extracted data or golden inputs. A CI check runs `git ls-files` against forbidden extensions and runs the unit plus compat tests (the golden/layer gates need ROMs, so they run locally via `ie123 compat check --golden`). archive/tools_obsoletos keeps sources for history, is excluded from the wheel and is not on sys.path.",
+   "tests_plan": "Four tiers.\n(1) Unit: the moved tools/test_*.py plus new round-trip tests per nucleo format on synthetic data: lz10, sszl, ARCV children, CTPK encode/decode, PAC, SSD, PackNum, SMDH, subtitle dat<->SRT. No ROM data in the repo.\n(2) Compat, runs without ROMs:\n- a shim import matrix, where every old tools name imports from a clean interpreter with cwd=root and with cwd=elsewhere where it worked before;\n- a surface snapshot (dir() and signatures captured at stage 0);\n- identity tests (ie1.dialogo.layout is build_ie1_probe.layout; nucleo.texto.fullwidth.encode_fullwidth is dialogue_typography.encode_fullwidth);\n- a lock test (dialogue_lock.validate plus the raw sha of the 4 locked files equal to the baseline);\n- the import-linter contracts (games->nucleo only, no cross-game imports);\n- an AST check that the shims contain no logic.\n(3) Layer smoke, local: a script enumerates work/**/apply.py, prepare.py and validate.py and runs each in a subprocess with cwd=root under `python -X importtime -c` import-only mode where possible, or with `--dry-run` flags where layers support it. It compares against a stage-0 baseline of pass/fail. Any new failure blocks the stage.\n(4) Golden rebuild, local, ROM required: rebuild candidates v65/v66 from their bases through the old layer scripts and through `ie123 build`. Compare the sha256 of every output file, the CRO and the final xdelta against tests/golden. The comparison must be byte-identical. Offline tests are not the end of the gate: per PROTOCOLO_QA_IE1, a stage touching build/install code also needs an emulator run up to the first pachanga with several NPCs before it counts as stable.\nService contract tests: every GameActions implementation passes a shared parametrized suite (list_assets JSON-serializable, dry_run import returns Issues without writing, progress callback monotonic, cancel honored).",
+   "migration_steps": [
+    "Stage 0 (baseline, no code moves): open a GitHub issue epic plus one issue per stage (Norma 1). Record sha256 of the 4 locked files and dialogue_lock hashes. Capture the dir()/signature snapshot of all 71 modules. Run the layer-smoke baseline (record pre-existing failures such as v33/gamestring). Build golden manifests for v65/v66 outputs and the v27 xdelta. Add .gitattributes `tools/*.py -text`. Gate: baseline files committed (hashes only).",
+    "Stage 1 (skeleton): add pyproject.toml, src/ie123kit with nucleo/config/paths.find_root and servicio/contrato dataclasses, empty game packages, and tests/compat harness. No tools/ file changes. Gate: unit + compat pass; lock unchanged.",
+    "Stage 2 (archive dead code): move the obsolete_dangerous/one-off modules with zero direct layer imports (pkb_scan, reinsert_test, recompress_test, build_translation, str_align, tr_prepare, tr_merge, patch_code, patch_cro, verify_v21, fix_ie1_title_logo, build_3ds, build_3ds_var, build_fontui, ui_insert, probe_ie1_spacing, reorganizar_proyecto, test_validate_inputs) to archive/tools_obsoletos via git mv. Leave refusal stubs in tools/ for documented names. Gate: grep docs and work/ for imports of each (catalog says 0), then the layer smoke is unchanged.",
+    "Stage 3 (leaf engine modules, one PR each): lz10, blz, sszl, nds_unpack, qna_regions, legacy_sprite, nftr_metrics, bcfnt, ctpk_ui, ui_archive. Move them to nucleo and replace each with a shim. Gate per module: surface snapshot, layer smoke, golden rebuild byte-identical, lock validate.",
+    "Stage 4 (high fan-in modules): fa_unpack and fa_repack (FaArchive contract tests including the v33 Stub), pkb_unpack, ssd_records, translate_ui_textures, mods_to_moflex, patch_smdh_title, harvest_log. For the split modules (build_glossary, ie1_tables, audit_dialogo_ids, verify_candidate, reinsert), only the package side is created, and the shim re-exports the union. The same gates as Stage 3 apply.",
+    "Stage 5 (legacy quarantine): ds_official, ds_roster, reinsert_var, ssd_reinsert, align_events, validate, verify_build, build_match/mch_patch and compact_typography move to ie123kit/_legacy behind shims, with DeprecationWarning on stderr. build_ui_revision is duplicated: its package logic goes to nucleo/build/candidata, and the frozen original file stays for v55's exec. Gate: layer smoke plus golden.",
+    "Stage 6 (media + IE1 domain): merge ie1_media, build_ie1_movies, validate_ie1_media and audit_ie1_voiced_text into ie1/media. Move ie1_keyboard. Add ie1.dialogo.layout re-export and graficos_nds wrapper. Move tests to tests/unit. Gate: all tiers, plus an emulator QA run per PROTOCOLO_QA_IE1 if any build path changed.",
+    "Stage 7 (service + CLI): implement ToolkitService, Workspace, AssetRegistry, the ie1 GameActions and the juego_principal GameActions (title.arc, common.arc, data_replace, plogo, OP/logo_l5 moflex, ina_menu.cro, SMDH). The `ie123` CLI goes in, and the ps1 scripts become wrappers once `ie123 build patch` reproduces the golden xdelta. limpiar_work gains the juego_principal layout and whitelists frozen layer files. Gate: service contract suite plus golden.",
+    "Stage 8 (work/juego_principal): `ie123 work migrar-juego-principal --dry-run` lists compilation-shell resources currently under work/shared or work/ie1 (menu/title.arc, common.arc, OP.moflex, SMDH extras). It copies them, never moves them, into work/juego_principal/{extraido,capas,candidatas,extra} and writes a mapping manifest. Old layers keep reading their original paths, and new layers use the new ones. Update docs/ARQUITECTURA.md. Gate: layer smoke unchanged, and limpiar_work --borrar never touches originals referenced by the manifest.",
+    "Stage 9 (ie2/ie3 stubs + docs): add GameSpec and not_implemented actions for tormenta_de_fuego, ventisca_eterna, rayo_celeste, fuego_explosivo and amenaza_del_ogro. Update tools/README.md and the command-equivalence table in docs. Close the issues. Shims are removed only per module, when layer smoke shows zero importers and after explicit user approval. The four locked files are never removed."
+   ],
+   "risks": [
+    "The typography lock breaks if any of the 4 locked files is touched, including by formatter, autocrlf, or a helpful import cleanup. Mitigations: files are physically frozen, .gitattributes -text, ruff exclude, and a compat test on raw sha. Changing hashes requires an explicit user typography request.",
+    "Shim identity problems. A layer that monkeypatches module globals (V37 pattern, R.BOX_W) may patch the shim object while the package code reads its own module. Mitigation: shims alias sys.modules to the real module instead of star-importing copies, and identity tests cover this.",
+    "v55 exec()s build_ui_revision.py source with str.replace. A shim would make the replace a silent no-op and change candidate bytes. Mitigation: keep that file as a frozen full copy, and add a test asserting the replaced literals still occur in its source.",
+    "Silent path redirection: moved code using parents[1] would resolve ROOT to src/. Mitigation: grep gate forbidding parents[N]/dirname chains in src/, plus find_root tests from foreign cwd.",
+    "Golden rebuilds need the ROM and old probe bases, and 33 of 35 pinned bases no longer exist. Mitigation: golden set limited to v65/v66 plus xdelta. Layers whose base is missing are tracked as 'import-smoke only' in the baseline.",
+    "Unifying byte-affecting policies (SSZL literal vs real compression, es_encode truncation vs encode_fullwidth raise, font defaults) would alter emulator-approved outputs. Mitigation: separate named functions, no new defaults on shim paths.",
+    "sys.path name collisions (validate, apply, common) could change resolution if tools/ entries are renamed or removed. Mitigation: keep those names in tools/ until the smoke test proves no layer depends on them.",
+    "ds_official stays importable despite #36. Risk of reuse for regeneration. Mitigation: _legacy location, stderr DeprecationWarning, excluded from the service/registry.",
+    "Copyright: golden manifests, registry caches or GUI exports could leak extracted content into git. Mitigation: only hashes committed, registro.json and export dirs under git-ignored work/, and a CI git ls-files check.",
+    "Scope creep toward the GUI before compat is proven. Mitigation: the service layer only starts at Stage 7, after all shims pass the gates. Emulator QA per PROTOCOLO_QA_IE1 is mandatory before declaring any build-path change stable."
+   ]
+  }
+ ]
+}

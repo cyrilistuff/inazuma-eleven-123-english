@@ -1,7 +1,7 @@
 """Build the approved UI revision on top of the current v27 candidate.
 
-The revision contains archive replacements in ``work/ui_revision/extra`` and
-decompressed SSD event blobs in ``work/ui_revision/events``.  This tool keeps
+The revision contains archive replacements in ``work/ie1/legacy/ui_revision/extra`` and
+decompressed SSD event blobs in ``work/ie1/legacy/ui_revision/events``.  This tool keeps
 the v27 archive as the base, validates that event instructions and record
 identity are unchanged, then writes a new LayeredFS archive and CRO copy.
 """
@@ -103,9 +103,9 @@ def rebuild_events(arc: FaArchive, events_dir: Path):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base", type=Path, default=ROOT / "work/probe_ie1_v27/archive.fa")
-    parser.add_argument("--ui", type=Path, default=ROOT / "work/ui_revision")
-    parser.add_argument("--output", type=Path, default=ROOT / "work/probe_ie1_v28/archive.fa")
+    parser.add_argument("--base", type=Path, default=ROOT / "work/shared/candidatas/probe_ie1_v27/archive.fa")
+    parser.add_argument("--ui", type=Path, default=ROOT / "work/ie1/legacy/ui_revision")
+    parser.add_argument("--output", type=Path, default=ROOT / "work/shared/candidatas/probe_ie1_v28/archive.fa")
     parser.add_argument("--extra", type=Path, action="append",
                         help="Overlay directory of archive-relative files (repeatable, "
                              "later overlays win); defaults to <ui>/extra")
