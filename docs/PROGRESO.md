@@ -1,8 +1,169 @@
+> Actualización 2026-09-11: v33, partidos de historia, rótulos, CRO, datos y texturas
+>
+> Candidata `work/probe_ie1_v33/archive.fa` (SHA-256
+> `b65cd7eacc170580b9b24c1da1921fe488b33ab44cd769679d28dc0b48285314`), sobre v32.
+> 4.628 diálogos de los partidos de historia (oficial NDS alineado), 336 rótulos y
+> objetivos, 155 literales del CRO, títulos/Contactos/campos/jugadores, mensajes del
+> sistema, menú común de la recopilación y unas 400 texturas (supertécnicas 3D,
+> institutos, partido, menús, fondos de historia, 87 páginas de ayuda y créditos).
+> Prueba jugable pendiente. Detalle: [`IE1_V33_TANDA.md`](IE1_V33_TANDA.md).
+> Publicada como **release v1** (`patch/inazuma123-es-v1.xdelta`, SHA-256
+> `19fb1f41…7266b05`; zip con DeltaPatcher montado por `.github/workflows/release.yml`).
+> Ver [`DISTRIBUCION_DELTAPATCHER.md`](DISTRIBUCION_DELTAPATCHER.md).
+
+> Actualización 2026-09-11: v32, blog, textos de partido y pantallas restantes
+>
+> Candidata `work/probe_ie1_v32/archive.fa` instalada (SHA-256
+> `4043c5c979d4d5f272567edecfba6db96355ab06764d7c1f737567e9a8a7498a`), sobre v31.
+> Futblog completo (310 textos del oficial NDS condensados a las líneas del 3DS),
+> gritos de partido, objetivos restantes, nombres de escuela y 30 texturas de fin de
+> partido, blog, uniformes, capitán, carpeta, Centella, entrenamiento especial,
+> transferencia de técnicas y penaltis. Verificación estática completa; prueba
+> jugable pendiente. Detalle: [`IE1_V32_TANDA.md`](IE1_V32_TANDA.md).
+
+> Actualización 2026-09-11: v31, técnicas, objetos y equipos oficiales
+>
+> Candidata `work/probe_ie1_v31/archive.fa` instalada (SHA-256
+> `e19252b1e6cc2ddf4a0b8b46c7baddea1182d7f7b87bcfae51bd8003eb00f746`), sobre v30.
+> Con la ROM NDS española como fuente oficial: 131 supertécnicas y sus 114
+> descripciones, 261 rótulos de supertécnica en partido, 307 nombres y 300
+> descripciones de objetos, y 130 nombres de equipo corregidos (con sus placas y
+> diálogos). Glosarios versionados: `equipos.csv`, `tecnicas.csv`, `objetos.csv`.
+> Verificación estática completa; prueba jugable pendiente.
+> Detalle: [`IE1_V31_TANDA.md`](IE1_V31_TANDA.md). Issues #21, #22 y #23.
+
+> Actualización 2026-09-11: v30, menú de la bolsa y sus pantallas
+>
+> Candidata `work/probe_ie1_v30/archive.fa` instalada (SHA-256
+> `447f2bd8b44081f5b039c62ce2f20f2fc315713c1106496d847a1eea430f31af`), sobre v29.
+> Traduce el menú de la bolsa, las pantallas de Cambios, Tácticas, Fichar, Fichero,
+> Tienda y subida de nivel, y corrige temas mal traducidos de la guía del sistema.
+> Solo texturas; verificación estática completa y prueba jugable pendiente.
+> Detalle: [`IE1_V30_TANDA.md`](IE1_V30_TANDA.md). Issue #23. Técnicas y objetos
+> (#22) esperan los nombres oficiales de la versión NDS española.
+
+> Actualización 2026-09-11: v29, descripciones de jugadores, pantalla VS y equipos
+>
+> Candidata `work/probe_ie1_v29/archive.fa` instalada en Azahar (SHA-256
+> `cbada7a494f1b392dd7f9260830d208986583fef8c10e3c8a68a49fa89eaf465`), generada sobre
+> v28. Incluye las 1.040 descripciones de perfil, las placas y rótulos de campo de
+> la pantalla VS, nombres oficiales Brain/Farm/Inazuma Kids FC/Kasamino en
+> `team.pkb` y 9 diálogos, PE/PT en recuperación de objetos y el lote de interfaz
+> `ui_followup`. Verificación estática completa; prueba jugable pendiente. Detalle:
+> [`IE1_V29_TANDA.md`](IE1_V29_TANDA.md). Issues #21 y #22.
+
+> Actualización 2026-09-09: v27, auditoría completa de diálogos
+>
+> La candidata actual era `work/probe_ie1_v27/archive.fa`, instalada en Azahar con hash
+> `91f816060775190e994f585fae5e09c8adab4cc1998b059f250372387ab10369`. La auditoría
+> directa de los 982 eventos seleccionados encuentra 18.806 diálogos visibles y ningún
+> carácter japonés; el reinserto deja 19.039 textos y 0 rechazos. Se eliminaron los tres
+> restos de pausa que quedaban en 9210.
+
+> Auditoría de alcance IE1 (2026-09-09): los bloques de historia `9201`–`9210`
+> cubren los diez capítulos del atlas (de «¡Llega la Royal!» a «¡La batalla
+> final!»): 289 eventos y 5.164 diálogos visibles, todos en español. Las zonas y
+> variantes de NPC auditadas (`8100`, `6200`, `6300`, `8400`, `8500`, `8600`,
+> `9000`–`9120`, `9340`, `9341`, `9380`, `9391`, `9700`, `9713` y `9799`)
+> suman 1.953 diálogos de Raimon y 1.836 de eventos compartidos, también sin
+> japonés visible. La auditoría completa queda en
+> `work/probe_ie1_v27/chapter_coverage_audit.json`. La cobertura es estática;
+> todavía falta recorrer una partida nueva en Azahar para validar cada capítulo,
+> NPC y transición en juego.
+
+> Distribución 2026-09-09: el parche `patch/inazuma123-es-v27.xdelta` se ha
+> regenerado contra esta candidata y su SHA-256 es
+> `40d81657b9612b4bf232d92e1ae42fc35ddc03f2bbceeb1e94d67187c0e54d47`.
+> El paquete portable local `work/release_inazuma123_es_v27_deltapatcher.zip`
+> contiene las instrucciones, el lanzador, DeltaPatcher portable y solo el
+> parche; la ROM traducida temporal se eliminó después de verificarlo.
+
+> Actualización 2026-09-09: v26 instalada y verificada
+>
+> La candidata actual es `work/probe_ie1_v26/archive.fa`, con hash
+> `394b3ea3f986204a5ed7bb9d8fb2a349333d6b15490736cf16f259ca1dcfa27f`.
+> Se corrigieron los 27 registros que aún rechazaba el límite de tamaño y el informe
+> queda con 19.036 textos traducidos, 0 rechazos y 106 registros vacíos/no visibles.
+> La auditoría de pachangas, cadena y Royal mantiene 1.422 líneas visibles sin japonés,
+> además de 158 nombres de equipo y 32 categorías de clubes. La prueba jugable guiada
+> en Azahar sigue pendiente; la instalación coincide byte a byte con la candidata.
+
 > Actualización 2026-09-06: candidata IE1 v9 instalada para prueba; añade 21 diálogos normales de NPC y conserva la interfaz de v8. Sigue pendiente QA desde partida nueva.
 > Ver [detalle y limitaciones](IE1_UI_Y_CAPITULO1.md). Las etiquetas históricas
 > de estabilidad que aparecen abajo no sustituyen el protocolo QA vigente.
 
+> Actualización 2026-09-07: la candidata local v14 ya está generada como archivo
+> de datos y ROM `.3ds`, sin instalar y sin verificación jugable. La entrada local de trabajo cubre 19.039 registros en 982 eventos:
+> diálogos de historia y NPC de 9202–9209, las zonas 8100 de Raimon, la caseta,
+> la torre Inazuma, ubicaciones, misiones, variantes de reclutamiento y visor de
+> eventos. La validación estática conserva hashes e instrucciones, con 0 rechazos
+> de longitud en la auditoría recuperada. Falta la prueba guiada en Azahar; no se
+> considera una build estable hasta repetir allí las conversaciones y la primera
+> pachanga.
+
+> Actualización 2026-09-07 (continuación): se corrigieron 199 textos que habían
+> heredado otra variante o mostraban marcadores antiguos pegados. La validación
+> vuelve a pasar los 19.039 registros, con instrucciones intactas, cero japonés
+> visible y máximo de 245 bytes codificados. También se añadieron ocho diálogos
+> visibles de transición de 9201 y se limpiaron marcadores antiguos en NPC, rótulos
+> y escenas de la torre. Las elipsis intencionadas se dejaron sin
+> cambios. La candidata se generó después de esta validación y queda pendiente
+> de prueba guiada en Azahar.
+
+> Actualización 2026-09-08: la candidata v16 está generada e instalada en Azahar.
+> Conserva la imagen original de `FONT12T`, añade un píxel de avance a las letras
+> latinas y usa 208 px útiles para reflujo, de modo que las frases ocupen el ancho
+> de la caja sin cortes extraños. Se ajustó el rótulo «Objetivo» al interior del
+> marco y se corrigieron 18 pares desalineados de NPC y partidillos en 8100.
+> Validación: 19.039 hashes, 965 eventos modificados, 0 rechazos y 3 pausas de
+> puntos suspensivos intencionadas. Falta la prueba jugable guiada.
+
+> Actualización 2026-09-08 (v20): tras confirmar que v19 seguía dejando media
+> caja vacía y juntando letras, se recuperó el transporte `fullwidth` usado en
+> v13 junto con sus fuentes coordinadas. Se revisaron 36 textos que excedían el
+> límite con la codificación anterior. V20 está instalada en Azahar; validación:
+> 19.036 textos, 1.293 eventos, instrucciones intactas y cero rechazos. La v19
+> fue eliminada después de comprobar el hash de la instalación.
+
+> Actualización 2026-09-08 (v17): se regeneró `field_t.arc` con el rectángulo
+> interior correcto para «Objetivo»; la candidata v17 (`work/probe_ie1_v17/`)
+> sustituye a v16 en Azahar y conserva su copia de seguridad. El resto de los
+> recursos gráficos permanece igual. Validación: SHA-256 de `archive.fa`
+> `307e3bcec3d084021535b943123e2a511a43cc7274eb54621346d37b19c38cf9`, cero
+> rechazos, cero cambios en instrucciones y roundtrip íntegro en la ROM de 2 GiB.
+
 # Progreso del proyecto
+
+## Actualización 2026-09-09: v23, pachangas y cadena de partidos
+
+La candidata actual es `work/probe_ie1_v23/archive.fa` y ya sustituye a la v22
+en la instalación activa de Azahar. Esta tanda añade los diálogos de pachangas
+y de la cadena de partidos del paquete `mch.pkb` (eventos `9420xxxx`), conserva
+los 143 diálogos traducidos del partido de la Royal (`94001500`) y localiza los
+158 nombres de equipo de `team.pkb`, los 20 títulos de `teamtitle.dat` y las 32
+categorías de `clubinfo.dat` que aparecen en el selector de pachangas.
+
+La auditoría estática confirma 1.422 registros visibles de partido/pachanga sin
+japonés, instrucciones SSD intactas y ningún desbordamiento en los campos fijos
+de nombres. Las fuentes y la caja aprobadas de v20 no se han modificado. El hash
+de la candidata y de la copia instalada es
+`bf1e194564170d86cffcf3acfa70409420584ca048b699253611011e35614393`.
+La prueba jugable sigue pendiente de reiniciar Azahar y repetir las pachangas,
+la cadena y el partido de la Royal desde un estado creado con esta candidata.
+Las v21 y v22 se eliminaron tras verificar la sustitución para no acumular builds en
+`work/`.
+
+## Actualización 2026-09-08: v21 y partido de la Royal
+
+La candidata histórica `work/probe_ie1_v21/archive.fa` estuvo instalada en Azahar. Se
+localizó el origen de los diálogos de partido en `mch.pkb` y se tradujeron los
+143 registros visibles del evento `94001500`, incluida la línea de la captura.
+La comprobación estática deja cero japonés visible en ese evento y mantiene los
+otros eventos, el bytecode y la tipografía aprobada. La prueba jugable sigue
+pendiente; el hash instalado es `45377d4e6a4987301d8770e454ce883124806ffc9b8674d8385762a22ff4f566`.
+
+La build intermedia v20 se eliminó después de comprobar la copia instalada para
+no acumular binarios en `work/`; las v21 y v22 también se retiraron al instalar v23.
 
 ## Retoma 2026-09-05: diagnóstico y prueba pendiente
 

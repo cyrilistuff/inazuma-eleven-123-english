@@ -17,16 +17,12 @@ Inspirado en otros trabajos de la comunidad como las traducciones de
 candidatas LayeredFS probadas en Azahar. La guía para continuar el trabajo está en
 [`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md).
 
-🟢 **Build histórica v27** (estable según su alcance): **arranca, crea partida**, e **intro + diálogo de
-historia en español** (gameplay completo sin truncar; intro a mismo tamaño, algo
-truncado). Menús, nombres de jugadores y equipos (ambos juegos), con acentos.
-Parche: [`patch/inazuma123-es-v27.xdelta`](patch/).
-
-La candidata de trabajo más reciente es la **v9 local** (`work/probe_ie1_v9/`),
-preparada para prueba como mod LayeredFS y todavía pendiente de validación
-jugable completa. Añade 21 diálogos normales de NPC del mapa, con sus registros
-de origen verificados. La v9 está instalada como mod LayeredFS; la v7 se conserva como reversión. Consulta
-[`docs/REANUDAR_IE1.md`](docs/REANUDAR_IE1.md) antes de generar otra build.
+🟡 **Candidata v27 local**: incluye los diálogos visibles de los diez capítulos
+de IE1, las zonas de Raimon y las variantes de NPC, además de pachangas, cadena
+de partidos y Royal. La auditoría estática deja 0 japonés visible; sigue
+pendiente el recorrido jugable completo desde una partida nueva. El parche
+portable es [`patch/inazuma123-es-v27.xdelta`](patch/) y el detalle de cobertura
+está en [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 **Muros técnicos definitivos** (documentados en [`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)):
 parchear el código del juego es inviable (zona de relocalización del CRO); los eventos
@@ -65,11 +61,18 @@ Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descif
 Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
 
 **Aplicar el parche (v27, el último):**
+
+La forma recomendada para usuarios es abrir DeltaPatcher y seleccionar la ROM
+original en **Original file**, `patch/inazuma123-es-v27.xdelta` en **XDelta
+patch** y un nombre nuevo para **Patched file**. La operación se explica paso a
+paso en [`docs/DISTRIBUCION_DELTAPATCHER.md`](docs/DISTRIBUCION_DELTAPATCHER.md).
+
+También se puede usar `xdelta3` directamente:
+
 ```
 xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v27.xdelta "inazuma123_es.3ds"
 ```
-(las versiones anteriores siguen en `patch/` por si alguna diera problemas)
-(o con una GUI tipo *xdelta UI*). Obtendrás `inazuma123_es.3ds`.
+Obtendrás `inazuma123_es.3ds` sin modificar la ROM original.
 
 **Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).
 

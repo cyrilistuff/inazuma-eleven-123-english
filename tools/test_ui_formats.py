@@ -8,9 +8,35 @@ from PIL import Image
 from ctpk_ui import decode, encode
 from translate_ui_textures import paint
 from ui_archive import entries, unwrap
+from qna_regions import regions
 
 
 class UiFormats(unittest.TestCase):
+    def test_untextured_qna_part_is_not_a_texture_reference(self):
+        raw=bytearray(64+32+128*2)
+        raw[:8]=b' QNA 051'
+        struct.pack_into('<III',raw,8,1,0,2)
+        struct.pack_into('<III',raw,36,64,0,96)
+        raw[64:69]=b'icon\0'
+        for offset,index in [(96,0),(224,0xffffffff)]:
+            struct.pack_into('<4f',raw,offset,0,16,16,32)
+            struct.pack_into('<I',raw,offset+88,index)
+        self.assertEqual(regions(raw),[('icon',(0,16,16,32))])
+        struct.pack_into('<I',raw,224+88,1)
+        with self.assertRaises(ValueError):regions(raw)
+
+    def test_text_stroke_and_background_stay_inside_button(self):
+        from PIL import ImageChops, ImageDraw
+        canvas=Image.new('RGBA',(80,32),(40,40,40,255))
+        ImageDraw.Draw(canvas).rectangle((1,1,78,30),outline='white',width=2)
+        before=canvas.copy()
+        paint(canvas,{'box':[5,5,75,27],'text':'Siguiente','size':20,
+                      'stroke_width':2,'erase':'row_sample','sample_x':4},
+              'C:/Windows/Fonts/arialbd.ttf')
+        diff=ImageChops.difference(canvas,before)
+        ImageDraw.Draw(diff).rectangle((5,5,74,26),fill=(0,0,0,0))
+        self.assertFalse(any(c.getbbox() for c in diff.split()))
+
     def test_pixel_formats_are_lossless(self):
         for fmt,bits in [(0,32),(1,24),(2,16),(3,16),(4,16),(5,16),(9,8),(11,4)]:
             with self.subTest(format=fmt):

@@ -1,0 +1,303 @@
+idx,japones,espanol_oficial,nombre_3ds
+0,なし,,Nada
+1,ミネラルウォーター,Agua mineral,Agua min.
+2,スポーツウォーター,Agua isotónica,Isotónica
+3,スーパーウォーター,Agua medicinal,Agua med.
+9,ぎゅうにゅう,Leche,Leche
+11,クッキーフレーバー,Galleta,Galleta
+12,スタミナフレーバー,Barrita,Barrita
+13,ハイパーフレーバー,Chocolate,Chocolate
+16,おにぎり,Bola de arroz,Bol.arroz
+21,ごくじょうのおでん,Pinchito supremo,Pinchito
+36,サッカーざっし,Revista de fútbol,Revista
+37,民山ヒントメモ,Nota de Yosemite,N.Yosem.
+38,碇ヒントメモ,Nota de Gladstone,N.Gladst.
+39,備流田ヒントメモ,Nota de Builder,N.Builder
+41,クワガタ,Ciervo volante,Ciervo v.
+66,ひみつの鍵,Llave secreta,L.secreta
+67,コンピュータ室の鍵,Llave sala PC,L.sala PC
+68,野球部の鍵,Llave béisbol,L.béisbol
+69,テニス部の鍵,Llave tenis,L.tenis
+70,陸上部の鍵,Llave atletismo,L.atlet.
+71,サイクリング部の鍵,Llave ciclismo,L.ciclis.
+72,武道館の鍵,Llave pabellón,L.pabell.
+73,水泳部の鍵,Llave natación,L.natac.
+74,体育館の鍵,Llave gimnasio,L.gimnas.
+75,鉄塔ごやの鍵,Llave caseta,L.caseta
+76,体育館そうこの鍵,Llave trastero,L.trast.
+81,サッカー部ノート,Bloc de fútbol,Bloc fút.
+82,エッチな本,Cómic romántico,Cómic
+83,きみょうなそうち,Artefacto raro,Artefacto
+84,秘伝書のきれはし,Técnica secreta,Téc.secr.
+85,ハッキングのきろく,Prueba de pirateo,P.pirateo
+86,総一郎のメモ,Nota de Sonny,N.Sonny
+87,総一郎のしょるい,Hojas de Sonny,Hoj.Sonny
+89,神のアクア,Néctar,Néctar
+90,大きなクツ,Botazas,Botazas
+91,サングラス,Shadosaurus Cimmerii,Shadosau.
+101,雷門中ウェア,Equipo Raimon,Eq.Raimon
+102,帝国ウェア,Equipo Royal,Eq.Royal
+103,尾刈斗ウェア,Equipo Occult,Eq.Occult
+104,野生中ウェア,Equipo Wild,Eq.Wild
+105,御影ウェア,Equipo Brain,Eq.Brain
+106,秋葉ウェア,Equipo Otaku,Eq.Otaku
+107,戦国ウェア,Equipo Shuriken,Eq.Shuri.
+108,千羽山ウェア,Equipo Farm,Eq.Farm
+109,木戸川ウェア,Equipo Kirkwood,Eq.Kirkw.
+110,世宇子ウェア,Equipo Zeus,Eq.Zeus
+111,ＫＦＣウェア,Equipo Kids F. C.,Eq.KidsFC
+112,傘美野ウェア,Equipo Umbrella,Eq.Umbr.
+113,サリーズウェア,Equipo Sallys,Eq.Sallys
+114,れきせんのウェア,Vieja escuela,V.escuela
+115,そうげんのウェア,Caos,Caos
+116,あめのウェア,Estelas blancas,Estelas
+117,たたかいのウェア,Guerra total,Guerra t.
+118,タフネスウェア,El roble,El roble
+119,テクノウェア,Tecnomanía,Tecnoman.
+120,じょうねつのウェア,Pura pasión,Pura pas.
+121,しっぷうのウェア,Torbellino,Torbell.
+122,しんかいのウェア,Abismo marino,Abismo m.
+123,てっぺきのウェア,Ferromuro,Ferromuro
+124,うみのウェア,Mar adentro,Mar aden.
+125,ねっけつのウェア,Fuego del alma,Fueg.alma
+126,つめあとのウェア,Garra chic,Garra ch.
+127,どりょくのウェア,Abnegación,Abnegac.
+128,ゆうやけのウェア,Sol poniente,Sol pon.
+129,おうじゃのウェア,Campeonísimo,Campeoní.
+130,しょうりのウェア,Invictus,Invictus
+131,せいしゅんウェア,Alegre juventud,Aleg.juv.
+132,しんしのウェア,Señorito,Señorito
+133,スリースターウェア,Triestela,Triestela
+134,きこうしのウェア,Principito,Princip.
+135,ブイサインウェア,Victoria,Victoria
+136,カンフーウェア,Kung-fu,Kung fu
+137,イナズマウェア,Inazuma,Inazuma
+138,ごくじょうウェア,Pasarela,Pasarela
+139,きぞくのウェア,Burgués,Burgués
+140,ほのおのウェア,La llama,La llama
+141,イナビカリのウェア,Equipo Centella,Eq.Cent.
+142,ＯＢ用の服,Ropa de veterano,Ropa vet.
+151,雷門スパイク,Botas Raimon,B.Raimon
+152,帝国スパイク,Botas Royal,B.Royal
+153,のろいのスパイク,Botas malditas,B.maldit.
+154,ワイルドスパイク,Botas salvajes,B.salvaj.
+155,御影専農スパイク,Botas mentales,B.mental.
+156,秋葉名戸スパイク,Botas Otaku,B.Otaku
+157,ニンジャスパイク,Botas ninja,B.ninja
+158,千羽山スパイク,Botas campesinas,B.campes.
+159,木戸川スパイク,Botas Kirkwood,B.Kirkw.
+160,ディバインスパイク,Botas divinas,B.divinas
+161,稲妻ＫＦＣスパイク,Botas infantiles,B.infant.
+162,傘美野スパイク,Botas Umbrella,B.Umbrel.
+163,サリーズシューズ,Botas Sallys,B.Sallys
+164,れきせんのスパイク,Botas curtidas,B.curtid.
+165,ねっけつスパイク,Botas ardientes,B.ardien.
+166,しょうりのスパイク,Botas exitosas,B.exitos.
+167,ハヤブサシューズ,Botas de halcón,B.halcón
+168,インパクトシューズ,Botas de impacto,B.impacto
+169,イナズマスパイク,Botas Inazuma,B.Inazuma
+170,あおぞらスパイク,Botas celestes,B.celest.
+171,せいしゅんスパイク,Botas juveniles,B.juven.
+172,スマートスパイク,Botas elegantes,B.elegan.
+173,みんなのシューズ,Botas clásicas,B.clásic.
+174,マスターシューズ,Botas de experto,B.experto
+175,ウイングスパイク,Botas de Pegaso,B.Pegaso
+176,ワンダースパイク,Botas fabulosas,B.fabul.
+177,どりょくのスパイク,Botas de currante,B.curran.
+178,きあいのスパイク,Botas animosas,B.animos.
+179,ほのおのスパイク,Botas ígneas,B.ígneas
+180,みなぎるスパイク,Botas de duende,B.duende
+181,イナビカリスパイク,Botas Centella,B.Centel.
+182,黒服用靴,Mocasines negros,Mocasines
+183,レイトンシューズ,Zapatos Layton,Z.Layton
+201,雷門グローブ,Guantes Raimon,G.Raimon
+202,帝国グローブ,Guantes Royal,G.Royal
+203,のろいのグローブ,Guantes malditos,G.maldit.
+204,ワイルドグラブ,Guantes salvajes,G.salvaj.
+205,御影専農グローブ,Guantes Brain,G.Brain
+206,秋葉名戸グラブ,Guantes Otaku,G.Otaku
+207,ニンジャグローブ,Guantes ninja,G.ninja
+208,千羽山グローブ,Guantes Farm,G.Farm
+209,清修グローブ,Guantes Kirkwood,G.Kirkw.
+210,ディバイングローブ,Guantes divinos,G.divinos
+211,稲妻ＫＦＣグローブ,Guantes infantiles,G.infant.
+212,傘美野グローブ,Guantes Umbrella,G.Umbrel.
+213,サリーズグローブ,Guantes Sallys,G.Sallys
+214,れきせんのグローブ,Guantes curtidos,G.curtid.
+215,せいしゅんグローブ,Guantes juveniles,G.juven.
+216,かたみのグローブ,Guantes legados,G.legados
+217,ほのおのグローブ,Guantes ígneos,G.ígneos
+218,プリティハンド,Guantes cucos,G.cucos
+219,イナズマグローブ,Guantes Inazuma,G.Inazuma
+220,しょうりのグローブ,Guantes exitosos,G.exitos.
+221,ねっけつグローブ,Guantes ardientes,G.ardien.
+231,イナビカリグローブ,Guantes Centella,G.Centel.
+241,じょうぶなミサンガ,Pulsera recia,P.recia
+242,たくましいミサンガ,Pulsera varonil,P.varonil
+243,まもりのミサンガ,Pulsera talismán,P.talism.
+244,マッスルミサンガ,Pulsera de cachas,P.cachas
+245,ファイトミサンガ,Pulsera guerrera,P.guerr.
+246,よごれたミサンガ,Pulsera gastada,P.gastada
+247,ほのおのミサンガ,Pulsera ígnea,P.ígnea
+248,プロテクトミサンガ,Pulsera escolta,P.escolta
+249,せいなるミサンガ,Pulsera sacra,P.sacra
+250,しあわせのミサンガ,Pulsera jubilosa,P.jubil.
+251,せいしゅんミサンガ,Pulsera juvenil,P.juvenil
+252,シールドミサンガ,Pulsera escudo,P.escudo
+253,しょうりのミサンガ,Pulsera exitosa,P.exitosa
+254,イナズマミサンガ,Pulsera Inazuma,P.Inazuma
+255,いのちのミサンガ,Pulsera vital,P.vital
+256,にんきのミサンガ,Pulsera popular,P.popular
+257,きぼうのミサンガ,Pulsera de fe,P.de fe
+258,ねっけつミサンガ,Pulsera ardiente,P.ardien.
+259,ジミなミサンガ,Pulsera sobria,P.sobria
+260,どハデなミサンガ,Pulsera llamativa,P.llamat.
+261,ハデなミサンガ,Pulsera chillona,P.chill.
+265,ちかいのペンダント,Colgante fraterno,C.frater.
+266,ＧＰペンダント銅,Medalla PE bronce,M.PE br.
+267,ＧＰペンダント銀,Medalla PE plata,M.PE pl.
+268,ＧＰペンダント金,Medalla PE oro,M.PE oro
+269,ＴＰペンダント銅,Medalla PT bronce,M.PT br.
+270,ＴＰペンダント銀,Medalla PT plata,M.PT pl.
+271,ＴＰペンダント金,Medalla PT oro,M.PT oro
+291,ダークトルネード,Tornado oscuro,Tor.osc.
+292,ぶんしんフェイント,Regate múltiple,Reg.múlt.
+293,しっぷうダッシュ,Entrada huracán,E.huracán
+294,たつまきせんぷう,Torbellino dragón,Torb.dra.
+295,イリュージョンＢＬ,Espejismo de balón,Esp.balón
+296,ダッシュアクセル,Acelerón,Acelerón
+297,じごくぐるま,Rueda infernal,Rued.inf.
+298,ヒートタックル,Corte flamígero,C.flamíg.
+299,ジグザグスパーク,Zigzag chispeante,Zigzag
+300,たまのりピエロ,Equilibrismo,Equilibr.
+301,のろい,Maldición,Maldición
+302,スーパーアルマジロ,Superarmadillo,Armadillo
+303,どくぎりのじゅつ,Niebla venenosa,Niebla v.
+304,Ｓスキャン・ＯＦ,Escáner ataque,Escáner A
+305,ごりむちゅう,Confusión,Confusión
+306,ブーストグライダー,Potenciación,Potenc.
+307,ざんぞう,Espejismo,Espejismo
+308,モグラフェイント,Regate topo,Reg.topo
+309,カマイタチ,Remolino cortante,Remolino
+310,モンキーターン,Giro de mono,Giro mono
+311,ヘブンズタイム,Hora celestial,Hora cel.
+312,ジャッジスルー,Coz,Coz
+313,ダッシュストーム,Entrada tormenta,E.tormen.
+314,ムーンサルト,Luna creciente,Luna cre.
+315,マジック,Truco de magia,Tr.magia
+321,ザ・ウォール,El muro,El muro
+322,コロドラシュート,Tiro chispadraco,T.chisp.
+323,キラースライド,Barrido defensivo,Barr.def.
+324,コイルターン,Giro bobina,Giro bob.
+325,アースクェイク,Sismo,Sismo
+326,クイックドロウ,Robo rápido,Robo ráp.
+327,くものいと,Telaraña,Telaraña
+328,サイクロン,Ciclón,Ciclón
+329,フェイクボール,Bola falsa,Bol.falsa
+330,かげぬい,Ataque sombrío,At.sombr.
+331,しこふみ,Pisotón de sumo,Pisotón
+332,ホーントレイン,Embestida,Embestida
+333,ハリケーンアロー,Flecha huracán,Fl.hurac.
+334,スピニングカット,Corte giratorio,C.girat.
+335,Ｓスキャン・ＤＦ,Escáner defensa,Escáner D
+336,おんりょう,Gravedad,Gravedad
+337,ドッペルゲンガー,Doppelgänger,Doppelg.
+338,かごめかごめ,Trama,Trama
+339,ハーヴェスト,Vendimia,Vendimia
+340,さばきのてっつい,Apisonadora,Apisonad.
+341,メガクェイク,Mega terremoto,Megaterr.
+342,ブレードアタック,Ataque afilado,At.afil.
+343,うしろのしょうめん,Sorpresa,Sorpresa
+344,ばくれつパンチ,Despeje explosivo,D.explos.
+345,マジン・ザ・ハンド,Mano mágica,Mano mág.
+346,ほのおのかざみどり,Pájaro de fuego,Páj.fuego
+347,イナズマブレイク,Ruptura relámpago,Rupt.rel.
+348,ザ・ギャラクシー,Tiro galáctico,T.galáct.
+349,皇帝ペンギン２ごう,Pingüino emp. n.º2,Pingüino2
+350,ザ・フェニックス,Fénix,Fénix
+351,イナズマおとし,Trampolín relámpago,Trampolín
+352,ドラゴンクラッシュ,Remate dragón,R.dragón
+353,ツインブースト,Remate combinado,R.combin.
+354,ファイアトルネード,Tornado de fuego,Tor.fuego
+355,ひゃくれつショット,Chut de 100 toques,Chut 100
+356,イナズマ１ごう,Súper relámpago,S.relámp.
+357,グレネードショット,Chut granada,Ch.gran.
+358,デスゾーン,Triángulo letal,Tri.letal
+359,ファントムシュート,Tiro fantasma,T.fantas.
+360,ホークショット,Remate halcón,R.halcón
+361,メテオアタック,Ataque meteorito,At.meteo.
+362,スネークショット,Remate serpiente,R.serpie.
+363,スピニングシュート,Tiro giratorio,T.girat.
+364,すいせいシュート,Tiro del cometa,T.cometa
+365,ローリングキック,Disparo rodante,Disp.rod.
+366,ぶんしんシュート,Remate múltiple,R.múltip.
+367,ダイナマイトＳＨ,Tiro dinamita,T.dinam.
+368,パトリオットＳＨ,Remate misil,R.misil
+369,スパイラルショット,Remate espiral,R.espiral
+370,フリーズショット,Chut congelante,Ch.cong.
+371,クロスドライブ,Pase cruzado,Pas.cruz.
+372,かみかくし,Rapto divino,Rapt.div.
+373,サイコショット,Psicorremate,Psicorr.
+374,コンドルダイブ,Ataque cóndor,At.cóndor
+375,ラン・ボール・ラン,Balón rodante,Bal.rod.
+376,トライアングルＺ,Triángulo Z,Triáng.Z
+377,ドこんじょうバット,Bateo total,Bat.total
+378,リフレクトバスター,Disparo con rebotes,Disp.reb.
+379,クンフーヘッド,Cabezazo kung-fu,C.kung fu
+380,シャインドライブ,Tiro cegador,T.cegador
+381,ディバインアロー,Flecha divina,Fl.divina
+382,バックトルネード,Tornado inverso,Tor.inv.
+383,ターザンキック,Remate Tarzán,R.Tarzán
+384,ゴッドノウズ,Sabiduría divina,Sabiduría
+385,ドラゴントルネード,Tornado dragón,Tor.drag.
+386,つちだるま,Bola de fango,Bol.fango
+387,つなみウォール,Muralla tsunami,M.tsunami
+388,トルネードキャッチ,Atajo tornado,Ataj.tor.
+389,ゴッドハンド,Mano celestial,Mano cel.
+390,パワーシールド,Escudo de fuerza,Esc.fuer.
+391,ねっけつパンチ,Despeje de fuego,D.fuego
+392,シュートポケット,Campo de fuerza,Camp.fza.
+393,ゆがむくうかん,Espiral distorsión,Esp.dist.
+394,カウンターＳＴＲ,Puño vengativo,Puño ven.
+395,ゴールずらし,Deslizamiento,Deslizam.
+396,トリプルＤＦ,Defensa triple,Def.trip.
+397,プレッシャーパンチ,Despeje a presión,D.presión
+398,タフネスブロック,Bloque dureza,Bloq.dur.
+399,フルパワーシールド,Escudo fuerza total,Esc.f.tot
+400,まきわりチョップ,Despeje de leñador,D.leñador
+401,つむじ,Torbellino,Torbell.
+402,ロケットこぶし,Despeje cohete,D.cohete
+403,ワイルドクロー,Garra salvaje,Garr.salv
+404,ギガントウォール,Muralla gigante,M.gigante
+405,こがらし,Hojarasca,Hojarasca
+406,キラーブレード,Cuchilla asesina,Cuchilla
+407,むげんのかべ,Muralla infinita,M.infini.
+408,イナズマおとし,Trampolín relámpago,Trampolín
+409,イナズマブレイク,Ruptura relámpago,Rupt.rel.
+450,Ｆ−ベーシック,Diamante,Diamante
+451,Ｆ−デスゾーン,Zona muerta,Z.muerta
+452,Ｆ−ゴーストダンス,Flecha espectral,Fl.espec.
+453,Ｆ−ワイルドパーク,Jungla,Jungla
+454,Ｆ−ＧＲＩＤ４４２,Reja,Reja
+455,Ｆ−スーパー☆５,Pirámide,Pirámide
+456,Ｆ−かくよくのじん,Alas de grulla,A.grulla
+457,Ｆ−むげんのかべ,Árbol de Navidad,Á.Navidad
+458,Ｆ−ムカタ・マーチ,Ataque trillizo,At.trill.
+459,Ｆ−ヘブンズゲート,Puerta al cielo,Pta.cielo
+460,Ｆ−ファランクス,Ancla,Ancla
+463,Ｆ−バタフライ,Doble W,Doble W
+464,Ｆ−ドットプリズン,Doble M,Doble M
+466,Ｆ−ボー＆アロー,Pala,Pala
+468,Ｆ−ミドルブロック,Autobús,Autobús
+469,Ｆ−フェニックス,Vuelo del Fénix,V.Fénix
+474,Ｂ−ベーシック,Tirachinas,Tirachin.
+475,Ｂ−フラットバック,En línea,En línea
+476,Ｂ−アタッカー,Incursión,Incursión
+477,Ｂ−ブレイクスルー,Kamikaze,Kamikaze
+478,Ｂ−プレッシャー,Cerrojo,Cerrojo
+479,Ｂ−スラッシュ,Diagonal,Diagonal
+480,Ｂ−ライトウイング,Ala derecha,Ala dcha.
+481,Ｂ−トレイン,Torre,Torre
+482,Ｂ−トライアングル,Pachanga total,Pach.tot.
+483,Ｂ−ランス,Lanza,Lanza
+511,テストシューズ,Botas milagrosas,B.milagr.

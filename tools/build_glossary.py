@@ -35,23 +35,37 @@ GAME_CFG = {
 }
 
 # Codificacion Latin propia del NDS ES (inferida por contexto; ampliable)
+# Same table as tools/ds_official.py (verified on official sentences):
+# 0xD9 is É ("Épsilon"), not Í.
 NDS_DEC = {0xB2: "á", 0xBA: "é", 0xBE: "í", 0xC4: "ó", 0xCA: "ú",
-           0xC2: "ñ", 0xCC: "ü", 0xB5: "ä", 0xA5: "¿", 0xDF: "¡", 0xD9: "Í"}
+           0xC2: "ñ", 0xCC: "ü", 0xB5: "ä", 0xA5: "¿", 0xDF: "¡",
+           0xD1: "Á", 0xD9: "É", 0xA6: "Í", 0xAB: "Ó", 0xA2: "Ú", 0xA9: "Ñ"}
+# Shift-JIS pairs embedded in the Spanish text (typographic quotes).
+NDS_SJIS = {b"\x81\x67": '"', b"\x81\x68": '"'}
 
 
 def dec_es(b):
     out = []
-    for c in b:
+    i = 0
+    while i < len(b):
+        c = b[i]
         if c == 0:
             break
+        if b[i:i + 2] in NDS_SJIS:
+            out.append(NDS_SJIS[b[i:i + 2]])
+            i += 2
+            continue
         if c in (0x0A, 0x0D):      # salto de linea -> espacio
             out.append(" ")
+        elif c == 0x7E:            # '~' se usa como ordinal: n.~2 -> n.º2
+            out.append("º")
         elif 0x20 <= c < 0x7F:
             out.append(chr(c))
         elif c in NDS_DEC:
             out.append(NDS_DEC[c])
         else:
             out.append("?")
+        i += 1
     return " ".join("".join(out).split()).strip()
 
 

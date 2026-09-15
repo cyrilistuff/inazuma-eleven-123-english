@@ -2,6 +2,10 @@
 
 The byte size includes the four-byte header, terminator and four-byte alignment.
 Do not split this table on NUL: headers and padding contain zero bytes too.
+
+Some extracted event blobs omit the literal ``SSD\\0`` magic but retain the
+same header fields and offsets.  They are accepted as a headerless SSD variant;
+replacement preserves their original first four bytes.
 """
 from dataclasses import dataclass
 import struct
@@ -19,8 +23,18 @@ class TextRecord:
 
 
 def parse(data):
-    if len(data) < 32 or data[:4] != b"SSD\0":
+    if len(data) < 32:
         raise ValueError("not an SSD")
+    if data[:4] == b"SSD\0":
+        normalized = data
+    elif data[:4] == b"\0\0\0\0" and data[4:8] == b"\x01\0\x03\0":
+        # A small set of event blobs was extracted without the four-byte magic.
+        # The remaining header starts at the same offsets, so normalize only
+        # for validation and keep the original bytes for replacement output.
+        normalized = b"SSD\0" + data[4:]
+    else:
+        raise ValueError("not an SSD")
+    data = normalized
     _, _, size, count, texts, code_size, text_size, _, _ = struct.unpack_from("<4sIIHHIIII", data)
     if size != len(data) or 32 + code_size + text_size != size:
         raise ValueError("inconsistent SSD section sizes")

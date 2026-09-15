@@ -86,7 +86,10 @@ GAMES = [("inazuma1", "game1"), ("inazuma2", "game2")]
 # sin espacios). Los saltos \n del DS oficial son mas anchos que la caja del 3DS (~140px),
 # asi que el motor re-corta a mitad de palabra ("vamo|s"). Solucion: re-ajustar el ES a la
 # anchura de caja cortando solo entre palabras. Ancho de caja conservador (caja principal).
-BOX_W = 132
+# The dialogue window has 208 usable pixels at native resolution.  The former
+# 132-pixel limit left Spanish lines in the middle of the box and caused
+# unnatural early breaks.
+BOX_W = 208
 _BASE = {acc: base for acc, base, _t, _cp in _PLAN}     # á->a, ¿->?, ... (anchura del base)
 _ADV = None
 
@@ -103,7 +106,13 @@ def _advance(ch):
             o = f.cwdh_entry_off(gi)
             if o is not None:
                 _ADV[cp] = f.data[o + 2]
-    return _ADV.get(ord(_BASE.get(ch, ch)), 8)
+    base = _BASE.get(ch, ch)
+    advance = _ADV.get(ord(base), 8)
+    # v16 gives Latin glyphs the same one-pixel breathing room as the patched
+    # BCFNT CWDH metrics.  Spaces retain their original advance.
+    if base.isascii() and base.isalpha():
+        advance += 1
+    return advance
 
 
 def reflow(text):

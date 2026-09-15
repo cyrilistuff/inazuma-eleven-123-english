@@ -174,45 +174,62 @@ def rot180(grid):
     return out
 
 
-def patch_font(path, out, fullwidth=False):
+def patch_font(path, out, fullwidth=False, patch_glyphs=True, letter_spacing=0):
     f = Font(path)
     base_cw = {}
     cwdh = {}
     for blk in f.b.cwdhs():
         cwdh.update(blk["widths"])
     applied = 0
-    for ch, base, acc, cp in PLAN:
-        if ord(base) not in f.cmap or cp not in f.cmap:
-            print(f"  saltado {ch} (base o cp no en cmap)")
-            continue
-        base_cp = ord(base) + 0xfee0 if fullwidth else ord(base)
-        if base_cp not in f.cmap:
-            raise ValueError('fullwidth base glyph missing')
-        bgi = f.cmap[base_cp]
-        tgi = f.cmap[cp]
-        grid = f.read_cell(bgi)
-        if acc == "acute":
-            grid = add_acute(grid)
-        elif acc == "diaer":
-            grid = add_diaer(grid)
-        elif acc == "tilde":
-            grid = add_tilde(grid)
-        elif acc == "vflip":
-            grid = vflip(f.read_cell(bgi))
-        elif acc == "rot180":
-            grid = rot180(f.read_cell(bgi))
-        f.write_cell(tgi, grid)
-        f.copy_width(bgi, tgi)        # ancho del caracter base
-        applied += 1
+    if patch_glyphs:
+        for ch, base, acc, cp in PLAN:
+            if ord(base) not in f.cmap or cp not in f.cmap:
+                print(f"  saltado {ch} (base o cp no en cmap)")
+                continue
+            base_cp = ord(base) + 0xfee0 if fullwidth else ord(base)
+            if base_cp not in f.cmap:
+                raise ValueError('fullwidth base glyph missing')
+            bgi = f.cmap[base_cp]
+            tgi = f.cmap[cp]
+            grid = f.read_cell(bgi)
+            if acc == "acute":
+                grid = add_acute(grid)
+            elif acc == "diaer":
+                grid = add_diaer(grid)
+            elif acc == "tilde":
+                grid = add_tilde(grid)
+            elif acc == "vflip":
+                grid = vflip(f.read_cell(bgi))
+            elif acc == "rot180":
+                grid = rot180(f.read_cell(bgi))
+            f.write_cell(tgi, grid)
+            f.copy_width(bgi, tgi)        # ancho del caracter base
+            applied += 1
+    if letter_spacing:
+        # FONT12T has a one-byte-per-pixel sheet, so its raster must remain
+        # untouched.  Adjusting only CWDH gives Latin text a stable one-pixel
+        # gap without corrupting that format or changing the cell geometry.
+        codes = set(range(ord('A'), ord('Z') + 1)) | set(range(ord('a'), ord('z') + 1))
+        codes.update(cp for _ch, _base, _acc, cp in PLAN)
+        for cp in codes:
+            gi = f.cmap.get(cp)
+            if gi is None:
+                continue
+            off = f.cwdh_entry_off(gi)
+            if off is None:
+                continue
+            f.data[off + 2] = min(255, f.data[off + 2] + letter_spacing)
     if out:
         open(out, "wb").write(f.data)
     print(f"{path}: {applied} glifos ES escritos (tamano {len(f.data)})")
     return f
 
 
-def patch_font_bytes(path, fullwidth=False):
+def patch_font_bytes(path, fullwidth=False, patch_glyphs=True, letter_spacing=0):
     """Devuelve los bytes de la fuente con los glifos ES anadidos (mismo tamano)."""
-    return bytes(patch_font(path, None, fullwidth=fullwidth).data)
+    return bytes(patch_font(path, None, fullwidth=fullwidth,
+                            patch_glyphs=patch_glyphs,
+                            letter_spacing=letter_spacing).data)
 
 
 if __name__ == "__main__":

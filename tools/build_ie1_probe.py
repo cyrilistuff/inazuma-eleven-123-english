@@ -20,6 +20,7 @@ from pkb_unpack import parse_index, _decode_string
 import reinsert as R
 import ssd_records as S
 from dialogue_typography import encode_fullwidth
+from dialogue_lock import validate as validate_dialogue_lock, approved_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -56,6 +57,7 @@ def main():
     ap.add_argument('--extra-files', type=Path, help='Local archive-relative verified replacement files')
     ap.add_argument('--output', type=Path, default=ROOT/'work/probe_ie1/archive.fa')
     opts = ap.parse_args()
+    validate_dialogue_lock(opts.fullwidth, opts.extra_files, layout)
     reviewed = json.loads(opts.reviewed_json.read_text(encoding='utf-8')) if opts.reviewed_json else {}
     explicit = {(int(eid), row['index']): row for eid, rows in reviewed.get('records', {}).items() for row in rows}
     reviewed_only = set(reviewed.get('reviewed_only', []))
@@ -102,7 +104,7 @@ def main():
                     report['missing'].append([eid,i])
                     continue
                 try:
-                    formatted = layout(es, advance=lambda ch: 11, width=220) if opts.fullwidth else layout(es)
+                    formatted = approved_layout(es, layout)
                     if override and not override.get('wrap', True):
                         formatted = es
                     body = encode_fullwidth(formatted) if opts.fullwidth else R.es_encode(formatted,1<<20)
@@ -144,10 +146,23 @@ def main():
             f.write(struct.pack('<II',offset-arc.data_off,len(payload)))
         for font in R.FONTS:
             p,offset,size = next(e for e in arc.entries if e[0].endswith(font))
-            if opts.fullwidth and Font(str(ROOT/'work/fa_extract'/font)).t['fmt'] != 11:
+            source_font = str(ROOT/'work/fa_extract'/font)
+            # FONT12T is format 9 (one byte per pixel).  The glyph editor is
+            # format-11-only; keep its raster intact and adjust only its CWDH
+            # advances so dialogue spacing stays consistent.
+            if not opts.fullwidth and font.endswith('FONT12T.bcfnt'):
+                patched = patch_font_bytes(source_font, fullwidth=False,
+                                           patch_glyphs=False, letter_spacing=1)
+                assert len(patched)==size
+                f.seek(offset)
+                f.write(patched)
+                continue
+            if opts.fullwidth and Font(source_font).t['fmt'] != 11:
                 report.setdefault('original_fonts_preserved', []).append(font)
                 continue
-            patched=patch_font_bytes(str(ROOT/'work/fa_extract'/font), fullwidth=opts.fullwidth)
+            spacing = 1 if (not opts.fullwidth and font.endswith('FONT12.bcfnt')) else 0
+            patched=patch_font_bytes(source_font, fullwidth=opts.fullwidth,
+                                     letter_spacing=spacing)
             assert len(patched)==size
             f.seek(offset)
             f.write(patched)

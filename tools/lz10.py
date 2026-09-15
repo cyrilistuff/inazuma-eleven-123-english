@@ -50,6 +50,45 @@ def decompress(data):
 MAX_CAND = 256
 
 
+def compress_optimal(data):
+    """Minimum-byte LZ10 stream, including the one flag byte per eight tokens.
+
+    Intended for small sprites that must fit an existing allocation. Keeps the
+    normal compressor unchanged for larger packages.
+    """
+    data=bytes(data);n=len(data)
+    if n>=1<<24:raise ValueError('LZ10 input exceeds 24-bit size')
+    latest=[{} for _ in range(19)];matches=[]
+    for i in range(n):
+        row=[]
+        for length in range(3,min(18,n-i)+1):
+            key=data[i:i+length];previous=latest[length].get(key)
+            if previous is not None and i-previous<=4096:row.append((length,i-previous))
+            latest[length][key]=i
+        matches.append(row)
+    costs=[[0]*8 for _ in range(n+1)]
+    choices=[[None]*8 for _ in range(n)]
+    for i in range(n-1,-1,-1):
+        for slot in range(8):
+            nxt=(slot+1)%8;flag=int(slot==0)
+            best=flag+1+costs[i+1][nxt];choice=(1,0)
+            for length,distance in matches[i]:
+                cost=flag+2+costs[i+length][nxt]
+                if cost<=best:best=cost;choice=(length,distance)
+            costs[i][slot]=best;choices[i][slot]=choice
+    out=bytearray(b'\x10'+n.to_bytes(3,'little'));i=0;slot=0
+    while i<n:
+        if slot==0:flag_at=len(out);out.append(0)
+        length,distance=choices[i][slot]
+        if distance:
+            out[flag_at]|=0x80>>slot
+            value=((length-3)<<12)|(distance-1)
+            out.extend(value.to_bytes(2,'big'))
+        else:out.append(data[i])
+        i+=length;slot=(slot+1)%8
+    return bytes(out)
+
+
 def compress(data):
     """LZ10 con lazy matching. Ventana 4096, longitud 3..18."""
     from collections import defaultdict

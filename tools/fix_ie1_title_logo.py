@@ -18,7 +18,7 @@ from ui_archive import entries, unwrap
 REPO = Path(__file__).resolve().parents[1]
 ENTRY = "inazuma1/data_iz/pic2d/title/title_t.arc"
 TEXTURE = "ie01_title_t_tlogo.tga"
-DEFAULT_BASE = REPO / "work" / "probe_ie1_v34" / "archive.fa"
+DEFAULT_BASE = REPO / "work" / "probe_ie1_v36" / "archive.fa"
 DEFAULT_SOURCE = REPO / "work" / "trailer" / "incoming" / "logo_ie1_es.png"
 DEFAULT_OUTPUT = (REPO / "work" / "volumen_1" / "ie1_media_mod" / "archive_extra" /
                   "inazuma1" / "data_iz" / "pic2d" / "title" / "title_t.arc")

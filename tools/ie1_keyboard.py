@@ -2,6 +2,7 @@
 
 Each visible character occupies two equal cells. AAAA switches mode, DDDD
 deletes, and ASCII spaces disable a cell. B/C are Japanese diacritic controls.
+The selection grid uses 20x20 px keys (row k at y=20k), as in the Japanese texture.
 """
 from dialogue_typography import encode_fullwidth
 
@@ -33,6 +34,6 @@ def texture_operations(mode):
     for y,row in enumerate(ROWS):
         for x,ch in enumerate(row):
             text='ESP' if ch==' ' else (ch.lower() if mode==1 else ch)
-            operations.append(dict(box=[x*20,y*16,x*20+20,y*16+16],text=text,size=8 if ch==' ' else 14))
-    operations.extend([dict(box=[200,0,224,16],text='abc' if mode==0 else 'ABC',size=10),dict(box=[200,16,224,48],text='',size=10)])
+            operations.append(dict(box=[x*20,y*20+2,x*20+20,y*20+18],text=text,size=8 if ch==' ' else 14))
+    operations.extend([dict(box=[200,2,224,18],text='abc' if mode==0 else 'ABC',size=10),dict(box=[200,20,224,60],text='',size=10)])
     return operations

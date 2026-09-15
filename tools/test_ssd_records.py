@@ -15,6 +15,14 @@ class RecordsTests(unittest.TestCase):
     def test_roundtrip(self):
         self.assertEqual(S.replace(sample(),{}),sample())
 
+    def test_headerless_variant_preserves_missing_magic(self):
+        source = b'\0\0\0\0' + sample()[4:]
+        output = S.replace(source, {0:b'Hola'})
+        self.assertEqual(output[:4], b'\0\0\0\0')
+        end, _, records = S.parse(output)
+        self.assertEqual(records[0].body, b'Hola')
+        self.assertEqual(output[32:end], source[32:48])
+
     def test_grow_updates_record_and_sections_but_not_code(self):
         source=sample()
         output=S.replace(source,{0:b'A much longer sentence.'})

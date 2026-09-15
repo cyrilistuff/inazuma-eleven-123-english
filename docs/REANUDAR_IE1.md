@@ -1,4 +1,94 @@
+> Retoma 2026-09-11 (v33): `work/probe_ie1_v33/archive.fa` está instalada en Azahar
+> (hash `b65cd7ea…48285314`, CRO `44d4e206…` con 158 literales nuevos). Base
+> reproducible: v32 (se conserva; el `archive.fa` de v31 se borró). Cada línea de trabajo vive en `work/v33/<línea>/`
+> con su `validate.py`; mapa de propiedad en `work/v33/ownership.json`; pendientes de
+> texturas ya cambiadas en `work/v33/tex_residual/report.json`. Detalle en
+> [IE1_V33_TANDA.md](IE1_V33_TANDA.md).
+
+> Retoma 2026-09-11 (v32, histórica): `work/probe_ie1_v32/archive.fa` estuvo instalada en Azahar
+> (hash `4043c5c9…a8a7498a`, CRO igual que v31). Base reproducible: v31 (se conserva;
+> el `archive.fa` de v30 se borró). Cadenas oficiales del ejecutable NDS en
+> `work/ie1_es/bin/strings.txt`. Detalle y pendientes en
+> [IE1_V32_TANDA.md](IE1_V32_TANDA.md).
+
+> Retoma 2026-09-11 (v31, histórica): `work/probe_ie1_v31/archive.fa` estuvo instalada en Azahar
+> (hash `e19252b1…eb00f746`, CRO igual que v30). Base reproducible: v30 (se conserva;
+> el `archive.fa` de v29 se borró). La ROM NDS española está extraída en
+> `work/ie1_es/` y es la fuente de nombres oficiales. Orden completa, pendientes y
+> prueba sugerida en [IE1_V31_TANDA.md](IE1_V31_TANDA.md).
+
+> Retoma 2026-09-11 (v30, histórica): `work/probe_ie1_v30/archive.fa` estuvo instalada en Azahar
+> (hash `447f2bd8…a430f31af`, CRO igual que v29). Base reproducible: v29 (se conserva;
+> el `archive.fa` de v28 se borró). Añade el menú de la bolsa y sus pantallas. Orden
+> completa y prueba sugerida en [IE1_V30_TANDA.md](IE1_V30_TANDA.md). Siguiente
+> bloqueo: nombres oficiales de supertécnicas y objetos (#22).
+
+> Retoma 2026-09-11 (v29, histórica): `work/probe_ie1_v29/archive.fa` y su CRO estuvieron instalados
+> en Azahar (hash `cbada7a4…9eaf465`). Base reproducible: v28 (se conserva). Añade
+> descripciones de jugadores, pantalla VS, nombres oficiales de equipo, PE/PT de
+> objetos y el lote `ui_followup`. Orden completa y prueba sugerida en
+> [IE1_V29_TANDA.md](IE1_V29_TANDA.md). Pendiente: prueba jugable; objetos y menú de
+> entrenamiento en #22.
+
+> Retoma 2026-09-09 (v27, histórica; su `archive.fa` se borró tras instalar v29):
+> La auditoría completa de 982 eventos deja 18.806 diálogos visibles sin japonés,
+> 19.039 textos insertados y 0 rechazos. Hash candidato/instalado:
+> `91f816060775190e994f585fae5e09c8adab4cc1998b059f250372387ab10369`.
+
+> Retoma 2026-09-09 (v26): `work/probe_ie1_v26/archive.fa` está instalada en Azahar.
+> Hash candidato/instalado: `394b3ea3f986204a5ed7bb9d8fb2a349333d6b15490736cf16f259ca1dcfa27f`.
+> La candidata queda con 0 rechazos de registros y conserva la caja y tipografía
+> aprobadas. Continuar con la prueba guiada de capítulo 2 y pachangas desde partida nueva.
+
+## Trabajo en curso: v23 instalada, aspecto aprobado y bloqueado
+
+El usuario confirma que la caja actual está muy bien y prohíbe volver a cambiarla.
+Cumplir AGENTS.md y `tools/dialogue_lock.py`. Continuar traduciendo sin tocar la
+tipografía; el recorrido completo de QA sigue siendo una comprobación aparte.
+
+Ver [QA_TIPOGRAFIA_V20.md](QA_TIPOGRAFIA_V20.md). V20 recuperó `--fullwidth`
+usado en v13, junto a sus cinco fuentes ya recuperadas. V23 conserva esa
+apariencia, añade los diálogos de pachangas y cadena de partidos, mantiene los
+143 diálogos visibles de la Royal (`mch.pkb`, eventos `9420xxxx` y `94001500`)
+y localiza nombres, títulos y categorías de equipo. La candidata instalada
+coincide con el SHA-256
+`bf1e194564170d86cffcf3acfa70409420584ca048b699253611011e35614393`.
+La prueba jugable sigue pendiente; no se debe cargar un estado rápido de otra
+build. Las v21 y v22 se eliminaron después de verificar la instalación.
+Historial anterior a continuación.
+
+Actualización: se ha construido la candidata general v19; ver
+[QA_TIPOGRAFIA_V19.md](QA_TIPOGRAFIA_V19.md). V18 no superó completamente la
+prueba. La aparente diferencia entre capítulos procedía de un estado rápido de
+otra ROM. No usar esa captura como validación del capítulo 1.
+
+V19 pasa comprobación de 1.293 eventos, instrucciones intactas, cinco fuentes
+idénticas a v13 y cero rechazos en 19.036 textos insertados. La prueba visual
+sigue pendiente. Historial v18 a continuación.
+
+V17 falló la prueba del aula: cortes dentro de palabras y espaciado irregular.
+Ver [QA_ESPACIADO_V18.md](QA_ESPACIADO_V18.md). La candidata de diagnóstico
+`work/probe_ie1_spacing_v18/archive.fa` sustituye al mod v17 para repetir un único
+diálogo de la profesora (81000090/287). Pendiente de prueba del usuario; no es una
+build completa aprobada. El estado v17 de abajo es el antecedente.
+
+Ver [IE1_V14_EN_CURSO.md](IE1_V14_EN_CURSO.md). La candidata local v17 está generada en
+`work/probe_ie1_v17/archive.fa` y `work/probe_ie1_v17/inazuma123_ie1_v17.3ds`,
+instalada como mod de Azahar y pendiente de verificación en juego. Incluye 50
+correcciones de variantes en 9700, 18 pares de NPC y partidillos en 8100, reflujo
+de 208 px, fuente `FONT12T` restaurada y el rótulo «Objetivo» ajustado dentro de
+la textura regenerada. Las candidatas anteriores quedan preservadas.
+
 # Guía de continuidad del proyecto IE1
+
+**Retoma actual (2026-09-09): candidata v23 en [IE1_V14_EN_CURSO.md](IE1_V14_EN_CURSO.md).**
+Incluye las correcciones de variantes de 9700, los pares de NPC/partidillo de 8100
+y el ajuste tipográfico y del rótulo. Mantiene la verificación estática completa.
+Sigue pendiente la prueba guiada en Azahar; las
+notas v10–v14 de abajo describen el historial.
+
+Estado más reciente: [preparación de v10](IE1_V10_PREPARACION.md). V9 presenta
+regresión gráfica confirmada por el usuario. V10 ya está construida e instalada con copia de v9; queda pendiente de QA jugable.
 
 Este documento describe el flujo que ha seguido Astra para que otro modelo pueda
 retomar el trabajo sin confundir una candidata local con una build verificada.

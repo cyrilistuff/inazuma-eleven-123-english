@@ -14,8 +14,9 @@ los **nombres europeos oficiales** (decisión del proyecto).
 | `jugadores.csv` | ~1174 | `unitbase.dat` (reg. 96 B, nombre@+0) | ✅ verificado |
 | `titulos_equipo.csv` | 20 | `teamtitle.dat` (reg. 16 B) | ✅ verificado |
 | `menus.csv` | ~133 | `games.STR` (índice 1:1) | ✅ verificado |
-| objetos | — | `item.dat` | 🟡 pendiente (orden no casa 1:1) |
-| técnicas/hissatsu | — | `command.STR` | 🟡 pendiente (recuentos distintos) |
+| `equipos.csv` | 158 | `team.pkb` (reg. 320 B; NDS desplazada +1 desde el 32) | ✅ verificado |
+| `tecnicas.csv` | 131 | `command.dat`/`command.STR` (por ID de técnica) | ✅ verificado; `nombre_3ds` abreviado a 15 caracteres |
+| `objetos.csv` | 302 | `item.dat` (índice; NDS 48 B, 3DS 32 B) | ✅ verificado; `nombre_3ds` abreviado a 9 caracteres |
 
 Ejemplos verificados: 円堂守→**Mark Evans**, 豪炎寺修也→**Axel Blaze**,
 鬼道有人→**Jude Sharp**, 音無春奈→**Celia Hills**.

@@ -251,3 +251,10 @@ cada offset del bytecode que apunte a una lectura/debug/byte-id movido** (offset
 3. Localizar el evento del NPC/zona (`work/dump_intro2.py`, buscar texto en `eve.pkb`).
 4. Comparar el chunk original vs el transformado byte a byte.
 5. Probar con **partida NUEVA** (nunca save states entre builds).
+
+## ❌ Emparejar el diálogo NDS↔3DS por orden de líneas (2026-09-15, issue #36)
+`tools/ds_official.py` alineaba por patrón de repeticiones (difflib). Sin frases repetidas eso es
+emparejar por posición, y en 621 eventos la NDS tiene instrucciones de más que desplazan los IDs:
+**931 frases de la build mostraban otra frase del mismo evento** (p. ej. «¡Tú!» → «Ya puedes
+entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos**
+(`tools/audit_dialogo_ids.py`, formato en `docs/EVENT_SCRIPT_FORMAT.md`).

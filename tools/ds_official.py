@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Mapea el DIALOGO OFICIAL en espanol del DS (Inazuma Eleven NDS, lanzamiento ES) a los
+"""⚠️ NO USAR PARA REGENERAR (issue #36, docs/FURIGANA_LECCIONES.md): el alineado por
+orden de lineas empareja por POSICION y deja frases desplazadas en los 621 eventos donde la
+NDS tiene instrucciones de mas. Usar tools/audit_dialogo_ids.py (emparejado por id). Las
+funciones load_ds_events / decode_ds / DS_TABLE siguen siendo validas.
+
+Mapea el DIALOGO OFICIAL en espanol del DS (Inazuma Eleven NDS, lanzamiento ES) a los
 eventos del 3DS, por event ID + alineacion de orden de lineas.
 
 El DS y el 3DS comparten el MISMO formato de eventos (eve.pkb/eve.pkh, SSD) y los MISMOS

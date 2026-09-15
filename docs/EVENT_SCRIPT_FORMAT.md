@@ -58,3 +58,23 @@ español ASCII → cabe.
   con 3dstool) — verificar arranque en emulador (hashes IVFC/NCCH: Citra/Lime3DS
   suelen ignorarlos). Alternativa: distribuir como mod LayeredFS.
 - Fuente (etapa 6) para ñ/tildes/¿¡.
+
+## Tabla de cadenas e IDs (2026-09-15) — emparejado EXACTO 3DS ↔ NDS
+
+Las frases no se emparejan por orden: cada una tiene un **ID de cadena**.
+
+- **NDS `script/sp/evet.pkb`**: `u32 tamaño` + entradas `{id u16, tipo u16, longitud u32}` + cadena.
+- **3DS `eve.pkb` (SSD)**: la cabecera apunta con `u32@+16` a la sección de datos; **32 B después**
+  empiezan entradas `{id u16, tipo u8, longitud u8}` + cadena.
+- La `longitud` **incluye la cabecera** de la entrada (8 B en NDS, 4 B en 3DS).
+- Tipo 1 = frase. En el 3DS las lecturas furigana van con tipo 2..4 **y el mismo id** de su frase.
+  En la NDS el tipo 2 son nombres de archivo/recursos.
+- Los IDs son **posiciones en el bytecode**. En 621 eventos la NDS tiene instrucciones de más y los
+  IDs se desplazan (+1, +2…) a partir de un punto. **El patrón de saltos entre IDs consecutivos se
+  conserva**: se alinea esa secuencia y se valida con anclas ASCII (nombres de archivo, variables
+  `HikinukiX=%d`) que son idénticas en ambas ROMs. Herramienta: `tools/audit_dialogo_ids.py`
+  (18.343 pares; anclas 12.395 idénticas / 66 distintas).
+
+> ⚠️ `tools/ds_official.py` alineaba por patrón de repeticiones con difflib, que en eventos sin
+> frases repetidas equivale a emparejar **por posición**. Dejó 1.579 filas desalineadas en
+> `dialogo_oficial.csv` y 931 frases desplazadas en la build (issue #36). No usarlo para regenerar.

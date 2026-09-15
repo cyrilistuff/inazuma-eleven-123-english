@@ -136,6 +136,11 @@ SKIP_CRO=1 NO_CODE_PATCH=1 python tools/build_3ds_var.py game1
 # 4) generar el parche distribuible    ->  patch/inazuma123-es-vNN.xdelta
 pwsh -File tools/build_patch.ps1 -Translated "work\build\inazuma123_es_var.3ds" -Patch "patch\inazuma123-es-v28.xdelta"
 
+# El parche se aplica y se distribuye con DeltaPatcher; la ROM traducida solo se
+# genera localmente al fusionarlo con la copia legal del usuario. Consulta
+# `DISTRIBUCION_DELTAPATCHER.md` para el flujo de usuario y la comprobación de
+# hashes. No se debe guardar ni publicar la ROM resultante.
+
 # 5) probar en emulador (cosecha errores al cerrar)
 pwsh -File tools/jugar.ps1 work\build\inazuma123_es_var.3ds
 ```

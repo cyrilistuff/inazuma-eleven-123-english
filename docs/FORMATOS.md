@@ -101,6 +101,28 @@ asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_ali
 - **`unitbase.dat`** (jugadores): registros de **96 bytes**, nombre (kanji) en
   `+0` (16 B) y lectura kana en `+16`. Mismo tamaño/orden en 3DS y NDS →
   emparejado por índice (verificado: 円堂守→Mark Evans). 2400 registros.
+- **`unitbase.STR`** (descripciones de perfil, 161.440 B): 1.040 textos Shift-JIS
+  con furigana, alineados a **32 bytes** y rellenos con NUL (huecos de 32/64/96/128 B).
+  Cada registro de `unitbase.dat` apunta a su descripción con un **u16 en `+94`
+  en unidades de 32 bytes** (`offset = u16 × 32`; verificado en Mark, Nathan, Jack…).
+  Los 1.034 textos con salto usan exactamente **dos líneas**. Se traducen en su
+  propio hueco, sin mover offsets (`work/desc_revision/apply.py`).
+- **`team.pkb`** (nombres de equipo): registros de **320 bytes**, nombre en un campo
+  fijo de 32 bytes en `+0`. Nombres oficiales ES confirmados en el diálogo NDS:
+  Occult, Brain, Farm, Inazuma Kids FC.
+- **Pantalla VS**: los nombres no salen de `team.pkb`, sino de texturas CTPK en
+  `a_data_replace/vs_school_name` (placas 128×32 con furigana), `pk_school_name`
+  (placas 64×16, 48 px útiles; `t001p1/p2` son variantes resaltadas con fondo negro)
+  y `vs_stage_select` (rótulos 512×128 de campo sobre panel naranja y banda oscura).
+  `vs_stage_select_cg` y `formation_name_plt` no contienen texto.
+- **`command.dat`/`command.STR`** (técnicas): 3DS 24 B por registro con punteros
+  u16 (×32) a nombre y descripción en `+16`; NDS 28 B con el mismo par en `+20`.
+  El índice de registro es el ID de técnica en ambas versiones y coincide con el
+  número de los rótulos `command_technique/ie01_command_tec_bcNNN/bgNNN`.
+  Nombres en huecos de 32 B (15 caracteres en ancho completo).
+- **`item.dat`/`item.STR`** (objetos): 3DS 32 B (nombre 19 B = 9 caracteres en ancho
+  completo, descripción u16×32 en `+30`); NDS 48 B (nombre 32 B, descripción en `+46`).
+  Mismo índice en ambas versiones.
 - **`teamtitle.dat`** (títulos de equipo): registros de **16 bytes**, nombre@+0.
 - **`games.STR`** (menús): mismo nº de cadenas en 3DS y NDS → índice 1:1.
 - **`item.dat`** / **`command.STR`**: el orden NO casa 1:1 entre plataformas

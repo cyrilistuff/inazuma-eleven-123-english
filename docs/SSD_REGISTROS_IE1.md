@@ -13,9 +13,12 @@ La cabecera SSD contiene `instSize` (longitud del código, sin cabecera de 32 by
 
 ## Evidencia local
 
-- 1.240 eventos SSD de los 1.293 registros del paquete IE1 se recorren exactamente
-  usando `textCount` registros y sus longitudes; los otros registros no son SSD.
-- `tools/ssd_records.py` los lee y reescribe SIN cambios byte por byte. También
+- 1.240 eventos SSD de los 1.293 registros del paquete IE1 llevan la firma
+  `SSD\0`; otros 53 conservan exactamente la misma cabecera y tabla, pero la
+  extracción omitió esos cuatro bytes iniciales. Ambos formatos se recorren con
+  `textCount` y las longitudes inline; no se descartan como texto no estructurado.
+- `tools/ssd_records.py` lee y reescribe ambos formatos SIN cambios byte por byte.
+  En la variante sin firma conserva los cuatro bytes iniciales originales. También
   comprueba todos los índices String de las instrucciones.
 - Algunas instrucciones reutilizan índices: el dueño almacenado en un registro
   no tiene por qué coincidir con cada instrucción que lo referencia.
