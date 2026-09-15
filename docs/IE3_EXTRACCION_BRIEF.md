@@ -1,6 +1,6 @@
 # Encargo: extraer los recursos de Inazuma Eleven 3 (3DS europeo)
 
-Documento para el agente de IA de quien colabore. **Objetivo: dejar preparados los recursos del juego
+Documento para el agente de IA de quien colabore. Leer también `docs/SKILL_VOLCADO_ROM_NDS.md` (lecciones de volcado; se puede copiar a `.claude/skills/volcado-rom-nds/SKILL.md` para usarla como skill). **Objetivo: dejar preparados los recursos del juego
 europeo en formato legible. No se reinserta nada en el 1·2·3 todavía.**
 
 ## ROM de partida
