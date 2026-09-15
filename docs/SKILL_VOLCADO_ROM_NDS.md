@@ -121,8 +121,10 @@ Original japonés 3DS: `work/ie1/capas/v33/base/orig/…`. Nada extraído se sub
 ## 7. Doblaje, cinemáticas y subtítulos
 
 Docs: `docs/IE1_AUDIO_CINEMATICAS_V34.md`, `docs/IE1_AUDIO_CINEMATICAS_V35.md`.
-Herramientas: `tools/ie1_media.py`, `tools/mods_to_moflex.py`, `tools/build_ie1_movies.py`,
-`tools/validate_ie1_media.py`, `tools/audit_ie1_voiced_text.py`.
+Herramientas: `tools/ie1_media.py`, `tools/mods_to_moflex.py`, `work/ie1/capas/v58/cinematicas/build.py`
+(las 21 películas de v66/v67), `tools/validate_ie1_media.py`, `work/ie1/capas/v51/voces/auditoria.py`
+(auditoría por ID). Los antiguos `build_ie1_movies.py` y `audit_ie1_voiced_text.py` están archivados en
+`tools/_archivo/` (ver [`tools/_archivo/README.md`](../tools/_archivo/README.md)).
 
 ### Inventario
 
@@ -131,7 +133,7 @@ Herramientas: `tools/ie1_media.py`, `tools/mods_to_moflex.py`, `tools/build_ie1_
 | Voces / música de escena | `sound/sp/*.SAD` (72) | 70 SADL con el mismo nombre | **LayeredFS** en `romfs/` del mod (fuera de `archive.fa`) |
 | Cinemáticas | `movie/*.mods`, variante ES `movie/sp/am0102.mods` (21) | `movie/*.moflex` (21) | dentro de `archive.fa` |
 | Subtítulos de cinemática | `movie/txt/sp/*.dat` (intervalos de fotogramas) | no existen: se incrustan en el vídeo | — |
-| Texto de eventos con voz | `evet.pkb` | `eve.pkb` | auditar con `audit_ie1_voiced_text.py` |
+| Texto de eventos con voz | `evet.pkb` | `eve.pkb` | auditar con `work/ie1/capas/v51/voces/auditoria.py` (antes `tools/_archivo/audit_ie1_voiced_text.py`) |
 
 - `J18.SAD`/`J19.SAD` solo existen en DS: no se instalan.
 - SADL: copiar el archivo europeo **entero, sin recodificar**; la frecuencia va en su cabecera

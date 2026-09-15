@@ -3,6 +3,9 @@
 Uso: python -m ie123kit.nucleo.compat.superficie capturar|comprobar|comparar [FICHERO] [--fichero superficie_v0.json]
 Va por AST para no ejecutar módulos con efectos al importar. comprobar (o su alias comparar) falla si
 desaparece un nombre o cambia una firma; un módulo convertido en shim (sys.modules[__name__]) se da por bueno.
+Un módulo ausente de tools/ que esté archivado en tools/_archivo/ o tools/_archivo/tests/ se omite y se
+cuenta como archivado; si está a la vez en tools/ y en _archivo se compara y se marca como duplicado.
+capturar no mira _archivo (glob no recursivo).
 """
 import argparse
 import ast
@@ -48,6 +51,11 @@ def es_shim(mod, tools=None):
     return ruta.is_file() and 'sys.modules[__name__]' in ruta.read_text(encoding='utf-8', errors='replace')
 
 
+def es_archivado(mod, tools=None):
+    archivo = (tools or _tools()) / '_archivo'
+    return (archivo / f'{mod}.py').is_file() or (archivo / 'tests' / f'{mod}.py').is_file()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('accion', choices=['capturar', 'comprobar', 'comparar'])
@@ -64,9 +72,15 @@ def main():
         return 0
     esperado = json.loads(Path(fichero).read_text(encoding='utf-8'))
     errores = []
+    archivados = 0
     for mod, nombres in esperado.items():
         if es_shim(mod, tools):
             continue
+        if es_archivado(mod, tools):
+            if mod not in actual:
+                archivados += 1
+                continue
+            errores.append(f'{mod}: duplicado en tools/ y tools/_archivo')
         if mod not in actual:
             errores.append(f'{mod}: módulo ausente')
             continue
@@ -77,7 +91,7 @@ def main():
                 errores.append(f'{mod}.{n}: {tipo} -> {actual[mod][n]}')
     for e in errores:
         print('SUPERFICIE', e)
-    print(f'{len(esperado)} módulos comprobados; {len(errores)} diferencias')
+    print(f'{len(esperado)} módulos comprobados; {archivados} archivados omitidos; {len(errores)} diferencias')
     return 1 if errores else 0
 
 

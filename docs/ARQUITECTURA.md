@@ -52,7 +52,7 @@ cuando el recurso es propio de ella o en `ieN/shared/` cuando es común a las ve
    contiene los tres juegos.
 3. Una capa lee su base de `work/shared/candidatas/probe_ie1_v(NN-1)` y escribe solo dentro de su carpeta.
 4. En los scripts, la raíz del repo se calcula con `Path(__file__).resolve().parents[N]`; al mover una capa
-   hay que ajustar `N` (lo hizo `tools/reorganizar_proyecto.py` en la migración del 2026-09-16).
+   hay que ajustar `N` (lo hizo `tools/_archivo/reorganizar_proyecto.py` en la migración del 2026-09-16).
 5. **Antes de construir**: ≥ 4 GB libres. **Al instalar**: comprobar el hash del `archive.fa` copiado.
    **Después**: `python tools/limpiar_work.py --borrar`.
 

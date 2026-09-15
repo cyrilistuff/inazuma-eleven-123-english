@@ -43,7 +43,7 @@ Build final **v27**: arranca, **crea partida**, e **intro + diálogo de historia
 
 ## 2. Requisitos
 
-**Python 3.7+** y la librería de ensamblado ARM (la importa `patch_code.py`):
+**Python 3.7+** y la librería de ensamblado ARM (la importa `patch_code.py`, que sigue en `tools/` pero está clasificado como *obsolete_dangerous* y se archivará en F1.4):
 ```
 pip install keystone-engine
 # opcional, solo si vas a DESensamblar para RE: pip install capstone
@@ -121,6 +121,12 @@ python tools/build_glossary.py game2
 
 ## 5. El pipeline de build (clon → ROM parcheada → parche)
 
+> **Pipeline HISTÓRICO (build v27).** `build_3ds_var.py` y `verify_build.py` están archivados en
+> `tools/_archivo/` (motivos en [`tools/_archivo/README.md`](../tools/_archivo/README.md)). La ROM IE1 vigente se construye con
+> `work/ie1/capas/v33/_final/build_rom.py`; las candidatas, con `tools/build_ui_revision.py` sobre
+> `work/shared/candidatas/probe_ie1_vNN`, y se verifican con `tools/verify_candidate.py`.
+> Lo que sigue se conserva como registro de la cadena v27.
+
 ```bash
 # 1) fuentes (acentos) + roster + UI  ->  work/archive_es.fa   (una vez por sesión)
 python tools/reinsert.py
@@ -130,8 +136,8 @@ python tools/reinsert_var.py game1            # (sin arg = game1 + game2)
 
 # 3) compilar la ROM (VALIDA -> repack -> recalcula CXI/3DS)  ->  work/build/inazuma123_es_var.3ds
 #    Flags de la build v27 (intro+historia ES, crear-partida estable):
-SKIP_CRO=1 NO_CODE_PATCH=1 python tools/build_3ds_var.py game1
-#    (en PowerShell:  $env:SKIP_CRO="1"; $env:NO_CODE_PATCH="1"; python tools\build_3ds_var.py game1)
+SKIP_CRO=1 NO_CODE_PATCH=1 python tools/_archivo/build_3ds_var.py game1   # (archivado)
+#    (en PowerShell:  $env:SKIP_CRO="1"; $env:NO_CODE_PATCH="1"; python tools\_archivo\build_3ds_var.py game1)
 
 # 4) generar el parche distribuible    ->  patch/inazuma123-es-vNN.xdelta
 pwsh -File tools/build_patch.ps1 -Translated "work\build\inazuma123_es_var.3ds" -Patch "patch\inazuma123-es-v28.xdelta"
@@ -145,7 +151,7 @@ pwsh -File tools/build_patch.ps1 -Translated "work\build\inazuma123_es_var.3ds" 
 pwsh -File tools/jugar.ps1 work\build\inazuma123_es_var.3ds
 ```
 
-`build_3ds_var.py` hace por dentro: `fa_repack` (mete `eve_var` en `archive.fa`) → `patch_exefs`/
+`tools/_archivo/build_3ds_var.py` (archivado) hacía por dentro: `fa_repack` (mete `eve_var` en `archive.fa`) → `patch_exefs`/
 `patch_code` (code.bin plano) → **`validate.py`** (aborta si hay regresión) → `3dstool -ctf`
 romfs → cxi → 3ds. El `archive.fa` y el CRO originales **se restauran siempre** al terminar.
 
@@ -153,7 +159,7 @@ romfs → cxi → 3ds. El `archive.fa` y el CRO originales **se restauran siempr
 
 ## 6. Tabla de flags de entorno
 
-Se leen en `reinsert_var.py` (paso 2) y `build_3ds_var.py` (paso 3). **La build v27 NO define
+Se leen en `reinsert_var.py` (paso 2) y `tools/_archivo/build_3ds_var.py` (paso 3, archivado). **La build v27 NO define
 ninguno salvo `SKIP_CRO=1` + `NO_CODE_PATCH=1`** (todo lo demás por defecto).
 
 | Flag | Efecto | Paso |
@@ -167,9 +173,9 @@ ninguno salvo `SKIP_CRO=1` + `NO_CODE_PATCH=1`** (todo lo demás por defecto).
 | `STRIP_ALL` | Stripear furigana de **todos** los eventos incl. intro → cuelga crear-partida (❌#12). | reinsert_var |
 | `GROW_INTRO` | Hacer crecer el intro conservando furigana → cuelga al avanzar (❌#9). | reinsert_var |
 | `DEBUG_IDS` | Antepone `[event_id]` a cada línea de gameplay (para identificar eventos jugando). | reinsert_var |
-| `SKIP_CRO` | **(v27 = 1)** No parchea el CRO; lo restaura del `.orig`. El parche es inútil (muro #1). | build_3ds_var |
+| `SKIP_CRO` | **(v27 = 1)** No parchea el CRO; lo restaura del `.orig`. El parche es inútil (muro #1). | build_3ds_var (archivado) |
 | `NO_CODE_PATCH` | **(v27 = 1)** No parchea `code.bin` (lo deja plano sin bounds-checks). | patch_code |
-| `SKIP_VALIDATE` | Salta la validación pre-build. **Peligroso** — solo builds de prueba. | build_3ds_var |
+| `SKIP_VALIDATE` | Salta la validación pre-build. **Peligroso** — solo builds de prueba. | build_3ds_var (archivado) |
 
 ---
 
@@ -179,8 +185,8 @@ ninguno salvo `SKIP_CRO=1` + `NO_CODE_PATCH=1`** (todo lo demás por defecto).
   refs string a media cadena, diálogo vaciado, estructura SSD inválida, **furigana que crece (❌#9)**,
   desbalance marcador↔lectura (bug NPC). Es consciente del modo: en builds que crecen tolera el
   cambio de `textSize` pero verifica que sea coherente; en `SAME_SIZE` es estricto. Debe dar
-  **`RESULTADO: TODO OK ✅`**. (`build_3ds_var.py` lo corre solo y aborta si falla.)
-- **`python tools/verify_build.py game1`** — verificación estática de los artefactos de una build
+  **`RESULTADO: TODO OK ✅`**. (`tools/_archivo/build_3ds_var.py`, archivado, lo corría solo y aborta si falla.)
+- **`python tools/_archivo/verify_build.py game1`** (histórico, archivado; ver [`tools/_archivo/README.md`](../tools/_archivo/README.md)) — verificación estática de los artefactos de una build
   de **mismo tamaño** (CRO byte-idéntico, sistema byte-idéntico, `textSize` intacto, furigana
   intacto, español presente). Útil tras builds `SAME_SIZE`.
 - **`pwsh -File tools/jugar.ps1 [build.3ds]`** — lanza Azahar y, **al cerrarlo, cosecha** los

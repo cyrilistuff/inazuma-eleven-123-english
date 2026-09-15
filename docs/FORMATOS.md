@@ -94,7 +94,7 @@ solo cambia el idioma. Esto permite **alinear por índice/registro** el japonés
 perfectamente (descripciones de objetos), pero los recuentos difieren
 (3DS=300, NDS=603 ≈ el NDS intercala nombre+descripción). → El alineado por
 posición es solo un punto de partida; el exacto necesita el **índice del `.dat`**
-asociado (`item.dat` → offsets dentro del `.STR`). Herramienta: `tools/str_align.py`.
+asociado (`item.dat` → offsets dentro del `.STR`). Herramienta histórica: `tools/_archivo/str_align.py` (archivada, ver [`tools/_archivo/README.md`](../tools/_archivo/README.md)): emparejaba por índice de forma ingenua (300 frente a 603); su tabla `NDS_FIX` queda superada por el futuro `nucleo/texto/nds_latin` de ie123kit.
 
 ### Formatos de registro resueltos (juego 1)
 

@@ -9,7 +9,9 @@
 - Los tests heredados de la raíz (`tools/test_*.py`) también quedan fuera de ruff (`./test_*.py` en
   `extend-exclude`, anclado a `tools/`): no se retocan durante la migración. Los tests nuevos de
   `tools/tests/` sí pasan por ruff.
-- Los scripts antiguos de `tools/` siguen funcionando igual.
+- Los scripts vigentes de `tools/` siguen funcionando igual.
+- Los 25 scripts y tests retirados en F1.2 (#43) viven en `tools/_archivo/` (sin stubs, no importables);
+  motivos y sustitutos en [`_archivo/README.md`](_archivo/README.md). `patch_code.py` y `patch_cro.py` se archivarán en F1.4.
 
 ## Audio y cinemáticas europeas de IE1
 
@@ -18,9 +20,9 @@
 - `setup_mobipeg.ps1`: descarga y verifica la versión portátil x86 de mobipeg 2.1.
 - `mods_to_moflex.py`: convierte una película `.mods` de DS, incrusta su pista
   española `.dat` y restaura la orientación MOFLEX `0x16` de la recopilación.
-- `build_ie1_movies.py`: genera las 21 cinemáticas europeas de IE1 en el lote
-  local de volumen 1.
-- `fix_ie1_title_logo.py`: aísla el wordmark europeo y sustituye el rótulo
+- `work/ie1/capas/v58/cinematicas/build.py`: genera las 21 cinemáticas europeas de IE1
+  (sustituye a `build_ie1_movies.py`, archivado en `_archivo/`; ver [`_archivo/README.md`](_archivo/README.md)).
+- `work/ie1/capas/v67/titulo_logo` (sustituye a `fix_ie1_title_logo.py`, archivado en `_archivo/`): aísla el wordmark europeo y sustituye el rótulo
   rectangular anterior conservando el balón y el rayo animados del juego.
 - `setup_vgmstream.ps1` + `validate_ie1_media.py`: preparan el decodificador
   portátil y comprueban los 70 SADL instalados y las 21 películas sin generar
@@ -91,7 +93,8 @@
 - `verify_candidate.py` — verificación estática de una candidata frente a su base:
   entradas de las capas, resto del archivo y fuentes idénticos, eventos SSD y
   literales del CRO permitidos, bloqueo tipográfico.
-- `build_match_content_patch.py` — pachangas, cadena de partidos y nombres de
+- `work/ie1/capas/v33/mch_story` y `work/ie1/capas/v55/pachangas` (sustituyen a
+  `build_match_content_patch.py`, archivado en `_archivo/`) — pachangas, cadena de partidos y nombres de
   `team.pkb`/`teamtitle.dat`/`clubinfo.dat`.
 - Detalle de la tanda actual y orden completa: `docs/IE1_V29_TANDA.md`.
 
@@ -99,14 +102,18 @@
 > **Guía completa (requisitos, regeneración de datos, tabla de flags):**
 > [`../docs/DESARROLLO.md`](../docs/DESARROLLO.md).
 
-Secuencia (CSV → ROM jugable), con los **flags de la build v27**:
+> **Pipeline HISTÓRICO v27.** `build_3ds_var.py` está archivado en `_archivo/` (ver [`_archivo/README.md`](_archivo/README.md)).
+> Cadena vigente: `work/ie1/capas/v33/_final/build_rom.py` (ROM IE1), `build_ui_revision.py`
+> (candidatas `work/shared/candidatas/probe_ie1_vNN`) y `verify_candidate.py`.
+
+Secuencia histórica (CSV → ROM jugable), con los **flags de la build v27**:
 ```
 python tools/reinsert.py                                  # fuentes (acentos) + roster + UI -> work/archive_es.fa
 python tools/reinsert_var.py game1                        # dialogo (long. variable) -> work/eve_var/
-SKIP_CRO=1 NO_CODE_PATCH=1 python tools/build_3ds_var.py game1   # VALIDA y compila -> work/build/*.3ds
+SKIP_CRO=1 NO_CODE_PATCH=1 python tools/_archivo/build_3ds_var.py game1   # (archivado) VALIDA y compila -> work/build/*.3ds
 pwsh -File tools/build_patch.ps1 -Translated "work\build\inazuma123_es_var.3ds" -Patch "patch\inazuma123-es-vNN.xdelta"
 ```
-`build_3ds_var.py` corre `validate.py` ANTES de compilar y **aborta** si hay una
+`_archivo/build_3ds_var.py` corría `validate.py` ANTES de compilar y **aborta** si hay una
 regresion conocida (operandos corruptos, furigana que crece ❌#9, dialogo vacio,
 desbalance marcador↔lectura). `SKIP_VALIDATE=1` lo fuerza (solo builds de prueba).
 La build v27 = `SKIP_CRO=1` + `NO_CODE_PATCH=1` (el resto de flags por defecto):
