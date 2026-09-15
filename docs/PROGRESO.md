@@ -136,6 +136,7 @@
 
 - 2026-09-15 · Toolkit F1.1: esqueleto del paquete `ie123kit` (`tools/src`, `tools/pyproject.toml`), plantilla de shims de compatibilidad, tests de arquitectura y unidad; puertas 1-4 en verde (pytest 75 passed, unittest OK, importaciones y golden v67 a 0). Ficheros bloqueados v20 intactos.
 - 2026-09-15 · Toolkit F1.2: archivados 25 scripts retirados en `tools/_archivo` (con README); `patch_code.py` y `patch_cro.py` siguen en `tools/` porque un script activo los importa (pasan a `_legado` en F1.4). Añadido `nucleo/compat/importadores.py`. Ficheros bloqueados v20 intactos.
+- 2026-09-15 · Toolkit F1.3: 16 módulos de motor trasladados a ie123kit.nucleo (compresion, contenedores, graficos, fuentes, eventos, ejecutable, construir) con shims de alias en tools/; CLI con salida en fachadas _legado; nuevo nucleo/validar/bloqueo (puerta del bloqueo v20); REPO/ROOT de fa_repack, harvest_log y limpiar_work vía find_root (mods_to_moflex queda para F1.4). Ficheros bloqueados v20 intactos.
 
 ## Actualización 2026-09-09: v23, pachangas y cadena de partidos
 

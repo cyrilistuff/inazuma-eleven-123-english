@@ -13,6 +13,54 @@
 - Los 25 scripts y tests retirados en F1.2 (#43) viven en `tools/_archivo/` (sin stubs, no importables);
   motivos y sustitutos en [`_archivo/README.md`](_archivo/README.md). `patch_code.py` y `patch_cro.py` se archivarán en F1.4.
 
+### F1.3 (#44): módulos de motor trasladados
+
+El código de estos 16 módulos se copió tal cual a `ie123kit.nucleo`. En `tools/<nombre>.py` queda
+un shim sin lógica que sustituye su entrada de `sys.modules` por el módulo del paquete, así que
+`import fa_unpack` o `from lz10 import compress` siguen devolviendo los mismos objetos y las
+mutaciones de globales (p. ej. `lz10.MAX_CAND`) llegan al módulo real. Como `nucleo` no imprime ni
+termina el proceso, los módulos con un CLI que escribe en pantalla, o cuyo bloque `__main__` no llama
+a `main()`, pasan por una **fachada `_legado`**: la lógica va a `nucleo`, y el `main()` o el bloque CLI
+originales van a `ie123kit/_legado/<nombre>.py`, que además reexporta todos los nombres de antes,
+privados incluidos.
+
+| Módulo antiguo (`tools/`) | Módulo real | Tipo de shim |
+|---|---|---|
+| `lz10.py` | `ie123kit.nucleo.compresion.lz10` | alias directo |
+| `blz.py` | `ie123kit.nucleo.compresion.blz` | fachada `_legado.blz` |
+| `sszl.py` | `ie123kit.nucleo.compresion.sszl` | alias directo |
+| `ui_archive.py` | `ie123kit.nucleo.contenedores.arcv` + `nucleo.compresion.sszl` | fachada `_legado.ui_archive` |
+| `nds_unpack.py` | `ie123kit.nucleo.contenedores.nds_rom` | fachada `_legado.nds_unpack` |
+| `qna_regions.py` | `ie123kit.nucleo.graficos.qna` | alias directo |
+| `legacy_sprite.py` | `ie123kit.nucleo.graficos.pac_sprite` | alias directo |
+| `nftr_metrics.py` | `ie123kit.nucleo.fuentes.nftr` | fachada `_legado.nftr_metrics` |
+| `bcfnt.py` | `ie123kit.nucleo.fuentes.bcfnt` | fachada `_legado.bcfnt` (permanente) |
+| `ctpk_ui.py` | `ie123kit.nucleo.graficos.ctpk` | alias directo |
+| `ssd_records.py` | `ie123kit.nucleo.eventos.ssd` | alias directo |
+| `fa_unpack.py` | `ie123kit.nucleo.contenedores.fa` | fachada `_legado.fa_unpack` |
+| `fa_repack.py` | `ie123kit.nucleo.contenedores.fa` (`fe_offset_of`) | fachada `_legado.fa_repack` |
+| `patch_smdh_title.py` | `ie123kit.nucleo.ejecutable.smdh` | fachada `_legado.patch_smdh_title` |
+| `harvest_log.py` | `ie123kit.nucleo.construir.registro_azahar` | fachada `_legado.harvest_log` |
+| `limpiar_work.py` | `ie123kit.nucleo.construir.limpieza` | fachada `_legado.limpiar_work` |
+
+- Los shims se generan con `python -m ie123kit.nucleo.compat.shims generar <nombre>` (el destino sale
+  de `MAPA`; `lz10` va con `--cli ninguno`) y se verifican con
+  `python -m ie123kit.nucleo.compat.shims comprobar`. No se editan a mano.
+- Las invocaciones documentadas siguen funcionando igual: `python tools/fa_unpack.py`,
+  `python tools/nds_unpack.py`, `python tools/harvest_log.py`, `python tools/limpiar_work.py --borrar`,
+  `python tools/blz.py in out` y `python tools/patch_smdh_title.py`.
+- `python tools/lz10.py` ya no ejecuta el autotest de ida y vuelta (su shim no tiene CLI, para no romper
+  la mutación de `MAX_CAND`). Ahora se lanza con `python -m ie123kit.nucleo.compresion.lz10`.
+- `bcfnt.py` es un shim **permanente**: `font_patch.py` está bloqueado (v20) y hace `from bcfnt import BCFNT`.
+- Las rutas `REPO`/`ROOT` de `fa_repack`, `harvest_log` y `limpiar_work` salen ahora de `find_root`
+  (`mods_to_moflex` queda para F1.4).
+- Puerta del bloqueo v20 sobre una candidata construida:
+  `python -m ie123kit.nucleo.validar.bloqueo --candidata <archive.fa>` (acepta también la carpeta de la
+  candidata). Extrae en crudo las 5 fuentes de `dialogue_lock.FONT_HASHES` a un temporal que borra al
+  terminar y llama a `dialogue_lock.validate`; devuelve 0 si todo cuadra y 1 si no.
+- `tools/tests/compat/test_traslados.py` comprueba el mapa, que cada shim no tenga lógica, la identidad
+  de módulos y la superficie de `superficie_v0.json`.
+
 ## Audio y cinemáticas europeas de IE1
 
 - `ie1_media.py --stage`: inventaría los SADL de IE1 DS/3DS y prepara los 70
