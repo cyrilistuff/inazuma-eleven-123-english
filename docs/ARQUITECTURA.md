@@ -22,7 +22,22 @@ translation/                  (en git: solo glosarios y CSV de términos)
   shared/glossary/            equipos, jugadores, técnicas, objetos, menús comunes
   ie1/  ie2/  ie3/            diálogo alineado y términos propios de cada juego
 
-tools/                        herramientas (compartidas: formatos, compresión, CRO, texturas, vídeo)
+tools/                        herramientas (CLI; ver tools/README.md)
+  src/ie123kit/               paquete (pip install -e tools[dev])
+    nucleo/                   común a la recopilación: compresion, contenedores, graficos, fuentes,
+                              texto, eventos, media, ejecutable, construir, validar, config, compat
+    juego_principal/          menú de la recopilación (activos.toml)
+    ie1/                      graficos, media, texto, verificar
+    ie2/{comun,tormenta_de_fuego,ventisca_eterna}/
+    ie3/{comun,rayo_celeste,fuego_explosivo,amenaza_del_ogro}/
+    _legado/                  fachadas CLI de los scripts antiguos y cuarentena (--legado-lo-se)
+  tests/{unidad,arquitectura,compat,requiere_rom}/
+  _archivo/                   scripts retirados: se archivan, no se borran; no importables
+  <nombre>.py (29)            shims: alias puros de sys.modules hacia ie123kit
+  dialogue_typography.py, font_patch.py, dialogue_lock.py,
+  build_ie1_probe.py, build_ui_revision.py   congelados del bloqueo v20 (intactos)
+  *.ps1, pyproject.toml       scripts PowerShell y configuración del paquete
+  bin/                        (git lo ignora) ejecutables locales
 
 work/                         (git lo ignora)
   shared/
@@ -51,10 +66,30 @@ cuando el recurso es propio de ella o en `ieN/shared/` cuando es común a las ve
 2. Las candidatas se llaman `probe_ie1_vNN` y viven en `work/shared/candidatas/`, porque un `archive.fa`
    contiene los tres juegos.
 3. Una capa lee su base de `work/shared/candidatas/probe_ie1_v(NN-1)` y escribe solo dentro de su carpeta.
-4. En los scripts, la raíz del repo se calcula con `Path(__file__).resolve().parents[N]`; al mover una capa
-   hay que ajustar `N` (lo hizo `tools/_archivo/reorganizar_proyecto.py` en la migración del 2026-09-16).
+4. Las capas existentes de `work/` calculan la raíz del repo con `Path(__file__).resolve().parents[N]`; al
+   mover una capa hay que ajustar `N` (lo hizo `tools/_archivo/reorganizar_proyecto.py` en la migración del
+   2026-09-16). El código nuevo no usa `parents[N]`: usa `find_root` (`ie123kit.nucleo.config.raiz`) o la
+   variable `IE123_ROOT`.
 5. **Antes de construir**: ≥ 4 GB libres. **Al instalar**: comprobar el hash del `archive.fa` copiado.
    **Después**: `python tools/limpiar_work.py --borrar`.
+
+## Reglas de importación de ie123kit
+
+1. `nucleo` no importa ningún juego (`juego_principal`, `ie1`, `ie2`, `ie3`).
+2. Un juego no importa otro juego.
+3. `ie2.<versión>` e `ie3.<versión>` solo importan el `comun` de su juego (además de `nucleo`).
+4. `_legado` solo es una fachada: el código del paquete no depende de él.
+5. En `src/` no hay `parents[N]` ni rutas de máquina: la raíz sale de `find_root` o de `IE123_ROOT`.
+6. Importar un módulo no tiene efectos (ni E/S, ni `print`, ni `sys.exit`).
+7. Los shims de `tools/` son alias puros de `sys.modules`; los 5 congelados nunca se copian al paquete, se
+   cargan con re-exports perezosos.
+
+Los tests de `tools/tests/arquitectura` comprueban estas reglas y la CI (`.github/workflows/toolkit.yml`)
+los ejecuta en Windows y Ubuntu.
+
+`tools/_archivo/` guarda los scripts retirados: se archivan con `git mv` en lugar de borrarse, para
+conservar su historia y sus motivos ([`tools/_archivo/README.md`](../tools/_archivo/README.md)). No es
+importable ni tiene shims.
 
 ## Limpieza
 

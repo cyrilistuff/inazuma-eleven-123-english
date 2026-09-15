@@ -44,10 +44,12 @@ solo "en la cabeza" o en el chat. En concreto:
 - Commits incrementales y descriptivos. Documenta los formatos en `docs/FORMATOS.md`
   y el avance en `docs/PROGRESO.md`.
 - Herramientas en `tools/` (Python/PowerShell, sin GUI: el proyecto se maneja por CLI).
+- El código Python vive en el paquete `tools/src/ie123kit`; en `tools/` quedan shims con los
+  nombres antiguos y los 5 ficheros congelados del bloqueo v20.
 
 ## Norma 4 — NO repetir errores ya detectados
 
-Antes de tocar la **reinserción de diálogo / furigana** (`tools/reinsert.py`), lee
+Antes de tocar la **reinserción de diálogo / furigana** (`tools/reinsert.py`, código real en `ie123kit._legado.reinsert`), lee
 **[`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md)**: lista cada enfoque que
 YA se probó en emulador y FALLÓ (con el motivo). Cada entrada costó una build de
 ~15 min + una prueba del usuario. **No reintentar lo que está marcado como ❌.**
@@ -72,4 +74,6 @@ la raíz de `work/`. Ver **[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md)**; tra
 - Avance: [`docs/PROGRESO.md`](docs/PROGRESO.md)
 - Formatos técnicos (B123, ARCV, .STR, .dat, codificación): [`docs/FORMATOS.md`](docs/FORMATOS.md)
 - Herramientas: [`tools/README.md`](tools/README.md)
+- Especificación del toolkit ie123kit: [`docs/toolkit/ESPECIFICACION.md`](docs/toolkit/ESPECIFICACION.md)
+- CI del toolkit (Windows y Ubuntu; no se desactiva): [`.github/workflows/toolkit.yml`](.github/workflows/toolkit.yml)
 - Glosario: [`translation/shared/glossary/`](translation/shared/glossary/)

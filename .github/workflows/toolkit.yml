@@ -1,0 +1,66 @@
+# CI del toolkit ie123kit.
+# Norma 2 (CLAUDE.md, LEGAL.md): esta CI nunca descarga ROMs ni datos extraídos;
+# la guardia `git` falla si se rastrea alguno. Los tests `requiere_rom` se excluyen.
+# Bloqueo tipográfico v20 (AGENTS.md): la guardia `bloqueados` exige que los 5
+# ficheros congelados coincidan byte a byte; no desactivar esta comprobación.
+name: Toolkit ie123kit
+
+on:
+  push:
+    paths:
+      - "tools/**"
+      - ".github/workflows/toolkit.yml"
+      - ".gitattributes"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+  pull_request:
+    paths:
+      - "tools/**"
+      - ".github/workflows/toolkit.yml"
+      - ".gitattributes"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  pruebas:
+    name: Pruebas (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - name: Desactivar autocrlf (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/pyproject.toml
+
+      - name: Instalar ie123kit
+        run: python -m pip install -e "tools[dev]"
+
+      - name: Guardia de ficheros bloqueados
+        run: python -X utf8 -m ie123kit.nucleo.compat.guardia bloqueados
+
+      - name: Guardia de ficheros rastreados (Norma 2)
+        run: python -X utf8 -m ie123kit.nucleo.compat.guardia git
+
+      - name: Comprobar shims
+        run: python -X utf8 -m ie123kit.nucleo.compat.shims comprobar
+
+      - name: Tests (sin ROM)
+        run: python -X utf8 -m pytest tools/tests -m "not requiere_rom" -q

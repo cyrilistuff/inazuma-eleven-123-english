@@ -47,3 +47,15 @@
 - Antes de borrar, comprobar las rutas absolutas, las dependencias y la candidata
   instalada. Si el usuario ha limpiado archivos manualmente, inventariar el estado
   real y no asumir que siguen existiendo builds citadas en notas históricas.
+
+## Herramientas (ie123kit)
+
+- El código Python vive en `tools/src/ie123kit` (instalar con `pip install -e tools[dev]`); en `tools/`
+  solo hay shims generados con `python -m ie123kit.nucleo.compat.shims generar`. Mapa en `tools/README.md`.
+- Los 5 congelados (`dialogue_typography.py`, `font_patch.py`, `dialogue_lock.py`, `build_ie1_probe.py`,
+  `build_ui_revision.py`) siguen en `tools/` y no se tocan ni se copian.
+- Tests: `python -X utf8 -m pytest tools/tests -m "not requiere_rom"` (y `-m requiere_rom` en local con
+  `work/`). Guardias: `python -m ie123kit.nucleo.compat.guardia bloqueados`, `... guardia git` y
+  `python -m ie123kit.nucleo.compat.shims comprobar`.
+- No se desactiva ni se salta la CI `.github/workflows/toolkit.yml`, que además impide subir ROMs o datos
+  extraídos.

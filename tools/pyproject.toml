@@ -45,9 +45,6 @@ extend-exclude = [
     "build_ie1_probe.py",
     "build_ui_revision.py",
     "_archivo",
-    # tests heredados de la raíz de tools/ (no se tocan en la migración);
-    # el patrón con ruta se ancla a tools/ y no alcanza tools/tests/**
-    "./test_*.py",
 ]
 
 [tool.black]

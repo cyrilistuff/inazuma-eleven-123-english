@@ -33,13 +33,17 @@ TRASLADOS_F14 = {
 }
 ARCHIVADOS_F14 = ["ie1_tables", "ie1_media", "validate_ie1_media", "patch_exefs", "patch_code", "patch_cro"]
 CONGELADOS = {"dialogue_typography", "font_patch", "dialogue_lock", "build_ie1_probe", "build_ui_revision"}
-TESTS_HEREDADOS = {
-    "test_dialogue_lock",
-    "test_dialogue_typography",
-    "test_legacy_sprite",
-    "test_probe_layout",
-    "test_ssd_records",
-    "test_ui_formats",
+# F1.5 (#46): los tests heredados de la raíz de tools/ viven ahora en tools/tests/unidad.
+TESTS_TRASLADADOS_F15 = {
+    "test_dialogue_lock": ["tools/tests/unidad/texto/test_dialogue_lock.py"],
+    "test_dialogue_typography": ["tools/tests/unidad/texto/test_ancho_completo.py"],
+    "test_probe_layout": ["tools/tests/unidad/texto/test_tipografia_v20.py"],
+    "test_legacy_sprite": [
+        "tools/tests/unidad/graficos/test_pac_sprite.py",
+        "tools/tests/unidad/compresion/test_lz10.py",
+    ],
+    "test_ssd_records": ["tools/tests/unidad/eventos/test_ssd.py"],
+    "test_ui_formats": ["tools/tests/unidad/graficos/test_formatos_ui.py"],
 }
 
 RAIZ = find_root()
@@ -129,7 +133,7 @@ def test_archivados_f14(nombre):
 
 def test_raiz_tools_final():
     presentes = {p.stem for p in TOOLS.glob("*.py")}
-    esperados = CONGELADOS | set(shims.MAPA) | TESTS_HEREDADOS
+    esperados = CONGELADOS | set(shims.MAPA)
     assert presentes == esperados, {
         "sobran": sorted(presentes - esperados),
         "faltan": sorted(esperados - presentes),
@@ -140,6 +144,12 @@ def test_raiz_tools_final():
         if ok is not True:
             fallos[nombre] = motivo
     assert not fallos, fallos
+
+
+def test_tests_trasladados_f15():
+    assert not sorted(p.name for p in TOOLS.glob("test_*.py")), "quedan tests heredados en tools/"
+    faltan = [r for rutas in TESTS_TRASLADADOS_F15.values() for r in rutas if not (RAIZ / r).is_file()]
+    assert not faltan, f"faltan tests trasladados: {faltan}"
 
 
 def test_congelados_intactos():

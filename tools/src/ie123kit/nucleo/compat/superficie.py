@@ -6,12 +6,26 @@ desaparece un nombre o cambia una firma; un módulo convertido en shim (sys.modu
 Un módulo ausente de tools/ que esté archivado en tools/_archivo/ o tools/_archivo/tests/ se omite y se
 cuenta como archivado; si está a la vez en tools/ y en _archivo se compara y se marca como duplicado.
 capturar no mira _archivo (glob no recursivo).
+Los tests heredados de la raíz trasladados en F1.5 (#46) a tools/tests/unidad (TESTS_TRASLADADOS) se omiten
+y se cuentan aparte si ya no están en tools/ y existen todas sus rutas nuevas; si siguen en tools/ y las
+rutas nuevas existen se marcan como duplicados; si falta alguna ruta nueva, módulo ausente.
+Importar este módulo no produce I/O.
 """
 import argparse
 import ast
 import json
 import sys
 from pathlib import Path
+
+TESTS_TRASLADADOS = {
+    'test_dialogue_lock': ('tools/tests/unidad/texto/test_dialogue_lock.py',),
+    'test_dialogue_typography': ('tools/tests/unidad/texto/test_ancho_completo.py',),
+    'test_probe_layout': ('tools/tests/unidad/texto/test_tipografia_v20.py',),
+    'test_legacy_sprite': ('tools/tests/unidad/graficos/test_pac_sprite.py',
+                           'tools/tests/unidad/compresion/test_lz10.py'),
+    'test_ssd_records': ('tools/tests/unidad/eventos/test_ssd.py',),
+    'test_ui_formats': ('tools/tests/unidad/graficos/test_formatos_ui.py',),
+}
 
 
 def _tools():
@@ -56,6 +70,19 @@ def es_archivado(mod, tools=None):
     return (archivo / f'{mod}.py').is_file() or (archivo / 'tests' / f'{mod}.py').is_file()
 
 
+def _rutas_nuevas_existen(mod, tools):
+    raiz = tools.parent
+    return all((raiz / r).is_file() for r in TESTS_TRASLADADOS[mod])
+
+
+def es_test_trasladado(mod, tools=None):
+    """True si mod es un test heredado trasladado: no está en tools/ y existen todas sus rutas nuevas."""
+    if mod not in TESTS_TRASLADADOS:
+        return False
+    tools = tools or _tools()
+    return not (tools / f'{mod}.py').is_file() and _rutas_nuevas_existen(mod, tools)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('accion', choices=['capturar', 'comprobar', 'comparar'])
@@ -73,9 +100,15 @@ def main():
     esperado = json.loads(Path(fichero).read_text(encoding='utf-8'))
     errores = []
     archivados = 0
+    trasladados = 0
     for mod, nombres in esperado.items():
         if es_shim(mod, tools):
             continue
+        if es_test_trasladado(mod, tools):
+            trasladados += 1
+            continue
+        if mod in TESTS_TRASLADADOS and mod in actual and _rutas_nuevas_existen(mod, tools):
+            errores.append(f'{mod}: duplicado en tools/ y tools/tests')
         if es_archivado(mod, tools):
             if mod not in actual:
                 archivados += 1
@@ -91,7 +124,8 @@ def main():
                 errores.append(f'{mod}.{n}: {tipo} -> {actual[mod][n]}')
     for e in errores:
         print('SUPERFICIE', e)
-    print(f'{len(esperado)} módulos comprobados; {archivados} archivados omitidos; {len(errores)} diferencias')
+    print(f'{len(esperado)} módulos comprobados; {archivados} archivados omitidos; '
+          f'{trasladados} tests trasladados omitidos; {len(errores)} diferencias')
     return 1 if errores else 0
 
 
