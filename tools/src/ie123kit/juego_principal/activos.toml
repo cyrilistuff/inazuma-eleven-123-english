@@ -1,0 +1,23 @@
+# Activos del juego principal (menú de la recopilación). Esquema 1, declarativo.
+# Solo rutas y prefijos (Norma 2). El registro de activos del servicio llega en F2.1.
+# Pendiente de auditar: patchscript/ y las entradas sueltas common/, system/, passing/ y face2d.arc.
+esquema = 1
+
+[objetivo]
+id = "juego_principal"
+nombre = "Inazuma Eleven 1·2·3 (recopilación)"
+juego = "juego_principal"
+version = ""
+comun = ""
+perfil_texto = "tipografia_v20"  # el bloqueo v20 es de TODA la recopilación
+capacidades = []
+pendiente_auditoria = true
+
+[romfs]
+prefijos_fa = ["menu/", "movie/", "message/", "import/", "patchscript/"]
+cros = ["cro/ina_menu.cro"]
+solo_lectura = ["font/"]  # fuentes bloqueadas v20
+
+[exefs]
+experimental = true
+ficheros = ["banner.bnr", "icon.icn"]

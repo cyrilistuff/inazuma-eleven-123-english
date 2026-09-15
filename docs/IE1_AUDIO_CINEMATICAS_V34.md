@@ -25,6 +25,9 @@ se sobreponen los archivos europeos completos, sin recodificarlos.
 
 ## Preparación reproducible
 
+> Nota (F1.4, #45): `python tools/ie1_media.py --stage` pasó a
+> `python -m ie123kit.ie1.media.voces --stage`. El stage legacy de v34 que se describe aquí es histórico.
+
 ```powershell
 python tools/ie1_media.py --stage
 pwsh -File tools/setup_mobipeg.ps1

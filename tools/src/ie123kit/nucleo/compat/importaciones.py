@@ -10,7 +10,10 @@ import json
 import sys
 from pathlib import Path
 
-EXTERNOS = {'numpy', 'PIL', 'capstone'}
+# Dependencias de terceros que usan tools/ y las capas de work/ (no son módulos de tools/).
+# cv2 (opencv-python-headless) y scipy los usan las capas gráficas v69/v70; ver el extra
+# 'graficos' de tools/pyproject.toml. Añadir aquí cada dependencia externa nueva.
+EXTERNOS = {'numpy', 'PIL', 'capstone', 'cv2', 'scipy'}
 
 
 def _raiz():

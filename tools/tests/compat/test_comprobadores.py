@@ -61,6 +61,15 @@ def test_importaciones_main_baseline(raiz, tmp_path, monkeypatch):
         assert importaciones.main() == esperado
 
 
+def test_importaciones_externos_no_son_fallos(raiz):
+    """Dependencias de terceros declaradas (cv2, scipy de las capas v69/v70) no cuentan como no resueltas."""
+    _escribir(raiz / 'work' / 'capa' / 'apply.py',
+              "import sys; sys.path.insert(0, 'tools')\n"
+              "import cv2\nimport numpy as np\nfrom PIL import Image\nfrom scipy import ndimage as nd\n")
+    total, fallos = importaciones.analizar(str(raiz / 'work'))
+    assert (total, fallos) == (1, [])
+
+
 def test_superficie(raiz, monkeypatch):
     mod = raiz / 'tools' / 'modulo.py'
     _escribir(mod, 'def funcion(a, b=1): pass\n')

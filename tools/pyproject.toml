@@ -15,6 +15,9 @@ dependencies = ["Pillow", "numpy", "capstone"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.5"]
+# Capas gráficas de work/ (v69/v70: borrado de texto sobre fondos); el comprobador
+# de importaciones las trata como externas (EXTERNOS en nucleo/compat/importaciones.py).
+graficos = ["opencv-python-headless", "scipy"]
 
 [tool.setuptools.dynamic]
 version = { attr = "ie123kit.__version__" }

@@ -1,0 +1,21 @@
+# Activos de Inazuma Eleven (IE1). Esquema 1, declarativo; solo rutas y datos cortos (Norma 2).
+esquema = 1
+
+[objetivo]
+id = "ie1"
+nombre = "Inazuma Eleven"
+juego = "ie1"
+version = ""
+comun = ""
+perfil_texto = "tipografia_v20"  # el bloqueo v20 es de TODA la recopilación
+capacidades = []  # se declaran en F2.3
+pendiente_auditoria = false
+
+[romfs]
+prefijos_fa = ["inazuma1/"]
+cros = ["cro/ina_main1.cro"]
+solo_lectura = ["inazuma1/data_iz/font/"]
+
+[eventos]
+protegidos = [81000040]  # DONT_TOUCH (tutorial)
+apertura = [90000000, 92010249]

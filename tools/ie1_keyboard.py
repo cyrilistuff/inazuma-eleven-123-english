@@ -1,39 +1,9 @@
-"""IE1 keyboard: fcode0/1/2 are 26 x 6 little-endian two-byte cells + CRLF.
+"""Shim generado por ie123kit.nucleo.compat.shims (no editar): alias de ie123kit.ie1.graficos.teclado."""
+import importlib
+import sys
+from pathlib import Path
 
-Each visible character occupies two equal cells. AAAA switches mode, DDDD
-deletes, and ASCII spaces disable a cell. B/C are Japanese diacritic controls.
-The selection grid uses 20x20 px keys (row k at y=20k), as in the Japanese texture.
-"""
-from dialogue_typography import encode_fullwidth
-
-ROWS=['ABCDEFGHIJ','KLMNÑOPQRS','TUVWXYZÁÉÍ','ÓÚü0123456','789.,!?():','+/=@&;[]  ']
-
-
-def patch_map(original,mode):
-    if len(original)!=314 or original[-2:]!=b'\r\n':
-        raise ValueError('unexpected keyboard map')
-    out=bytearray(original)
-    for y,row in enumerate(ROWS):
-        assert len(row)==10
-        for x,ch in enumerate(row):
-            col=x*2+(x>=5)
-            offset=y*52+col*2
-            if mode==2 and original[offset:offset+4]==b'    ':continue
-            encoded=encode_fullwidth(ch.lower() if mode==1 else ch)
-            assert len(encoded)==2
-            out[offset:offset+4]=encoded*2
-    for y,control in [(1,b'BBBB'),(2,b'CCCC')]:
-        if original[y*52+48:y*52+52]!=control:
-            raise ValueError('unexpected diacritic control position')
-        out[y*52+48:y*52+52]=b'    '
-    return bytes(out)
-
-
-def texture_operations(mode):
-    operations=[]
-    for y,row in enumerate(ROWS):
-        for x,ch in enumerate(row):
-            text='ESP' if ch==' ' else (ch.lower() if mode==1 else ch)
-            operations.append(dict(box=[x*20,y*20+2,x*20+20,y*20+18],text=text,size=8 if ch==' ' else 14))
-    operations.extend([dict(box=[200,2,224,18],text='abc' if mode==0 else 'ABC',size=10),dict(box=[200,20,224,60],text='',size=10)])
-    return operations
+_SRC = str(Path(__file__).resolve().parent / 'src')
+if _SRC not in sys.path:
+    sys.path.insert(0, _SRC)
+sys.modules[__name__] = importlib.import_module('ie123kit.ie1.graficos.teclado')

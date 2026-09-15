@@ -1,0 +1,17 @@
+# Activos de Inazuma Eleven 2: Ventisca Eterna. Esquema 1, declarativo; solo rutas y datos cortos (Norma 2).
+esquema = 1
+
+[objetivo]
+id = "ie2.ventisca_eterna"
+nombre = "Inazuma Eleven 2: Ventisca Eterna"
+juego = "ie2"
+version = "ventisca_eterna"
+comun = "ie2.comun"
+perfil_texto = "tipografia_v20"  # el bloqueo v20 es de TODA la recopilación
+capacidades = []
+pendiente_auditoria = true
+
+[romfs]
+prefijos_fa = ["inazuma2/"]
+cros = ["cro/ina_main2.cro"]
+solo_lectura = []

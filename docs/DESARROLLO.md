@@ -43,7 +43,7 @@ Build final **v27**: arranca, **crea partida**, e **intro + diálogo de historia
 
 ## 2. Requisitos
 
-**Python 3.7+** y la librería de ensamblado ARM (la importa `patch_code.py`, que sigue en `tools/` pero está clasificado como *obsolete_dangerous* y se archivará en F1.4):
+**Python 3.7+** y la librería de ensamblado ARM (solo la importa `patch_code.py`, *obsolete_dangerous* y ya archivado en `tools/_archivo` en F1.4; keystone solo hace falta para consultar ese histórico):
 ```
 pip install keystone-engine
 # opcional, solo si vas a DESensamblar para RE: pip install capstone

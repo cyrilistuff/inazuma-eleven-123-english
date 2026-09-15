@@ -1,0 +1,19 @@
+# Activos de Inazuma Eleven 3: La Amenaza del Ogro. Esquema 1, declarativo; solo rutas y datos cortos (Norma 2).
+# Sin auditar: el reparto de inazuma3/ (incluido inazuma3/data_iz_bomber/) e inazuma3_ogre/
+# entre versiones y el uso compartido de cro/ina_main3ogre.cro.
+esquema = 1
+
+[objetivo]
+id = "ie3.amenaza_del_ogro"
+nombre = "Inazuma Eleven 3: La Amenaza del Ogro"
+juego = "ie3"
+version = "amenaza_del_ogro"
+comun = "ie3.comun"
+perfil_texto = "tipografia_v20"  # el bloqueo v20 es de TODA la recopilación
+capacidades = []
+pendiente_auditoria = true
+
+[romfs]
+prefijos_fa = ["inazuma3_ogre/"]
+cros = ["cro/ina_main3ogre.cro"]
+solo_lectura = []

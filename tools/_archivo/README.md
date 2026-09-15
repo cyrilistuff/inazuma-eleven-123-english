@@ -1,7 +1,7 @@
 # tools/_archivo — scripts retirados
 
 Esta carpeta guarda scripts **retirados** de `tools/` durante la migración al paquete
-`ie123kit` (subfase F1.2, [issue #43](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/43)).
+`ie123kit` (subfases F1.2, [issue #43](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/43), y F1.4, [issue #45](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/45)).
 
 - **No son importables**: la carpeta no tiene `__init__.py` y no está en `sys.path`.
 - Se conservan **solo como referencia histórica**. Lo más probable es que no se puedan
@@ -25,8 +25,8 @@ Antes de rescatar cualquier idea de aquí, lee [`docs/FURIGANA_LECCIONES.md`](..
 | `tr_merge.py` | Mitad de fusión del mismo flujo. | Validación «solo rellenar pendiente o vacío» del importador de textos (fase 2) |
 | `align_events.py` | Alineador por orden (Needleman-Wunsch), fallido. | Emparejamiento por ID; ver [#36](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/36). `dialogue_runs`/`is_furigana` siguen en la fachada `_legado` de pkb_unpack |
 | `audit_ie1_voiced_text.py` | Sustituido por la auditoría por ID. Sin importadores. | `work/ie1/capas/v51/voces/auditoria.py`; regla documentada en `ie1/media/voces.py` |
-| `verify_build.py` | Comprobaciones SAME_SIZE de la era v27. Sin llamadores. | `tools/verify_candidate.py` |
-| `verify_v21.py` | Aserciones puntuales contra v21, que ya no existe. | `tools/verify_candidate.py` |
+| `verify_build.py` | Comprobaciones SAME_SIZE de la era v27. Sin llamadores. | `tools/verify_candidate.py` (sigue como shim de `ie123kit._legado.verify_candidate`) |
+| `verify_v21.py` | Aserciones puntuales contra v21, que ya no existe. | `tools/verify_candidate.py` (sigue como shim de `ie123kit._legado.verify_candidate`) |
 | `fix_ie1_title_logo.py` | Rehecho por capas posteriores; tenía una ruta fija a Downloads. | Capas v60/v62/v63 y `work/ie1/capas/v67/titulo_logo` |
 | `compact_typography.py` | Experimentos v4/v8 superados por el bloqueo v20. | Bloqueo tipográfico v20 (`tools/dialogue_lock.py`, `AGENTS.md`) |
 | `build_match_content_patch.py` | Produjo mch v23-v27. | `work/ie1/capas/v33/mch_story` y `work/ie1/capas/v55/pachangas`; invariantes a `ie1/texto/mch.py` (fase 2) |
@@ -40,25 +40,23 @@ Antes de rescatar cualquier idea de aquí, lee [`docs/FURIGANA_LECCIONES.md`](..
 | `reorganizar_proyecto.py` | Migración del 2026-09-16 ya aplicada. | Ninguno (la migración a juego_principal será una acción aparte que copia) |
 | `tests/test_compact_typography.py` | Prueba un módulo archivado; ya se saltaba por faltar `work/fa_extract`. | Ninguno |
 | `tests/test_validate_inputs.py` | Prueba `validate.py`, que queda en cuarentena. | `ie123kit/_legado/validate.py` (F1.4) |
+| `ie1_tables.py` | F1.4: sin importadores; lógica dividida. | `ie123kit.nucleo.registros.tabla_fija` + `ie123kit.ie1.texto.tablas` |
+| `ie1_media.py` | F1.4: sin importadores. El stage legacy (v34) ya no es válido. | `ie123kit.nucleo.media.audio` + `ie123kit.ie1.media.voces` (`python -m ie123kit.ie1.media.voces --stage`) |
+| `validate_ie1_media.py` | F1.4: sin importadores; sus reglas pasan a la verificación de IE1. | `ie123kit.ie1.verificar` + `ie123kit.nucleo.media.moflex.disposicion_rotacion` |
+| `patch_exefs.py` | F1.4: su ruta code.bin/exheader dependía de `patch_code`. | La primitiva ExeFS vive en `ie123kit.nucleo.contenedores.exefs` (experimental) |
+| `patch_code.py` | **PELIGROSO: no reutilizar.** Saltos a cuevas de la CRO imposibles (crash en 0xAD9E38). Regla vigente: `NO_CODE_PATCH=1`. | Ninguno |
+| `patch_cro.py` | **PELIGROSO: no reutilizar.** La cueva 0x50E14 es zona de reubicación (crash en 0xAD9E1C). Regla vigente: `SKIP_CRO=1`. | Ninguno |
 
 Issues relacionados: [#9](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/9),
 [#16](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/16),
 [#36](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/36).
 
-## Pendientes de archivo en F1.4
+## Archivados en F1.4
 
-- `tools/patch_code.py`
-- `tools/patch_cro.py`
-
-Siguen en `tools/` porque `tools/patch_exefs.py` (activo; se divide en F1.4) hace
-`import patch_code` a nivel de módulo, y `patch_code` importa `patch_cro`. Moverlos ahora
-rompería `import patch_exefs`. Se archivarán en F1.4 junto con la ruta code.bin/exheader de
-`patch_exefs.py`.
-
-Ambos son **obsolete_dangerous** según [`FURIGANA_LECCIONES.md`](../../docs/FURIGANA_LECCIONES.md):
-
-- `patch_code.py`: saltos a cuevas de la CRO imposibles (crash en 0xAD9E38). Regla vigente: `NO_CODE_PATCH=1`.
-- `patch_cro.py`: la cueva 0x50E14 es zona de reubicación (crash en 0xAD9E1C). Regla vigente: `SKIP_CRO=1`.
+`patch_code.py` y `patch_cro.py`, que en F1.2 seguían en `tools/` porque `patch_exefs.py` los importaba,
+se archivaron en F1.4 ([#45](https://github.com/luishidalgoa/inazuma-eleven-123-spanish/issues/45)) junto
+con `patch_exefs.py`, `ie1_tables.py`, `ie1_media.py` y `validate_ie1_media.py`. Ambos parches son
+**obsolete_dangerous** según [`FURIGANA_LECCIONES.md`](../../docs/FURIGANA_LECCIONES.md).
 
 ## Nota
 

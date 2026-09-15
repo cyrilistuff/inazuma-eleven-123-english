@@ -11,7 +11,7 @@
   `tools/tests/` sí pasan por ruff.
 - Los scripts vigentes de `tools/` siguen funcionando igual.
 - Los 25 scripts y tests retirados en F1.2 (#43) viven en `tools/_archivo/` (sin stubs, no importables);
-  motivos y sustitutos en [`_archivo/README.md`](_archivo/README.md). `patch_code.py` y `patch_cro.py` se archivarán en F1.4.
+  motivos y sustitutos en [`_archivo/README.md`](_archivo/README.md). `patch_code.py`, `patch_cro.py` y otros 4 scripts se archivaron en F1.4 (#45).
 
 ### F1.3 (#44): módulos de motor trasladados
 
@@ -61,9 +61,55 @@ privados incluidos.
 - `tools/tests/compat/test_traslados.py` comprueba el mapa, que cada shim no tenga lógica, la identidad
   de módulos y la superficie de `superficie_v0.json`.
 
+### F1.4 (#45): divisiones, fachadas de legado y reparto por juego
+
+Los 13 módulos restantes pasan a `ie123kit` con el mismo patrón de shims que en F1.3 (29 shims en
+total en `tools/`). Seis scripts sin importadores se archivan con `git mv` en `tools/_archivo`, sin shim.
+
+| Módulo antiguo (`tools/`) | Módulo(s) real(es) | Tipo |
+|---|---|---|
+| `pkb_unpack.py` | `ie123kit.nucleo.eventos.packnum` + `nucleo.texto.nds_latin` | fachada `_legado.pkb_unpack` |
+| `build_glossary.py` | `ie123kit.nucleo.texto.nds_latin` | fachada `_legado.build_glossary` |
+| `ds_official.py` | `ie123kit.nucleo.texto.nds_latin` + `nucleo.eventos.alineado_ids` | fachada `_legado.ds_official` (`main`/`align` con `--legado-lo-se`) |
+| `audit_dialogo_ids.py` | `ie123kit.nucleo.eventos.alineado_ids` (auditoría IE1 en la fachada) | fachada `_legado.audit_dialogo_ids` |
+| `reinsert.py` | `ie123kit.nucleo.texto.sjis_portador` + `nucleo.texto.tipografia_v20` | fachada `_legado.reinsert` |
+| `translate_ui_textures.py` | `ie123kit.nucleo.graficos.pintado` | fachada `_legado.translate_ui_textures` |
+| `mods_to_moflex.py` | `ie123kit.nucleo.media.moflex` + `nucleo.media.subtitulos_dat` | fachada `_legado.mods_to_moflex` |
+| `verify_candidate.py` | `ie123kit.nucleo.validar.candidata` + `ie1.verificar` | fachada `_legado.verify_candidate` |
+| `ie1_keyboard.py` | `ie123kit.ie1.graficos.teclado` | alias directo |
+| `ds_roster.py` | `ie123kit._legado.ds_roster` | cuarentena |
+| `reinsert_var.py` | `ie123kit._legado.reinsert_var` | cuarentena |
+| `ssd_reinsert.py` | `ie123kit._legado.ssd_reinsert` | cuarentena |
+| `validate.py` | `ie123kit._legado.validate` | cuarentena |
+| `ie1_tables.py` | `ie123kit.nucleo.registros.tabla_fija` + `ie1.texto.tablas` | archivado |
+| `ie1_media.py` | `ie123kit.nucleo.media.audio` + `ie1.media.voces` | archivado |
+| `validate_ie1_media.py` | `ie123kit.ie1.verificar` + `nucleo.media.moflex.disposicion_rotacion` | archivado |
+| `patch_exefs.py` | `ie123kit.nucleo.contenedores.exefs` (experimental) | archivado |
+| `patch_code.py`, `patch_cro.py` | ninguno (**peligrosos**) | archivado |
+
+- **Re-exports perezosos de los bloqueados** (no copian código; devuelven los mismos objetos que
+  `tools/`): `ie123kit.nucleo.texto.ancho_completo` (de `dialogue_typography`, más `decode_fullwidth`
+  nuevo), `ie123kit.nucleo.texto.tipografia_v20` (de `build_ie1_probe`) e
+  `ie123kit.nucleo.fuentes.glifos` (de `font_patch`). Todos cargan los congelados con
+  `ie123kit.nucleo.config.congelados.cargar`.
+- `ie123kit.nucleo.construir.candidata` contiene la construcción de candidatas;
+  `tools/build_ui_revision.py` **sigue congelado** en `tools/` y se usa igual.
+- **Cuarentena**: `ds_roster`, `reinsert_var`, `ssd_reinsert` y `validate` solo ejecutan su CLI con
+  `--legado-lo-se`; `ds_official` exige la misma bandera para `main`/`align` (o `IE123_LEGADO_LO_SE=1`
+  cuando `align` se llama desde código).
+- Órdenes nuevas:
+  - `python -m ie123kit.ie1.media.voces [--stage]` (sustituye a `python tools/ie1_media.py --stage`);
+  - `python -m ie123kit.nucleo.construir.candidata --base … --ui … --output …`.
+- Cada objetivo declara sus activos en `activos.toml` (esquema 1: prefijos de `archive.fa`, CRO y rutas
+  de solo lectura) en `juego_principal/`, `ie1/`, `ie2/<versión>/` e `ie3/<versión>/`. El registro de
+  activos del servicio los leerá en F2.1.
+- La invocación documentada `python tools/verify_candidate.py` sigue igual.
+- `tools/tests/compat/test_traslados_f14.py` comprueba el mapa, los shims, los archivados, la raíz final
+  de `tools/`, los congelados y las identidades de texto.
+
 ## Audio y cinemáticas europeas de IE1
 
-- `ie1_media.py --stage`: inventaría los SADL de IE1 DS/3DS y prepara los 70
+- `python -m ie123kit.ie1.media.voces --stage` (antes `ie1_media.py --stage`): inventaría los SADL de IE1 DS/3DS y prepara los 70
   reemplazos europeos en el mod local de volumen 1.
 - `setup_mobipeg.ps1`: descarga y verifica la versión portátil x86 de mobipeg 2.1.
 - `mods_to_moflex.py`: convierte una película `.mods` de DS, incrusta su pista
@@ -72,7 +118,8 @@ privados incluidos.
   (sustituye a `build_ie1_movies.py`, archivado en `_archivo/`; ver [`_archivo/README.md`](_archivo/README.md)).
 - `work/ie1/capas/v67/titulo_logo` (sustituye a `fix_ie1_title_logo.py`, archivado en `_archivo/`): aísla el wordmark europeo y sustituye el rótulo
   rectangular anterior conservando el balón y el rayo animados del juego.
-- `setup_vgmstream.ps1` + `validate_ie1_media.py`: preparan el decodificador
+- `setup_vgmstream.ps1` + `validate_ie1_media.py` (archivado en F1.4; sus reglas viven en
+  `ie123kit.ie1.verificar`): preparan el decodificador
   portátil y comprueban los 70 SADL instalados y las 21 películas sin generar
   WAV ni vídeos temporales. Véase `docs/IE1_AUDIO_CINEMATICAS_V35.md`.
 
