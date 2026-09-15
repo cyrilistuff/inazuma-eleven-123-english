@@ -57,3 +57,8 @@ translation/*/dialogo_oficial.csv
 # datos locales de la maquina (rutas, PCs). El registro persiste en local; a GitHub
 # solo van las herramientas, no la cosecha.
 logs/
+
+# Paquete ie123kit (tools/pyproject.toml)
+*.egg-info/
+.pytest_cache/
+.ruff_cache/

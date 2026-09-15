@@ -1,5 +1,16 @@
 # Herramientas
 
+## Paquete ie123kit (migración en curso, #40)
+
+- El código nuevo vive en `tools/src/ie123kit` y se instala con `pip install -e tools[dev]`.
+- Tests: `python -X utf8 -m pytest tools/tests -m "not requiere_rom" -q`.
+- Los 5 ficheros bloqueados (`dialogue_typography.py`, `font_patch.py`, `dialogue_lock.py`,
+  `build_ie1_probe.py`, `build_ui_revision.py`) siguen intactos en `tools/` y excluidos de ruff/black.
+- Los tests heredados de la raíz (`tools/test_*.py`) también quedan fuera de ruff (`./test_*.py` en
+  `extend-exclude`, anclado a `tools/`): no se retocan durante la migración. Los tests nuevos de
+  `tools/tests/` sí pasan por ruff.
+- Los scripts antiguos de `tools/` siguen funcionando igual.
+
 ## Audio y cinemáticas europeas de IE1
 
 - `ie1_media.py --stage`: inventaría los SADL de IE1 DS/3DS y prepara los 70

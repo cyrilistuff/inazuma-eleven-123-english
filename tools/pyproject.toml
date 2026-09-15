@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ie123kit"
+dynamic = ["version"]
+description = "Herramientas de la traducción al español de Inazuma Eleven 1·2·3 (3DS)"
+requires-python = ">=3.12"
+# La licencia MIT cubre solo el código; no cubre el contenido del juego.
+license = "MIT"
+dependencies = ["Pillow", "numpy", "capstone"]
+# [project.scripts]
+# ie123 = "ie123kit.cli.main:main" se añade en F2.4
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ie123kit.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ie123kit = ["**/*.toml", "**/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"
+markers = ["requiere_rom: necesita ROMs o work/ local; se salta en CI"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+force-exclude = true
+# bloqueo tipográfico v20: un reformateo cambiaría el hash
+extend-exclude = [
+    "dialogue_typography.py",
+    "font_patch.py",
+    "dialogue_lock.py",
+    "build_ie1_probe.py",
+    "build_ui_revision.py",
+    "_archivo",
+    # tests heredados de la raíz de tools/ (no se tocan en la migración);
+    # el patrón con ruta se ancla a tools/ y no alcanza tools/tests/**
+    "./test_*.py",
+]
+
+[tool.black]
+# bloqueo tipográfico v20: un reformateo cambiaría el hash
+extend-exclude = '''
+(
+    (^|/)dialogue_typography\.py$
+  | (^|/)font_patch\.py$
+  | (^|/)dialogue_lock\.py$
+  | (^|/)build_ie1_probe\.py$
+  | (^|/)build_ui_revision\.py$
+  | (^|/)_archivo/
+)
+'''

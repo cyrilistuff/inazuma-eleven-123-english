@@ -1,81 +1,16 @@
-"""Captura o compara la superficie pública (nombres y firmas, por AST) de los módulos de tools/.
-
-Uso: python tools/tests/compat/superficie.py capturar|comprobar [--fichero superficie_v0.json]
-Va por AST para no ejecutar módulos con efectos al importar. comprobar falla si desaparece un
-nombre o cambia una firma; un módulo convertido en shim (sys.modules[__name__]) se da por bueno.
-"""
-import argparse
-import ast
-import json
+"""Envoltorio (F1.1, #42): la lógica vive en ie123kit.nucleo.compat.superficie."""
+import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
-TOOLS = ROOT / 'tools'
-POR_DEFECTO = Path(__file__).with_name('superficie_v0.json')
+if importlib.util.find_spec('ie123kit') is None:
+    _aqui = Path(__file__).resolve().parent
+    for _d in [_aqui, *_aqui.parents]:
+        if (_d / 'src' / 'ie123kit' / '__init__.py').is_file():
+            sys.path.insert(0, str(_d / 'src'))
+            break
 
-
-def firma(nodo):
-    a = nodo.args
-    partes = [x.arg for x in a.posonlyargs + a.args]
-    if a.vararg:
-        partes.append('*' + a.vararg.arg)
-    partes += [x.arg for x in a.kwonlyargs]
-    if a.kwarg:
-        partes.append('**' + a.kwarg.arg)
-    return 'def(' + ', '.join(partes) + ')'
-
-
-def superficie(ruta):
-    out = {}
-    for nodo in ast.parse(ruta.read_text(encoding='utf-8', errors='replace')).body:
-        if isinstance(nodo, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            out[nodo.name] = firma(nodo)
-        elif isinstance(nodo, ast.ClassDef):
-            out[nodo.name] = 'class'
-            out.update({f'{nodo.name}.{m.name}': firma(m) for m in nodo.body
-                        if isinstance(m, (ast.FunctionDef, ast.AsyncFunctionDef))})
-        elif isinstance(nodo, (ast.Assign, ast.AnnAssign)):
-            for t in (nodo.targets if isinstance(nodo, ast.Assign) else [nodo.target]):
-                if isinstance(t, ast.Name):
-                    out[t.id] = 'var'
-    return out
-
-
-def es_shim(mod):
-    ruta = TOOLS / f'{mod}.py'
-    return ruta.is_file() and 'sys.modules[__name__]' in ruta.read_text(encoding='utf-8', errors='replace')
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('accion', choices=['capturar', 'comprobar'])
-    ap.add_argument('--fichero', default=str(POR_DEFECTO))
-    args = ap.parse_args()
-    actual = {p.stem: superficie(p) for p in sorted(TOOLS.glob('*.py'))}
-    if args.accion == 'capturar':
-        Path(args.fichero).write_text(json.dumps(actual, ensure_ascii=False, indent=1, sort_keys=True) + '\n',
-                                      encoding='utf-8')
-        print(f'{len(actual)} módulos, {sum(map(len, actual.values()))} nombres capturados')
-        return 0
-    esperado = json.loads(Path(args.fichero).read_text(encoding='utf-8'))
-    errores = []
-    for mod, nombres in esperado.items():
-        if es_shim(mod):
-            continue
-        if mod not in actual:
-            errores.append(f'{mod}: módulo ausente')
-            continue
-        for n, tipo in nombres.items():
-            if n not in actual[mod]:
-                errores.append(f'{mod}.{n}: desaparecido')
-            elif actual[mod][n] != tipo:
-                errores.append(f'{mod}.{n}: {tipo} -> {actual[mod][n]}')
-    for e in errores:
-        print('SUPERFICIE', e)
-    print(f'{len(esperado)} módulos comprobados; {len(errores)} diferencias')
-    return 1 if errores else 0
-
+from ie123kit.nucleo.compat.superficie import main
 
 if __name__ == '__main__':
     sys.exit(main())

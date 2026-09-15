@@ -134,6 +134,8 @@
 
 # Progreso del proyecto
 
+- 2026-09-15 · Toolkit F1.1: esqueleto del paquete `ie123kit` (`tools/src`, `tools/pyproject.toml`), plantilla de shims de compatibilidad, tests de arquitectura y unidad; puertas 1-4 en verde (pytest 75 passed, unittest OK, importaciones y golden v67 a 0). Ficheros bloqueados v20 intactos.
+
 ## Actualización 2026-09-09: v23, pachangas y cadena de partidos
 
 La candidata actual es `work/shared/candidatas/probe_ie1_v23/archive.fa` y ya sustituye a la v22
