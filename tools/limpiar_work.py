@@ -26,7 +26,7 @@ def objetivos():
     out = [WORK / p for p in FIJOS]
     probes = sorted((p for p in (WORK / 'shared/candidatas').glob('probe_ie1_v*') if re.fullmatch(r'probe_ie1_v\d+', p.name)),
                     key=lambda p: int(p.name.rsplit('v', 1)[1]))
-    out += probes[:-CANDIDATAS_A_CONSERVAR]
+    out += [p for p in probes[:-CANDIDATAS_A_CONSERVAR] if not (p / '.conservar').exists()]  # golden de #41
     out += list(WORK.rglob('__pycache__'))
     out += [p for pat in ('*.partial', '*.yuv', '*_x2.png', 'tmp_*.dat') for p in WORK.rglob(pat)]
     out += [p for p in (WORK / 'shared/trailer').glob('check*.*') if re.fullmatch(r'check\d*\.(err|json)', p.name)]

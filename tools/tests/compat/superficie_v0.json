@@ -1,0 +1,655 @@
+{
+ "align_events": {
+  "_PC": "var",
+  "_dedup": "def(seq)",
+  "_fmt": "def(s)",
+  "_sim": "def(j, e)",
+  "_vlen": "def(s)",
+  "align_lines": "def(jp, es)",
+  "load": "def(pkh_path, pkb_path, enc, drop_furigana)",
+  "main": "def()"
+ },
+ "audit_dialogo_ids": {
+  "FURI": "var",
+  "OUT": "var",
+  "REPO": "var",
+  "emparejar": "def(a, b)",
+  "limpio": "def(s)",
+  "main": "def()",
+  "parecido": "def(a, b)",
+  "tabla_3ds": "def(buf)",
+  "tabla_nds": "def(buf)"
+ },
+ "audit_ie1_voiced_text": {
+  "ROOT": "var",
+  "main": "def()",
+  "nds_records": "def(data)",
+  "normalize": "def(text)",
+  "voice_name": "def(text)"
+ },
+ "bcfnt": {
+  "BCFNT": "class",
+  "BCFNT.__init__": "def(self, data)",
+  "BCFNT._parse_finf": "def(self)",
+  "BCFNT.cmaps": "def(self)",
+  "BCFNT.cwdhs": "def(self)",
+  "BCFNT.tglp": "def(self)",
+  "BCFNT.u": "def(self, fmt, off)",
+  "main": "def()"
+ },
+ "blz": {
+  "decompress": "def(data)"
+ },
+ "build_3ds": {
+  "FA_ES": "var",
+  "OUT": "var",
+  "PATCH": "var",
+  "REPO": "var",
+  "ROM": "var",
+  "XDELTA": "var",
+  "_SUF": "var",
+  "_VER": "var",
+  "main": "def()"
+ },
+ "build_3ds_var": {
+  "REPO": "var",
+  "ROM": "var",
+  "ROMFS_DIR": "var",
+  "TOOL": "var",
+  "W": "var",
+  "main": "def()",
+  "run": "def(*args)"
+ },
+ "build_fontui": {
+  "DST": "var",
+  "FONTS": "var",
+  "REPO": "var",
+  "SRC": "var",
+  "arc": "var",
+  "data": "var",
+  "find": "def(suf)"
+ },
+ "build_glossary": {
+  "DS": "var",
+  "DUMMY": "var",
+  "ES": "var",
+  "GAME_CFG": "var",
+  "NDS_DEC": "var",
+  "NDS_SJIS": "var",
+  "OUT": "var",
+  "REPO": "var",
+  "clean": "def(s)",
+  "dec_es": "def(b)",
+  "dec_jp": "def(b)",
+  "main": "def()",
+  "names_from_dat": "def(path, stride, dec, width)",
+  "pair_dat": "def(name, jp_stride, es_stride, fname, header)",
+  "strings_from_str": "def(path, dec)",
+  "write_csv": "def(fname, header, rows)"
+ },
+ "build_ie1_movies": {
+  "DS_MOVIE": "var",
+  "DS_TEXT": "var",
+  "REPO": "var",
+  "TARGET": "var",
+  "main": "def()",
+  "sha256": "def(path)",
+  "sources": "def()"
+ },
+ "build_ie1_probe": {
+  "ROOT": "var",
+  "layout": "def(text, advance, width)",
+  "main": "def()"
+ },
+ "build_match_content_patch": {
+  "CHAIN_EXACT": "var",
+  "CLUBINFO_EXACT": "var",
+  "EVENT_MAX": "var",
+  "EVENT_MIN": "var",
+  "MCH": "var",
+  "PACHANGA_TEXT": "var",
+  "ROOT": "var",
+  "ROYAL_EVENT": "var",
+  "ROYAL_MAPPING": "var",
+  "TEAM_EXACT": "var",
+  "get_bytes": "def(arc, path)",
+  "main": "def()",
+  "patch_clubinfo": "def(arc)",
+  "patch_mch": "def(arc)",
+  "patch_team_titles": "def(arc)",
+  "patch_teams": "def(arc)",
+  "translate_chain": "def(src)",
+  "translate_team": "def(name)"
+ },
+ "build_mch_patch": {
+  "EVENT_ID": "var",
+  "MAPPING": "var",
+  "PACKAGE": "var",
+  "ROOT": "var",
+  "_entry": "def(arc, suffix)",
+  "main": "def()"
+ },
+ "build_translation": {
+  "REPO": "var",
+  "main": "def()"
+ },
+ "build_ui_revision": {
+  "ROOT": "var",
+  "archive_payload": "def(arc, path)",
+  "digest": "def(path)",
+  "main": "def()",
+  "rebuild_events": "def(arc, events_dir)",
+  "replace_entry": "def(handle, arc, path, payload)"
+ },
+ "compact_typography": {
+  "patch_pair": "def(bcfnt_path, nftr_data, mode)"
+ },
+ "ctpk_ui": {
+  "decode": "def(data)",
+  "encode": "def(data, image)",
+  "metadata": "def(data)",
+  "pixel_index": "def(x, y, width)"
+ },
+ "dialogue_lock": {
+  "FONT_HASHES": "var",
+  "LAYOUT_HASH": "var",
+  "SOURCE_HASHES": "var",
+  "approved_layout": "def(text, layout)",
+  "validate": "def(fullwidth, extra_files, layout)"
+ },
+ "dialogue_typography": {
+  "ACCENTS": "var",
+  "TOKEN": "var",
+  "encode_fullwidth": "def(text)"
+ },
+ "ds_official": {
+  "DS_DIR": "var",
+  "DS_TABLE": "var",
+  "REPO": "var",
+  "T3_SUF": "var",
+  "_CONF": "var",
+  "_labels": "def(seq)",
+  "_ph": "def(s)",
+  "align": "def(jl, dl)",
+  "decode_ds": "def(b, unmapped)",
+  "ds_lines": "def(dec, unmapped)",
+  "jp_lines": "def(dec)",
+  "load_3ds_events": "def(game)",
+  "load_ds_events": "def(game)",
+  "main": "def()"
+ },
+ "ds_roster": {
+  "FIELD": "var",
+  "GAMES": "var",
+  "HEADER": "var",
+  "REC": "var",
+  "_field": "def(ds_bytes, size)",
+  "main": "def()",
+  "patch_unitbase": "def(orig, ds)"
+ },
+ "fa_repack": {
+  "REPO": "var",
+  "fe_offset_of": "def(arc, suffix)",
+  "main": "def()"
+ },
+ "fa_unpack": {
+  "FaArchive": "class",
+  "FaArchive.__init__": "def(self, path)",
+  "FaArchive._name": "def(self, base)",
+  "FaArchive._walk": "def(self)",
+  "FaArchive.file_bytes": "def(self, abs_off, size)",
+  "METHOD_NAME": "var",
+  "RAW_MAGICS": "var",
+  "_huffman": "def(data, bitdepth)",
+  "_lz10": "def(data)",
+  "_rle": "def(data)",
+  "describe": "def(data)",
+  "is_compressed": "def(data)",
+  "l5_decompress": "def(data)",
+  "l5_method": "def(data)",
+  "main": "def()"
+ },
+ "fix_ie1_title_logo": {
+  "DEFAULT_BASE": "var",
+  "DEFAULT_OUTPUT": "var",
+  "DEFAULT_PREVIEW": "var",
+  "DEFAULT_SOURCE": "var",
+  "ENTRY": "var",
+  "REPO": "var",
+  "TEXTURE": "var",
+  "archive_payload": "def(archive, wanted)",
+  "extract_wordmark": "def(source)",
+  "main": "def()",
+  "render_wordmark": "def(size, box, source)"
+ },
+ "font_patch": {
+  "Font": "class",
+  "Font.__init__": "def(self, path)",
+  "Font._poff": "def(self, gi, x, y)",
+  "Font.ascii_art": "def(self, gi)",
+  "Font.copy_width": "def(self, base_gi, tgt_gi)",
+  "Font.cwdh_entry_off": "def(self, gi)",
+  "Font.read_cell": "def(self, gi)",
+  "Font.write_cell": "def(self, gi, grid)",
+  "PLAN": "var",
+  "add_acute": "def(grid)",
+  "add_diaer": "def(grid)",
+  "add_tilde": "def(grid)",
+  "ink_bbox": "def(grid)",
+  "morton8": "def(x, y)",
+  "patch_font": "def(path, out, fullwidth, patch_glyphs, letter_spacing)",
+  "patch_font_bytes": "def(path, fullwidth, patch_glyphs, letter_spacing)",
+  "rot180": "def(grid)",
+  "vflip": "def(grid)"
+ },
+ "harvest_log": {
+  "BENIGN": "var",
+  "HEX": "var",
+  "INFORME": "var",
+  "KNOWN_PCS": "var",
+  "LEVELS": "var",
+  "LINE": "var",
+  "LOC": "var",
+  "LOGDIR": "var",
+  "MEM": "var",
+  "NUM": "var",
+  "REG": "var",
+  "REPO": "var",
+  "_classify": "def(sub, msg)",
+  "_line": "def(e)",
+  "_now": "def()",
+  "_relevancia": "def(sub, pc, msg)",
+  "_stamp": "def(path)",
+  "informe": "def(reg, nuevas)",
+  "main": "def()",
+  "merge": "def(reg, found, build)",
+  "parse": "def(path, levels)"
+ },
+ "ie1_keyboard": {
+  "ROWS": "var",
+  "patch_map": "def(original, mode)",
+  "texture_operations": "def(mode)"
+ },
+ "ie1_media": {
+  "CTR_SOUND": "var",
+  "DS_MOVIE": "var",
+  "DS_SOUND": "var",
+  "REPO": "var",
+  "STAGE": "var",
+  "STAGE_MOVIE": "var",
+  "STAGE_SOUND": "var",
+  "SadInfo": "class",
+  "inspect_sad": "def(path)",
+  "inventory": "def()",
+  "main": "def()",
+  "sha256": "def(path)",
+  "stage_audio": "def(report)"
+ },
+ "ie1_tables": {
+  "patch_items": "def(table, pool, replacements)",
+  "patch_string_pool": "def(source, translations)",
+  "write_field": "def(data, offset, size, text)"
+ },
+ "legacy_sprite": {
+  "decode": "def(data)",
+  "encode": "def(original, image)",
+  "index": "def(spl, spd)",
+  "parts": "def(data)"
+ },
+ "limpiar_work": {
+  "CANDIDATAS_A_CONSERVAR": "var",
+  "FIJOS": "var",
+  "ROOT": "var",
+  "WORK": "var",
+  "main": "def()",
+  "objetivos": "def()",
+  "tam": "def(p)"
+ },
+ "lz10": {
+  "MAX_CAND": "var",
+  "compress": "def(data)",
+  "compress_optimal": "def(data)",
+  "compress_store": "def(data)",
+  "decompress": "def(data)"
+ },
+ "mods_to_moflex": {
+  "DEFAULT_FONT": "var",
+  "DEFAULT_MOBIPEG": "var",
+  "DS_TABLE": "var",
+  "REPO": "var",
+  "SUBTITLE_TICK_RATE": "var",
+  "Subtitle": "class",
+  "add_caption": "def(image, text, font_path)",
+  "convert": "def(source, target, mobipeg_dir, qp, subtitles_path, font_path, rotation)",
+  "decode_ds": "def(data)",
+  "fit_caption": "def(text, draw, width, font_path)",
+  "main": "def()",
+  "probe": "def(ffprobe, source)",
+  "read_subtitles": "def(path)",
+  "rgb_to_yuv420": "def(image)",
+  "set_moflex_rotation": "def(path, rotation)",
+  "ycgco420_to_rgb": "def(frame, width, height)"
+ },
+ "nds_str_dump": {
+  "PRINTABLE": "var",
+  "extract_strings": "def(data, minlen)",
+  "main": "def()"
+ },
+ "nds_unpack": {
+  "main": "def()",
+  "read_dir": "def(data, fnt_off, dir_id, fat, names_only, out_dir, files_log)",
+  "u16": "def(b, o)",
+  "u32": "def(b, o)"
+ },
+ "nftr_metrics": {
+  "read_metrics": "def(data, with_offsets)"
+ },
+ "patch_code": {
+  "LOAD": "var",
+  "NEW_TEXT_SIZE": "var",
+  "patch_code_bin": "def(compressed)"
+ },
+ "patch_cro": {
+  "CAVE": "var",
+  "CODE_CAVES": "var",
+  "CODE_CAVE_ADDRS": "var",
+  "CRASH": "var",
+  "CRO_REL": "var",
+  "LOAD": "var",
+  "main": "def()",
+  "patch": "def(cro)"
+ },
+ "patch_exefs": {
+  "EXEFS_FILES": "var",
+  "build_exefs": "def(exefs_dir, out_path)",
+  "patch_exheader": "def(exh_in, exh_out, text_size)"
+ },
+ "patch_smdh_title": {
+  "SMDH_MAGIC": "var",
+  "SPANISH_SLOT": "var",
+  "TITLE_SLOT_SIZE": "var",
+  "TITLE_TABLE_OFFSET": "var",
+  "main": "def()",
+  "patch_title": "def(source, output, title, slot)"
+ },
+ "pkb_scan": {
+  "dec_nds": "def(part)",
+  "dec_sjis": "def(part)",
+  "main": "def()"
+ },
+ "pkb_unpack": {
+  "_decode_string": "def(part, enc)",
+  "dialogue_runs": "def(data, enc)",
+  "entry_data": "def(pkb, off, size)",
+  "is_furigana": "def(s)",
+  "lz10_decompress": "def(data)",
+  "main": "def()",
+  "parse_index": "def(pkh)"
+ },
+ "probe_ie1_spacing": {
+  "main": "def()"
+ },
+ "qna_regions": {
+  "regions": "def(data)"
+ },
+ "recompress_test": {
+  "DST": "var",
+  "FONTS": "var",
+  "REPO": "var",
+  "SRC": "var",
+  "arc": "var",
+  "bad": "var",
+  "data": "var",
+  "ents": "var",
+  "find": "def(suf)",
+  "n": "var",
+  "pkb": "var"
+ },
+ "reinsert": {
+  "BOX_W": "var",
+  "FONTS": "var",
+  "GAMES": "var",
+  "GREEK": "var",
+  "REPO": "var",
+  "_ADV": "var",
+  "_BASE": "var",
+  "_EN": "var",
+  "_MK": "var",
+  "_acc": "var",
+  "_advance": "def(ch)",
+  "_furigana_body_bytes": "def(orig_body, es, budget, allow_repaginate)",
+  "_is_reading": "def(part)",
+  "_repaginate": "def(es, n)",
+  "es_encode": "def(s, budget)",
+  "find_file": "def(arc, suffix)",
+  "load_translations": "def(game)",
+  "looks_like_dialogue": "def(s)",
+  "main": "def()",
+  "reencode_event": "def(dec, trans, esize)",
+  "reflow": "def(text)"
+ },
+ "reinsert_test": {
+  "find_file": "def(arc, suffix)",
+  "main": "def()"
+ },
+ "reinsert_var": {
+  "DONT_STRIP": "var",
+  "DONT_TOUCH": "var",
+  "GAMES": "var",
+  "REPO": "var",
+  "STRIP_ZONA": "var",
+  "_blank_reading": "def(part)",
+  "_furigana_var": "def(orig_body, es)",
+  "_instr_operands": "def(code, s10)",
+  "build_string_slots": "def(events)",
+  "is_grow_safe": "def(dec, string_slots)",
+  "is_strip_event": "def(eid)",
+  "main": "def()",
+  "reencode_var": "def(dec, trans, strip, string_slots, dbg_eid, grow_fg)"
+ },
+ "reorganizar_proyecto": {
+  "BORRAR": "var",
+  "IE1_FUENTES": "var",
+  "NUEVAS": "var",
+  "PARENTS": "var",
+  "ROMS": "var",
+  "ROOT": "var",
+  "SHARED": "var",
+  "TEXTO": "var",
+  "TRANSLATION": "var",
+  "VACIAS": "var",
+  "WORK": "var",
+  "corregir_parents": "def(texto, viejo, nuevo)",
+  "ficheros_texto": "def()",
+  "main": "def()",
+  "mapa_work": "def()",
+  "reglas": "def(m)"
+ },
+ "ssd_records": {
+  "TextRecord": "class",
+  "TextRecord.body": "def(self)",
+  "parse": "def(data)",
+  "replace": "def(data, replacements)"
+ },
+ "ssd_reinsert": {
+  "_text_start": "def(dec)",
+  "_validate": "def(dec)",
+  "reencode_ssd": "def(dec, trans, system, blank_readings, dbg_eid, gtrans, eid)"
+ },
+ "sszl": {
+  "compress": "def(raw)"
+ },
+ "str_align": {
+  "NDS_FIX": "var",
+  "fix_nds": "def(s)",
+  "main": "def()",
+  "read_str": "def(path, enc)"
+ },
+ "test_compact_typography": {
+  "CompactTypographyTests": "class",
+  "CompactTypographyTests.test_native_mode_keeps_format_and_tightens_latin": "def(self)",
+  "ROOT": "var"
+ },
+ "test_dialogue_lock": {
+  "DialogueLockTests": "class",
+  "DialogueLockTests.test_ascii_is_rejected_before_reading_files": "def(self)",
+  "DialogueLockTests.test_changed_layout_is_rejected": "def(self)",
+  "DialogueLockTests.test_missing_fonts_are_rejected": "def(self)"
+ },
+ "test_dialogue_typography": {
+  "EncodingTests": "class",
+  "EncodingTests.test_accents_keep_spanish_carriers": "def(self)",
+  "EncodingTests.test_controls_remain_ascii": "def(self)",
+  "EncodingTests.test_missing_character_fails": "def(self)"
+ },
+ "test_legacy_sprite": {
+  "LegacySpriteTests": "class",
+  "LegacySpriteTests.fixture": "def(self)",
+  "LegacySpriteTests.test_optimal_compression_matches_exhaustive_token_search": "def(self)",
+  "LegacySpriteTests.test_preserves_palette_indices_and_other_chunks": "def(self)"
+ },
+ "test_probe_layout": {
+  "LayoutTests": "class",
+  "LayoutTests.test_existing_pages_preserved": "def(self)",
+  "LayoutTests.test_oversize_word_rejected": "def(self)",
+  "LayoutTests.test_variable_width_changes_breaks": "def(self)",
+  "LayoutTests.test_word_not_split_and_pages_limited": "def(self)"
+ },
+ "test_ssd_records": {
+  "RecordsTests": "class",
+  "RecordsTests.test_byte_length_limit_is_not_silently_truncated": "def(self)",
+  "RecordsTests.test_grow_updates_record_and_sections_but_not_code": "def(self)",
+  "RecordsTests.test_headerless_variant_preserves_missing_magic": "def(self)",
+  "RecordsTests.test_reject_embedded_nul_and_bad_index": "def(self)",
+  "RecordsTests.test_reject_old_growth_without_record_size_update": "def(self)",
+  "RecordsTests.test_roundtrip": "def(self)",
+  "sample": "def()"
+ },
+ "test_ui_formats": {
+  "UiFormats": "class",
+  "UiFormats.test_literal_sszl_and_arcv": "def(self)",
+  "UiFormats.test_pixel_formats_are_lossless": "def(self)",
+  "UiFormats.test_scaled_image_is_centered_inside_its_original_box": "def(self)",
+  "UiFormats.test_text_stroke_and_background_stay_inside_button": "def(self)",
+  "UiFormats.test_untextured_qna_part_is_not_a_texture_reference": "def(self)"
+ },
+ "test_validate_inputs": {
+  "InputTests": "class",
+  "InputTests.test_empty_selection_fails": "def(self)",
+  "InputTests.test_missing_index_fails_without_parsing": "def(self)",
+  "InputTests.test_missing_pair_fails": "def(self)"
+ },
+ "tr_merge": {
+  "MK": "var",
+  "REPO": "var",
+  "cols": "var",
+  "filled": "var",
+  "game": "var",
+  "in_dir": "var",
+  "jp2es": "var",
+  "nb": "var",
+  "out_dir": "var",
+  "path": "var",
+  "rows": "var",
+  "w": "var"
+ },
+ "tr_prepare": {
+  "BS": "var",
+  "REPO": "var",
+  "blob": "var",
+  "game": "var",
+  "gdir": "var",
+  "gloss": "var",
+  "in_dir": "var",
+  "lines": "var",
+  "load": "def(name)",
+  "nb": "var",
+  "out_dir": "var",
+  "pairs": "var",
+  "pend": "var",
+  "ranked": "var",
+  "rows": "var",
+  "seen": "var",
+  "uniq": "var"
+ },
+ "translate_ui_textures": {
+  "main": "def()",
+  "paint": "def(image, operation, font_path)",
+  "paint_condensed": "def(image, operation, font_path)"
+ },
+ "ui_archive": {
+  "entries": "def(data)",
+  "unwrap": "def(data)"
+ },
+ "ui_insert": {
+  "ARC": "var",
+  "GAMES": "var",
+  "REPO": "var",
+  "get_raw": "def(data, off, size)",
+  "load_csv": "def(game, name)",
+  "main": "def()",
+  "patch_records": "def(data, off, size, pairs, stride, namelen)",
+  "patch_str": "def(data, off, size, pairs)",
+  "put_raw": "def(data, off, size, content, was_comp)"
+ },
+ "validate": {
+  "REPO": "var",
+  "SUF": "var",
+  "_dlines": "def(dec)",
+  "_events": "def(pkb, idx)",
+  "_imbalance": "def(dec)",
+  "_starts": "def(text)",
+  "main": "def()",
+  "run": "def(games)",
+  "validate": "def(game)"
+ },
+ "validate_ie1_media": {
+  "INSTALLED": "var",
+  "INSTALLED_SOUND": "var",
+  "MOBIPEG": "var",
+  "MOVIES_MANIFEST": "var",
+  "REPO": "var",
+  "REPORT": "var",
+  "STAGE": "var",
+  "STAGE_MOVIES": "var",
+  "STAGE_SOUND": "var",
+  "VGMSTREAM": "var",
+  "digest": "def(path)",
+  "main": "def()",
+  "rotation_layouts": "def(path)"
+ },
+ "verify_build": {
+  "FOLDER": "var",
+  "GAME": "var",
+  "REPO": "var",
+  "has_latin": "def(chunks)",
+  "main": "def()",
+  "text_chunks": "def(dec)"
+ },
+ "verify_candidate": {
+  "EVE": "var",
+  "ROOT": "var",
+  "digest": "def(path)",
+  "main": "def()"
+ },
+ "verify_v21": {
+  "base": "var",
+  "eid": "var",
+  "font_hashes": "var",
+  "get": "def(a, p)",
+  "idx0": "var",
+  "idx1": "var",
+  "jp": "var",
+  "mapping": "var",
+  "new": "var",
+  "newpkb": "var",
+  "orig": "var",
+  "origpkb": "var",
+  "report": "var",
+  "sha": "var",
+  "unchanged": "var",
+  "visible": "var",
+  "xb": "var",
+  "yb": "var"
+ }
+}
