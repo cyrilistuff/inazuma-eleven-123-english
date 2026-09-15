@@ -1,0 +1,44 @@
+# Guardia de integridad del repositorio, de alcance GLOBAL.
+#
+# Va en un workflow aparte a propósito: en GitHub Actions el filtro `paths` es
+# por workflow, no por job, así que las comprobaciones de alcance de repositorio
+# no pueden vivir en `toolkit.yml` (filtrado a tools/**). Aquí NO hay `paths`:
+# cualquier commit o PR, toque lo que toque, ejecuta las dos guardias.
+#
+# - Norma 2 (CLAUDE.md, LEGAL.md): `guardia git` revisa TODOS los ficheros
+#   rastreados y falla si se cuela una ROM o contenido extraído en cualquier
+#   ruta (translation/, docs/, una carpeta nueva…), no solo en tools/.
+# - Bloqueo tipográfico v20 (AGENTS.md): `guardia bloqueados` exige que los 5
+#   ficheros congelados coincidan byte a byte.
+#
+# No añadir filtros de rutas a este workflow ni desactivar sus comprobaciones.
+# Este job no instala nada: la guardia es solo biblioteca estándar y se ejecuta
+# con PYTHONPATH=tools/src, así que corre en segundos en cada commit.
+name: Guardia del repositorio
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  guardia:
+    name: Guardia (Norma 2 y bloqueo v20)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Guardia de integridad (bloqueados + git)
+        env:
+          PYTHONPATH: tools/src
+        run: python -X utf8 -m ie123kit.nucleo.compat.guardia todo

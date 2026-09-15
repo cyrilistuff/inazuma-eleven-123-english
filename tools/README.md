@@ -38,8 +38,17 @@ La fase 1 de la migración (épica #40, subfases F1.0-F1.5) está cerrada. El c�
 
 ### CI y guardias
 
-[`.github/workflows/toolkit.yml`](../.github/workflows/toolkit.yml) corre en `windows-latest` y
-`ubuntu-latest` (`release.yml` no cambia):
+Hay dos workflows de comprobación (`release.yml` no cambia):
+
+- [`.github/workflows/guardia.yml`](../.github/workflows/guardia.yml): **sin filtro de rutas**, corre en
+  cada commit y PR toquen lo que toquen, y ejecuta `guardia todo` (bloqueados + git). Es el que hace
+  global la Norma 2: una ROM o contenido extraído añadido en `translation/`, `docs/` o una carpeta nueva
+  falla ahí. En GitHub Actions `paths` filtra el workflow entero, no un job, así que esta guardia no
+  puede vivir dentro de `toolkit.yml`, que sí está filtrado a `tools/**`. No añadir `paths` a
+  `guardia.yml`. No instala nada (solo biblioteca estándar, `PYTHONPATH=tools/src`), así que es de
+  segundos.
+- [`.github/workflows/toolkit.yml`](../.github/workflows/toolkit.yml) corre en `windows-latest` y
+  `ubuntu-latest` cuando cambia `tools/**` (o `.gitattributes`, `AGENTS.md`, `CLAUDE.md`):
 
 1. `pip install -e tools[dev]` — el extra `dev` incluye `opencv-python-headless` porque
    `nucleo/graficos/pintado.py` importa `cv2` en cuanto una operación lleva `image` o

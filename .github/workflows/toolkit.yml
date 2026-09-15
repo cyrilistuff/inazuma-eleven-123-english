@@ -3,6 +3,15 @@
 # la guardia `git` falla si se rastrea alguno. Los tests `requiere_rom` se excluyen.
 # Bloqueo tipográfico v20 (AGENTS.md): la guardia `bloqueados` exige que los 5
 # ficheros congelados coincidan byte a byte; no desactivar esta comprobación.
+#
+# OJO con el filtro `paths` de abajo: en GitHub Actions se aplica al workflow
+# entero, no a un job suelto, así que este workflow NO se dispara con commits
+# fuera de tools/. Las guardias de alcance de repositorio (Norma 2 anti-ROM y
+# bloqueo v20) viven además en `.github/workflows/guardia.yml`, que se ejecuta
+# en todos los commits sin filtro de rutas; los pasos de guardia de aquí son una
+# repetición barata para los commits de tools/. Si se amplía el alcance de este
+# workflow, mantener guardia.yml: es el que cubre translation/, docs/ y las
+# carpetas nuevas.
 name: Toolkit ie123kit
 
 on:

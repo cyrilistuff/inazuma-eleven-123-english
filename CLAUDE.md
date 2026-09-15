@@ -76,4 +76,6 @@ la raíz de `work/`. Ver **[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md)**; tra
 - Herramientas: [`tools/README.md`](tools/README.md)
 - Especificación del toolkit ie123kit: [`docs/toolkit/ESPECIFICACION.md`](docs/toolkit/ESPECIFICACION.md)
 - CI del toolkit (Windows y Ubuntu; no se desactiva): [`.github/workflows/toolkit.yml`](.github/workflows/toolkit.yml)
+- Guardia global anti-ROM (Norma 2) y bloqueo v20, en todos los commits y sin filtro de rutas:
+  [`.github/workflows/guardia.yml`](.github/workflows/guardia.yml)
 - Glosario: [`translation/shared/glossary/`](translation/shared/glossary/)

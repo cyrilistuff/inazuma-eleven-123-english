@@ -57,5 +57,6 @@
 - Tests: `python -X utf8 -m pytest tools/tests -m "not requiere_rom"` (y `-m requiere_rom` en local con
   `work/`). Guardias: `python -m ie123kit.nucleo.compat.guardia bloqueados`, `... guardia git` y
   `python -m ie123kit.nucleo.compat.shims comprobar`.
-- No se desactiva ni se salta la CI `.github/workflows/toolkit.yml`, que además impide subir ROMs o datos
-  extraídos.
+- No se desactiva ni se salta la CI `.github/workflows/toolkit.yml` (filtrada a `tools/**`) ni
+  `.github/workflows/guardia.yml`, que corre **sin filtro de rutas** en todos los commits y es la que
+  impide subir ROMs o datos extraídos en cualquier carpeta. No añadir `paths` a `guardia.yml`.
