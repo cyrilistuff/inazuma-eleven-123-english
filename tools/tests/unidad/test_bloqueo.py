@@ -21,7 +21,7 @@ from ie123kit.nucleo.validar import bloqueo
 RAIZ = find_root()
 TOOLS = RAIZ / "tools"
 SRC = Path(ie123kit.__file__).resolve().parent.parent
-CANDIDATA = RAIZ / "work" / "shared" / "candidatas" / "probe_ie1_v67" / "archive.fa"
+CANDIDATA = RAIZ / "work" / "shared" / "candidatas" / "probe_ie1_v73" / "archive.fa"
 FALSO = "0" * 64
 
 sin_candidata = pytest.mark.skipif(not CANDIDATA.is_file(), reason=f"no existe {CANDIDATA}")
@@ -138,12 +138,12 @@ def test_sintetica_verde_y_hash_falso_rojo(tmp_path, lock, monkeypatch):
     assert list(temporales.iterdir()) == []  # el temporal se borra también al fallar
 
 
-# --------------------------------------------------------------------------- con la candidata v67
+# --------------------------------------------------------------------------- con la candidata v73 (fuentes bloqueadas desde #66)
 
 
 @pytest.mark.requiere_rom
 @sin_candidata
-def test_candidata_v67_respeta_bloqueo():
+def test_candidata_v73_respeta_bloqueo():
     bloqueo.comprobar(CANDIDATA.parent)
     r = subprocess.run(
         [
@@ -153,7 +153,7 @@ def test_candidata_v67_respeta_bloqueo():
             "-m",
             "ie123kit.nucleo.validar.bloqueo",
             "--candidata",
-            "work/shared/candidatas/probe_ie1_v67/archive.fa",
+            "work/shared/candidatas/probe_ie1_v73/archive.fa",
         ],
         cwd=RAIZ,
         env=_entorno(),
@@ -168,7 +168,7 @@ def test_candidata_v67_respeta_bloqueo():
 
 @pytest.mark.requiere_rom
 @sin_candidata
-def test_candidata_v67_hash_falso_ve_rojo(lock, monkeypatch):
+def test_candidata_v73_hash_falso_ve_rojo(lock, monkeypatch):
     rel = min(lock.FONT_HASHES)
     monkeypatch.setitem(lock.FONT_HASHES, rel, FALSO)
     with pytest.raises(BloqueoTipograficoError) as info:

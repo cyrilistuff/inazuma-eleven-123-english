@@ -1,14 +1,14 @@
-"""User-approved v20 dialogue appearance. No opt-out build switch."""
+"""User-approved dialogue appearance: v20 box/layout + v73 glyph spacing (authorized 2026-09-16, #66). No opt-out build switch."""
 import hashlib
 import inspect
 from pathlib import Path
 
 FONT_HASHES = {
-    'font/FONT12.bcfnt': 'db74945637301e74d8d36248626b4cc3e88c794a33e3d439dbb7ab813e9ff2e3',
-    'font/FONT12T.bcfnt': '71c37509f0eec6c092ea75f373667b0bf1f19389c45b1741a89a8f53270164ab',
+    'font/FONT12.bcfnt': '9069b9e346574d98fca442832d0759846b942170d494f38096d5edc80abd2d0a',
+    'font/FONT12T.bcfnt': 'f7100c2d97e2fd07285acbc83a03aed6a2975775060d36af939b4dd1f4dced65',
     'font/FONT8.bcfnt': 'b05e64c84cb564a98bea87cbdc94454f14f3df17e78252edf5a32be43ce454dd',
-    'inazuma1/data_iz/font/FONT12.NFTR': 'b43cfc73407c928272a001f04b85380976348e30da528b5938a3e45b87ea85c7',
-    'inazuma1/data_iz/font/FONT8.NFTR': '6f683a8cef209d6e9eb9b31be5cadaad5eb90bf5ccd5e5c01c40afdf89984865',
+    'inazuma1/data_iz/font/FONT12.NFTR': 'e9a25928b2e66fd45a9879fe620e103e0553a91158b753517ba6a83b328fcdf2',
+    'inazuma1/data_iz/font/FONT8.NFTR': '4e79520bc16f5583d07322e0eb66accd43d4a53084e6149179dde1e95b7d0c74',
 }
 SOURCE_HASHES = {
     'tools/dialogue_typography.py': '8e983419465a36460da722df4fccdb18b18b56836dc47fbc618974c18c4f42fa',

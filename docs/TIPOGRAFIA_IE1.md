@@ -89,3 +89,17 @@ alterar los bitmaps. FONT12T sigue intacta: su formato no es compatible con el
 editor de cuatro bits. La validación estática y las pruebas unitarias pasan,
 pero la aceptación queda pendiente de comprobar en Azahar que no haya
 solapamiento, cortes ni cambios de página incorrectos.
+
+
+## v73 (2026-09-16) — espaciado de los glifos latinos (issue #66)
+
+Autorización expresa del usuario. Causa: los glifos latinos de ancho completo de
+`FONT12.bcfnt` llevaban métricas de celda de kanji (`advance` 12-14 px para 8 px de
+tinta). Ajuste: `advance = min(actual, max(advance ASCII, left + tinta + 1))`, sin tocar
+mapas de bits, codificación ni `layout` (sigue a 11 px/220). Ningún avance crece, así
+que el texto solo se estrecha. Fuentes: FONT12, FONT12T, FONT12.NFTR y FONT8.NFTR
+(FONT8.bcfnt idéntica). Verificación: invariantes por glifo (`left + x0 >= 0`,
+tinta + 1 <= advance) y 2 324 parejas reales dibujadas con la fuente, 0 solapes y
+0 contactos nuevos. Capa: `work/ie1/capas/v73/espaciado_fuente/` (informe en
+`previews/informe.md`). Aprobado en Azahar por el usuario; hashes nuevos en
+`tools/dialogue_lock.py`.
