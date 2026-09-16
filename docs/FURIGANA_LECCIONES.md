@@ -302,3 +302,22 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
   por página; el ancho en píxeles no amplía ese límite; `%s` se expande antes del ajuste, así que su
   línea necesita margen. Capa corregida: `work/ie1/capas/v82/saltos_dialogo` (su simulador
   `comun82.motor` predice exactamente la captura).
+
+## ❌ Bigramas en la pestaña del nombre dibujados solo en FONT12 (sonda v85/v86, 2026-09-16)
+
+- **Qué se probó:** redibujar kanji sin uso de FONT12 como pares de letras («ur», «el», «ia») y escribir
+  «Aurelia» como A|ur|el|ia (registro en `work/ie1/capas/v85/bigramas_sonda/registro.json`).
+- **Resultado en Azahar:** la pestaña del nombre muestra los **kanji originales** («A亠仭伉»).
+- **Causa:** la pestaña no dibuja con FONT12 (usa otra de las fuentes: FONT12T, FONT8 o RUBI8).
+- **Regla:** un bigrama debe dibujarse en **todas** las fuentes que puedan mostrar ese texto, o
+  comprobar antes en emulador qué fuente usa cada sitio.
+
+## ❌ Ampliar el ancho del diálogo con arg4 del 0x301c existente (sonda v86, 2026-09-16)
+
+- **Qué se probó:** en 81000090, poner arg4 = 0x1A0 en el único 0x301c (#334, desplazamiento 0x1b24),
+  que según el código escribe `[ventana+0x1316]`, y reescribir el #406 en líneas de 37 caracteres.
+- **Resultado en Azahar:** el #406 sigue partiéndose a los 22 caracteres («…al grupo d»).
+- **Causa probable:** ese 0x301c no se ejecuta antes del #406 o abre otra ventana; el ancho del #406
+  sigue siendo el de por defecto (272).
+- **Regla:** no dar por buena esta vía sin localizar el 0x301c que abre la ventana del registro
+  concreto. Un texto a más de 22 caracteres con la ventana por defecto se corta a mitad de palabra.
