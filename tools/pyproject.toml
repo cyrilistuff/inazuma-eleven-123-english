@@ -10,8 +10,11 @@ requires-python = ">=3.12"
 # La licencia MIT cubre solo el código; no cubre el contenido del juego.
 license = "MIT"
 dependencies = ["Pillow", "numpy", "capstone"]
-# [project.scripts]
-# ie123 = "ie123kit.cli.main:main" se añade en F2.4
+# F2.2 adelanta el punto de entrada porque el gate de la subfase exige poder ejecutar la orden
+# (`ie123 parche`) y `python -m ie123kit.cli construir …`. La CLI completa (todos los verbos y los
+# alias en inglés con su tabla de equivalencias) sigue siendo F2.4; hoy solo hay construir/parche/doctor.
+[project.scripts]
+ie123 = "ie123kit.cli.main:main"
 
 [project.optional-dependencies]
 # opencv-python-headless es necesario para los tests: nucleo/graficos/pintado.py importa cv2

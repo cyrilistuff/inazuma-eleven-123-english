@@ -16,6 +16,8 @@ Uso:
 
 NOTA: el contenido extraido tiene copyright; va a work/ (ignorado por git).
 """
+import difflib
+import fnmatch
 import struct
 import zlib
 
@@ -144,6 +146,9 @@ def describe(data):
 
 class FaArchive:
     def __init__(self, path):
+        #: Ruta de origen tal cual se recibió (la usan los informes con sha256).
+        self.ruta = str(path)
+        self._indice = None
         with open(path, "rb") as fh:
             self.d = fh.read()
         d = self.d
@@ -182,6 +187,44 @@ class FaArchive:
     def file_bytes(self, abs_off, size):
         return self.d[abs_off:abs_off + size]
 
+    # ---- API añadida en F2.2 (#48): lectura por ruta -------------------------------
+    # `.d`, `.entries`, `._name`, `._walk` y `file_bytes` NO cambian: las capas de work/
+    # dependen de ellos byte a byte. Todo lo de abajo es aditivo.
+
+    @property
+    def index(self):
+        """Índice perezoso y cacheado: ruta -> (offset absoluto, tamaño)."""
+        if self._indice is None:
+            self._indice = {p: (o, s) for p, o, s in self.entries}
+        return self._indice
+
+    def _parecidas(self, ruta):
+        candidatas = difflib.get_close_matches(ruta, self.index, n=5, cutoff=0.4)
+        if not candidatas:
+            cola = ruta.rsplit("/", 1)[-1]
+            candidatas = [p for p in self.index if p.endswith(cola)][:5]
+        return candidatas
+
+    def exists(self, ruta):
+        """¿Existe una entrada con esa ruta exacta?"""
+        return ruta in self.index
+
+    def read(self, ruta):
+        """Bytes de la entrada `ruta`; KeyError con hasta 5 rutas parecidas si no está."""
+        par = self.index.get(ruta)
+        if par is None:
+            parecidas = self._parecidas(ruta)
+            pista = "; parecidas: " + ", ".join(parecidas) if parecidas else ""
+            raise KeyError(f"entrada ausente en el contenedor: {ruta}{pista}")
+        off, size = par
+        return bytes(self.d[off:off + size])
+
+    def glob(self, patron):
+        """Entradas que casan con `patron` (prefijo literal o comodines fnmatch), por ruta."""
+        comodin = any(c in patron for c in "*?[")
+        rutas = [p for p in self.index if (fnmatch.fnmatchcase(p, patron) if comodin else p.startswith(patron))]
+        return {p: self.read(p) for p in sorted(rutas)}
+
 
 def fe_offset_of(arc, suffix):
     """offset BYTE del FileEntry (16B) cuyo path acaba en `suffix`, y (data_off, size)."""
@@ -200,3 +243,23 @@ def fe_offset_of(arc, suffix):
             if (dir_path + fname).endswith(suffix):
                 return fo
     return None
+
+
+def reemplazar_entrada(handle, arc, ruta, payload):
+    """Anexa `payload` alineado a 16 al final de `handle` y reapunta su FileEntry.
+
+    Copia funcional de ``ie123kit.nucleo.construir.candidata.replace_entry``. NO se importa de
+    allí a propósito: ese cuerpo es copia literal de tools/build_ui_revision.py (fichero
+    congelado por el bloqueo v20) y está vigilado por un test de igualdad por AST, así que no
+    puede convertirse en una llamada a esta función. Se duplica aquí para que las capas y el
+    constructor generalizado tengan la primitiva en nucleo sin tocar lo congelado.
+    """
+    field = fe_offset_of(arc, ruta)
+    if field is None:
+        raise ValueError(f"missing archive entry: {ruta}")
+    handle.seek(0, 2)
+    handle.write(bytes((-handle.tell()) % 16))
+    offset = handle.tell()
+    handle.write(payload)
+    handle.seek(field + 8)
+    handle.write(struct.pack("<II", offset - arc.data_off, len(payload)))

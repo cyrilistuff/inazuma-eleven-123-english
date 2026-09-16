@@ -1,1 +1,1 @@
-"""Registros de tamaño fijo: tablas .dat y pools de cadenas."""
+"""Registros de tamaño fijo: tablas .dat, pools de cadenas y rangos cambiados."""

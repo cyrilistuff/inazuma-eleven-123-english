@@ -8,11 +8,11 @@ from __future__ import annotations
 import struct
 from pathlib import Path
 
-__all__ = ["escribir_fa"]
+__all__ = ["bytes_fa", "escribir_fa"]
 
 
-def escribir_fa(ruta: Path, ficheros: dict[str, bytes]) -> Path:
-    """Escribe un contenedor B123 mínimo que FaArchive sabe recorrer."""
+def bytes_fa(ficheros: dict[str, bytes]) -> bytes:
+    """Devuelve los bytes de un contenedor B123 mínimo que FaArchive sabe recorrer."""
     carpetas: dict[str, list[tuple[str, bytes]]] = {}
     for rel, datos in ficheros.items():
         carpeta, _, nombre = rel.rpartition("/")
@@ -35,6 +35,11 @@ def escribir_fa(ruta: Path, ficheros: dict[str, bytes]) -> Path:
     data_off = name_off + len(nombres)
     cabecera = b"B123" + struct.pack("<5i", de_off, de_off, fe_off, name_off, data_off)
     cabecera += struct.pack("<HHI", len(carpetas), 0, primero)
+    return bytes(cabecera + de + fe + nombres + datos_blob)
+
+
+def escribir_fa(ruta: Path, ficheros: dict[str, bytes]) -> Path:
+    """Escribe en `ruta` el contenedor de :func:`bytes_fa` (API histórica, no se cambia)."""
     ruta.parent.mkdir(parents=True, exist_ok=True)
-    ruta.write_bytes(cabecera + de + fe + nombres + datos_blob)
+    ruta.write_bytes(bytes_fa(ficheros))
     return ruta

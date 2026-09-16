@@ -68,6 +68,60 @@ def test_operaciones_aplazadas_no_soportadas(servicio: ServicioToolkit, tmp_path
         assert [i.codigo for i in res.incidencias] == ["NOT_SUPPORTED"], nombre
 
 
+def _base_lista(proyecto_sintetico) -> SolicitudConstruccion:
+    """Crea la candidata base en el proyecto sintético y devuelve la solicitud de construcción."""
+    from fa_sintetico import escribir_fa
+    from juego_falso import FICHEROS
+
+    base = Path(proyecto_sintetico.candidata("probe_ie1_v67"))
+    base.mkdir(parents=True, exist_ok=True)
+    escribir_fa(base / "archive.fa", FICHEROS)
+    return SolicitudConstruccion(base="probe_ie1_v67", objetivos=(OBJETIVO,), capas=(), salida="probe_ie1_v68")
+
+
+def test_construir_no_enmascara_un_typeerror_del_constructor(servicio, proyecto_sintetico, monkeypatch) -> None:
+    """Un TypeError INTERNO del constructor es un fallo, nunca un reintento sin aportaciones.
+
+    Regresión de F2.2: el `except TypeError` que reintentaba con la firma corta convertía
+    cualquier fallo del constructor (una aportación mal formada, un reempaquetado roto) en una
+    candidata construida sin aportaciones y devuelta como `ok`.
+    """
+    from ie123kit.nucleo.construir import candidata as constructor
+
+    solicitud = _base_lista(proyecto_sintetico)
+    llamadas: list[dict] = []
+
+    def explota(base, salida, **kw):
+        llamadas.append(kw)
+        raise TypeError("aportación no válida (se esperaba un dict): 'x'")
+
+    monkeypatch.setattr(constructor, "construir", explota)
+    res = servicio.construir(solicitud)
+    _ok_serializable(res)
+    assert not res.ok
+    assert len(llamadas) == 1, "se ha reintentado en silencio"
+    assert "aportación no válida" in res.incidencias[0].mensaje
+    assert not Path(proyecto_sintetico.candidata("probe_ie1_v68")).exists()
+
+
+def test_construir_avisa_si_el_nucleo_tiene_la_firma_vieja(servicio, proyecto_sintetico, monkeypatch) -> None:
+    """Si el constructor no admite `aportaciones`, se dice; no se construye a medias."""
+    from ie123kit.nucleo.construir import candidata as constructor
+
+    solicitud = _base_lista(proyecto_sintetico)
+    llamadas: list[str] = []
+
+    def firma_vieja(base, salida, *, ui=None, capas=None, cro=None):
+        llamadas.append("llamado")
+        return {}
+
+    monkeypatch.setattr(constructor, "construir", firma_vieja)
+    res = servicio.construir(solicitud)
+    _ok_serializable(res)
+    assert not res.ok and llamadas == []
+    assert "aportaciones" in res.incidencias[0].mensaje
+
+
 def test_doctor_serializable(servicio: ServicioToolkit) -> None:
     res = servicio.doctor()
     datos = _ok_serializable(res)

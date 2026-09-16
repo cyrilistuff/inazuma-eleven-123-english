@@ -1,1 +1,1 @@
-"""Ejecutable 3DS: SMDH (y CRO en fase 2)."""
+"""Ejecutable 3DS: SMDH (icono y metadatos) y CRO (segmentos, relocaciones y literales)."""

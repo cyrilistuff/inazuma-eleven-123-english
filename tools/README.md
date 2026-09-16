@@ -16,6 +16,32 @@ La fase 1 de la migración (épica #40, subfases F1.0-F1.5) está cerrada. El c�
   `python tools/fa_unpack.py …` o `import lz10` siguen igual.
 - Las órdenes nuevas se lanzan como módulo: `python -m ie123kit.<ruta.del.modulo>`.
 
+### La orden `ie123` (CLI)
+
+Con el paquete instalado hay una orden única, `ie123`, equivalente a `python -m ie123kit.cli`. Cada
+subcomando es un adaptador argparse 1:1 sobre `ServicioToolkit` (la fachada de `ie123kit.servicio`):
+la CLI no tiene lógica propia. Opciones globales: `--proyecto RUTA` (raíz del repositorio) y `--json`
+(imprime el `Resultado` serializado en UTF-8).
+
+```
+ie123 construir --base probe_ie1_v66 --capas work/ie1/capas/v67/titulo_logo --salida probe_ie1_v67
+ie123 parche --rom-base "Roms/shared/....3ds" --rom-parcheada build/123_es.3ds --salida patch/x.xdelta
+ie123 doctor
+```
+
+- `construir` construye una candidata de TODA la recopilación (`--objetivos ie1,juego_principal`,
+  `--capas` repetible), se niega a sobrescribir y **siempre** ejecuta el bloqueo tipográfico v20.
+- `parche` genera el `.xdelta` (único entregable distribuible) con las mismas banderas que
+  `tools/build_patch.ps1`.
+- `doctor` comprueba el entorno local (sin red y sin exigir ROM).
+
+Códigos de salida: `0` ok · `1` incidencias de validación · `2` uso incorrecto · `3` violación del
+bloqueo tipográfico · `4` falta una herramienta externa · `5` operación no soportada.
+
+> F2.2 adelanta solo estos tres verbos porque son los que el gate de la subfase ejecuta literalmente.
+> El resto (`proyecto`, `objetivos`, `extraer`, `verificar`, `instalar`, `work limpiar`, `compat` y las
+> acciones por objetivo) y los alias en inglés llegan en F2.4; ver `docs/toolkit/ESPECIFICACION.md`.
+
 ### Tests
 
 - Sin ROM (lo que corre la CI): `python -X utf8 -m pytest tools/tests -m "not requiere_rom" -q`.

@@ -8,6 +8,8 @@ Importar este módulo no tiene efectos: no lee ficheros ni resuelve la raíz del
 from __future__ import annotations
 
 import importlib
+import inspect
+import json
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -35,9 +37,6 @@ OBJETIVOS: dict[str, str] = {
     "ie3.fuego_explosivo": "ie123kit.ie3.fuego_explosivo",
     "ie3.amenaza_del_ogro": "ie123kit.ie3.amenaza_del_ogro",
 }
-
-_APLAZADO = "se implementa en F2.2/F2.4"
-
 
 def _juego_generico(paquete: str) -> JuegoBase:
     """Instancia mínima de JuegoBase para un paquete que aún no declara ``JUEGO`` (llega en F2.3)."""
@@ -90,6 +89,46 @@ class SolicitudConstruccion:
 
 def _incidencia(codigo: str, mensaje: str, **kw: Any) -> Incidencia:
     return Incidencia(codigo=codigo, severidad="error", mensaje=mensaje, **kw)
+
+
+def _comprobar_bloqueo(bloqueo: Any, archive: Path, raiz: Path) -> Incidencia | None:
+    """Ejecuta el bloqueo tipográfico v20 sobre la candidata; devuelve la incidencia si falla."""
+    try:
+        bloqueo.comprobar(archive, raiz)
+    except Exception as exc:
+        if getattr(exc, "codigo", "") in {"bloqueo_v20", "fuente_ausente", "candidata_ausente"}:
+            return Incidencia("BLOQUEO_V20", "error", f"bloqueo tipográfico v20: {exc}", ruta=str(archive))
+        return _incidencia("NOT_SUPPORTED", f"bloqueo v20: {exc}", ruta=str(archive))
+    return None
+
+
+def _parametros_ausentes(funcion: Any, nombres: Any) -> list[str]:
+    """Nombres de ``nombres`` que ``funcion`` NO acepta como parámetro.
+
+    Sirve para detectar una incompatibilidad de FIRMA sin capturar ``TypeError`` alrededor de la
+    llamada: ese ``except`` también atraparía los ``TypeError`` internos de la función y llevaría
+    a reintentar con menos argumentos, tapando el fallo. Una función con ``**kwargs`` se da por
+    compatible y una que no se puede inspeccionar no se declara incompatible.
+    """
+    try:
+        parametros = inspect.signature(funcion).parameters
+    except (TypeError, ValueError):
+        return []
+    if any(p.kind is inspect.Parameter.VAR_KEYWORD for p in parametros.values()):
+        return []
+    return [n for n in nombres if n not in parametros]
+
+
+def _localizar_xdelta() -> Any:
+    """Ruta de xdelta3; None si el localizador aún no existe y False si no se encuentra."""
+    try:
+        from ie123kit.nucleo.config import herramientas
+    except ImportError:
+        return None
+    try:
+        return herramientas.localizar("xdelta3") or False
+    except Exception:
+        return False
 
 
 class ServicioToolkit:
@@ -242,29 +281,251 @@ class ServicioToolkit:
             )
         return self._cronometrar(t0, res)
 
+    # -- construcción, verificación, instalación y parche --------------------
+
+    def _ruta_candidata(self, nombre: str | Path) -> Path:
+        """Ruta de una candidata: se admite un nombre (``probe_ie1_v67``) o una ruta explícita."""
+        texto = str(nombre)
+        p = Path(texto)
+        if p.is_absolute() or "/" in texto or "\\" in texto:
+            return (p if p.is_absolute() else self.ws.raiz / p).resolve()
+        return Path(self.ws.candidata(texto)).resolve()
+
+    def _ruta_capa(self, capa: str | Path) -> Path:
+        p = Path(capa)
+        return (p if p.is_absolute() else self.ws.raiz / p).resolve()
+
+    def _aportaciones(self, objetivos: tuple[str, ...], capas: list[Path]) -> dict[str, Any] | Resultado:
+        """Aportaciones declaradas por cada objetivo; un objetivo que no las implemente se omite."""
+        salida: dict[str, Any] = {}
+        for ident in objetivos:
+            juego = self._juego(ident)
+            if isinstance(juego, Resultado):
+                return juego
+            aporta = getattr(juego, "aportaciones", None)
+            if aporta is None:
+                continue
+            try:
+                valor = aporta(self.ws, tuple(capas))
+            except NotImplementedError:
+                continue
+            except Exception as exc:
+                return Resultado.fallo([_incidencia("NOT_SUPPORTED", f"aportaciones de {ident}: {exc}")])
+            if valor is not None:
+                salida[ident] = valor
+        return salida
+
     def construir(self, solicitud: SolicitudConstruccion, *,
                   progreso: Callable[[Progreso], None] | None = None,
                   cancel: CancelToken | None = None) -> Resultado:
+        """Construye la candidata de TODA la recopilación; el bloqueo v20 se comprueba siempre."""
         t0 = time.perf_counter()
-        return self._cronometrar(t0, Resultado.no_soportado(f"construir {_APLAZADO}"))
+        try:
+            from ie123kit.nucleo.construir import candidata as constructor
+            from ie123kit.nucleo.validar import bloqueo
+        except ImportError as exc:
+            return self._cronometrar(t0, Resultado.no_soportado(f"construir: falta el núcleo ({exc})"))
+
+        dir_base = self._ruta_candidata(solicitud.base)
+        base = dir_base / "archive.fa" if dir_base.is_dir() else dir_base
+        if not base.is_file():
+            return self._cronometrar(
+                t0, Resultado.no_soportado(f"construir: no existe la candidata base {solicitud.base!r} ({base})")
+            )
+        dir_salida = self._ruta_candidata(solicitud.salida)
+        salida = dir_salida / "archive.fa"
+        if salida.exists():
+            return self._cronometrar(
+                t0, Resultado.no_soportado(f"construir: la candidata de salida ya existe ({dir_salida})")
+            )
+        capas = [self._ruta_capa(c) for c in solicitud.capas]
+        faltan = [str(c) for c in capas if not c.is_dir()]
+        if faltan:
+            return self._cronometrar(t0, Resultado.no_soportado(f"construir: capas inexistentes: {', '.join(faltan)}"))
+
+        aportaciones = self._aportaciones(solicitud.objetivos, capas)
+        if isinstance(aportaciones, Resultado):
+            return self._cronometrar(t0, aportaciones)
+
+        # Plan de capas: la primera capa hace de `ui` (aporta extra/, events/ y su CRO) y las
+        # siguientes se superponen por su carpeta extra/. F2.3 lo sustituye por las aportaciones
+        # por objetivo, que ya viajan en `aportaciones`.
+        ui = capas[0] if capas else None
+        extra = [c / "extra" for c in capas[1:]] or None
+        cro = None
+        if ui is not None and not (ui / "romfs/cro/ina_main1.cro").is_file():
+            base_cro = base.parent / "romfs/cro/ina_main1.cro"
+            cro = base_cro if base_cro.is_file() else None
+
+        if progreso is not None:
+            progreso(Progreso("construir", 0, 2, str(dir_salida)))
+        kw: dict[str, Any] = {"ui": ui, "capas": extra, "cro": cro,
+                              "aportaciones": aportaciones, "rehusar_sobrescribir": True}
+        # La incompatibilidad de firma se detecta INSPECCIONANDO la signatura, nunca capturando
+        # TypeError: un `except TypeError` alrededor de la llamada también atraparía los errores
+        # internos del constructor (p.ej. una aportación mal formada o un reempaquetado roto) y
+        # reintentaría sin aportaciones, entregando una candidata incompleta como si fuera buena.
+        faltan_parametros = _parametros_ausentes(constructor.construir, kw)
+        if faltan_parametros:
+            return self._cronometrar(
+                t0,
+                Resultado.no_soportado(
+                    "construir: el núcleo instalado no admite "
+                    f"{', '.join(sorted(faltan_parametros))}; actualiza ie123kit"
+                ),
+            )
+        try:
+            informe = constructor.construir(base, salida, **kw)
+        except Exception as exc:
+            return self._cronometrar(t0, Resultado.fallo([_incidencia("NOT_SUPPORTED", f"construir: {exc}")]))
+
+        if progreso is not None:
+            progreso(Progreso("bloqueo_v20", 1, 2, str(salida)))
+        fallo = _comprobar_bloqueo(bloqueo, salida, self.ws.raiz)
+        if fallo is not None:
+            return self._cronometrar(t0, Resultado.fallo([fallo], artefactos=(str(salida),)))
+
+        informe = dict(informe or {})
+        build_json = salida.with_suffix(".build.json")
+        datos = {
+            "archive": str(salida),
+            "archive_sha256": str(informe.get("archive_sha256", "")),
+            "cro": informe.get("cro"),
+            "build_json": str(build_json),
+            "candidata": dir_salida.name,
+            "informe": informe,
+        }
+        artefactos = tuple(str(a) for a in (salida, build_json, informe.get("cro")) if a)
+        if progreso is not None:
+            progreso(Progreso("construir", 2, 2, "hecha"))
+        return self._cronometrar(t0, Resultado.correcto(datos=datos, artefactos=artefactos))
 
     def verificar(self, candidata: str, golden: bool | str | None = None, *,
                   progreso: Callable[[Progreso], None] | None = None,
                   cancel: CancelToken | None = None) -> Resultado:
+        """Verifica una candidata construida. El bloqueo v20 se ejecuta siempre, nunca es opcional."""
         t0 = time.perf_counter()
-        return self._cronometrar(t0, Resultado.no_soportado(f"verificar {_APLAZADO}"))
+        try:
+            from ie123kit.nucleo.validar import bloqueo
+            from ie123kit.nucleo.validar import candidata as validador
+        except ImportError as exc:
+            return self._cronometrar(t0, Resultado.no_soportado(f"verificar: falta el núcleo ({exc})"))
+
+        dir_cand = self._ruta_candidata(candidata)
+        archive = dir_cand / "archive.fa" if dir_cand.is_dir() else dir_cand
+        if not archive.is_file():
+            return self._cronometrar(
+                t0, Resultado.no_soportado(f"verificar: no existe la candidata {candidata!r} ({archive})")
+            )
+
+        incidencias: list[Incidencia] = []
+        fallo = _comprobar_bloqueo(bloqueo, archive, self.ws.raiz)
+        if fallo is not None:
+            return self._cronometrar(t0, Resultado.fallo([fallo]))
+
+        datos: dict[str, Any] = {"candidata": dir_cand.name, "archive": str(archive), "bloqueo_v20": "ok"}
+        try:
+            datos["archive_sha256"] = validador.sha256_fichero(archive)
+        except Exception as exc:
+            return self._cronometrar(t0, Resultado.fallo([_incidencia("NOT_SUPPORTED", f"verificar: {exc}")]))
+
+        build_json = archive.with_suffix(".build.json")
+        if build_json.is_file():
+            try:
+                informe = json.loads(build_json.read_text(encoding="utf-8"))
+            except (OSError, ValueError) as exc:
+                informe = {}
+                incidencias.append(Incidencia("NOT_SUPPORTED", "aviso", f"{build_json.name} ilegible: {exc}"))
+            esperado = str(informe.get("archive_sha256", "")) if isinstance(informe, dict) else ""
+            datos["archive_sha256_esperado"] = esperado
+            if esperado and esperado != datos["archive_sha256"]:
+                return self._cronometrar(
+                    t0,
+                    Resultado.fallo(
+                        [_incidencia("NOT_SUPPORTED",
+                                     f"verificar: el archive.fa no coincide con {build_json.name} "
+                                     f"({datos['archive_sha256']} != {esperado})", ruta=str(archive))]
+                    ),
+                )
+
+        if golden:
+            try:
+                from ie123kit.nucleo.compat.golden import comprobar_grupo
+
+                total, malos = comprobar_grupo("candidatas.sha256", self.ws.raiz)
+            except Exception as exc:
+                return self._cronometrar(t0, Resultado.fallo([_incidencia("NOT_SUPPORTED", f"golden: {exc}")]))
+            datos["golden"] = {"total": total, "malos": list(malos)}
+            incidencias.extend(_incidencia("NOT_SUPPORTED", f"golden: {malo}") for malo in malos)
+            if malos:
+                return self._cronometrar(t0, Resultado.fallo(incidencias))
+
+        return self._cronometrar(t0, Resultado.correcto(datos=datos, incidencias=tuple(incidencias)))
 
     def instalar(self, candidata: str, emulador: str = "azahar", lanzar: bool = False, *,
                  progreso: Callable[[Progreso], None] | None = None,
                  cancel: CancelToken | None = None) -> Resultado:
+        """Instala la candidata en el emulador (hoy solo Azahar, LayeredFS)."""
         t0 = time.perf_counter()
-        return self._cronometrar(t0, Resultado.no_soportado(f"instalar {_APLAZADO}"))
+        if emulador != "azahar":
+            return self._cronometrar(t0, Resultado.no_soportado(f"instalar: emulador no soportado: {emulador!r}"))
+        try:
+            from ie123kit.nucleo.construir import instalar as instalador
+        except ImportError as exc:
+            return self._cronometrar(t0, Resultado.no_soportado(f"instalar: falta el núcleo ({exc})"))
+
+        dir_cand = self._ruta_candidata(candidata)
+        if not (dir_cand / "archive.fa").is_file() and not dir_cand.is_file():
+            return self._cronometrar(
+                t0, Resultado.no_soportado(f"instalar: no existe la candidata {candidata!r} ({dir_cand})")
+            )
+        try:
+            try:
+                salida = instalador.azahar(dir_cand, lanzar=lanzar, ws=self.ws)
+            except TypeError:  # T4 aún no ha aterrizado o su firma es más corta
+                salida = instalador.azahar(dir_cand)
+        except Exception as exc:
+            return self._cronometrar(t0, Resultado.fallo([_incidencia("NOT_SUPPORTED", f"instalar: {exc}")]))
+        if isinstance(salida, Resultado):
+            return self._cronometrar(t0, salida)
+        datos = dict(salida) if isinstance(salida, dict) else {"destino": str(salida)}
+        datos.setdefault("candidata", dir_cand.name)
+        datos.setdefault("emulador", emulador)
+        return self._cronometrar(t0, Resultado.correcto(datos=datos))
 
     def parche(self, rom_base: str | Path, rom_parcheada: str | Path, salida: str | Path, *,
                progreso: Callable[[Progreso], None] | None = None,
                cancel: CancelToken | None = None) -> Resultado:
+        """Genera el .xdelta entre la ROM base y la parcheada (único entregable distribuible)."""
         t0 = time.perf_counter()
-        return self._cronometrar(t0, Resultado.no_soportado(f"parche {_APLAZADO}"))
+        try:
+            from ie123kit.nucleo.construir import parche as generador
+        except ImportError as exc:
+            return self._cronometrar(t0, Resultado.no_soportado(f"parche: falta el núcleo ({exc})"))
+
+        base, parcheada, destino = Path(rom_base), Path(rom_parcheada), Path(salida)
+        for rotulo, ruta in (("ROM base", base), ("ROM parcheada", parcheada)):
+            if not ruta.is_file():
+                return self._cronometrar(t0, Resultado.no_soportado(f"parche: no existe la {rotulo} ({ruta})"))
+        if _localizar_xdelta() is False:
+            return self._cronometrar(
+                t0,
+                Resultado.fallo([Incidencia("HERRAMIENTA_AUSENTE", "error", "No se encuentra xdelta3.",
+                                            pista="Ajusta [herramientas] en ie123.local.toml o añádela al PATH.")]),
+            )
+        if progreso is not None:
+            progreso(Progreso("parche", 0, 1, str(destino)))
+        try:
+            resultado = generador.xdelta(base, parcheada, destino)
+        except Exception as exc:
+            return self._cronometrar(t0, Resultado.fallo([_incidencia("NOT_SUPPORTED", f"parche: {exc}")]))
+        if isinstance(resultado, Resultado):
+            return self._cronometrar(t0, resultado)
+        datos = dict(resultado) if isinstance(resultado, dict) else {"parche": str(resultado)}
+        datos.setdefault("parche", str(destino))
+        if progreso is not None:
+            progreso(Progreso("parche", 1, 1, "hecho"))
+        return self._cronometrar(t0, Resultado.correcto(datos=datos, artefactos=(str(destino),)))
 
     def limpiar(self, borrar: bool = False, *,
                 progreso: Callable[[Progreso], None] | None = None,

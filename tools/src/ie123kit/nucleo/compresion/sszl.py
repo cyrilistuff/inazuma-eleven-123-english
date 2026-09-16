@@ -6,6 +6,8 @@ los datos solo con literales (12,5 % más grande que sin comprimir) hace que la 
 import struct
 from collections import defaultdict
 
+from ie123kit.nucleo.errores import ValidacionError
+
 
 def unwrap(data):
     if data[:4] != b'SSZL':
@@ -80,3 +82,36 @@ def compress(raw: bytes) -> bytes:
     data = b'SSZL' + bytes(4) + struct.pack('<II', len(out), n) + bytes(out)
     assert unwrap(data) == raw
     return data
+
+
+#: Políticas admitidas por :func:`reenvolver_como`.
+POLITICAS = ('keep', 'raw', 'sszl')
+
+
+def reenvolver_como(original: bytes, nuevo_raw: bytes, politica: str = 'keep',
+                    crecimiento_max: float | None = None) -> bytes:
+    """Devuelve `nuevo_raw` envuelto según `politica`, imitando lo que hacen las capas de work/.
+
+    - 'raw': lo devuelve tal cual, sin envolver (lo que hace V37 al escribir extra/*.arc).
+    - 'sszl': comprime siempre con :func:`compress`.
+    - 'keep': comprime solo si `original` venía envuelto en SSZL (v64 y v65).
+
+    Cuando comprime, exige que ``unwrap(resultado) == nuevo_raw``. No se expone el modo de
+    solo literales: tools/sszl.py documenta que hace que la textura no cargue, porque los
+    búferes del juego se dimensionan según el original comprimido.
+    """
+    if politica not in POLITICAS:
+        raise ValueError(f'política de reenvoltura desconocida: {politica!r}; se admiten {POLITICAS}')
+    if politica == 'raw' or (politica == 'keep' and original[:4] != b'SSZL'):
+        resultado = bytes(nuevo_raw)
+    else:
+        resultado = compress(bytes(nuevo_raw))
+        if unwrap(resultado) != nuevo_raw:
+            raise ValidacionError('sszl_ida_vuelta', None, 'unwrap(compress(datos)) != datos')
+    if crecimiento_max is not None and len(resultado) > len(original) * crecimiento_max:
+        raise ValidacionError(
+            'sszl_crecimiento',
+            None,
+            f'{len(resultado)} B > {len(original)} B x {crecimiento_max}',
+        )
+    return resultado

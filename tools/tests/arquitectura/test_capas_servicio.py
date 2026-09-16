@@ -17,6 +17,8 @@ SRC_PAQUETE = Path(ie123kit.__file__).resolve().parent
 
 PROHIBIDO_EN_JUEGOS = ("servicio", "cli")
 PROHIBIDO_EN_SERVICIO = ("juego_principal", "ie1", "ie2", "ie3", "_legado")
+# La CLI es un adaptador: solo puede hablar con la fachada (y con la biblioteca estándar).
+PERMITIDO_EN_CLI = ("servicio", "cli", "raiz")
 CAPAS_JUEGO = ("nucleo", "juego_principal", "ie1", "ie2", "ie3")
 
 
@@ -86,6 +88,11 @@ def test_capas_servicio(modulo: str, ruta: Path, es_paquete: bool) -> None:
                 f"{ruta}:{linea}: servicio importa {destino}; "
                 f"servicio solo habla con nucleo y servicio (los juegos se cargan por registro)"
             )
+        if origen == "cli" and destino_capa not in PERMITIDO_EN_CLI:
+            fallos.append(
+                f"{ruta}:{linea}: cli importa {destino}; "
+                f"la capa cli solo puede importar ie123kit.servicio (y biblioteca estándar)"
+            )
     assert not fallos, "\n".join(fallos)
 
 
@@ -99,3 +106,10 @@ def test_detectores_ven_rojo() -> None:
     assert "ie1" in capas("import ie123kit.ie1", "ie123kit.servicio.api")
     assert "_legado" in capas("from ie123kit._legado import viejo", "ie123kit.servicio.api")
     assert capas("from ie123kit.nucleo import tipos", "ie123kit.servicio.api") == ["nucleo", "nucleo"]
+    # La capa cli: nucleo y los juegos están prohibidos; servicio sí.
+    assert [c for c in capas("from ie123kit.nucleo.tipos import Resultado", "ie123kit.cli.main")
+            if c not in PERMITIDO_EN_CLI] == ["nucleo", "nucleo"]
+    assert [c for c in capas("import ie123kit.ie1.graficos", "ie123kit.cli.main")
+            if c not in PERMITIDO_EN_CLI] == ["ie1"]
+    assert [c for c in capas("from ie123kit.servicio.api import ServicioToolkit", "ie123kit.cli.main")
+            if c not in PERMITIDO_EN_CLI] == []
