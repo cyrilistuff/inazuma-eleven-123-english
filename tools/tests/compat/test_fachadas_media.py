@@ -23,7 +23,7 @@ def _es_shim(nombre):
 def _ejecutar(codigo):
     pre = "import sys; sys.path.insert(0, 'tools')\n"
     proc = subprocess.run([sys.executable, "-X", "utf8", "-c", pre + codigo], cwd=RAIZ,
-                          capture_output=True, text=True, encoding="utf-8")
+                          capture_output=True, text=True, encoding="utf-8", check=False)
     assert proc.returncode == 0, proc.stderr
     return proc.stdout.strip()
 
@@ -66,5 +66,5 @@ def test_cli_sin_argumentos_sale_con_2():
     if not _es_shim("mods_to_moflex"):
         pytest.skip("mods_to_moflex aún no es shim")
     proc = subprocess.run([sys.executable, "-X", "utf8", "tools/mods_to_moflex.py"], cwd=RAIZ,
-                          capture_output=True, text=True, encoding="utf-8")
+                          capture_output=True, text=True, encoding="utf-8", check=False)
     assert proc.returncode == 2, proc.stderr

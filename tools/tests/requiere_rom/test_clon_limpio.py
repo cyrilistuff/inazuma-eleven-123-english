@@ -40,7 +40,7 @@ def test_clon_limpio_conserva_bloqueo():
     creado = False
     try:
         r = subprocess.run([git, 'worktree', 'add', '--detach', str(clon), 'HEAD'],
-                           cwd=raiz, capture_output=True, text=True)
+                           cwd=raiz, capture_output=True, text=True, check=False)
         assert r.returncode == 0, r.stderr
         creado = True
 
@@ -63,18 +63,19 @@ def test_clon_limpio_conserva_bloqueo():
         env['PYTHONPATH'] = str(clon / 'tools' / 'src')
 
         r = subprocess.run([sys.executable, '-X', 'utf8', '-c', 'import ie123kit; print(ie123kit.__file__)'],
-                           cwd=clon, env=env, capture_output=True, text=True)
+                           cwd=clon, env=env, capture_output=True, text=True, check=False)
         assert r.returncode == 0, r.stderr
         origen = Path(r.stdout.strip()).resolve()
         assert str(origen).lower().startswith(str(clon.resolve()).lower()), f'ie123kit importado de {origen}'
 
         r = subprocess.run([sys.executable, '-X', 'utf8', '-m', 'pytest', TEST_LOCK, '-q', '-p', 'no:cacheprovider'],
-                           cwd=clon, env=env, capture_output=True, text=True)
+                           cwd=clon, env=env, capture_output=True, text=True, check=False)
         salida = r.stdout + r.stderr
         assert r.returncode == 0, salida
         assert 'passed' in salida, salida
     finally:
         if creado or clon.exists():
-            subprocess.run([git, 'worktree', 'remove', '--force', str(clon)], cwd=raiz, capture_output=True)
-        subprocess.run([git, 'worktree', 'prune'], cwd=raiz, capture_output=True)
+            subprocess.run([git, 'worktree', 'remove', '--force', str(clon)], cwd=raiz,
+                           capture_output=True, check=False)
+        subprocess.run([git, 'worktree', 'prune'], cwd=raiz, capture_output=True, check=False)
         shutil.rmtree(tmp, ignore_errors=True)

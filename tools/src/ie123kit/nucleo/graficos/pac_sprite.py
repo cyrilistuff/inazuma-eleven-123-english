@@ -4,6 +4,7 @@ Only the verified three-chunk, single-texture layout is supported. Palettes,
 dimensions and other metadata are never regenerated.
 """
 import struct
+
 from PIL import Image
 
 

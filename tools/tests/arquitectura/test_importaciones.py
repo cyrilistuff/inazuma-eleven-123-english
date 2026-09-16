@@ -242,10 +242,18 @@ def test_esqueleto() -> None:
         "ie3/rayo_celeste",
         "ie3/fuego_explosivo",
         "ie3/amenaza_del_ogro",
+        "servicio",
+        "servicio/esquemas",
         "_legado",
     ]
     faltan = [p or "ie123kit" for p in paquetes if not (SRC_PAQUETE / p / "__init__.py").is_file()]
-    faltan += [f for f in ("nucleo/errores.py", "nucleo/config/raiz.py") if not (SRC_PAQUETE / f).is_file()]
+    faltan += [f for f in (
+        "nucleo/errores.py",
+        "nucleo/config/raiz.py",
+        "nucleo/tipos.py",
+        "nucleo/juego.py",
+        "nucleo/util.py",
+    ) if not (SRC_PAQUETE / f).is_file()]
     assert not faltan, f"faltan en el esqueleto: {faltan}"
 
 

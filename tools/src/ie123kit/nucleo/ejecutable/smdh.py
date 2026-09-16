@@ -3,9 +3,7 @@
 No modifica el icono original. El SMDH conserva 12 slots de idioma de 0x200
 bytes; el español ocupa el slot 5.
 """
-import argparse
 from pathlib import Path
-
 
 SMDH_MAGIC = b"SMDH"
 TITLE_TABLE_OFFSET = 0x08

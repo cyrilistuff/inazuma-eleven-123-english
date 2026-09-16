@@ -87,10 +87,10 @@ def test_report_con_capa_evento_y_literal(tmp_path):
     assert list(report) == ["candidate", "archive_sha256", "cro_sha256", "base_sha256", "replaced_entries",
                             "fonts_identical_to_base", "events_changed", "cro_literals_changed",
                             "dialogue_lock", "runtime_verified"]
-    assert report == dict(candidate=str(cand), archive_sha256=_sha(cand / "archive.fa"),
-                          cro_sha256=hashlib.sha256(cro_b).hexdigest(), base_sha256=_sha(base / "archive.fa"),
-                          replaced_entries=1, fonts_identical_to_base=1, events_changed=[5],
-                          cro_literals_changed=1, dialogue_lock="PASS", runtime_verified=False)
+    assert report == {"candidate": str(cand), "archive_sha256": _sha(cand / "archive.fa"),
+                      "cro_sha256": hashlib.sha256(cro_b).hexdigest(), "base_sha256": _sha(base / "archive.fa"),
+                      "replaced_entries": 1, "fonts_identical_to_base": 1, "events_changed": [5],
+                      "cro_literals_changed": 1, "dialogue_lock": "PASS", "runtime_verified": False}
 
 
 def test_candidatas_identicas(tmp_path):

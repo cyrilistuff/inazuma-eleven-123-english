@@ -120,7 +120,10 @@ def compress(data):
                 bl, bd = length, disp
                 if length == maxlen:
                     break
-            checked += 1
+            # No se cambia por enumerate: el contador solo avanza en los candidatos que
+            # llegan hasta aquí, y alterar el corte por MAX_CAND cambiaría los bytes
+            # comprimidos (y con ellos el sha de las candidatas golden).
+            checked += 1  # noqa: SIM113
             if checked >= MAX_CAND:
                 break
         return bl, bd

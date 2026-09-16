@@ -17,7 +17,10 @@ dependencies = ["Pillow", "numpy", "capstone"]
 # opencv-python-headless es necesario para los tests: nucleo/graficos/pintado.py importa cv2
 # en cuanto una operación lleva 'image' (pintado.py:70) o erase='bright'. Sin él la CI fallaba
 # en los dos SO (#58) y solo pasaba en máquinas con OpenCV ya instalado en el entorno.
-dev = ["pytest>=8", "ruff>=0.5", "opencv-python-headless"]
+# jsonschema solo lo usan los tests y el validador opcional de servicio/esquemas (hay respaldo propio).
+# ruff lleva tope de versión porque cada menor amplía sus reglas por defecto: sin él, una
+# versión nueva vuelve rojo un CI que no ha cambiado (el lint es puerta, no sugerencia).
+dev = ["pytest>=8", "ruff>=0.5,<0.17", "opencv-python-headless", "jsonschema>=4"]
 # Capas gráficas de work/ (v69/v70: borrado de texto sobre fondos); el comprobador
 # de importaciones las trata como externas (EXTERNOS en nucleo/compat/importaciones.py).
 graficos = ["opencv-python-headless", "scipy"]
@@ -49,6 +52,22 @@ extend-exclude = [
     "build_ui_revision.py",
     "_archivo",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# Fachadas de legado (F1.4/F1.5): copias literales de los scripts de tools/ que reexportan
+# a las capas de work/ los nombres que ya tenían. No se reformatean ni se «limpian»:
+#  - F401: los imports que ruff ve sin usar SON la reexportación. Quitarlos deja sin
+#    DS_TABLE, GREEK, paint_condensed… y tumba tests/compat/test_fachadas_*.py y
+#    test_traslados_f14.py, además de las capas de work/ que los importan.
+#  - El resto es deuda del script original (abrir sin context manager, % de formato,
+#    noqa heredados…). Se arregla al reescribir cada módulo en su destino de nucleo/,
+#    no tocando la fachada, cuya superficie está congelada por superficie_v0.json.
+"src/ie123kit/_legado/*" = ["BLE001", "F401", "F841", "FURB192", "I001", "RUF059", "RUF100",
+                            "S112", "SIM115", "UP031"]
+# servicio/api.py es la frontera sin cabeza (CLI y GUI solo hablan con ella): su contrato
+# es que ningún método lanza y que cualquier fallo del juego sale como Resultado con una
+# Incidencia que lleva el texto de la excepción. Capturar Exception ahí es la regla.
+"src/ie123kit/servicio/api.py" = ["BLE001"]
 
 [tool.black]
 # bloqueo tipográfico v20: un reformateo cambiaría el hash

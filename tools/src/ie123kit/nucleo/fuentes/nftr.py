@@ -3,10 +3,7 @@
 Usage: python tools/nftr_metrics.py path/to/FONT12.NFTR
 NFTR map keys in the IE1 assets are Shift-JIS codes, not Unicode code points.
 """
-import json
-from pathlib import Path
 import struct
-import sys
 
 
 def read_metrics(data, with_offsets=False):

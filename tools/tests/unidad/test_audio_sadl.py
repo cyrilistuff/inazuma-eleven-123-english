@@ -1,4 +1,5 @@
 """Inspección SADL sobre cabeceras sintéticas."""
+import dataclasses
 import hashlib
 import struct
 
@@ -47,5 +48,5 @@ def test_no_sadl(tmp_path):
 
 def test_inmutable(tmp_path):
     info = inspect_sad(_sad(tmp_path, 0x04))
-    with pytest.raises(Exception):
+    with pytest.raises(dataclasses.FrozenInstanceError):
         info.size = 1

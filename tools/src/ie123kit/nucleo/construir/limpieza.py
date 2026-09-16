@@ -8,9 +8,6 @@ Uso: python tools/limpiar_work.py            (solo lista)
      python tools/limpiar_work.py --borrar   (borra)
 """
 import re
-import shutil
-import sys
-from pathlib import Path
 
 from ie123kit.nucleo.config.raiz import find_root
 

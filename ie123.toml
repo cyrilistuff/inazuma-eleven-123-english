@@ -1,0 +1,50 @@
+# Configuración del proyecto (versionada en git).
+#
+# Aquí SOLO van decisiones del proyecto. Nunca rutas de esta máquina, rutas de
+# ROM, sha de ROM, secretos ni nada extraído del juego (Norma 2 de CLAUDE.md).
+# Lo local va en ie123.local.toml, que está en .gitignore.
+#
+# Precedencia: flags de CLI > variables IE123_* > ie123.local.toml > ie123.toml
+# > valores por defecto.
+
+[proyecto]
+idioma = "es-ES"
+nombres_europeos = true
+
+[candidatas]
+# Nombre de las candidatas en work/shared/candidatas/.
+patron = "probe_ie1_v{n}"
+# Cuántas candidatas recientes se conservan al limpiar work/.
+conservar = 2
+# Candidatas congeladas: no se borran y sirven de referencia de compatibilidad.
+golden = ["probe_ie1_v66", "probe_ie1_v67"]
+
+[objetivos]
+# Objetivos con extracción disponible hoy. El resto se habilitará cuando la
+# tenga; están declarados para que su versión no se invente en el código.
+habilitados = ["juego_principal", "ie1"]
+
+[objetivos.juego_principal]
+version = "recopilacion"
+
+[objetivos.ie1]
+version = "ie1"
+
+[objetivos."ie2.tormenta_de_fuego"]
+version = "tormenta_de_fuego"
+
+[objetivos."ie2.ventisca_eterna"]
+version = "ventisca_eterna"
+
+[objetivos."ie3.rayo_celeste"]
+version = "rayo_celeste"
+
+[objetivos."ie3.fuego_explosivo"]
+version = "fuego_explosivo"
+
+[objetivos."ie3.amenaza_del_ogro"]
+version = "amenaza_del_ogro"
+
+[golden]
+# Manifiestos y hashes congelados de las candidatas golden.
+manifiestos = "tools/tests/compat/golden"

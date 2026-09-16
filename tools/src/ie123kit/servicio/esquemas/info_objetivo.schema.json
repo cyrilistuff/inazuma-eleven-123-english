@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inazuma123.local/esquemas/info_objetivo.schema.json",
+  "title": "Información de un objetivo",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "prefijos_romfs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cros": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capacidades": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "graficos",
+          "textos",
+          "eventos",
+          "literales_cro",
+          "cinematicas",
+          "voces"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "nombre",
+    "prefijos_romfs",
+    "cros",
+    "capacidades"
+  ]
+}

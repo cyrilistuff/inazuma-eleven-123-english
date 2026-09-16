@@ -21,7 +21,7 @@ RAIZ = find_root()
 def _ejecutar(codigo: str) -> None:
     entorno = {k: v for k, v in os.environ.items() if not k.startswith("IE123_") and k != "PYTHONPATH"}
     r = subprocess.run([sys.executable, "-X", "utf8", "-c", textwrap.dedent(codigo)], cwd=RAIZ,
-                       env=entorno, capture_output=True, text=True, encoding="utf-8")
+                       env=entorno, capture_output=True, text=True, encoding="utf-8", check=False)
     assert r.returncode == 0, r.stdout + r.stderr
 
 

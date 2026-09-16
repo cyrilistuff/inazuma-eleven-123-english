@@ -7,8 +7,8 @@ Some extracted event blobs omit the literal ``SSD\\0`` magic but retain the
 same header fields and offsets.  They are accepted as a headerless SSD variant;
 replacement preserves their original first four bytes.
 """
-from dataclasses import dataclass
 import struct
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -45,7 +45,7 @@ def parse(data):
     for _ in range(count):
         if pos + 8 > end:
             raise ValueError("truncated instruction")
-        ident, length, opcode, argc, unk = struct.unpack_from("<HHHBB", data, pos)
+        ident, length, opcode, argc, _unk = struct.unpack_from("<HHHBB", data, pos)
         types_size = 4 * ((argc + 7) // 8)
         if length != 8 + types_size + 4 * argc or pos + length > end:
             raise ValueError("invalid instruction length")
@@ -70,7 +70,7 @@ def parse(data):
         raw = data[pos:pos + length]
         if b"\0" not in raw[4:]:
             raise ValueError("unterminated text")
-        body, _, padding = raw[4:].partition(b"\0")
+        _body, _, padding = raw[4:].partition(b"\0")
         if any(padding):
             raise ValueError("nonzero text padding")
         records.append(TextRecord(ident, argument, raw))

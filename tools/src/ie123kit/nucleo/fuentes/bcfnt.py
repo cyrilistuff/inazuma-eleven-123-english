@@ -6,7 +6,6 @@ fuente del juego (FONT12T.bcfnt) y, despues, anadir glifos del espanol (etapa 6)
 Los offsets internos apuntan al CUERPO del bloque (block_start + 8).
 """
 import struct
-import sys
 
 
 class BCFNT:
@@ -43,9 +42,9 @@ class BCFNT:
         nsheets, fmt = self.u("<HH", o + 16)
         ncols, nrows, sw, sh = self.u("<HHHH", o + 20)
         sheet_data = self.u("<I", o + 28)[0]
-        return dict(cell_w=cell_w, cell_h=cell_h, baseline=baseline, max_w=max_w,
-                    sheet_size=sheet_size, nsheets=nsheets, fmt=fmt, ncols=ncols,
-                    nrows=nrows, sheet_w=sw, sheet_h=sh, sheet_data=sheet_data)
+        return {"cell_w": cell_w, "cell_h": cell_h, "baseline": baseline, "max_w": max_w,
+                "sheet_size": sheet_size, "nsheets": nsheets, "fmt": fmt, "ncols": ncols,
+                "nrows": nrows, "sheet_w": sw, "sheet_h": sh, "sheet_data": sheet_data}
 
     def cmaps(self):
         out = []
@@ -75,8 +74,8 @@ class BCFNT:
                     code, gi = self.u("<HH", body + 2 + i * 4)
                     if gi != 0xFFFF:
                         entries[code] = gi
-            out.append(dict(begin=cbeg, end=cend, method=method, n=len(entries),
-                            entries=entries))
+            out.append({"begin": cbeg, "end": cend, "method": method, "n": len(entries),
+                        "entries": entries})
             o = nxt
         return out
 
@@ -93,6 +92,6 @@ class BCFNT:
             for i in range(end - start + 1):
                 left, gw, cw = struct.unpack_from("<bBB", d, s + 16 + i * 3)
                 widths[start + i] = (left, gw, cw)
-            out.append(dict(start=start, end=end, widths=widths))
+            out.append({"start": start, "end": end, "widths": widths})
             o = nxt
         return out

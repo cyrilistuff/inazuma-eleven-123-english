@@ -68,6 +68,6 @@ def test_equivalencia_lz10(flujo):
     def resultado(f):
         try:
             return f(flujo)
-        except Exception as e:  # los datos truncados deben fallar igual
+        except Exception as e:  # noqa: BLE001 - se compara el tipo de fallo de las dos implementaciones
             return type(e)
     assert resultado(packnum.lz10_decompress) == resultado(_lz10_pkb_unpack_original)

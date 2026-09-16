@@ -66,16 +66,16 @@ def paint(image, operation, font_path):
         image.paste(temp.rotate(angle,expand=True),(x0,y0))
         return size
     if 'image' in operation:
-        from PIL import Image, ImageOps
         import cv2
         import numpy as np
+        from PIL import Image, ImageOps
         insert = Image.open(operation['image']).convert('RGBA')
         key = operation.get('edge_background')
         if key:
             pixels = np.array(insert)
             rgb = pixels[:,:,:3]
             allowed = (rgb.max(axis=2)<32) if key=='black' else ((rgb.min(axis=2)>200)&((rgb.max(axis=2).astype(int)-rgb.min(axis=2))<25))
-            count, labels = cv2.connectedComponents(allowed.astype(np.uint8),connectivity=4)
+            _count, labels = cv2.connectedComponents(allowed.astype(np.uint8),connectivity=4)
             border = np.unique(np.concatenate((labels[0],labels[-1],labels[:,0],labels[:,-1])))
             border = border[border!=0]
             pixels[:,:,3][np.isin(labels,border)] = 0

@@ -59,6 +59,9 @@ translation/*/dialogo_oficial.csv
 logs/
 
 # Paquete ie123kit (tools/pyproject.toml)
+# Configuración local de la máquina (rutas de Azahar, fuentes, herramientas).
+# ie123.toml SÍ va a git; ie123.local.toml no.
+ie123.local.toml
 *.egg-info/
 .pytest_cache/
 .ruff_cache/

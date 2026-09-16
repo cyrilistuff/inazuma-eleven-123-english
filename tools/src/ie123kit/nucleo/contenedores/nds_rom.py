@@ -13,7 +13,6 @@ NOTA: el contenido extraido tiene copyright; queda en work/ (ignorado por git).
 """
 import os
 import struct
-import sys
 
 
 def u16(b, o): return struct.unpack_from("<H", b, o)[0]

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inazuma123.local/esquemas/evento_trabajo.schema.json",
+  "title": "Línea de un JSONL de trabajo",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "trabajo": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "estado",
+        "progreso",
+        "incidencia",
+        "resultado"
+      ]
+    },
+    "datos": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "trabajo",
+    "ts",
+    "tipo",
+    "datos"
+  ]
+}

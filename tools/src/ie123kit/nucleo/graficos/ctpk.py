@@ -1,5 +1,6 @@
 """Lossless pixel access for uncompressed CTPK UI textures used by IE1."""
 import struct
+
 from PIL import Image
 
 
@@ -19,7 +20,7 @@ def pixel_index(x,y,width):
 
 
 def decode(data):
-    _,w,h,fmt,off,size = metadata(data)
+    _,w,h,fmt,off,_size = metadata(data)
     if fmt == 13:
         import texture2ddecoder
         image=Image.new('RGBA',(w,h))
@@ -63,7 +64,7 @@ def decode(data):
 
 
 def encode(data,image):
-    _,w,h,fmt,off,size=metadata(data)
+    _,w,h,fmt,off,_size=metadata(data)
     if image.size != (w,h):raise ValueError('texture dimensions changed')
     if fmt == 13:
         import etcpak

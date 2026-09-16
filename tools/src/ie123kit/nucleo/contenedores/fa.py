@@ -16,12 +16,8 @@ Uso:
 
 NOTA: el contenido extraido tiene copyright; va a work/ (ignorado por git).
 """
-import argparse
-import os
 import struct
-import sys
 import zlib
-
 
 # ----------------------------- descompresion Level-5 -----------------------------
 
@@ -148,7 +144,8 @@ def describe(data):
 
 class FaArchive:
     def __init__(self, path):
-        self.d = open(path, "rb").read()
+        with open(path, "rb") as fh:
+            self.d = fh.read()
         d = self.d
         magic = d[0:4]
         if magic not in (b"B123", b"ARC0", b"XFSA"):

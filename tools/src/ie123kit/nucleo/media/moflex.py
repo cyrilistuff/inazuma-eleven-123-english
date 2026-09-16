@@ -23,8 +23,8 @@ from PIL import Image
 from ie123kit.nucleo.media.subtitulos_dat import SUBTITLE_TICK_RATE, Subtitle, add_caption, read_subtitles
 
 __all__ = [
-    "Subtitle",
     "SUBTITLE_TICK_RATE",
+    "Subtitle",
     "convert",
     "disposicion_rotacion",
     "probe",

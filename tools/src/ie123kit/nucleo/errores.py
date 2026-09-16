@@ -6,6 +6,7 @@ import os
 
 __all__ = [
     "BloqueoTipograficoError",
+    "CanceladoError",
     "FormatoError",
     "Ie123Error",
     "RaizNoEncontradaError",
@@ -15,6 +16,10 @@ __all__ = [
 
 class Ie123Error(Exception):
     """Base de todos los errores de ie123kit."""
+
+
+class CanceladoError(Ie123Error):
+    """El trabajo se ha cancelado."""
 
 
 class RaizNoEncontradaError(Ie123Error):

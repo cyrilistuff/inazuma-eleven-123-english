@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inazuma123.local/esquemas/manifiesto_candidata.schema.json",
+  "title": "Manifiesto de una candidata",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "esquema": {
+      "type": "integer",
+      "const": 1
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "base": {
+      "type": "string"
+    },
+    "base_sha256": {
+      "type": "string"
+    },
+    "capas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capa"
+      }
+    },
+    "salidas": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "objetivos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "runtime_verified": {
+      "type": "boolean"
+    },
+    "generado_en": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "esquema",
+    "nombre",
+    "base",
+    "base_sha256",
+    "capas",
+    "salidas",
+    "objetivos",
+    "runtime_verified",
+    "generado_en"
+  ],
+  "$defs": {
+    "capa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ruta": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruta",
+        "sha256"
+      ]
+    }
+  }
+}

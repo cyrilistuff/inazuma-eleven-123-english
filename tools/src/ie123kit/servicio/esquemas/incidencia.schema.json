@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inazuma123.local/esquemas/incidencia.schema.json",
+  "title": "Incidencia",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "codigo": {
+      "type": "string",
+      "enum": [
+        "TAMANO_PNG",
+        "RECT_QNA",
+        "GLIFO_NO_SOPORTADO",
+        "EXCEDE_PX",
+        "EXCEDE_BYTES",
+        "BLOQUEO_V20",
+        "NF_HUERFANO",
+        "PAGINAS_DISTINTAS",
+        "CRO_FUERA_DE_RANGO",
+        "LAYOUT_MOFLEX",
+        "HERRAMIENTA_AUSENTE",
+        "NOT_SUPPORTED",
+        "CONTENIDO_EN_GIT"
+      ]
+    },
+    "severidad": {
+      "type": "string",
+      "enum": [
+        "error",
+        "aviso",
+        "info"
+      ]
+    },
+    "mensaje": {
+      "type": "string"
+    },
+    "activo_id": {
+      "type": "string"
+    },
+    "ruta": {
+      "type": "string"
+    },
+    "ubicacion": {
+      "type": "string"
+    },
+    "pista": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "codigo",
+    "severidad",
+    "mensaje"
+  ]
+}

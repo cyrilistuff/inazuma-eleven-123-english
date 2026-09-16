@@ -15,7 +15,7 @@ import pytest
 from ie123kit.nucleo.config.raiz import find_root
 from ie123kit.nucleo.texto import sjis_portador
 
-ESPERADO = json.loads(''.join((
+ESPERADO = json.loads(''.join(
     '{"es_encode":[["Hola, \\u00bfqu\\u00e9 tal est\\u00e1s hoy, Mark? \\u00a1Vamos a entrenar juntos!",0,""]'
     ',["Hola, \\u00bfqu\\u00e9 tal est\\u00e1s hoy, Mark? \\u00a1Vamos a entrenar juntos!",5,"486f6c612c"],["'
     'Hola, \\u00bfqu\\u00e9 tal est\\u00e1s hoy, Mark? \\u00a1Vamos a entrenar juntos!",17,"486f6c612c2083ad7'
@@ -125,7 +125,7 @@ ESPERADO = json.loads(''.join((
     '020202020202020202020202020202020202020202020"],["2533466162630c6465660c676869","a b c d e f",60,fal'
     'se,"253346814081408140612062206320642065206620202020202020202020202020202020202020202020202020202020'
     '202020202020202020202020"]],"BOX_W":208}'
-)))
+))
 TABLA = {cp: (cp % 7) + 3 for cp in range(0x20, 0x3000)}
 
 

@@ -53,11 +53,12 @@ def verificar_candidata(base, candidata, capas=(), eventos=None, literales=None)
     lits = json.loads(Path(literales).read_text(encoding='utf-8'))['entries'] if literales else []
     V.comprobar_literales_cro(cro_a, cro_b, lits)
 
-    return dict(candidate=str(candidata), archive_sha256=V.sha256_fichero(candidata / 'archive.fa'),
-                cro_sha256=hashlib.sha256(cro_b).hexdigest(), base_sha256=V.sha256_fichero(base / 'archive.fa'),
-                replaced_entries=replaced, fonts_identical_to_base=fonts, events_changed=sorted(changed_events),
-                cro_literals_changed=len(lits) if cro_a != cro_b else 0, dialogue_lock='PASS',
-                runtime_verified=False)
+    return {'candidate': str(candidata), 'archive_sha256': V.sha256_fichero(candidata / 'archive.fa'),
+            'cro_sha256': hashlib.sha256(cro_b).hexdigest(), 'base_sha256': V.sha256_fichero(base / 'archive.fa'),
+            'replaced_entries': replaced, 'fonts_identical_to_base': fonts,
+            'events_changed': sorted(changed_events),
+            'cro_literals_changed': len(lits) if cro_a != cro_b else 0, 'dialogue_lock': 'PASS',
+            'runtime_verified': False}
 
 
 # ----------------------------------------------------------------------------- medios
@@ -99,6 +100,7 @@ def verificar_media(raiz=None, instalado=None) -> dict:
             text=True,
             encoding="utf-8",
             errors="replace",
+            check=False,
         ) if target.is_file() else None
         ok = target_hash == source_hash and decoded is not None and decoded.returncode == 0
         row = {
@@ -124,7 +126,7 @@ def verificar_media(raiz=None, instalado=None) -> dict:
             [str(MOBIPEG), "-hide_banner", "-loglevel", "error", "-i", str(movie),
              "-map", "0:v:0", "-an", "-f", "null", "-"],
             stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
-            encoding="utf-8", errors="replace",
+            encoding="utf-8", errors="replace", check=False,
         )
         item = expected_movies.get(movie.stem)
         ok = (item is not None and item["output_sha256"] == digest(movie) and

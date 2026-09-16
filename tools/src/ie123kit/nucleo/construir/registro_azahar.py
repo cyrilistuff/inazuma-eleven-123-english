@@ -29,7 +29,8 @@ Uso:
   python tools/harvest_log.py --report        # solo reimprime el informe
   python tools/harvest_log.py --force         # ignora la huella (re-procesa)
 """
-import os, re, sys, json, argparse
+import os
+import re
 from datetime import datetime
 
 from ie123kit.nucleo.config.raiz import find_root
@@ -42,8 +43,8 @@ INFORME = os.path.join(REPO, "logs", "INFORME_ERRORES.md")
 # PCs ya diagnosticados: PC -> (estado, explicacion). Se amplia segun investiguemos.
 # estados: abierto | investigando | resuelto | conocido_no_arreglable
 KNOWN_PCS = {
-    "0x001C8D68": ("resuelto", "Read32 del contador SSD: crash 'unmapped Read32' por "
-                   "el offset-fixup. ARREGLADO con el fixup preciso por string-slots."),
+    "0x001C8D68": ("resuelto", ("Read32 del contador SSD: crash 'unmapped Read32' por "
+                                "el offset-fixup. ARREGLADO con el fixup preciso por string-slots.")),
 }
 
 LINE = re.compile(r"\[\s*[\d.]+\]\s+(?P<sub>\S+)\s+<(?P<lvl>\w+)>\s+(?P<body>.*)$")
@@ -56,7 +57,7 @@ LEVELS = ("Error", "Critical")
 # housekeeping benigno del emulador: NO son bugs nuestros (stubs de servicios, saves
 # que ya existen, certificados/relojes por defecto...). Se etiquetan como "ruido".
 BENIGN = re.compile(r"already exists|using default|not init|ClCertA|Delay generator|"
-                    r"MBoxInfo|Path not found|missing|stubbed|unimplemented", re.I)
+                    r"MBoxInfo|Path not found|missing|stubbed|unimplemented", re.IGNORECASE)
 
 
 def _relevancia(sub, pc, msg):
@@ -70,7 +71,9 @@ def _relevancia(sub, pc, msg):
 
 
 def _now():
-    return datetime.now().replace(microsecond=0).isoformat(sep=" ")
+    # Hora local: la lee una persona en logs/INFORME_ERRORES.md junto al emulador. Se marca
+    # con la zona (astimezone) para que la marca sea inequívoca y no dependa de la máquina.
+    return datetime.now().astimezone().replace(microsecond=0).isoformat(sep=" ")
 
 
 def _stamp(path):
@@ -98,7 +101,8 @@ def parse(path, levels=LEVELS):
     """Devuelve {firma: {tipo, pc, msg, veces}} para un log."""
     out = {}
     try:
-        data = open(path, encoding="utf-8", errors="replace").read()
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            data = fh.read()
     except FileNotFoundError:
         return out
     for ln in data.splitlines():
@@ -157,9 +161,9 @@ def informe(reg, nuevas=()):
                             key=lambda e: -e["veces"])
     crashes, otros, ruido = by("crash"), by("otro"), by("ruido")
     L = [f"# Informe de errores de runtime — {_now()}", "",
-         f"- Firmas totales **{len(errs)}** · abiertas **{len(abiertos)}** "
-         f"(🎯 crash {len(crashes)} · ❓ otro {len(otros)} · ⚙️ ruido {len(ruido)}) · "
-         f"sesiones **{len(reg.get('sesiones', []))}**"]
+         (f"- Firmas totales **{len(errs)}** · abiertas **{len(abiertos)}** "
+          f"(🎯 crash {len(crashes)} · ❓ otro {len(otros)} · ⚙️ ruido {len(ruido)}) · "
+          f"sesiones **{len(reg.get('sesiones', []))}**")]
 
     nuevas_rel = [errs[s] for s in nuevas if errs[s].get("rel") in ("crash", "otro")]
     if nuevas_rel:

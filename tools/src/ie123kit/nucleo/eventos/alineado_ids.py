@@ -9,6 +9,7 @@ El evento 3DS y el texto NDS comparten los MISMOS IDs de cadena dentro de cada e
 Sin E/S.
 """
 import difflib
+import itertools
 import struct
 
 from ie123kit.nucleo.texto.nds_latin import decode_cadena
@@ -61,8 +62,8 @@ def emparejar(a, b):
     ia, ib = sorted(a), sorted(b)
     if not ia or not ib:
         return {}, 0, 0
-    ga = [ia[0]] + [y - x for x, y in zip(ia, ia[1:])]
-    gb = [ib[0]] + [y - x for x, y in zip(ib, ib[1:])]
+    ga = [ia[0]] + [y - x for x, y in itertools.pairwise(ia)]
+    gb = [ib[0]] + [y - x for x, y in itertools.pairwise(ib)]
     sm = difflib.SequenceMatcher(None, ga, gb, autojunk=False)
     m = {}
     for i, j, n in sm.get_matching_blocks():
@@ -74,8 +75,8 @@ def emparejar(a, b):
             m.setdefault(ia[i - 1], ib[j - 1])
     anclas_ok = anclas_mal = 0
     for s3, sn in m.items():
-        t3, b3 = a[s3][0], a[s3][1]
-        tn, bn = b[sn]
+        b3 = a[s3][1]
+        bn = b[sn][1]
         if b3 and all(32 <= c < 127 for c in b3) and b3 == bn:
             anclas_ok += 1
         elif b3 and all(32 <= c < 127 for c in b3) and all(32 <= c < 127 for c in bn) and b3 != bn:

@@ -71,5 +71,18 @@ jobs:
       - name: Comprobar shims
         run: python -X utf8 -m ie123kit.nucleo.compat.shims comprobar
 
+      # tools/pyproject.toml excluye los 5 ficheros bloqueados v20 y _archivo/, y documenta
+      # en per-file-ignores por qué las fachadas de _legado/ y servicio/api.py se salvan de
+      # dos reglas concretas. Con `ruff>=0.5,<0.17` el conjunto de reglas no cambia solo.
+      - name: Lint (ruff)
+        run: python -X utf8 -m ruff check tools
+
       - name: Tests (sin ROM)
         run: python -X utf8 -m pytest tools/tests -m "not requiere_rom" -q
+
+      # Puerta (1) de todas las fases de docs/toolkit/ESPECIFICACION.md. Ojo: «Ran 0 tests»
+      # devuelve 0, así que este paso solo detecta fallos, no la pérdida del descubrimiento
+      # (lo que pasó al trasladar los tests heredados en F1.5). De que se recojan se encarga
+      # tools/tests/arquitectura/test_descubrimiento_unittest.py, en el paso anterior.
+      - name: Tests heredados (unittest discover)
+        run: python -X utf8 -m unittest discover -s tools -p "test_*.py"

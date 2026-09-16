@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://inazuma123.local/esquemas/registro_activos.schema.json",
+  "title": "Registro de activos de un objetivo",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "esquema": {
+      "type": "integer",
+      "const": 1
+    },
+    "objetivo": {
+      "type": "string"
+    },
+    "base_sha256": {
+      "type": "string"
+    },
+    "generado_en": {
+      "type": "string"
+    },
+    "activos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assetref"
+      }
+    }
+  },
+  "required": [
+    "esquema",
+    "objetivo",
+    "base_sha256",
+    "generado_en",
+    "activos"
+  ],
+  "$defs": {
+    "assetref": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "objetivo": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        },
+        "ruta_romfs": {
+          "type": "string"
+        },
+        "cadena_contenedores": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "fa",
+              "sszl",
+              "arcv",
+              "ctpk"
+            ]
+          }
+        },
+        "tamano": {
+          "type": "integer"
+        },
+        "editable": {
+          "type": "boolean"
+        },
+        "estado": {
+          "type": "string",
+          "enum": [
+            "original",
+            "editado",
+            "traducido",
+            "construido"
+          ]
+        },
+        "origen": {
+          "type": "string",
+          "enum": [
+            "3ds_jp",
+            "3ds_eu",
+            "nds_es",
+            "manual"
+          ]
+        },
+        "subruta": {
+          "type": "string"
+        },
+        "rects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rect"
+          }
+        },
+        "vista_previa": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "objetivo",
+        "tipo",
+        "ruta_romfs",
+        "cadena_contenedores",
+        "tamano",
+        "editable",
+        "estado",
+        "origen"
+      ]
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x0": {
+          "type": "integer"
+        },
+        "y0": {
+          "type": "integer"
+        },
+        "x1": {
+          "type": "integer"
+        },
+        "y1": {
+          "type": "integer"
+        },
+        "parte": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1",
+        "parte"
+      ]
+    }
+  }
+}

@@ -22,18 +22,18 @@ import sys
 from pathlib import Path, PurePosixPath
 
 __all__ = [
-    "EXTENSIONES_PROHIBIDAS",
-    "PREFIJOS_PROHIBIDOS",
-    "LIMITE_PNG",
     "CARPETAS_PNG_AUTORIZADAS",
+    "EXTENSIONES_PROHIBIDAS",
+    "LIMITE_PNG",
+    "PREFIJOS_PROHIBIDOS",
     "RUTA_CONGELADOS",
     "RUTA_LOCK",
+    "comprobar_bloqueados",
+    "comprobar_git",
     "leer_congelados",
     "leer_source_hashes",
-    "comprobar_bloqueados",
-    "rutas_prohibidas",
-    "comprobar_git",
     "main",
+    "rutas_prohibidas",
 ]
 
 #: Extensiones de ROM o de contenido extraído que nunca pueden rastrearse.

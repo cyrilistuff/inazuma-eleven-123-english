@@ -34,7 +34,7 @@ def test_cli_se_niega_sin_bandera(nombre):
         pytest.skip("aún no es shim")
     entorno = {k: v for k, v in os.environ.items() if not k.startswith("IE123_")}
     r = subprocess.run([sys.executable, "-X", "utf8", f"tools/{nombre}.py"], cwd=RAIZ, env=entorno,
-                       capture_output=True, text=True, encoding="utf-8")
+                       capture_output=True, text=True, encoding="utf-8", check=False)
     assert r.returncode == 2
     assert r.stdout == ""
     assert "--legado-lo-se" in r.stderr and "cuarentena" in r.stderr

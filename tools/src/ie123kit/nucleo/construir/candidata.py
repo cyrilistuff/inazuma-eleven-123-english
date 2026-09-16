@@ -69,7 +69,10 @@ def rebuild_events(arc: FaArchive, events_dir: Path):
         changed = 0
         if eid in staged:
             payload = staged[eid].read_bytes()
-            old_end, old_instructions, old_records = S.parse(original)
+            # Copia literal de tools/build_ui_revision.py (fichero bloqueado v20); la
+            # igualdad por AST la vigila test_construir_candidata.test_literalidad, así
+            # que no se renombra old_end aunque no se use.
+            old_end, old_instructions, old_records = S.parse(original)  # noqa: RUF059
             new_end, new_instructions, new_records = S.parse(payload)
             if old_instructions != new_instructions:
                 raise ValueError(f"event {eid}: instruction table changed")

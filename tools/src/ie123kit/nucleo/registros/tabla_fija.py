@@ -6,12 +6,14 @@ terminador, lanzan ValueError. El codificador se inyecta; aquí no se elige tipo
 
 
 def names_from_dat(path, stride, dec, width=16):
-    d = open(path, "rb").read()
+    with open(path, "rb") as fh:
+        d = fh.read()
     return [dec(d[i * stride:i * stride + width]) for i in range(len(d) // stride)]
 
 
 def strings_from_str(path, dec):
-    d = open(path, "rb").read()
+    with open(path, "rb") as fh:
+        d = fh.read()
     return [dec(p) for p in d.split(b"\x00") if len(p) >= 1]
 
 
