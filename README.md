@@ -51,48 +51,39 @@ de traducción. No es un fallo del motor — es el techo real con lo que hay.
 
 ## Cómo aplicar el parche (para jugadores)
 
-> ⚠️ **Build PARCIAL (v27).** Traduce el **juego 1 y el juego 2** (el 3 sigue en
-> japonés): intro y diálogo de historia, menús, nombres de jugadores y equipos, todo
-> **con acentos** (ñ, tildes, ¿¡). El intro va algo **truncado** y ~la mitad de las
-> líneas sin traducción oficial se quedan en japonés (límite de datos, ver estado arriba).
+> **Versión 1.0.** Traduce **Inazuma Eleven 1** (historia, menús, objetos, técnicas y
+> jugadores), con voces y cinemáticas en español, más la interfaz de la recopilación.
+> Los juegos 2 y 3 siguen en japonés.
 
-**Requisitos:** tu **propia ROM legal**, **descifrada**, de *Inazuma Eleven 1·2·3!!
-Endō Mamoru Densetsu* (3DS) — el parche está hecho contra la versión descifrada.
-Y [`xdelta3`](https://github.com/jmacd/xdelta-gpl/releases).
+**Necesitas:** tu **propia copia legal** de *Inazuma Eleven 1·2·3!! Endō Mamoru Densetsu*
+(3DS, CTR-P-AETJ), volcada y **descifrada**, en `.3ds` o `.cia`; el paquete
+`inazuma123-es-v1.0-pack.zip` de [Releases](../../releases); la herramienta
+**[IE-repack](https://github.com/Javiju555/IE-repack)** de Javiju555 para tu sistema; y
+unos 12 GB libres.
 
-**Aplicar el parche (v27, el último):**
+**Pasos:**
 
-La forma recomendada para usuarios es abrir DeltaPatcher y seleccionar la ROM
-original en **Original file**, `patch/inazuma123-es-v27.xdelta` en **XDelta
-patch** y un nombre nuevo para **Patched file**. La operación se explica paso a
-paso en [`docs/DISTRIBUCION_DELTAPATCHER.md`](docs/DISTRIBUCION_DELTAPATCHER.md).
+1. Descomprime IE-repack entero (el ejecutable necesita su carpeta `sidecars` al lado) y
+   descomprime este paquete en otra carpeta.
+2. Abre IE-repack y elige el modo **Pack (manifiesto)**.
+3. Como base, tu copia japonesa descifrada. Como pack, la carpeta `pack` del paquete
+   (la que contiene `manifiesto.json`). Elige dónde guardar y pulsa el botón.
+4. Abre el `.3ds` resultante en **Azahar** o **Lime3DS** con Archivo → Cargar archivo.
 
-También se puede usar `xdelta3` directamente:
+La herramienta comprueba el hash de cada archivo de tu copia antes y después de
+parchear. Si tu volcado es de otra revisión, se detiene con un mensaje claro en vez de
+generar una ROM defectuosa. Si dice **«ningún origen cuadra con el manifiesto»**, la copia
+elegida no es la ROM japonesa original: no vale una ya traducida, ni una `.cia` cifrada,
+ni otra región.
 
-```
-xdelta3 -d -f -s "tu_rom.3ds" patch/inazuma123-es-v27.xdelta "inazuma123_es.3ds"
-```
-Obtendrás `inazuma123_es.3ds` sin modificar la ROM original.
+**Si usas la carpeta de mods de Azahar** (`load/mods/<TitleID>/romfs/`), recuerda que sus
+archivos tienen prioridad sobre cualquier ROM que cargues: desactívala para probar el
+`.3ds` parcheado.
 
-**Jugar:** abre `inazuma123_es.3ds` en **Lime3DS** o **Azahar** (File → Load File).
-
-### Si no arranca (hashes IVFC/NCCH)
-El parche sobrescribe datos sin recalcular los hashes internos del cartucho.
-Lime3DS/Azahar **suelen ignorarlos** y arranca igual. Si tu emulador lo rechaza,
-reconstruye la ROM recalculando hashes con [3dstool](https://github.com/dnasdw/3dstool):
-```
-3dstool -xtf 3ds "tu_rom.3ds" -0 part0.cxi --header ncsd.bin
-3dstool -xtf cxi part0.cxi --romfs romfs.bin --exefs exefs.bin --header ncch.bin \
-        --exh exh.bin --logo logo.bin --plain plain.bin
-3dstool -xtf romfs romfs.bin --romfs-dir romfs            # extraer
-#  -> aplica el parche a romfs/archive.fa (o usa el archive.fa parcheado)
-3dstool -ctf romfs romfs_new.bin --romfs-dir romfs        # reconstruir (recalcula IVFC)
-3dstool -ctf cxi part0.cxi --romfs romfs_new.bin --exefs exefs.bin --header ncch.bin \
-        --exh exh.bin --logo logo.bin --plain plain.bin   # recalcula hash NCCH
-3dstool -ctf 3ds salida.3ds -0 part0.cxi --header ncsd.bin
-```
-**Alternativa (LayeredFS):** en Lime3DS/Citra puedes cargar solo el `archive.fa`
-parcheado como mod de RomFS sin tocar la ROM (carpeta `load/mods/<TitleID>/romfs/`).
+**Método antiguo (DeltaPatcher).** Las releases v1 y v1.1 siguen publicadas y se aplican
+con DeltaPatcher sobre la ROM entera, pero exigen un volcado byte a byte idéntico al
+nuestro; con cualquier otra revisión fallan. Se documentan en
+[`docs/DISTRIBUCION_DELTAPATCHER.md`](docs/DISTRIBUCION_DELTAPATCHER.md).
 
 ## Cómo contribuir / retomar
 
@@ -104,7 +95,9 @@ parcheado como mod de RomFS sin tocar la ROM (carpeta `load/mods/<TitleID>/romfs
 
 ## Créditos
 
-- Traducción: comunidad (ver contribuyentes de GitHub).
+- Dirección y traducción: **luishidalgoa**.
+- Colaboración: **TitoGalan**.
+- Herramienta de parcheo [IE-repack](https://github.com/Javiju555/IE-repack): **Javiju555**.
 - Herramientas de terceros usadas: ver [`tools/README.md`](tools/README.md).
 
 ## Aviso legal
