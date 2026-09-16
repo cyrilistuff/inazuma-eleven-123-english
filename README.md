@@ -18,12 +18,11 @@ Detalle en [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## Cómo jugarlo
 
-> **La versión con IE-repack está retirada** mientras se corrigen fallos de caracteres y de
-> compatibilidad con consola real. Lo siguiente describe cómo se aplicará cuando vuelva a
-> publicarse.
+> **Por ahora solo emulador.** El `.3ds` que genera IE-repack funciona en Azahar y Lime3DS,
+> pero no pasa la verificación en una 3DS real. Es un fallo de la herramienta, ya comunicado.
 
 **Necesitas:** tu copia de *Inazuma Eleven 1·2·3!!* (3DS, `CTR-P-AETJ`) volcada y
-**descifrada**, en `.3ds` o `.cia`; el pack de traducción de [Releases](../../releases); la herramienta [IE-repack](https://github.com/Javiju555/IE-repack)
+**descifrada**, en `.3ds` o `.cia`; el paquete `inazuma123-es-v1.0-pack.zip` de [Releases](../../releases); la herramienta [IE-repack](https://github.com/Javiju555/IE-repack)
 de Javiju555; y unos 12 GB libres.
 
 1. Descomprime IE-repack entero (necesita su carpeta `sidecars` al lado) y el paquete en
