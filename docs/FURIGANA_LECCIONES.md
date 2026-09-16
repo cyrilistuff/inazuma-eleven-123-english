@@ -285,3 +285,20 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
   el bucle corta en la celda 11.
 - **Regla:** el rótulo, **espacios de centrado incluidos**, no puede pasar de **10 caracteres
   (20 B)**. La placa ancha de la capa v73 no amplía ese límite. Capa corregida: `work/ie1/capas/v79/rotulos`.
+
+## ❌ Saltos de diálogo por píxeles más allá de 22 caracteres (piloto v77, visto en v81, 2026-09-16)
+
+- **Qué se probó:** reajustar los saltos de diálogo midiendo la tinta real (FONT12, hasta 290 px por
+  línea, hasta 37 caracteres).
+- **Resultado en Azahar** (81000090 #406): el motor volvía a partir la línea tras «Mark, ¿has hecho
+  algo» y cortaba la página a mitad de palabra («…grupo d» | «e gamberros?»).
+- **Causa** (`ina_main1.cro` 0x424f4, llamada desde el manejador de 0x301d en 0x56eb0): la ventana
+  reajusta el texto **por carácter** con `FontGetCharWidth`, que vale 12 fijo para FONT12 (code.bin
+  0x164660) sin mirar el carácter. Límite `[ventana+0x1316] + 0x20` = 240 + 32 = 272 (por defecto en
+  0x465c0; 0x301c no lo cambia porque arg4 = 0) y 3 líneas por página (`[+0x1318]`). Si
+  `x + 12 >= 272` inserta un salto de línea (o de página en la 3.ª línea) antes del carácter, aunque
+  esté a mitad de palabra; un `\n` que llega a la 3.ª línea pasa a salto de página.
+- **Regla:** como máximo **22 caracteres por línea** (letras y espacios de ancho completo) y 3 líneas
+  por página; el ancho en píxeles no amplía ese límite; `%s` se expande antes del ajuste, así que su
+  línea necesita margen. Capa corregida: `work/ie1/capas/v82/saltos_dialogo` (su simulador
+  `comun82.motor` predice exactamente la captura).
