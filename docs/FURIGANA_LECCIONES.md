@@ -308,7 +308,8 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - **Qué se probó:** redibujar kanji sin uso de FONT12 como pares de letras («ur», «el», «ia») y escribir
   «Aurelia» como A|ur|el|ia (registro en `work/ie1/capas/v85/bigramas_sonda/registro.json`).
 - **Resultado en Azahar:** la pestaña del nombre muestra los **kanji originales** («A亠仭伉»).
-- **Causa:** la pestaña no dibuja con FONT12 (usa otra de las fuentes: FONT12T, FONT8 o RUBI8).
+- **Causa:** la pestaña (0x301a → 0xc2f28 → 0xe6214) y el rótulo de lugar (0x7a484/0x7a54c) dibujan
+  con el gestor de **FONT8** (tipo 1, fijado en 0x24d8–0x24f8), a paso de 10 px en la pantalla superior.
 - **Regla:** un bigrama debe dibujarse en **todas** las fuentes que puedan mostrar ese texto, o
   comprobar antes en emulador qué fuente usa cada sitio.
 
@@ -317,7 +318,7 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - **Qué se probó:** en 81000090, poner arg4 = 0x1A0 en el único 0x301c (#334, desplazamiento 0x1b24),
   que según el código escribe `[ventana+0x1316]`, y reescribir el #406 en líneas de 37 caracteres.
 - **Resultado en Azahar:** el #406 sigue partiéndose a los 22 caracteres («…al grupo d»).
-- **Causa probable:** ese 0x301c no se ejecuta antes del #406 o abre otra ventana; el ancho del #406
-  sigue siendo el de por defecto (272).
-- **Regla:** no dar por buena esta vía sin localizar el 0x301c que abre la ventana del registro
-  concreto. Un texto a más de 22 caracteres con la ventana por defecto se corta a mitad de palabra.
+- **Causa:** cada 0x301a (0x5ca84) pasa `0xF0` y 3 líneas fijos a 0xc2f28 (0x5cb8c–0x5cb9c), así que
+  reescribe el ancho antes de cada diálogo. Sus 4 argumentos no llegan al ancho. 0x3019 sí lo pasa
+  (arg 7), pero tiene otro formato y tamaño.
+- **Regla:** ampliar el ancho del diálogo **no es posible** con datos del mismo tamaño. Un texto a más de 22 caracteres con la ventana por defecto se corta a mitad de palabra.
