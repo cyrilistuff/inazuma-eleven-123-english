@@ -3,6 +3,13 @@ TRADUCCIÓN ESPAÑOLA — INAZUMA ELEVEN 1·2·3!! (versión 1.0)
 Este paquete no instala nada y no contiene ninguna ROM ni datos del juego.
 Solo trae los parches y las instrucciones; el juego lo pones tú.
 
+AVISO SOBRE CONSOLA REAL
+
+Por ahora, el .3ds que genera IE-repack funciona en emulador (Azahar, Lime3DS)
+pero falla al verificarlo o instalarlo en una 3DS real (GodMode9 muestra
+«VERIFICATION FAILED» en el contenido 0). Es un fallo de la herramienta al
+reconstruir la ROM, ya comunicado; se avisará cuando esté corregido.
+
 QUÉ NECESITAS
 
 1. Tu propia copia del juego japonés «Inazuma Eleven 1-2-3!! Endou Mamoru

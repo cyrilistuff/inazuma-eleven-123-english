@@ -7,6 +7,11 @@ de Javiju555, en lugar de DeltaPatcher.
 > parcheo nuevo. Es **posterior** a las antiguas v1 y v1.1, que siguen publicadas para
 > quien tenga exactamente el volcado con el que se generaron.
 
+> **Aviso: por ahora solo emulador.** El `.3ds` que genera IE-repack funciona en Azahar y
+> Lime3DS, pero falla al verificarlo o instalarlo en una 3DS real (GodMode9: «VERIFICATION
+> FAILED» en el contenido 0). Es un fallo de la herramienta al reconstruir la ROM, ya
+> comunicado. Se avisará cuando esté corregido.
+
 ## Por qué cambia la forma de parchear
 
 El sistema antiguo comparaba la ROM entera byte a byte, así que exigía un volcado
