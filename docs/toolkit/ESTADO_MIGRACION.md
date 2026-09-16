@@ -38,3 +38,10 @@ la fase de plan.
 
 Antes de reanudar, decidir qué hacer con `toolkit-f2.3-wip`: pasarle el gate y
 fusionarla, o descartarla y dejar que la F2.3 se rehaga entera.
+
+## Aviso: candidatas de referencia borradas (2026-09-16)
+
+El usuario borró a mano `work/shared/candidatas/probe_ie1_v66` y `probe_ie1_v67` (y otras) para
+liberar espacio. Son las candidatas golden de los gates (`tools/tests/compat/golden/candidatas.sha256`,
+`test_bloqueo`, `requiere_rom`). **Antes de reanudar** hay que regenerarlas (v67 = v66 + capa
+`work/ie1/capas/v67/titulo_logo`) o actualizar los golden a una candidata vigente.
