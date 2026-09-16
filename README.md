@@ -6,7 +6,7 @@ solo salió en Japón.
 **Aquí no hay ROMs.** Solo el parche y las herramientas. Pones tu copia, que debe ser
 legal. Ver [`LEGAL.md`](LEGAL.md).
 
-## Qué está traducido (v1.0)
+## Qué está traducido
 
 - **Inazuma Eleven 1**: historia, menús, objetos, técnicas y jugadores, con nombres
   europeos oficiales (Mark Evans, Axel Blaze, Raimon…).
@@ -18,9 +18,12 @@ Detalle en [`docs/PROGRESO.md`](docs/PROGRESO.md).
 
 ## Cómo jugarlo
 
+> **La versión con IE-repack está retirada** mientras se corrigen fallos de caracteres y de
+> compatibilidad con consola real. Lo siguiente describe cómo se aplicará cuando vuelva a
+> publicarse.
+
 **Necesitas:** tu copia de *Inazuma Eleven 1·2·3!!* (3DS, `CTR-P-AETJ`) volcada y
-**descifrada**, en `.3ds` o `.cia`; el paquete `inazuma123-es-v1.0-pack.zip` de
-[Releases](../../releases); la herramienta [IE-repack](https://github.com/Javiju555/IE-repack)
+**descifrada**, en `.3ds` o `.cia`; el pack de traducción de [Releases](../../releases); la herramienta [IE-repack](https://github.com/Javiju555/IE-repack)
 de Javiju555; y unos 12 GB libres.
 
 1. Descomprime IE-repack entero (necesita su carpeta `sidecars` al lado) y el paquete en
