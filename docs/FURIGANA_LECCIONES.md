@@ -322,3 +322,9 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
   reescribe el ancho antes de cada diálogo. Sus 4 argumentos no llegan al ancho. 0x3019 sí lo pasa
   (arg 7), pero tiene otro formato y tamaño.
 - **Regla:** ampliar el ancho del diálogo **no es posible** con datos del mismo tamaño. Un texto a más de 22 caracteres con la ventana por defecto se corta a mitad de palabra.
+
+## ✅ Bigramas en FONT12 + FONT8 (v87, 2026-09-16, validado por el usuario en Azahar)
+
+- «Aurelia» como A|ur|el|ia se ve bien en la pestaña del nombre dibujando cada par en **FONT12 y
+  FONT8** con los mismos códigos (`work/ie1/capas/v87/bigramas_fuentes/registro.json`). Para nombres de
+  partido falta FONT12T.
