@@ -28,7 +28,9 @@ class Capa:
         from ie123kit.nucleo.config.raiz import find_root
 
         ruta = Path(fichero).resolve()
-        self.aqui: Path = ruta.parent if ruta.is_file() or ruta.suffix else ruta
+        # Una carpeta que existe ES la capa aunque su nombre lleve un punto (``ie2.comun``,
+        # ``v67.1``): mirar solo el sufijo haría de capa a su carpeta padre.
+        self.aqui: Path = ruta if ruta.is_dir() else (ruta.parent if ruta.is_file() or ruta.suffix else ruta)
         self.raiz: Path = Path(raiz).resolve() if raiz is not None else find_root()
         self._meta: dict | None = None
 

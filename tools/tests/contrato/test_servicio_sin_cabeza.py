@@ -122,6 +122,145 @@ def test_construir_avisa_si_el_nucleo_tiene_la_firma_vieja(servicio, proyecto_si
     assert "aportaciones" in res.incidencias[0].mensaje
 
 
+def _capa(raiz: Path, nombre: str, *, extra=None, cro=(), eventos=None) -> Path:
+    """Capa de work/ con lo que aporta: extra/<rel>, romfs/cro/*.cro y events/ | events_mch/."""
+    capa = raiz / "work" / "ie1" / "capas" / "v68" / nombre
+    for rel, datos in (extra or {}).items():
+        destino = capa / "extra" / rel
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_bytes(datos)
+    for nombre_cro in cro:
+        destino = capa / "romfs" / "cro" / nombre_cro
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_bytes(f"{nombre_cro} de {nombre}".encode())
+    for pack, ids in (eventos or {}).items():
+        carpeta = capa / {"eve": "events", "mch": "events_mch"}[pack]
+        carpeta.mkdir(parents=True, exist_ok=True)
+        for eid in ids:
+            (carpeta / f"{eid}.ssd").write_bytes(b"SSD\0")
+    capa.mkdir(parents=True, exist_ok=True)
+    return capa
+
+
+def _kw_de_construir(servicio, proyecto_sintetico, monkeypatch, capas) -> dict:
+    """Llama a `construir` con esas capas y devuelve los kwargs que recibe el constructor."""
+    from ie123kit.nucleo.construir import candidata as constructor
+
+    solicitud = _base_lista(proyecto_sintetico)
+    capturado: list[dict] = []
+
+    def capturar(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
+                 rehusar_sobrescribir=True):
+        capturado.append({"base": base, "salida": salida, "ui": ui, "capas": capas, "cro": cro,
+                          "aportaciones": aportaciones})
+        raise RuntimeError("no se construye de verdad en esta prueba")
+
+    monkeypatch.setattr(constructor, "construir", capturar)
+    res = servicio.construir(
+        SolicitudConstruccion(base=solicitud.base, objetivos=solicitud.objetivos,
+                              capas=tuple(str(c) for c in capas), salida=solicitud.salida)
+    )
+    _ok_serializable(res)
+    assert capturado, [i.mensaje for i in res.incidencias]
+    return capturado[0]
+
+
+def test_construir_toma_de_cada_capa_todo_lo_que_aporta(servicio, proyecto_sintetico, monkeypatch) -> None:
+    """Regresión de F2.2: solo la PRIMERA capa hacía de `ui`; de las demás se cogía `extra/`.
+
+    Sus `romfs/cro/*.cro` y sus `events/`/`events_mch/` se tiraban sin incidencia y la candidata
+    incompleta se daba por buena.
+    """
+    raiz = proyecto_sintetico.raiz
+    primera = _capa(raiz, "titulo", extra={"a/uno.bin": b"de la primera"},
+                    cro=["ina_main1.cro"], eventos={"eve": [10010001]})
+    segunda = _capa(raiz, "menus", cro=["ina_menu.cro", "ina_main2.cro"],
+                    eventos={"mch": [10020001]})
+
+    kw = _kw_de_construir(servicio, proyecto_sintetico, monkeypatch, [primera, segunda])
+
+    # Una aportación por capa, en orden, y detrás la del objetivo (aquí, vacía).
+    aportes = kw["aportaciones"][:2]
+    assert [a["extra"] for a in aportes] == [primera / "extra", segunda / "extra"]
+    assert [sorted(p.name for p in a["cro"]) for a in aportes] == [
+        ["ina_main1.cro"], ["ina_main2.cro", "ina_menu.cro"],
+    ]
+    assert aportes[0]["eventos"] == {"eve": primera / "events"}
+    assert aportes[1]["eventos"] == {"mch": segunda / "events_mch"}
+    # Y ya no queda nada en los parámetros viejos que se aplicaban solo a la primera capa.
+    assert kw["ui"] is None and kw["capas"] is None
+
+
+def test_construir_arrastra_las_cro_de_la_base_que_ninguna_capa_rehace(
+        servicio, proyecto_sintetico, monkeypatch) -> None:
+    raiz = proyecto_sintetico.raiz
+    cro_base = Path(proyecto_sintetico.candidata("probe_ie1_v67")) / "romfs" / "cro"
+    cro_base.mkdir(parents=True, exist_ok=True)
+    for nombre in ("ina_main1.cro", "ina_menu.cro"):
+        (cro_base / nombre).write_bytes(f"{nombre} de la base".encode())
+    capa = _capa(raiz, "menus", cro=["ina_menu.cro"])
+
+    kw = _kw_de_construir(servicio, proyecto_sintetico, monkeypatch, [capa])
+
+    # La capa rehace ina_menu (gana ella) y la ina_main1 de la base viaja para no perderse.
+    assert [p.name for p in kw["cro"]] == ["ina_main1.cro"]
+    assert [p.name for a in kw["aportaciones"] for p in a["cro"]] == ["ina_menu.cro"]
+
+
+def test_construir_rechaza_una_capa_que_no_aporta_nada(servicio, proyecto_sintetico) -> None:
+    capa = proyecto_sintetico.raiz / "work" / "ie1" / "capas" / "v68" / "vacia"
+    capa.mkdir(parents=True)
+    (capa / "apply.py").write_text("# sin ejecutar\n", encoding="utf-8")
+    solicitud = _base_lista(proyecto_sintetico)
+
+    res = servicio.construir(SolicitudConstruccion(
+        base=solicitud.base, objetivos=solicitud.objetivos, capas=(str(capa),), salida=solicitud.salida))
+
+    _ok_serializable(res)
+    assert not res.ok and "no aporta nada" in res.incidencias[0].mensaje
+    assert not Path(proyecto_sintetico.candidata("probe_ie1_v68")).exists()
+
+
+def test_construir_traduce_la_aportacion_del_objetivo(servicio, proyecto_sintetico, monkeypatch) -> None:
+    """La `Aportacion` de un objetivo se traduce a la forma del constructor (y no se tira nada).
+
+    Sin traducción, `construir --objetivos ie1` moría en `_normalizar_aportaciones` porque
+    `nucleo.juego.Aportacion` no es un dict.
+    """
+    from ie123kit.nucleo.juego import Aportacion
+
+    eventos = proyecto_sintetico.raiz / "work" / "ie1" / "eventos_del_objetivo"
+    eventos.mkdir(parents=True)
+    cro = proyecto_sintetico.raiz / "work" / "ie1" / "ina_main2.cro"
+    cro.write_bytes(b"cro del objetivo")
+    monkeypatch.setattr(type(servicio.juegos[OBJETIVO]), "aportaciones",
+                        lambda self, ws, capas=None, **kw: Aportacion(
+                            eventos={"mch": eventos}, romfs_sueltos={"cro/ina_main2.cro": cro}),
+                        raising=False)
+
+    kw = _kw_de_construir(servicio, proyecto_sintetico, monkeypatch, [])
+
+    assert kw["aportaciones"] == [
+        {"objetivo": OBJETIVO, "extra": None, "eventos": {"mch": eventos}, "cro": [cro]},
+    ]
+
+
+def test_construir_dice_lo_que_la_aportacion_usa_y_el_constructor_no_sabe_aplicar(
+        servicio, proyecto_sintetico, monkeypatch) -> None:
+    from ie123kit.nucleo.juego import Aportacion
+
+    monkeypatch.setattr(type(servicio.juegos[OBJETIVO]), "aportaciones",
+                        lambda self, ws, capas=None, **kw: Aportacion(entradas_fa={"a/uno.bin": b"x"}),
+                        raising=False)
+    solicitud = _base_lista(proyecto_sintetico)
+
+    res = servicio.construir(solicitud)
+
+    _ok_serializable(res)
+    assert not res.ok and "entradas_fa" in res.incidencias[0].mensaje
+    assert not Path(proyecto_sintetico.candidata("probe_ie1_v68")).exists()
+
+
 def test_doctor_serializable(servicio: ServicioToolkit) -> None:
     res = servicio.doctor()
     datos = _ok_serializable(res)

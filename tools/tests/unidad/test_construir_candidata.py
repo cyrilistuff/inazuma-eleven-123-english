@@ -309,3 +309,150 @@ def test_aportacion_no_valida_no_construye_nada(tmp_path):
     with pytest.raises(TypeError, match="aportación no válida"):
         C.construir(base, salida, ui=ui, aportaciones=["no soy un dict"])
     assert not salida.exists()
+
+
+# -- F2.2: las fuentes de CRO son aditivas y los eventos se fusionan por id ------------
+# Regresión doble: `cro=` excluía el descubrimiento de `<ui>/romfs/cro/*.cro` (una capa con
+# ina_menu/ina_main2/ina_main3ogre perdía sus CRO en cuanto se pasaba la ina_main1 de la base) y
+# de varias carpetas de eventos solo se aplicaba la última entera.
+
+
+def _leer_pack(archive: Path, rutas):
+    """{id: payload descomprimido} de un PackNum (eve o mch) de una candidata ya construida."""
+    from ie123kit.nucleo.contenedores.fa import FaArchive
+    from ie123kit.nucleo.eventos import packnum
+
+    arc = FaArchive(str(archive))
+    pkh = C.archive_payload(arc, rutas[0])
+    pkb = C.archive_payload(arc, rutas[1])
+    return {eid: packnum.entry_data(pkb, off, size) for eid, off, size in packnum.parse_index(pkh)}
+
+
+def test_cro_declarada_se_suma_a_las_descubiertas_en_ui(tmp_path):
+    base, ui, _ = _preparar(tmp_path)
+    (ui / "romfs/cro/ina_main1.cro").unlink()
+    _cro(ui, ("ina_menu.cro", "ina_main2.cro"), sufijo=b" de la capa")
+    de_la_base = tmp_path / "base_cro"
+    de_la_base.mkdir()
+    (de_la_base / "ina_main1.cro").write_bytes(b"ina_main1 de la base")
+
+    informe = C.construir(base, tmp_path / "o" / "archive.fa", ui=ui,
+                          cro=[de_la_base / "ina_main1.cro"])
+
+    assert [c["nombre"] for c in informe["cros"]] == ["ina_main1.cro", "ina_main2.cro", "ina_menu.cro"]
+    salida_cro = (tmp_path / "o" / "romfs" / "cro")
+    assert (salida_cro / "ina_menu.cro").read_bytes() == b"ina_menu.cro de la capa"
+    assert (salida_cro / "ina_main2.cro").read_bytes() == b"ina_main2.cro de la capa"
+    assert (salida_cro / "ina_main1.cro").read_bytes() == b"ina_main1 de la base"
+    assert informe["cro"].endswith("ina_main1.cro")
+    assert informe["overridden_by_later_overlay"] == []
+
+
+def test_cro_declarada_gana_por_nombre_a_la_de_ui(tmp_path):
+    base, ui, _ = _preparar(tmp_path)
+    suelta = tmp_path / "suelta"
+    suelta.mkdir()
+    (suelta / "ina_main1.cro").write_bytes(b"la declarada gana")
+
+    informe = C.construir(base, tmp_path / "o" / "archive.fa", ui=ui, cro=suelta / "ina_main1.cro")
+
+    assert (tmp_path / "o" / "romfs" / "cro" / "ina_main1.cro").read_bytes() == b"la declarada gana"
+    assert [a["entry"] for a in informe["overridden_by_later_overlay"]] == ["romfs/cro/ina_main1.cro"]
+
+
+def test_cro_declarada_que_no_existe_es_un_error(tmp_path):
+    base, ui, _ = _preparar(tmp_path)
+    salida = tmp_path / "o" / "archive.fa"
+    with pytest.raises(Exception, match="CRO_DECLARADA_AUSENTE"):
+        C.construir(base, salida, ui=ui,
+                    aportaciones=[{"objetivo": "ie2.comun", "cro": [tmp_path / "no_existe.cro"]}])
+    assert not salida.exists()
+
+
+EVENTO_EVE = (20010001, 20010002)
+CUERPOS_EVE = ([b"hola"], [b"adios"])
+
+
+def _base_con_eve(tmp_path):
+    """Base sintética con eve.pkh/eve.pkb reales (el camino literal del congelado)."""
+    pkh, pkb = _packnum(list(zip(EVENTO_EVE, [_ssd(c) for c in CUERPOS_EVE])))
+    return _fa_sintetico(tmp_path / "base.fa", {
+        C.RUTA_EVE[0]: pkh,
+        C.RUTA_EVE[1]: pkb,
+        "a/uno.bin": b"uno" * 5,
+    })
+
+
+def _capa_eventos(tmp_path, nombre, pack, preparados):
+    carpeta = tmp_path / nombre / C.CARPETA_EVENTOS[pack]
+    carpeta.mkdir(parents=True)
+    for eid, payload in preparados.items():
+        (carpeta / f"{eid}.ssd").write_bytes(payload)
+    return carpeta
+
+
+def test_eve_de_varias_capas_se_fusiona_por_id(tmp_path):
+    base = _base_con_eve(tmp_path)
+    de_a = _ssd([b"HOLA DE LA CAPA A"])
+    de_b = _ssd([b"ADIOS DE LA CAPA B"])
+    capa_a = _capa_eventos(tmp_path, "a", "eve", {EVENTO_EVE[0]: de_a})
+    capa_b = _capa_eventos(tmp_path, "b", "eve", {EVENTO_EVE[1]: de_b})
+    salida = tmp_path / "o" / "archive.fa"
+
+    informe = C.construir(base, salida, aportaciones=[
+        {"objetivo": "capa_a", "eventos": {"eve": capa_a}},
+        {"objetivo": "capa_b", "eventos": {"eve": capa_b}},
+    ])
+
+    assert informe["events_staged"] == 2
+    assert _leer_pack(salida, C.RUTA_EVE) == {EVENTO_EVE[0]: de_a, EVENTO_EVE[1]: de_b}
+    assert [f["objetivo"] for f in informe["events_sources"]] == ["capa_a", "capa_b"]
+    assert informe["overridden_by_later_overlay"] == []
+
+
+def test_eve_solapado_lo_gana_la_ultima_capa_y_queda_anotado(tmp_path):
+    base = _base_con_eve(tmp_path)
+    capa_a = _capa_eventos(tmp_path, "a", "eve", {EVENTO_EVE[0]: _ssd([b"DE LA CAPA A"])})
+    de_b = _ssd([b"DE LA CAPA B"])
+    capa_b = _capa_eventos(tmp_path, "b", "eve", {EVENTO_EVE[0]: de_b})
+    salida = tmp_path / "o" / "archive.fa"
+
+    informe = C.construir(base, salida, aportaciones=[
+        {"objetivo": "capa_a", "eventos": {"eve": capa_a}},
+        {"objetivo": "capa_b", "eventos": {"eve": capa_b}},
+    ])
+
+    assert _leer_pack(salida, C.RUTA_EVE)[EVENTO_EVE[0]] == de_b
+    assert informe["overridden_by_later_overlay"] == [
+        {"entry": f"{C.RUTA_EVE[1]}#{EVENTO_EVE[0]}", "overlay": str(capa_b), "objetivo": "capa_b"},
+    ]
+
+
+def test_mch_de_varias_capas_se_fusiona_por_id(tmp_path):
+    base, ui, _ = _base_con_mch(tmp_path)
+    de_a = _ssd([b"HOLA MUNDO DE LA CAPA A", b"segundo texto"])
+    de_b = _ssd([b"otro evento de la capa B"])
+    capa_a = _capa_eventos(tmp_path, "a", "mch", {EVENTO_MCH[0]: de_a})
+    capa_b = _capa_eventos(tmp_path, "b", "mch", {EVENTO_MCH[1]: de_b})
+    salida = tmp_path / "o" / "archive.fa"
+
+    informe = C.construir(base, salida, ui=ui, aportaciones=[
+        {"objetivo": "capa_a", "eventos": {"mch": capa_a}},
+        {"objetivo": "capa_b", "eventos": {"mch": capa_b}},
+    ])
+
+    assert informe["events_mch_staged"] == 2
+    assert _leer_mch(salida) == {EVENTO_MCH[0]: de_a, EVENTO_MCH[1]: de_b}
+
+
+def test_ui_tambien_aporta_events_mch(tmp_path):
+    base, ui, _ = _base_con_mch(tmp_path)
+    traducido = _ssd([b"desde la propia ui", b"segundo texto"])
+    carpeta = ui / C.CARPETA_EVENTOS["mch"]
+    carpeta.mkdir(parents=True)
+    (carpeta / f"{EVENTO_MCH[0]}.ssd").write_bytes(traducido)
+
+    informe = C.construir(base, tmp_path / "o" / "archive.fa", ui=ui)
+
+    assert informe["events_mch_staged"] == 1
+    assert _leer_mch(tmp_path / "o" / "archive.fa")[EVENTO_MCH[0]] == traducido

@@ -102,6 +102,69 @@ def _comprobar_bloqueo(bloqueo: Any, archive: Path, raiz: Path) -> Incidencia | 
     return None
 
 
+def _cro_de_aportacion(aporte: Any) -> list[Path]:
+    """CRO EXISTENTES que declara una aportación (admite una ruta suelta o una lista)."""
+    valor = (aporte.get("cro") if isinstance(aporte, dict) else None) or []
+    entradas = [valor] if isinstance(valor, (str, Path)) else list(valor)
+    return [Path(c) for c in entradas if Path(c).is_file()]
+
+
+#: Campos de ``nucleo.juego.Aportacion``; sirven para reconocerla sin importarla aquí.
+_CAMPOS_APORTACION = ("entradas_fa", "eventos", "literales_cro", "romfs_sueltos")
+
+
+def _es_cro_suelta(rel: Any) -> bool:
+    """¿Esta ruta de ``romfs_sueltos`` es una CRO que el constructor sabe colocar?"""
+    texto = str(rel).replace("\\", "/")
+    return texto.startswith("cro/") and texto.endswith(".cro")
+
+
+def _aportacion_a_dict(ident: str, valor: Any) -> tuple[Any, list[str]]:
+    """Traduce la ``Aportacion`` de un objetivo a la forma que entiende el constructor.
+
+    El servicio recibe ``nucleo.juego.Aportacion`` (entradas_fa/eventos/literales_cro/
+    romfs_sueltos) y ``nucleo.construir.candidata`` espera ``{objetivo, extra, eventos, cro}``:
+    sin traducción, construir con ``--objetivos`` muere en ``_normalizar_aportaciones``.
+    Devuelve también los campos que el constructor NO sabe aplicar todavía, para decirlos en vez
+    de tirarlos. Lo que no sea ni un dict ni una ``Aportacion`` se pasa tal cual: que lo rechace
+    el constructor con su propio error, sin que el servicio lo interprete.
+    """
+    if isinstance(valor, dict):
+        return {**valor, "objetivo": valor.get("objetivo") or ident}, []
+    if not all(hasattr(valor, campo) for campo in _CAMPOS_APORTACION):
+        return valor, []
+    romfs = dict(getattr(valor, "romfs_sueltos", None) or {})
+    pendientes = []
+    if getattr(valor, "entradas_fa", None):
+        pendientes.append("entradas_fa")
+    if getattr(valor, "literales_cro", None):
+        pendientes.append("literales_cro")
+    if any(not _es_cro_suelta(rel) for rel in romfs):
+        pendientes.append("romfs_sueltos que no son cro/*.cro")
+    aporte = {
+        "objetivo": ident,
+        "extra": None,
+        "eventos": dict(getattr(valor, "eventos", None) or {}),
+        "cro": [ruta for rel, ruta in sorted(romfs.items()) if _es_cro_suelta(rel)],
+    }
+    return aporte, pendientes
+
+
+def _capa_vacia(aporte: dict[str, Any]) -> bool:
+    """¿La capa no aporta nada? (ni ficheros del archive, ni ``.ssd`` preparados, ni CRO).
+
+    Una capa que se pide y no aporta nada casi siempre es una ruta equivocada o un ``apply.py``
+    sin ejecutar: se dice, en vez de entregar una candidata idéntica a la base como si valiera.
+    """
+    extra = aporte.get("extra")
+    if extra is not None and any(p.is_file() for p in Path(extra).rglob("*")):
+        return False
+    for carpeta in (aporte.get("eventos") or {}).values():
+        if carpeta is not None and any(Path(carpeta).glob("*.ssd")):
+            return False
+    return not _cro_de_aportacion(aporte)
+
+
 def _parametros_ausentes(funcion: Any, nombres: Any) -> list[str]:
     """Nombres de ``nombres`` que ``funcion`` NO acepta como parámetro.
 
@@ -322,6 +385,7 @@ class ServicioToolkit:
         t0 = time.perf_counter()
         try:
             from ie123kit.nucleo.construir import candidata as constructor
+            from ie123kit.nucleo.construir.capas import Capa
             from ie123kit.nucleo.validar import bloqueo
         except ImportError as exc:
             return self._cronometrar(t0, Resultado.no_soportado(f"construir: falta el núcleo ({exc})"))
@@ -347,20 +411,39 @@ class ServicioToolkit:
         if isinstance(aportaciones, Resultado):
             return self._cronometrar(t0, aportaciones)
 
-        # Plan de capas: la primera capa hace de `ui` (aporta extra/, events/ y su CRO) y las
-        # siguientes se superponen por su carpeta extra/. F2.3 lo sustituye por las aportaciones
-        # por objetivo, que ya viajan en `aportaciones`.
-        ui = capas[0] if capas else None
-        extra = [c / "extra" for c in capas[1:]] or None
-        cro = None
-        if ui is not None and not (ui / "romfs/cro/ina_main1.cro").is_file():
-            base_cro = base.parent / "romfs/cro/ina_main1.cro"
-            cro = base_cro if base_cro.is_file() else None
+        # Plan de capas: CADA capa aporta todo lo suyo (extra/, events/, events_mch/ y sus
+        # romfs/cro/*.cro), en el orden en que se han pedido y con la regla «la última gana».
+        # Antes solo la primera hacía de `ui` y de las demás se cogía `extra/`: sus CRO y sus
+        # eventos se tiraban sin incidencia, y la candidata incompleta se daba por buena.
+        aportes: list[dict[str, Any]] = []
+        for capa in capas:
+            aporte = Capa(capa, raiz=self.ws.raiz).aportacion()
+            if _capa_vacia(aporte):
+                return self._cronometrar(t0, Resultado.no_soportado(
+                    f"construir: la capa {capa} no aporta nada (se esperaba extra/ con ficheros, "
+                    "events/, events_mch/ o romfs/cro/*.cro); ¿falta ejecutar su apply.py?"
+                ))
+            aportes.append(aporte)
+        for ident, valor in aportaciones.items():
+            aporte, pendientes = _aportacion_a_dict(ident, valor)
+            if pendientes:
+                return self._cronometrar(t0, Resultado.no_soportado(
+                    f"construir: la aportación de {ident} usa {', '.join(pendientes)}, que el "
+                    "constructor todavía no sabe aplicar; no se entrega una candidata a medias"
+                ))
+            aportes.append(aporte)
+
+        # Lo que la base ya llevaba y ninguna capa rehace se arrastra tal cual: si no, una capa
+        # que solo toca ina_main1 dejaría la candidata sin ina_menu/ina_main2/ina_main3ogre.
+        declaradas = {p.name for a in aportes for p in _cro_de_aportacion(a)}
+        carpeta_base = base.parent / "romfs/cro"
+        cro = [p for p in sorted(carpeta_base.glob("*.cro")) if p.name not in declaradas] \
+            if carpeta_base.is_dir() else []
 
         if progreso is not None:
             progreso(Progreso("construir", 0, 2, str(dir_salida)))
-        kw: dict[str, Any] = {"ui": ui, "capas": extra, "cro": cro,
-                              "aportaciones": aportaciones, "rehusar_sobrescribir": True}
+        kw: dict[str, Any] = {"ui": None, "capas": None, "cro": cro or None,
+                              "aportaciones": aportes, "rehusar_sobrescribir": True}
         # La incompatibilidad de firma se detecta INSPECCIONANDO la signatura, nunca capturando
         # TypeError: un `except TypeError` alrededor de la llamada también atraparía los errores
         # internos del constructor (p.ej. una aportación mal formada o un reempaquetado roto) y
@@ -387,15 +470,21 @@ class ServicioToolkit:
 
         informe = dict(informe or {})
         build_json = salida.with_suffix(".build.json")
+        # Las CRO entregadas son TODAS las de la candidata, no solo ina_main1: si una capa trae
+        # ina_menu o ina_main2, tiene que verse en los artefactos que se instalan.
+        cros = [c.get("destino") for c in (informe.get("cros") or []) if isinstance(c, dict) and c.get("destino")]
+        if not cros and informe.get("cro"):
+            cros = [informe["cro"]]
         datos = {
             "archive": str(salida),
             "archive_sha256": str(informe.get("archive_sha256", "")),
             "cro": informe.get("cro"),
+            "cros": [str(c) for c in cros],
             "build_json": str(build_json),
             "candidata": dir_salida.name,
             "informe": informe,
         }
-        artefactos = tuple(str(a) for a in (salida, build_json, informe.get("cro")) if a)
+        artefactos = tuple(str(a) for a in (salida, build_json, *cros) if a)
         if progreso is not None:
             progreso(Progreso("construir", 2, 2, "hecha"))
         return self._cronometrar(t0, Resultado.correcto(datos=datos, artefactos=artefactos))

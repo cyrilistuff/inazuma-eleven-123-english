@@ -7,13 +7,21 @@ literal. ``construir`` reproduce su ``main()`` sin argparse ni print.
 ``construir`` está generalizada a las cuatro CRO de la recopilación (ina_menu, ina_main1,
 ina_main2, ina_main3ogre), al reempaquetado de ``mch`` además de ``eve`` y a aportaciones por
 objetivo, con la regla «la última capa gana».
+
+Esa regla se aplica SIEMPRE al grano más fino y ninguna aportación se descarta en silencio:
+fichero a fichero en las capas del archive, nombre a nombre en las CRO (las de ``ui``, las
+explícitas y las de cada aportación son aditivas) e id a id en los eventos (si varias capas
+preparan ``.ssd`` se fusionan; quedarse con la última carpeta entera perdería los eventos de
+las anteriores). Cada anulación queda anotada en ``overridden_by_later_overlay``.
 """
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import json
 import shutil
 import struct
+import tempfile
 from pathlib import Path
 
 from ie123kit.nucleo.compresion.lz10 import compress, decompress
@@ -143,6 +151,28 @@ def _hay_ssd(directorio) -> bool:
     return directorio is not None and Path(directorio).is_dir() and any(Path(directorio).glob("*.ssd"))
 
 
+#: Subcarpeta de ``.ssd`` preparados por paquete; la misma tabla que ``nucleo.construir.capas``.
+CARPETA_EVENTOS = {"eve": "events", "mch": "events_mch"}
+
+
+def _fuentes_eventos(ui, aportes: list[dict], pack: str) -> list[tuple[Path, str]]:
+    """Carpetas de ``.ssd`` del paquete ``pack`` en orden de aplicación (la última gana).
+
+    Antes solo se guardaba la ÚLTIMA carpeta: las capas anteriores perdían sus eventos sin
+    error ni anotación. Ahora se devuelven todas y la fusión se hace por id de evento.
+    """
+    fuentes: list[tuple[Path, str]] = []
+    if ui is not None:
+        carpeta = Path(ui) / CARPETA_EVENTOS[pack]
+        if _hay_ssd(carpeta):
+            fuentes.append((carpeta, ""))
+    for aporte in aportes:
+        carpeta = aporte["eventos"].get(pack)
+        if _hay_ssd(carpeta):
+            fuentes.append((Path(carpeta), aporte["objetivo"]))
+    return fuentes
+
+
 #: Alineado de las entradas del .pkb reempaquetado; el mismo que usa ``rebuild_events`` para eve.
 ALINEADO_PACKNUM = 4
 
@@ -164,6 +194,51 @@ def _ssd_preparados(directorio: Path) -> dict[int, Path]:
             )
         preparados[int(ruta.stem)] = ruta
     return preparados
+
+
+def _anotacion(entrada: str, overlay, objetivo: str) -> dict:
+    """Anotación de ``overridden_by_later_overlay`` (la capa que GANA, como en las capas extra)."""
+    anotacion = {"entry": entrada, "overlay": str(overlay)}
+    if objetivo:
+        anotacion["objetivo"] = objetivo
+    return anotacion
+
+
+def _fusionar_preparados(fuentes: list[tuple[Path, str]], entrada: str):
+    """``{id de evento -> fichero}`` de varias carpetas, id a id y con la última capa ganando.
+
+    Devuelve también las anotaciones de los ids que una capa posterior le pisa a otra, para que
+    una fusión con solapamiento no sea nunca silenciosa.
+    """
+    preparados: dict[int, Path] = {}
+    anuladas: list[dict] = []
+    for carpeta, objetivo in fuentes:
+        for eid, ruta in sorted(_ssd_preparados(carpeta).items()):
+            if eid in preparados:
+                anuladas.append(_anotacion(f"{entrada}#{eid}", carpeta, objetivo))
+            preparados[eid] = ruta
+    return preparados, anuladas
+
+
+@contextlib.contextmanager
+def _carpeta_eve(preparados: dict[int, Path]):
+    """Carpeta de ``.ssd`` que se le pasa a ``rebuild_events`` (copia literal del congelado).
+
+    Con una sola carpeta de origen se le pasa esa misma (el camino del congelado, byte a byte).
+    Con varias se materializa la fusión en un temporal que siempre se borra, porque
+    ``rebuild_events`` solo sabe leer UNA carpeta.
+    """
+    carpetas = {ruta.parent for ruta in preparados.values()}
+    if len(carpetas) == 1:
+        yield carpetas.pop()
+        return
+    temporal = Path(tempfile.mkdtemp(prefix="ie123_eve_"))
+    try:
+        for eid, ruta in sorted(preparados.items()):
+            shutil.copyfile(ruta, temporal / f"{eid}.ssd")
+        yield temporal
+    finally:
+        shutil.rmtree(temporal, ignore_errors=True)
 
 
 def _comprobar_ssd(eid: int, original: bytes, payload: bytes) -> int:
@@ -191,21 +266,20 @@ def _comprobar_ssd(eid: int, original: bytes, payload: bytes) -> int:
     return cambiados
 
 
-def _reempaquetar(arc: FaArchive, directorio: Path, rutas: tuple[str, str]):
-    """Reempaqueta un PackNum (hoy ``mch``) desde una carpeta de ``.ssd`` preparados.
+def _reempaquetar(arc: FaArchive, preparados: dict[int, Path], rutas: tuple[str, str]):
+    """Reempaqueta un PackNum (hoy ``mch``) desde los ``.ssd`` preparados ya fusionados.
 
     ``rebuild_events`` (copia literal del congelado) solo sabe de ``eve`` y además lee el disco;
     ``packnum.rebuild`` es la primitiva parametrizada y NO toca el disco: recibe
-    ``{id: bytes}``. Aquí se hace el paso que falta —leer los ``.ssd``, mapear nombre→id y
-    validar tabla de instrucciones y registros contra el payload original— y después se llama a
-    ``rebuild``. Devuelve ``(pkh, pkb, informe)`` con el informe en el mismo formato que
-    ``rebuild_events``, para que ``events`` y ``events_mch`` se lean igual en el build.json.
+    ``{id: bytes}``. Aquí se hace el paso que falta —leer los ``.ssd`` y validar tabla de
+    instrucciones y registros contra el payload original— y después se llama a ``rebuild``.
+    Devuelve ``(pkh, pkb, informe)`` con el informe en el mismo formato que ``rebuild_events``,
+    para que ``events`` y ``events_mch`` se lean igual en el build.json.
     """
     pkh = archive_payload(arc, rutas[0])
     pkb = archive_payload(arc, rutas[1])
     indice = parse_index(pkh)
     por_id = {eid: (off, size) for eid, off, size in indice}
-    preparados = _ssd_preparados(directorio)
     desconocidos = sorted(set(preparados) - set(por_id))
     if desconocidos:
         raise ValueError(f"unknown staged event ids: {desconocidos}")
@@ -233,20 +307,36 @@ def _reempaquetar(arc: FaArchive, directorio: Path, rutas: tuple[str, str]):
     return nuevo_pkh, nuevo_pkb, report
 
 
+def _exigir_cro(ruta, objetivo: str) -> Path:
+    """Valida una CRO DECLARADA (``cro=`` o una aportación); saltársela sería perderla callando."""
+    resuelta = Path(ruta).resolve()
+    if not resuelta.is_file():
+        raise ValidacionError(
+            "CRO_DECLARADA_AUSENTE",
+            ruta=resuelta,
+            detalle=f"la CRO declarada por {objetivo or 'la construcción'} no existe",
+        )
+    return resuelta
+
+
 def _recoger_cro(ui, cro, aportaciones: list[dict]) -> list[tuple[Path, str]]:
-    """Fuentes de CRO en orden de aplicación (la última capa gana)."""
+    """Fuentes de CRO en orden de aplicación (la última gana).
+
+    Las tres son ADITIVAS y se resuelven por NOMBRE de fichero: primero las descubiertas en
+    ``<ui>/romfs/cro``, después las declaradas en ``cro`` y por último las de cada aportación.
+    Que ``cro`` excluyera el descubrimiento de ``ui`` era justo el fallo que tiraba las
+    ina_menu/ina_main2/ina_main3ogre de una capa en cuanto se pasaba una ina_main1 de la base.
+    """
     fuentes: list[tuple[Path, str]] = []
+    if ui is not None:
+        carpeta = Path(ui) / "romfs/cro"
+        if carpeta.is_dir():
+            fuentes += [(p.resolve(), "") for p in sorted(carpeta.glob("*.cro"))]
     if cro is not None:
         entradas = [cro] if isinstance(cro, (str, Path)) else list(cro)
-        fuentes += [(Path(c).resolve(), "") for c in entradas]
-    elif ui is not None:
-        carpeta = Path(ui) / "romfs/cro"
-        descubiertas = sorted(carpeta.glob("*.cro")) if carpeta.is_dir() else []
-        if not descubiertas:
-            descubiertas = [carpeta / "ina_main1.cro"]
-        fuentes += [(p.resolve(), "") for p in descubiertas]
+        fuentes += [(_exigir_cro(c, ""), "") for c in entradas]
     for aportacion in aportaciones:
-        fuentes += [(c, aportacion["objetivo"]) for c in aportacion["cro"]]
+        fuentes += [(_exigir_cro(c, aportacion["objetivo"]), aportacion["objetivo"]) for c in aportacion["cro"]]
     return fuentes
 
 
@@ -258,6 +348,10 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
     la forma generalizada: una lista (o un dict por objetivo) de
     ``{objetivo, extra, eventos: {'eve': dir, 'mch': dir}, cro: [...]}``; se aplican después de
     ``capas``, también con la regla «la última gana», y quedan anotadas en el build.json.
+
+    ``ui`` aporta ``extra/`` (si no hay ``capas``), ``events/``, ``events_mch/`` y todas las
+    ``romfs/cro/*.cro``; ``cro`` son CRO sueltas que se SUMAN a esas y ganan por nombre. Las
+    CRO declaradas que no existan son un error (``CRO_DECLARADA_AUSENTE``), no un salto mudo.
     """
     base = Path(base).resolve()
     ui = Path(ui).resolve() if ui is not None else None
@@ -268,23 +362,26 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
         raise FileExistsError(f"refusing to overwrite candidate: {output}")
     aportes = _normalizar_aportaciones(aportaciones)
     arc = FaArchive(str(base))
+    overridden = []
 
     # -- eventos (eve por el camino literal del congelado, mch por packnum.rebuild) --
-    events_dir = ui / "events" if ui is not None else None
-    for aporte in aportes:
-        if _hay_ssd(aporte["eventos"].get("eve")):
-            events_dir = aporte["eventos"]["eve"]
-    staged_events = _hay_ssd(events_dir)
+    fuentes_eve = _fuentes_eventos(ui, aportes, "eve")
+    fuentes_mch = _fuentes_eventos(ui, aportes, "mch")
+    preparados_eve, anuladas = _fusionar_preparados(fuentes_eve, RUTA_EVE[1])
+    overridden += anuladas
+    preparados_mch, anuladas = _fusionar_preparados(fuentes_mch, RUTA_MCH[1])
+    overridden += anuladas
     event_report = []
-    if staged_events:
-        new_pkh, new_pkb, event_report = rebuild_events(arc, events_dir)
-    mch_dir = None
-    for aporte in aportes:
-        if _hay_ssd(aporte["eventos"].get("mch")):
-            mch_dir = aporte["eventos"]["mch"]
+    if preparados_eve:
+        with _carpeta_eve(preparados_eve) as carpeta_eve:
+            new_pkh, new_pkb, event_report = rebuild_events(arc, carpeta_eve)
     mch_report = []
-    if mch_dir is not None:
-        mch_pkh, mch_pkb, mch_report = _reempaquetar(arc, mch_dir, RUTA_MCH)
+    if preparados_mch:
+        mch_pkh, mch_pkb, mch_report = _reempaquetar(arc, preparados_mch, RUTA_MCH)
+
+    # -- CRO: se resuelven ANTES de escribir nada, para que una declarada que falte no deje
+    # una candidata a medias en el disco --
+    fuentes_cro = _recoger_cro(ui, cro, aportes)
 
     # -- capas de ficheros del archive --
     known = {p for p, _, _ in arc.entries}
@@ -296,7 +393,6 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
         overlays = []
     overlays += [(a["extra"], a["objetivo"]) for a in aportes if a["extra"] is not None]
     extra_files = {}
-    overridden = []
     for extra, objetivo in overlays:
         for src in sorted(extra.rglob("*")):
             if not src.is_file():
@@ -305,19 +401,16 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
             if rel not in known:
                 raise ValueError(f"extra file is not an archive entry: {rel}")
             if rel in extra_files:
-                anotacion = {"entry": rel, "overlay": str(extra)}
-                if objetivo:
-                    anotacion["objetivo"] = objetivo
-                overridden.append(anotacion)
+                overridden.append(_anotacion(rel, extra, objetivo))
             extra_files[rel] = src.read_bytes()
 
     output.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(base, output)
     with output.open("r+b") as handle:
-        if staged_events:
+        if preparados_eve:
             replace_entry(handle, arc, RUTA_EVE[0], new_pkh)
             replace_entry(handle, arc, RUTA_EVE[1], new_pkb)
-        if mch_dir is not None:
+        if preparados_mch:
             replace_entry(handle, arc, RUTA_MCH[0], mch_pkh)
             replace_entry(handle, arc, RUTA_MCH[1], mch_pkb)
         for rel, payload in sorted(extra_files.items()):
@@ -326,15 +419,10 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
     # -- CRO: las cuatro de la recopilación, la última capa gana --
     destino_cro = output.parent / "romfs/cro"
     cros: dict[str, dict] = {}
-    for fuente, objetivo in _recoger_cro(ui, cro, aportes):
-        if not fuente.is_file():
-            continue
+    for fuente, objetivo in fuentes_cro:
         destino = destino_cro / fuente.name
         if fuente.name in cros:
-            anotacion = {"entry": f"romfs/cro/{fuente.name}", "overlay": str(fuente.parent)}
-            if objetivo:
-                anotacion["objetivo"] = objetivo
-            overridden.append(anotacion)
+            overridden.append(_anotacion(f"romfs/cro/{fuente.name}", fuente.parent, objetivo))
         destino.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(fuente, destino)
         cros[fuente.name] = {
@@ -360,8 +448,10 @@ def construir(base, salida, *, ui=None, capas=None, cro=None, aportaciones=None,
         "runtime_verified": False,
         # Claves nuevas de F2.2 (las anteriores se conservan tal cual).
         "cros": [cros[n] for n in sorted(cros)],
+        "events_sources": [{"ruta": str(c), "objetivo": o or None} for c, o in fuentes_eve],
         "events_mch": mch_report,
         "events_mch_staged": len(mch_report),
+        "events_mch_sources": [{"ruta": str(c), "objetivo": o or None} for c, o in fuentes_mch],
         "aportaciones": [
             {
                 "objetivo": a["objetivo"],
@@ -387,7 +477,7 @@ if __name__ == "__main__":
                         help="Overlay directory of archive-relative files (repeatable, "
                              "later overlays win); defaults to <ui>/extra")
     parser.add_argument("--cro", type=Path, action="append",
-                        help="CRO to ship with the candidate (repeatable); defaults to every "
-                             "<ui>/romfs/cro/*.cro")
+                        help="Extra CRO to ship with the candidate (repeatable); added to every "
+                             "<ui>/romfs/cro/*.cro and winning by file name")
     args = parser.parse_args()
     print(json.dumps(construir(args.base, args.output, ui=args.ui, capas=args.extra, cro=args.cro), indent=2))
