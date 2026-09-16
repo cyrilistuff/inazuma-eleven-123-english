@@ -10,12 +10,6 @@
 - El usuario confirma que la apariencia de los diálogos de v20 está muy bien.
   Es la referencia aprobada. No modificar caja, dimensiones, posición, tamaño
   de letra, glifos, espaciado, fuentes, codificación ni algoritmo de saltos.
-- Excepción autorizada expresamente el 2026-09-16 (issue #66, capa
-  `work/ie1/capas/v73/espaciado_fuente`): solo los avances (`left`/`advance`) de los
-  glifos latinos de ancho completo se ajustan a su tinta real + 1 px, sin tocar
-  mapas de bits, codificación ni ajuste de líneas. Verificado sin solapes en
-  2 324 parejas y aprobado en Azahar. Los hashes de `tools/dialogue_lock.py`
-  apuntan desde entonces a esas fuentes (v73); son la nueva referencia bloqueada.
 - Mantener fullwidth, avance de cálculo 11, límite 220 y tres líneas por página,
   con las cinco fuentes exactas verificadas por `tools/dialogue_lock.py`.
 - Las nuevas traducciones deben adaptarse a esta configuración. Un texto largo
