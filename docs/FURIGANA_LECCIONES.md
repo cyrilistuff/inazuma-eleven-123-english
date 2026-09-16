@@ -271,3 +271,17 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - **Conclusión:** el límite es de caracteres, no de píxeles. Arreglar métricas NFTR/BCFNT no haría caber
   los nombres oficiales y obligaría a tocar las fuentes bloqueadas. **No reintentar.** Abreviar dentro
   de 9 caracteres (`work/ie1/capas/v47/objetos/propuesta.md`). Issue #39.
+
+## ❌ Rótulo de lugar del minimapa de más de 10 caracteres (v76–v78, 2026-09-16)
+
+- **Qué se probó:** centrar el rótulo (eve.pkb, 0x4037 argumento 3) anteponiendo espacios de ancho
+  completo y, después, poner nombres largos de hasta 15 caracteres en la placa ensanchada de 239 px.
+- **Resultado en Azahar:** la placa sale **vacía**.
+- **Causa (ina_main1.cro):** el manejador de 0x4037 copia el texto a un búfer de 32 B
+  (`STD_CopyLString(estado+0x44, arg3, 0x20)` en 0x5d3f4), pero quien lo dibuja (0x7a3bc) llama al
+  camino de paso fijo (0x2ed24) con un búfer de celdas de 0x50×8/2 = 0x140 B, es decir **10 celdas,
+  una por carácter**. La búsqueda de celdas libres (0x2f098) no respeta el final del búfer; si hacen
+  falta más de 10, el inicio cae fuera y 0x2f0bc–0x2f0d4 sale sin dibujar nada. Aunque no se vacíe,
+  el bucle corta en la celda 11.
+- **Regla:** el rótulo, **espacios de centrado incluidos**, no puede pasar de **10 caracteres
+  (20 B)**. La placa ancha de la capa v73 no amplía ese límite. Capa corregida: `work/ie1/capas/v79/rotulos`.
