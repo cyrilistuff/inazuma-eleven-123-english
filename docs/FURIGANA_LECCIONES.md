@@ -328,3 +328,16 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - «Aurelia» como A|ur|el|ia se ve bien en la pestaña del nombre dibujando cada par en **FONT12 y
   FONT8** con los mismos códigos (`work/ie1/capas/v87/bigramas_fuentes/registro.json`). Para nombres de
   partido falta FONT12T.
+
+## ⚠️ Literales del CRO: punteros que apuntan dentro de otro literal (v89/v90, 2026-09-17)
+
+- La opción de afinidad «montaña» (山) de IE1 apunta a los últimos bytes del nombre de escuela 千羽山;
+  al traducir la escuela («Far…») la opción mostraba «r». Antes de traducir un literal, comprobar con
+  crorefs si hay referencias **dentro** de él, no solo a su inicio. Corregido en v90.
+- Los menús estilo DS leen listas con strlen+1: todas las entradas hermanas deben traducirse con la
+  misma longitud en bytes.
+- Algunos literales que parecían lecturas de furigana sí se dibujan (ねっけつ, ゆうじょう, すてる…):
+  confirmar la llamada de dibujo antes de descartarlos.
+- Estos literales se dibujan con las BCFNT compartidas (`DrawTextHintOnVram`), según el análisis de
+  v90; los bigramas se añaden ahí. Contrasta con la nota de la skill sobre FONT12.NFTR (números
+  romanos en blanco): confirmar en emulador pantalla por pantalla.
