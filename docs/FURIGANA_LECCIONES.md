@@ -341,3 +341,23 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - Estos literales se dibujan con las BCFNT compartidas (`DrawTextHintOnVram`), según el análisis de
   v90; los bigramas se añaden ahí. Contrasta con la nota de la skill sobre FONT12.NFTR (números
   romanos en blanco): confirmar en emulador pantalla por pantalla.
+
+## ❌ Nombres japoneses romanizados en el diálogo (visto en Azahar, corregido en v91, 2026-09-17)
+
+- **Síntoma:** Axel dice «Mikage fue subcampeón regional, pero perdió contra el Imperial». 御影専農 es
+  **Brain** y 帝国 es **Royal Academy** (`translation/shared/glossary/equipos.csv`).
+- **Causa:** las tandas manuales/IA antiguas (v14) romanizaron nombres (Mikage, Senbayama, Igajima,
+  Ikari, Biruda, Daisuke Endo, Fuyukai…) o los tradujeron («Imperial», «Granja Mikage»). Esas frases
+  condensadas siguieron en la build porque la línea oficial NDS no cabe en 247 B. Además, `dialogo.csv`
+  tiene filas `auto-ia` de lecturas kana con nombres inventados («lavado de cerebro de Mikage»).
+- **Emparejado:** la frase 3DS es la **primera entrada de su ID**, y su argumento puede ser 1 o 2. Le
+  corresponde la entrada de **tipo 1** del ID NDS emparejado (`tools/audit_dialogo_ids.py`). Si se busca
+  el mismo número de argumento, no se encuentra el par.
+- **Regla:** antes de dar por buena una tanda, pasar el detector de
+  `work/ie1/capas/v91/nombres_oficiales/nombres.py` sobre todo el diálogo. Los nombres salen de los
+  glosarios o de la NDS, nunca de la lectura japonesa. Si la línea NDS cabe, se usa; si no, se cambia
+  solo el nombre, con su artículo («el Brain», «la Royal»). Ojo con los nombres que sí son oficiales:
+  «Igajima» (la persona 伊賀島仙一), «Raijin» (tienda 雷神模型) y «Sallys» (equipo).
+- **Límites técnicos al usar la NDS:** las comillas (`?h`) y el apóstrofo no tienen glifo; el guion no
+  se codifica en shift_jis («9-0» → «9 a 0»). Los menús de depuración (90000000, opciones «Sí :»)
+  tienen su propio maquetado: se cambia el nombre sin reajustar.

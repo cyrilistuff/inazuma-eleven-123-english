@@ -2353,19 +2353,19 @@ event_id,japones,es_final,estado
 10050001,",よっしゃ！\nこれから　またよろしくな！",¡Muy bien!\n¡Tenemos que ser los mejores!,oficial
 10050001,(そうか。\nそれは　%2F残念だな…。,Ya veo. Lástima...,oficial
 10050002,%s\nが%2F仲間になった！,¡%s se te ha unido!,revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre tiene\nclase en el primer piso del\nedificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
 10050002,(スカウトイベントの中でMobilephone,"¡Hola, Mark!",revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
 10050002,$もしもし？\nセンパイですか？,"¡Hola, Mark!",revisar
-10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,revisar
+10050002,L%2F半田さんは　いつも\n%3F本校舎２Ｆの%2F教室に\nいるみたいですよ！,¡Steve siempre está en el primer\npiso del edificio principal!,oficial
 10050002,0がんばって\nスカウトしてきてくださいね。,nimo y a ver si te lo\npuedes traer al equipo.,revisar
 10050002,Pおっ　%2F円堂じゃないか！\nひさしぶりだな。\nオレに%1F何か%1F用なのか？,"¡Buenas, Mark! Hacía tiempo que\nno te veía. ¿Necesitas algo?",revisar
 10050002,`…サッカー%1F部にもどらないかって？\nうーん　そうだな\nちょうど　ヒマしてたところだし…,"¿Quieres que vuelva a apuntarme\nal equipo de fútbol? Hmmm, vale...\nTampoco es que esté muy ocupado.",revisar
@@ -3374,7 +3374,7 @@ no es nada fácil...",auto-ia
 10070035,Dこんなにステキなオレが\nおまえのチームに　%1F入ってやるよ。,Me llamo Ei King.,revisar
 10070035,hああ　これからよろしくな！\nオレの%1F名は　エイキングだ。\n%2F気軽に　エイと%1F呼んでくれよな。,"Si no quieres acabar cubierto\nde caldo de cerdo, tendrás que\naceptarme en tu equipo.",revisar
 10070035,Tその%1F人は　いつも\n%3F商店街のラーメン%1F屋の%1F近くに\nいるみたいですよ！,¡Siempre está por la tienda\nde fideos chinos del barrio\ncomercial!,auto-dup
-10070035,P「トンコツ」まみれに\nなりたくないなら\nオレをチームに%1F入れるんだな。,"Si no quieres acabar\ncubierto de ""Tonkotsu"",\nmás te vale ficharme para el equipo.",auto-ia
+10070035,P「トンコツ」まみれに\nなりたくないなら\nオレをチームに%1F入れるんだな。,"Si no quieres acabar cubierto\nde caldo de cerdo, tendrás que\naceptarme en tu equipo.",oficial
 10070036,%s\nが%2F仲間になった！,¡%s se te ha unido!,revisar
 10070036,8その%1F人は　いつも\n%3F河川敷にいるみたいですよ！,¡Siempre está por\nla zona del río!,revisar
 10070036,@かくれてるみたいなので\nガンバって　さがしてくださいね。,Parece que está escondido.\n¡Tendrás que esforzarte\nsi quieres encontrarlo!,revisar
@@ -10491,7 +10491,7 @@ papel",auto-ia
 81000010,&おこ,enfadarse,auto-ia
 81000010,/ぐあい,estado,auto-ia
 81000010,8なに,qué,auto-ia
-81000010,Aていこく,Imperial,auto-ia
+81000010,Aていこく,Royal Academy,glosario
 81000010,Aしあい,partido,auto-ia
 81000010,Aぜんりょく,con todas las fuerzas,auto-ia
 81000010,Jひびき,Hillman,auto-ia
@@ -10767,7 +10767,7 @@ tengo un montón de deberes…",auto-ia
 81000011,*たてもの,Edificio,auto-ia
 81000011,Kぶいん,h¡Se busca gente interesada en\nincorporarse al club de fútbol!h,auto-dup
 81000011,Kあつ,calor,auto-ia
-81000011,Vていこくがくえん,Instituto Imperial,auto-ia
+81000011,Vていこくがくえん,Royal Academy,glosario
 81000011,Vしあい,partido,auto-ia
 81000011,Vていこく,imperio,auto-ia
 81000011,Vきょうごう,rival fuerte,auto-ia
@@ -10977,7 +10977,7 @@ tengo un montón de deberes…",auto-ia
 81000012,*そういちろう,Sonny Raimon,auto-ia
 81000012,:こうじ,Harry,auto-ia
 81000012,:くだ,detalle,auto-ia
-81000012,Eていこく,Imperial,auto-ia
+81000012,Eていこく,Royal Academy,glosario
 81000012,Eじつりょく,habilidad real,auto-ia
 81000012,Nぜんこくたいかい,torneo nacional,auto-ia
 81000012,Nなつみ,Nelly,auto-ia
@@ -10991,7 +10991,7 @@ tengo un montón de deberes…",auto-ia
 81000012,iいなか,campo,auto-ia
 81000012,iしぜん,naturaleza,auto-ia
 81000012,iなか,interior,auto-ia
-81000012,rていこく,Imperial,auto-ia
+81000012,rていこく,Royal Academy,glosario
 81000012,rきどう,Jude Sharp,auto-ia
 81000012,rらいもん,Raimon,auto-ia
 81000012,{にん,persona,auto-ia
@@ -11118,7 +11118,7 @@ tengo un montón de deberes…",auto-ia
 81000020,Yわざ,técnica,auto-ia
 81000020,Yつか,usar,auto-ia
 81000020,bきっさ,cafetería,auto-ia
-81000020,kていこく,Imperial,auto-ia
+81000020,kていこく,Royal Academy,glosario
 81000020,kしあい,partido,auto-ia
 81000030,垂ﾍー　はー\nわたしって　%1F汗っかきなのよね。\f%3F試合中に%1F汗をかいている%1F人！\nそれは【スピード】が\n%1F落ちてきてるってことなの。,"Arf, arf... Yo soy de las que\nsudan en el campo.\fCuando alguien suda durante\nun partido, es que va a aflojar\nel ritmo.",revisar
 81000030,Hそういう%1F人がいたら\n%1F早めに【ＧＰ】を%2F回復してあげてね！,¡Asegúrate antes de jugar de\nque ninguno de tus jugadores\nesté cansado!,revisar
@@ -11154,7 +11154,7 @@ tengo un montón de deberes…",auto-ia
 81000030,ｬ%4F帝国学園が　%2F棄権したのは\nきっと　%1F勝つことより\n%1F大きな%2F目的が　あったに%1F違いない！\fえっ　その%2F目的は%1F何かって？\nそんなの　%1F知るわけないよ。,¡No hay duda de que la Royal se\nretiró del partido porque en\nrealidad su objetivo era otro!\f¿Eh? ¿Que cuál era su objetivo?...\n¡Y yo qué sé!,revisar
 81000030,%Lこのグラウンドは　%1F使わせないよ。\n%2F夏未さまの　%2F命令だからな！,No permitiremos que uséis este\ncampo. ¡Son órdenes de Nelly!,revisar
 81000030,.\きのう　%2F学校のかえりに\nカンけりしてたら　%1F犬にあたって\nおいかけられちゃったよ。,"Ayer cuando volvía a casa, estaba\njugando con una lata y sin querer\nle di a un perro.\f¡No veas cómo se puso!",revisar
-81000030,@�%2F今度の%2F試合では　\n『あかぎ』のヤツだけには\nゼッタイ%1F負けないぜ！\fでも　あいつのスピードって\nすごいからなあ…\nやっぱムリかな…　はあ。,"¡No pienso perder contra\nRedcastle!\fPero por desgracia, es muy\nrápido... Igual es un sueño\nimposible... Aaah...",revisar
+81000030,@�%2F今度の%2F試合では　\n『あかぎ』のヤツだけには\nゼッタイ%1F負けないぜ！\fでも　あいつのスピードって\nすごいからなあ…\nやっぱムリかな…　はあ。,"¡No pienso perder contra\nRedcastle!\fPero por desgracia, es muy\nrápido... Igual es un sueño\nimposible... Aaah...",oficial
 81000030,I<%3F準決勝の%2F相手は\n%4F尾刈斗中で　%1F決まったの？,¿Ya se ha decidido si el Occult\njugará la semifinal?,revisar
 81000030,RL%4F秋葉名戸って　おまえら%2F以上に\n%1F弱っちいって　ウワサだってな。,Corre el rumor de que los del\nInstituto Otaku son aún más\nmalos que vosotros.,revisar
 81000030,[<へー　ついに%4F決勝進出なんだ。\nけっこうヤルじゃん。,"Eh... Por fin habéis llegado\na la final. Parece que no sois\ntan malos, después de todo.",revisar
@@ -11167,7 +11167,7 @@ tengo un montón de deberes…",auto-ia
 81000030,ｻX%1F犬を　%1F飼い%1F始めたんだ。\n%1F白い%1F犬で　%2F名前はクロ。\nシャレてるだろ？,"Ya tengo un perro.\nAunque es de color blanco, le\nhe llamado Carbón. Mola, ¿eh?",revisar
 81000030,ﾄX%1F犬を　%1F飼い%1F始めたんだ。\n%1F白い%1F犬で　%2F名前はクロ。\nシャレてるだろ？,Mi perro se ha echado una novia\nque es de color negro y que se\nllama Nata. Qué complicado...,revisar
 81000030,ﾍ`ボクの%1F犬に　カノジョができたんだ。\n%1F黒い%1F犬で　%2F名前はシロ\nややこしいよなあ。,Mi perro ha tenido un cachorro\nblanco con manchas negras que se\nllama Copito de carbón. Qué lío...,revisar
-81000030,ﾖ\ボクの%1F犬に　コドモができたんだ。\n%1F黒いブチで　%2F名前はポチ\nややこしいよなあ。,Mi perro no se encuentra bien...\nQuizás ha comido algo raro...,revisar
+81000030,ﾖ\ボクの%1F犬に　コドモができたんだ。\n%1F黒いブチで　%2F名前はポチ\nややこしいよなあ。,Mi perro ha tenido un cachorro\nblanco con manchas negras que se\nllama Copito de carbón. Qué lío...,oficial
 81000030,ﾟTウチの%1F犬　%2F具合がワルいんだ。\nなにかヘンなものでも\n%1F食べたのかな？,"Ya tengo un perro.\nAunque es de color blanco, le\nhe llamado Carbón. Mola, ¿eh?",revisar
 81000030,�X%1F犬を　%1F飼い%1F始めたんだ。\n%1F白い%1F犬で　%2F名前はクロ。\nシャレてるだろ？,"Ju, ju.\nRecoger pelotas no es tan fácil\ncomo parece.",revisar
 81000030,�0ふぅふぅ…\nボールひろいもラクじゃないよ。,Hoy el capitán está de mal humor.,revisar
@@ -11193,7 +11193,7 @@ tengo un montón de deberes…",auto-ia
 81000030,%めいれい,orden,auto-ia
 81000030,.がっこう,escuela,auto-ia
 81000030,.いぬ,perro,auto-ia
-81000030,7�%2F今度の%2F試合では　\n『あかぎ』のヤツだけには\nゼッタイ%1F負けないぜ！\fでも　あいつのスピードって\nすごいからなあ…\nやっぱムリかな…　はあ。,"En el próximo\npartido, no pienso perder\ncontra ese tal 'Akagi'.\f¡Pero es que ese tío\ntiene una velocidad alucinante…\nA lo mejor no puedo… buf.",auto-ia
+81000030,7�%2F今度の%2F試合では　\n『あかぎ』のヤツだけには\nゼッタイ%1F負けないぜ！\fでも　あいつのスピードって\nすごいからなあ…\nやっぱムリかな…　はあ。,"¡No pienso perder contra\nRedcastle!\fPero por desgracia, es muy\nrápido... Igual es un sueño\nimposible... Aaah...",oficial
 81000030,7こんど,esta vez,auto-ia
 81000030,7しあい,partido,auto-ia
 81000030,@こんど,esta vez,auto-ia
@@ -11442,13 +11442,13 @@ Parece que alguien te está esperando en el vestuario.",auto-ia
 81000040,mうご,movimiento,auto-ia
 81000040,vひでんしょ,manual secreto,auto-ia
 81000040,vばなし,historia,auto-ia
-81000040,�みかげせんのう,lavado de cerebro de Mikage,auto-ia
+81000040,�みかげせんのう,Brain,glosario
 81000040,�かいせん,batalla naval,auto-ia
 81000040,ｪじゃくしょう,punto débil,auto-ia
 81000040,ｪぶしつ,sala del club,auto-ia
 81000040,ｪおも,pensar,auto-ia
 81000040,ｪえんどう,Mark Evans,auto-ia
-81000040,ｳていこくがくえん,Instituto Imperial,auto-ia
+81000040,ｳていこくがくえん,Royal Academy,glosario
 81000040,ｼなつみ,Nelly Raimon,auto-ia
 81000040,ｼぶか,miembro del club,auto-ia
 81000040,ｼうんどうぶ,club deportivo,auto-ia
@@ -11498,7 +11498,7 @@ Parece que alguien te está esperando en el vestuario.",auto-ia
 81000040,eおとなし,tranquilo,auto-ia
 81000040,eなまえ,nombre,auto-ia
 81000040,eおとな,adulto,auto-ia
-81000040,nみかげ,Mikage,auto-ia
+81000040,nみかげ,Brain,glosario
 81000040,nせいと,alumno,auto-ia
 81000040,nじゅうどうぶ,club de judo,auto-ia
 81000040,nぶいん,miembro del club,auto-ia
@@ -11534,8 +11534,8 @@ Parece que alguien te está esperando en el vestuario.",auto-ia
 81000040,9おとこ,hombre,auto-ia
 81000040,9こうない,dentro del recinto,auto-ia
 81000040,9みは,vigilar,auto-ia
-81000040,Bふゆかいせんせい,profesora Fuyukai,auto-ia
-81000040,Kふゆかいせんせい,Profe Fuyukai,auto-ia
+81000040,Bふゆかいせんせい,profesor Wintersea,glosario
+81000040,Kふゆかいせんせい,Profe Wintersea,glosario
 81000040,Tふゆかいせんせい,profesor Wintersea,auto-ia
 81000040,]りじちょう,]presidente,auto-ia
 81000040,]じこ,]accidente,auto-ia
@@ -11615,7 +11615,7 @@ invitar",auto-ia
 81000040,kしゅうようめいと,compañero de equipo,auto-ia
 81000040,kがっこう,escuela,auto-ia
 81000040,tしゅうようめいと,companero de habitacion,auto-ia
-81000040,tえんどう,Endo,auto-ia
+81000040,tえんどう,Evans,glosario
 81000040,}じゅんけっしょう,semifinal,auto-ia
 81000040,�しゅうようめいと,compañero de cuarto,auto-ia
 81000040,�ちゅうしゃじょう,aparcamiento,auto-ia
@@ -11628,7 +11628,7 @@ invitar",auto-ia
 81000040,ｪかんとく,entrenador,auto-ia
 81000040,ｪれんしゅう,entrenamiento,auto-ia
 81000040,ｳえんどう,Evans,auto-ia
-81000040,ｳていこくがくえん,Instituto Imperial,auto-ia
+81000040,ｳていこくがくえん,Royal Academy,glosario
 81000040,ｳおとうと,hermano menor,auto-ia
 81000040,ｼえんどう,Mark Evans,auto-ia
 81000040,ｼぜんこくたいかい,torneo nacional,auto-ia
@@ -11972,7 +11972,7 @@ los dos",auto-ia
 81000080,�せんせい,profesor,auto-ia
 81000080,�しんばい,preocupación,auto-ia
 81000080,)べんきょう,)estudio,auto-ia
-81000080,4えんどう,Endo,auto-ia
+81000080,4えんどう,Evans,glosario
 81000080,4きょう,hoy,auto-ia
 81000080,=$%2F円堂くん　がんばってね。,"¡Ánimo, Evans!",auto-ia
 81000080,=えんどう,えんどう,auto-ia
@@ -11999,7 +11999,7 @@ los dos",auto-ia
 81000080,jしごと,trabajo,auto-ia
 81000080,sふゆかいせんせい,profesor desagradable,auto-ia
 81000080,sふあん,inquietud,auto-ia
-81000080,|ていこくがくえん,Instituto Imperial,auto-ia
+81000080,|ていこくがくえん,Royal Academy,glosario
 81000080,|しあい,partido,auto-ia
 81000080,|せんせい,profesor,auto-ia
 81000080,�りじちょう,"¡Perdone! ¡El presidente...!\fEl presidente de la Junta del\nRaimon está ingresado aquí, ¿no?\n¿Sabe si está bien?",auto-dup
@@ -12028,7 +12028,7 @@ los dos",auto-ia
 81000080,ﾈおさな,pequeño,auto-ia
 81000080,ﾈひと,persona,auto-ia
 81000080,ﾈぶかつ,club,auto-ia
-81000080,ﾑみかげせんのう,lavado de cerebro de Mikage,auto-ia
+81000080,ﾑみかげせんのう,Brain,glosario
 81000080,ﾚしゅうようめいと,Compañero de habitación,auto-ia
 81000080,ﾚしあい,Partido,auto-ia
 81000080,�ていこく,"Puede que esta vez haya fallado,\n¡pero no olvidéis que es imposible\nvencer a la Royal!",auto-dup
@@ -12287,7 +12287,7 @@ los dos",auto-ia
 81000090,lきどう,Sharp,auto-ia
 81000090,lした,abajo,auto-ia
 81000090,lかお,cara,auto-ia
-81000090,uえんどう,Endo,auto-ia
+81000090,uえんどう,Evans,glosario
 81000090,uあせ,sudor,auto-ia
 81000090,~きどう,Kidokawa,auto-ia
 81000090,~した,~abajo,auto-ia
@@ -12400,7 +12400,7 @@ los dos",auto-ia
 81000090,:ぜんこく,todo el país,auto-ia
 81000090,?べんきょう,estudio,auto-ia
 81000090,?おも,pensar,auto-ia
-81000090,Jていこくがくえん,Instituto Imperial,auto-ia
+81000090,Jていこくがくえん,Royal Academy,glosario
 81000100,Hここは%3F校長室だよ。\nキミも　お%2F説教を%1F受けにきたのかい？,Aquí está el despacho del director.\n¿También has venido para que\nte eche la bronca?,revisar
 81000100,`%4F尾刈斗中と%1F戦わないと\n%1F呪われるなんて\n%2F冬海のヤツ　ホントに%1F信じてるのか？,"¿Es cierto que Wintersea cree que,\nsi no jugáis contra el Occult,\nos echarán un mal de ojo?",revisar
 81000100,P%2F校長は　%2F試合を%1F見ないって。\nよっぽど　%1F呪いがこわいのかねぇ。,El director no verá el partido.\nLe da miedo que le echen un mal\nde ojo.,revisar
@@ -12959,9 +12959,7 @@ Recuerdo",auto-ia
 81000360,(�ちなみに　%2F１人が%1F同じ%2F特訓を%1F重ねると\n%2F必要な　ねっけつＰが%1F増えるから\n%2F特訓%1F選びは　しんちょうにな！,"¡El brillo del sudor demuestra\nla vitalidad de la juventud!\n¡A por todas, jovenzuelos!",revisar
 81000360,*lキラめく%1F汗は　%2F青春の%1F証！\nワシは　おまえさんたちの\n%2F特訓を　いつまでも%2F応援してるぞい！,"Vaya, qué lástima. El tema de los\nentrenamientos especiales tiene\nmucha miga. Piénsatelo bien.",revisar
 81000360,0hなんじゃ　ざんねんだのう。\n%2F特訓は　なかなか%1F奥が%1F深いから\nよーく%1F考えて　やるんじゃぞ！,"Cuando quieras saber algo sobre\nlos entrenamientos especiales,\nven a hablar conmigo de nuevo.",revisar
-81000360,�%2F本官は　ビッグになったら\n%3F居酒屋「%3F金閣寺」のサリーさんの\nおムコさんになるであります！\fゆびきりげんまん　したであります！,"¡Cuando sea mayor, pienso convertirme
-en el yerno de la señora Sally,
-la del bar «Kinkakuji»!¡Lo prometo con el dedo meñique!",auto-ia
+81000360,�%2F本官は　ビッグになったら\n%3F居酒屋「%3F金閣寺」のサリーさんの\nおムコさんになるであります！\fゆびきりげんまん　したであります！,"Cuando ascienda, me casaré con\nSamantha, la de El templo de oro.\f¡Hicimos una promesa!",oficial
 81000360,*わか,Joven,auto-ia
 81000360,*はな,Flor,auto-ia
 81000360,/わか,joven,auto-ia
@@ -13915,10 +13913,10 @@ la del bar «Kinkakuji»!¡Lo prometo con el dedo meñique!",auto-ia
 83000563,薬局　駅前店,Farmacia · Sucursal de la estación,auto-ia
 83000563,ミニマップ表示,Mostrar minimapa,auto-ia
 83000563,BGM再生,v Lé,auto-dup
-83000570,帝国学園　正面,Instituto Imperial · Entrada principal,auto-ia
+83000570,帝国学園　正面,Royal Academy · Entrada principal,glosario
 83000570,ミニマップ表示,Mostrar minimapa,auto-ia
 83000570,BGM再生,v Lé,auto-dup
-83000580,帝国学園　通路,Instituto Imperial · Pasillo,auto-ia
+83000580,帝国学園　通路,Royal Academy · Pasillo,glosario
 83000580,ミニマップ表示,Mostrar minimapa,auto-ia
 83000580,BGM再生,v Lé,auto-dup
 83000590,世宇子グラウンド,Campo del Sayonara,auto-ia
@@ -14104,10 +14102,10 @@ Parece que ahora no se puede entrenar.",auto-ia
 90000000,御影専農　と試合をします。,Voy a ver qué encuentro.,revisar
 90000000,秋葉名戸　と試合をします。,"Vale, lo dejo estar.",revisar
 90000000,1X帝国フル　と試合をしますか？\n「はい」→　帝国フル　と試合開始\n「いいえ」→　次へ,No se pueden fichar a más\njugadores de este equipo.\nBusca en otro.,revisar
-90000000,H\戦国伊賀島　と試合をしますか？\n「はい」→　戦国伊賀島　と試合開始\n「いいえ」→　次へ,¿Hay algún jugador que te\ninterese que fiche?,revisar
-90000000,N$戦国伊賀島　と試合をします。,Ya tienes a este jugador\nen tu equipo.,revisar
-90000000,_T千羽山　と試合をしますか？\n「はい」→　千羽山　と試合開始\n「いいえ」→　次へ,¿Quieres invitar a este jugador\na unirse al equipo?,revisar
-90000000,e 千羽山　と試合をします。,¿Quieres buscar a otros\njugadores?,revisar
+90000000,H\戦国伊賀島　と試合をしますか？\n「はい」→　戦国伊賀島　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra el Shuriken?\nSí : Empezar partido contra el Shuriken\nNo : Siguiente,glosario
+90000000,N$戦国伊賀島　と試合をします。,Se jugará el partido contra el Shuriken.,glosario
+90000000,_T千羽山　と試合をしますか？\n「はい」→　千羽山　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra el Farm?\nSí : Empezar partido contra el Farm\nNo : Siguiente,glosario
+90000000,e 千羽山　と試合をします。,Se jugará el partido contra el Farm.,glosario
 90000000,vT木戸川　と試合をしますか？\n「はい」→　木戸川　と試合開始\n「いいえ」→　次へ,Voy a buscar una vez más\nsiguiendo las mismas\ncondiciones.,revisar
 90000000,�X世宇子１　と試合をしますか？\n「はい」→　世宇子　と試合開始\n「いいえ」→　次へ,¡No tienes suficientes puntos\nde Amistad para fichar a\neste jugador!,revisar
 90000000,､X世宇子２　と試合をしますか？\n「はい」→　世宇子　と試合開始\n「いいえ」→　次へ,De acuerdo. A ver si consigues\nque se una al equipo.,revisar
@@ -14239,15 +14237,15 @@ pásate por la sala del club.",auto-ia
 90000000,@4「はい」→　９章\n「いいえ」→　フリーに戻る,"«Sí» →　Capítulo 9
 «No» →　Volver a libre",auto-ia
 90000000,L4「はい」→　１０章\n「いいえ」→　フリーに戻る,L4「Sí」→　Capítulo 10\n「No」→　Volver a libre,auto-ia
-90000000,vX帝国（前半）　と試合をしますか？\n「はい」→　帝国　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra el Imperial (primera parte)?\n«Sí» →    empieza el partido contra el Imperial\n«No» →    siguiente,auto-ia
-90000000,�帝国　と試合をします。,Vamos a jugar un partido contra el Imperial.,auto-ia
+90000000,vX帝国（前半）　と試合をしますか？\n「はい」→　帝国　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra la Royal (primera parte)?\n«Sí» →    empieza el partido contra la Royal\n«No» →    siguiente,glosario
+90000000,�帝国　と試合をします。,Vamos a jugar un partido contra la Royal.,glosario
 90000000,ﾄ$尾刈戸　前半　と試合をします。,Vamos a jugar la primera parte contra Okarito.,auto-ia
 90000000,�P野生　と試合をしますか？\n「はい」→　野生　と試合開始\n「いいえ」→　次へ,"¿Quieres jugar contra el Wild?
 «Sí» → empieza el partido contra el Wild
 «No» → siguiente",auto-ia
 90000000,X御影専農　と試合をしますか？\n「はい」→　御影専農　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra el Mihage Agrícola?\n«Sí» → empieza el partido contra el Mihage Agrícola\n«No» → siguiente,auto-ia
 90000000,X秋葉名戸　と試合をしますか？\n「はい」→　秋葉名戸　と試合開始\n「いいえ」→　次へ,¿Quieres jugar contra el Akiba Nato?\n«Sí» → empieza el partido contra el Akiba Nato\n«No» → siguiente,auto-ia
-90000000,7 帝国フル　と試合をします。,Vamos a jugar contra el Imperial completo.,auto-ia
+90000000,7 帝国フル　と試合をします。,Vamos a jugar contra la Royal Academy al completo.,glosario
 90000000,| 木戸川　と試合をします。,Vas a jugar un partido contra el Kidokawa.,auto-ia
 90000000,� 世宇子　と試合をします。,Vamos a jugar contra el Seishou.,auto-ia
 90000000,ｪ 世宇子　と試合をします。,Vamos a jugar un partido contra el Royal.,auto-ia
@@ -14255,7 +14253,7 @@ pásate por la sala del club.",auto-ia
 90000000,ﾒ試合は　しません,No hay partido,auto-ia
 90000000,ﾜ$稲妻ＫＦＣ　と試合をします。,Vamos a jugar un partido contra el Inazuma Kids FC.,auto-ia
 90000000,� 傘美野　と試合をします。,Vamos a jugar contra el Kasamino.,auto-ia
-90000000,サリーズ　と試合をします。,Vas a jugar contra los Sally's.,auto-ia
+90000000,サリーズ　と試合をします。,Vas a jugar contra los Sallys.,glosario
 90000000,",ＯＢ　と試合をします。",Vas a jugar un partido contra los veteranos.,auto-ia
 90000000,C 黒ゼウス　と試合をします。,Vamos a jugar contra el Zeus Negro.,auto-ia
 90000000,T試合は　しません,No habrá partido,auto-ia
@@ -14268,7 +14266,7 @@ pásate por la sala del club.",auto-ia
 90000000,｡0「はい」→　４章不良\n「いいえ」→　次へ,0«Sí» → Capítulo 4: gamberros\n«No» → Siguiente,auto-ia
 90000000,ｳ0「はい」→　５章秋葉\n「いいえ」→　次へ,"0 ""Sí"" -> capítulo 5 Akiba\n""No"" -> siguiente",auto-ia
 90000000,ﾅ0「はい」→　６章黒服\n「いいえ」→　次へ,「Sí」→　6.º capítulo Hombre de negro\n「No」→　Siguiente,auto-ia
-90000000,ﾗ0「はい」→　７章伊賀\n「いいえ」→　次へ,0«Sí» → capítulo 7 Iga\n«No» → siguiente,auto-ia
+90000000,ﾗ0「はい」→　７章伊賀\n「いいえ」→　次へ,Sí : Capítulo 7: Shuriken\nNo : Siguiente,glosario
 90000000,�0「はい」→　レイトン１\n「いいえ」→　次へ,"«Sí» → Layton 1
 «No» → siguiente",auto-ia
 90000000,�0「はい」→　レイトン２\n「いいえ」→　次へ,"«Sí» → Layton 2
@@ -15176,8 +15174,8 @@ pueblo",auto-ia
 91060000,�あ　%2F円堂センパイですか？\fスカウトしていた%1F人が\n%1F見つかりましたよ！\nよかったら%2F部室に%1F来てみてくださいね！,"Hola, Mark.\f¡He encontrado lo que andabas\nbuscando! ¡Ven al club\ncuando tengas un rato, porfa!",revisar
 91060000,ﾐ|%2F円堂くん？\nさがしていたチームの%2F選手が\n%1F見つかったわよ。\f%2F時間があいたら\n%2F部室まで%1F来てちょうだい。,"¿Mark?\nHe encontrado a los jugadores\ndel equipo que me pediste.\fCuando tengas tiempo, hazme\nel favor de acercarte al club.",revisar
 91060000,&配置キャラ配置,Este es el edificio de los de\ntercero. ¡Es solo para los mayores!,revisar
-91060000,X@%4F冬海先生は%2F正門だ！\nオレたちも　%1F早く%1F行こう！,¡Quieto ahí!\nAhora están limpiando la piscina.,revisar
-91060000,ﾁ@%4F冬海先生は%2F正門だ！\nオレたちも　%1F早く%1F行こう！,¡Wintersea está en la entrada\nprincipal! ¡Vamos ahora mismo!,revisar
+91060000,X@%4F冬海先生は%2F正門だ！\nオレたちも　%1F早く%1F行こう！,¡Wintersea está en la entrada\nprincipal! ¡Vamos ahora mismo!,oficial
+91060000,ﾁ@%4F冬海先生は%2F正門だ！\nオレたちも　%1F早く%1F行こう！,¡Wintersea está en la entrada\nprincipal! ¡Vamos ahora mismo!,oficial
 91060000,ﾁふゆかいせんせい,¡Mark!\n¡A por ellos!,revisar
 91060000,",%2F円堂くん！\n%1F早く　やっつけて！！",¡Mark! ¡Dales su merecido!,revisar
 91060000,D%2F今日こそ　ここでサッカー%1F部を\n%2F廃部にしてあげますよ！,¡Hoy cerraré el club de fútbol\nde una vez por todas!,revisar
@@ -16228,7 +16226,7 @@ os estoy diciendo!",auto-ia
 92010750,ｸ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
 92010750,�%1F次の%1F日…。,Al día siguiente...,revisar
 92010750,�4%3F豪炎寺…。\nどのクラスに　%1F入るのかな？,Axel... Me pregunto en qué\nclase le habrán metido.,revisar
-92010750,ｮ`ねえねえ　%1F秋ちゃん！\nさっき　%2F男子たちが%1F話してたのを\n%1F聞いちゃったんだけどさ。,"¡Eh, Silvia!\nHe oído lo que estaban\ndiciendo los chicos.",revisar
+92010750,ｮ`ねえねえ　%1F秋ちゃん！\nさっき　%2F男子たちが%1F話してたのを\n%1F聞いちゃったんだけどさ。,"¡Eh, Silvia!\nHe oído lo que estaban\ndiciendo los chicos.",oficial
 92010750,ｰXウチのクラスに\n%3F転校生が%1F来るんだって！\nいったい　どんな%1F人なんだろうね。,¡Tenemos a un chico nuevo en clase!\n¿Cómo será?,revisar
 92010750,ｲえ？　そうなの！？,¿Eh? ¿De verdad?,revisar
 92010750,ｶ0%2F円堂くん！\n%3F転校生って　まさか…。,¡Mark! El chico nuevo...\n¿No será...?,revisar
@@ -16475,14 +16473,14 @@ aquí, ¿de acuerdo?",auto-ia
 92011300,$一時的に壁山をチームから外す,$Apartar temporalmente a Jack Wallside del equipo,auto-ia
 92011300,本校舎２Ｆ　２年教室,Edificio principal · 2.ª planta · Aula de 2.º,auto-ia
 92011300,ミニマップ表示,Mostrar minimapa,auto-ia
-92011300,2ていこくがくえん,Instituto Imperial,auto-ia
+92011300,2ていこくがくえん,Royal Academy,glosario
 92011300,8くりまつ,Tod Ironside,auto-ia
 92011300,8しょうり,victoria,auto-ia
 92011300,8めがみ,diosa,auto-ia
 92011300,:えんどう,Mark,auto-ia
 92011300,Fたいへん,qué problema,auto-ia
 92011300,Fかべやま,Jack Wallside,auto-ia
-92011300,Jていこくがくえん,Instituto Imperial,auto-ia
+92011300,Jていこくがくえん,Royal Academy,glosario
 92011300,Jすがた,figura,auto-ia
 92011300,Lひとり,Una persona,auto-ia
 92011300,Nいま,ahora,auto-ia
@@ -16734,7 +16732,7 @@ rival",auto-ia
 92020100,I交代終了:pos=%d,Fin del cambio:pos=%d,auto-ia
 92020100,ﾗ(UNIT_RETURN:%dをパーティからはずす,(UNIT_RETURN:saca a %d del grupo,auto-ia
 92020100,\あいだ,intervalo,auto-ia
-92020100,\ていこく,\Imperial,auto-ia
+92020100,\ていこく,\Royal Academy,glosario
 92020100,\しあい,partido,auto-ia
 92020100,\いま,ahora,auto-ia
 92020100,\しん,\nuevo,auto-ia
@@ -17040,7 +17038,7 @@ turno",auto-ia
 92020700,rれんしゅう,Entrenamiento,auto-ia
 92020700,rあいて,rival,auto-ia
 92020700,rふそく,falta,auto-ia
-92020700,tえんどう,Endo,auto-ia
+92020700,tえんどう,Evans,glosario
 92020700,�かくにん,comprobación,auto-ia
 92020700,�はんだん,juicio,auto-ia
 92020800,%s\nが仲間になった！,¡%s se te ha unido!,revisar
@@ -17057,7 +17055,7 @@ turno",auto-ia
 92020800,ﾘ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
 92020800,�4おもったよりやるじゃん！\nおにーちゃんたち！,¡Sois mejores de lo que creía!,revisar
 92020800,�\おまえらこそ\n%3F小学生とは%1F思えなかったぜ！\nいったい　どんな%2F練習をしてるんだ？,Vosotros también. Nadie diría\nque sois estudiantes de primaria.\n¿Cómo os entrenáis exactamente?,revisar
-92020800,��%2F会田のおじちゃんが\nあたしたちのために\n%2F練習メニューをつくってくれたのよ！\f「%2F会田のモーレツ%2F練習メニュー」って\nいうの！,¡Arthur nos ha hecho un plan de\nentrenamiento!\f¡Se llama hel machaque de Sweeth!,revisar
+92020800,��%2F会田のおじちゃんが\nあたしたちのために\n%2F練習メニューをつくってくれたのよ！\f「%2F会田のモーレツ%2F練習メニュー」って\nいうの！,¡Arthur nos ha hecho un plan de\nentrenamiento!\f¡Se llama hel machaque de Sweet!,glosario
 92020800,�\ええっ　なんだって？\nそれって　オレのじいちゃんの\nノートに　にてる%1F気がするな。,¿En serio? Me recuerda a algo que\nescribió mi abuelo en su cuaderno.,revisar
 92020800,�$じいちゃんのノートじゃと…？,¿Tu abuelo tenía un cuaderno\npara los entrenamientos?,revisar
 92020800,�\%2F会田さん！\nオレたちにも　その%2F練習メニューで\nいっしょに%2F練習させてくれよ！,¡Arthur! ¿Compartirías tu plan\nde entrenamiento con nosotros?,revisar
@@ -17070,7 +17068,7 @@ turno",auto-ia
 92020800,ｬD…！\f…それって　フォワードが\nたよりないからじゃないの…。,¡Oh!\f¿Y eso no es porque no tenemos\nun buen delantero?,revisar
 92020800,ｰなんだと　てめえ！！,¡Atrévete a repetirlo!,revisar
 92020800,ﾀdおちつけよ　みんな！\fケンカじゃなくて　サッカーしようぜ！\nそのために　ここに%1F来たんだろ！,"¡Tranquilos!\f¡No estamos aquí para pelearnos,\nsino para jugar!",revisar
-92020800,ﾂｴそーそー！\nおちつきなって！\nいっしょに%2F練習してあげるから！\fそれじゃ　そろそろはじめよっか。\n「%2F会田モーレツ%2F練習メニュー」！\fおにいちゃんたち　ついてこれるかな？,Bien dicho. ¡Calmaos! Podemos\nentrenarnos juntos.\fVamos a empezar ya con\nhel machaque de Sweeth.\f¿Podréis aguantarlo?,revisar
+92020800,ﾂｴそーそー！\nおちつきなって！\nいっしょに%2F練習してあげるから！\fそれじゃ　そろそろはじめよっか。\n「%2F会田モーレツ%2F練習メニュー」！\fおにいちゃんたち　ついてこれるかな？,Bien dicho. ¡Calmaos! Podemos\nentrenarnos juntos.\fVamos a empezar ya con\nhel machaque de Sweet.\f¿Podréis aguantarlo?,glosario
 92020800,ﾅあったりまえだろ！,¡Claro que sí!,revisar
 92020800,ﾈ$ほら　おまえらも%1F来いよ！,¡Atacad cuando queráis!,revisar
 92020800,'8%2F風丸　%3F一郎太\nがいっしょにいくことになった！,¡Nathan Swift\nse ha unido al grupo!,auto-ia
@@ -17155,7 +17153,7 @@ turno",auto-ia
 92020900,Lおぬしの　そのキック%1F力ならば\n%1F教えてやれる%1F技が　ひとつある！,Aún tengo algo que enseñarte. Algo\nque irá de perlas con la potencia\nde tus chuts.,revisar
 92020900,な　なんだと？,¿De qué se trata?,revisar
 92020900,%2F会田さん　それは？,"¿Nos lo contarás, Arthur?",revisar
-92020900,\うむ…。\n%2F会田モーレツ%2F練習「%1F裏」メニュー！\f%2F必殺「ドラゴンクラッシュ」！,¡Forma parte del hmachaque\nsecreto de Sweeth!\f¡La técnica del Remate dragón!,revisar
+92020900,\うむ…。\n%2F会田モーレツ%2F練習「%1F裏」メニュー！\f%2F必殺「ドラゴンクラッシュ」！,¡Forma parte del machaque\nsecreto de Sweet!\f¡La técnica del Remate dragón!,oficial
 92020900,ドラゴン…　クラッシュ…？,¿Remate... dragón?,revisar
 92020900,�おぬしのキック%1F力ならできる…。\f%1F今から　わしの%1F言うとおりに\nやってみい！\f%1F走りこみを　さらに%1F速く！\f%1F足のふりあげを　さらに%1F高く！\fキックの%2F瞬間　%1F天をまうドラゴンを\nイメージし　ヒネリをくわえるのじゃ！,"Es perfecto para un chut tan\nfuerte como el tuyo.\f¡Sigue mis instrucciones!\f¡Corre más rápido!\f¡Arriba esos pies!\fAl golpear el balón, ¡dale algo\nde efecto e imagínate a un dragón\nen pleno vuelo!",revisar
 92020900,",オレの　キック%1F力…？\fフ　フン！",¿Un chut tan fuerte?\f¡Qué tontería!,revisar
@@ -18143,7 +18141,7 @@ escondidas desde casa.",auto-ia
 92030250,ｭ パーティにTunitがいない,¡Jude Sharp se te ha unido!,revisar
 92030250,"ﾎ,%sの\n%3F秘伝書を%1F手に%1F入れた！",Has obtenido el cuaderno\nsecreto %s.,revisar
 92030250,ﾘ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
-92030250,ｫ<あれ？　これは…\nセンパイ　ちょっと%1F見てください！,"Ah, ¿qué es esto?\n¡Mark, ven a verlo!",revisar
+92030250,ｫ<あれ？　これは…\nセンパイ　ちょっと%1F見てください！,"Ah, ¿qué es esto?\n¡Mark, ven a verlo!",oficial
 92030250,ｭ|なんだ　これ？\n%1F今までのと　ちょっと%1F違うな。\fイナズマ…　おとし…？\nあとは　やぶれてて\nよく%1F読めないぞ…。,¿De qué se trata?\nParece distinto a los demás.\f¿Trampolín... relámpago?\nFalta el resto...,revisar
 92030250,ｯPでも　すごく%1F古いモノみたい…。\nこれは　スゴイ%1F技のよかんがします！,Parece realmente antiguo...\n¡pero podría ser una técnica\nalucinante!,revisar
 92030250,ｱ�イナズマおとし？\nカッコいい%2F名前ッス！\fやぶれた%1F切れはしの%1F残りは\nどこにあるッスか？\n%4F図書委員に%1F聞いてみるッスよ！,"¿El Trampolín relámpago?\n¡Tiene un nombre molón!\f¿Pero dónde estará el resto?\n¡Preguntemos a Kathy, la bibliotecaria!",revisar
@@ -18238,7 +18236,7 @@ escondidas desde casa.",auto-ia
 92030500,ﾎ$なんだい　%1F今の%1F子は…。,¿Qué le pasa al chaval este?,revisar
 92030500,�$ああっ　%1F遅かったッスか！,¡Nooo! ¡Demasiado tarde!,revisar
 92030500,�Hおや　%2F円堂くんじゃないか。\nこんなところで　どうしたんだい？,"Ah, ¿tú no eres Evans?\n¿Qué te trae por estos lares?",revisar
-92030500,�X%2F古株さん！　\nこのあたりに　%1F紙の%1F切れはしが\n%1F落ちてませんでしたか！？,¡Señor Veteran! ¿Ha visto\nun trozo de papel por aquí?,revisar
+92030500,�X%2F古株さん！　\nこのあたりに　%1F紙の%1F切れはしが\n%1F落ちてませんでしたか！？,¡Señor Veteran! ¿Ha visto\nun trozo de papel por aquí?,oficial
 92030500,"�,%1F切れはし？　さて　%1F見てないねぇ。","¿Un trozo de papel? No me\nsuena de nada, la verdad.",revisar
 92030500,�tやっぱり　%1F燃えちゃったッスかね…。\nせっかく　サッカーの%3F必殺技が\n%1F手に%1F入ると%1F思ったのに…。,¡Entonces se ha quemado!\nJusto cuando esperaba\nconseguir esa supertécnica...,revisar
 92030500,�`サッカーの%3F必殺技？\fそういえば　おまえさんたちは　\nサッカー%1F部の%1F子だったねぇ。,"¿Una supertécnica?\n¿De fútbol? Porque sois todos\ndel club de fútbol, ¿no?",revisar
@@ -19280,7 +19278,7 @@ escondidas desde casa.",auto-ia
 92031370,$%3F大丈夫か！？　%3F豪炎寺！！,"Axel, ¿estás bien?",revisar
 92031370,&あっ　%1F兄ちゃんだ！,"Oh, ¡mi hermano!",revisar
 92031370,",0サッ　サク！？　\n%2F学校の%1F帰りッスか？",¿Zak? ¿Vuelves a casa?,revisar
-92031370,/Tへえー\nこれが　おまえの%1F兄ちゃん？\nあの%2F帝国を　やっつけたって%1F言う。,¡Ah!\n¿Ese es tu hermano mayor?\n¿El que ganó a la Royal Academy?,revisar
+92031370,/Tへえー\nこれが　おまえの%1F兄ちゃん？\nあの%2F帝国を　やっつけたって%1F言う。,¡Ah!\n¿Ese es tu hermano mayor?\n¿El que ganó a la Royal Academy?,oficial
 92031370,2Xうん！　カッコいいだろー。\n%1F今だって　%1F新しい%3F必殺技の\n%3F練習中なんだぜ！,¡Sí! Es tremendo.\nY ahora está practicando\nuna nueva supertécnica.,revisar
 92031370,5(うわー　スッゲー！\nカッコいい！,"¡Vaya! ¡Es brutal!\nSí que es tremendo, sí...",revisar
 92031370,8@%1F兄ちゃん！　オレ　\nゼッタイ%2F応援に%1F行くからね！,¡Jack!\n¡Iré a animarte en el partido!,revisar
@@ -19425,7 +19423,7 @@ escondidas desde casa.",auto-ia
 92031395,pパーティが２人,Grupo de 2 personas,auto-ia
 92031395,}パーティが１人,El grupo es de 1 persona,auto-ia
 92031395,ﾎひでんしょ,"Pos=%2d, UnitNo=%4d",auto-dup
-92031395,p帝国学園　正面,"Instituto Imperial, entrada principal",auto-ia
+92031395,p帝国学園　正面,"Royal Academy, entrada principal",glosario
 92031395,�そうすい,comandante en jefe,auto-ia
 92031395,�ごうえんじ,¡Axel! ¡Te ayudaremos!,auto-dup
 92031395,�そうすい,comandante en jefe,auto-ia
@@ -19526,7 +19524,7 @@ escondidas desde casa.",auto-ia
 92031700,-交代終了:pos=%d,Fin del cambio:pos=%d,auto-ia
 92031700,ｱ(UNIT_RETURN:%dをパーティからはずす,(Sacar a %d de la party,auto-ia
 92031700,sx%2F円堂くん　%2F試合をするのに\nスタメンがそろっていないよ\fメニューからスタメンと\nポジションを%2F決定してね。,"Mark, para jugar un partido\nno tienes el once titular completo.\fEn el menu, decide el once titular\ny las posiciones.",auto-ia
-92031700,sえんどう,Endo,auto-ia
+92031700,sえんどう,Evans,glosario
 92031700,sしあい,partido,auto-ia
 92031700,�れんしゅう,"Vale, dejémoslo estar por hoy.",auto-dup
 92031800,<みんな　おつかれさま！\n１%2F回戦とっぱ　おめでとう！,¡Enhorabuena! ¡Hemos ganado\nnuestro primer partido!,revisar
@@ -19545,7 +19543,7 @@ escondidas desde casa.",auto-ia
 92031800,H えっ　どういうことですか？,¿Qué quieres decir?,revisar
 92031800,J`このわたしが　マネージャーとして　\nサッカー%1F部に%1F入ってあげると\n%1F言っているの。,Quiero decir que me uniré a\nvuestro equipo como gerente.,revisar
 92031800,Lええっ！,¡¿Lo qué?!,revisar
-92031800,N�だいたい　%4F帝国学園にだって\n%2F相手が%2F棄権したおかげで\n%1F勝てたようなものじゃない。\f%2F全国にいくためにも　これからは　\nカンペキな%2F勝利を　めざしなさい。\fそのために　こちらで\nできることは　させてもらうわ。\fでは　ごきげんよう。,"Esta victoria no se ha basado en\nel abandono de vuestros rivales,\ncomo contra la Royal Academy.\fPara llegar a la final nacional\ntendréis que vencer siempre.\fHaré lo que sea necesario para\nque así sea.\fBueno, disfrutad del resultado.",revisar
+92031800,N�だいたい　%4F帝国学園にだって\n%2F相手が%2F棄権したおかげで\n%1F勝てたようなものじゃない。\f%2F全国にいくためにも　これからは　\nカンペキな%2F勝利を　めざしなさい。\fそのために　こちらで\nできることは　させてもらうわ。\fでは　ごきげんよう。,"Ganasteis a la Royal\nAcademy porque se\nretiró.\fPara llegar al\nnacional, buscad la\nvictoria. Yo os\fayudaré. Adiós.",glosario
 92031800,"Z,どういうつもりだ？\n%2F夏未のやつ…。",¿Qué es lo que planea Nelly?,revisar
 92031800,ztはい　１%2F回戦は%2F勝利しました。\nええ　そうですね…。\f…われわれの　さそいは　\n%1F断ったようです…。,"Sí, esto... Han ganado su primer\npartido. Sí, así es...\fMe temo que ha rechazado nuestra\noferta.",revisar
 92031800,||そうか…\fわれわれの%2F理想を\n%2F理解できぬなら　%2F仕方あるまい…。\fジャマになる%2F選手は\n%1F全てつぶすのみだ…。,"Entendido...\fLas cosas no han ido tal como\nesperábamos, pero no importa...\fParece que nuestra única opción\nes aplastar a los jugadores que\nse interpongan en nuestro camino.",revisar
@@ -19569,7 +19567,7 @@ escondidas desde casa.",auto-ia
 92031800,Fばん,guardián,auto-ia
 92031800,Fちか,cerca,auto-ia
 92031800,Jはい,sí,auto-ia
-92031800,Nていこくがくえん,Instituto Imperial,auto-ia
+92031800,Nていこくがくえん,Royal Academy,glosario
 92031800,Nあいて,rival,auto-ia
 92031800,Nきけん,peligro,auto-ia
 92031800,Nぜんこく,nacional,auto-ia
@@ -19607,7 +19605,7 @@ escondidas desde casa.",auto-ia
 92040100,Mhいや　あいつは\nまだ%1F何を%1F考えているか　わからない…。\n%1F気をつけた%1F方が　いいだろうな。,Todavía no sabemos lo que\npretende. Por eso será mejor\nque vayamos con mucho cuidado.,revisar
 92040100,Pdこの%1F間の%2F試合で\nサッカーの%2F面白さに%1F気づいただけだろ？\nみんな　%1F考えすぎだって！,¿Pero no dijo que le había empezado\na gustar el fútbol tras vernos\njugar? Le dais demasiadas vueltas.,revisar
 92040100,S怩ﾅもサッカー%1F部も%2F大変そうだな！\f%1F聞いたか？　うちの%2F不良が\nどっかのサッカー%1F部とケンカして\n%1F手も%1F足も%1F出なかったらしいじゃないか。,Quizá debamos preocuparnos más de\notra cosa. ¿No lo habéis oído?\fLos malotes de nuestro insti se\npelearon contra otro club de fútbol\ny les dieron pa'l pelo.,revisar
-92040100,Ul%2F人間とは%1F思えない%1F力だったらしいよ。\nすごいんだね　あそこの%2F生徒は…。\fミカゲ…だったっけ？,Parece que tienen fuerza\nsobrehumana. Esos estudiantes\ndeben de ser increíbles...\f¿Creéis que poseen poderes\nsobrenaturales?,revisar
+92040100,Ul%2F人間とは%1F思えない%1F力だったらしいよ。\nすごいんだね　あそこの%2F生徒は…。\fミカゲ…だったっけ？,Dicen que tienen una\nfuerza sobrehumana.\nLos alumnos de ese\finstituto son\nincreíbles. ¿Era el\nBrain?,glosario
 92040100,Uせいと,¡¿Poderes sobrenaturales?!,revisar
 92040100,Xミカゲだって…？,¿Eh? No será...,revisar
 92040100,]うわさをすれば…！,¡Mira por dónde...!,revisar
@@ -19674,9 +19672,9 @@ escondidas desde casa.",auto-ia
 92040200,�たいせんあいて,¿Es cierto eso?,revisar
 92040200,"�,なんだって？\nそれは%2F本当なのか？","¡Oh, no! ¡Mark, tienes que ver esto!",revisar
 92040200,�0なになに…　%2F少年サッカー%2F新聞か…。,¿Qué es? ¿Una revista de fútbol?,revisar
-92040200,�t「%4F御影専農　%1F強し！\n　%3F天野中との%4F練習試合を９%1F対０で%2F快勝！\n　%2F大会にむけ　%4F調整万全！」,h¡Brain domina!\n¡Gana un amistoso por 9-0 en una\nperfecta exhibición técnica!h,revisar
+92040200,�t「%4F御影専農　%1F強し！\n　%3F天野中との%4F練習試合を９%1F対０で%2F快勝！\n　%2F大会にむけ　%4F調整万全！」,¡Brain domina!\n¡Gana un amistoso por 9 a 0 en una\nperfecta exhibición técnica!,oficial
 92040200,�Dな　なんだこれ！？　%2F御影って\nそんなに%1F強いチームなのか？,No sabía que el Brain era\nun equipo tan sólido.,revisar
-92040200,�ﾐなるほど　%4F御影専農か。\nあいつらは%2F前回の%4F地区大会で\n%3F準優勝してるハズだが…\fでも　その%1F時は%2F帝国に%1F負けている。\nここまでの%1F力はなかったはずだ…。\fこりゃ　なにかウラがありそうだな。,"Ni yo tampoco. El Brain jugó las\nsemifinales del último campeonato\nregional contra la Royal Academy.\fEn aquella ocasión perdieron, y\nestoy seguro de que no eran para\nnada tan fuertes como parecen ahora.\fHay algo raro en todo esto.",revisar
+92040200,�ﾐなるほど　%4F御影専農か。\nあいつらは%2F前回の%4F地区大会で\n%3F準優勝してるハズだが…\fでも　その%1F時は%2F帝国に%1F負けている。\nここまでの%1F力はなかったはずだ…。\fこりゃ　なにかウラがありそうだな。,"El Brain fue\nsubcampeón regional,\npero perdió contra la\fRoyal. No eran tan\nfuertes entonces. Aquí\ndebe de haber algo\fraro.",glosario
 92040200,｢Dおかしくなっちまったダチどもは\n%4F体育館裏のスラムにいる…。,"Mi colega está en nuestra guarida,\nen la parte de atrás del gimnasio.",revisar
 92040200,･tサッカーバトルであいつに%1F勝てば\n%1F元にもどせるかもしれねえ。\fたのむ　%2F円堂！\nあいつらに%1F勝ってくれ！,"Si le ganas en una pachanga, seguro\nque se le despeja la mollera.\f¡Gánale, Mark! ¡Tienes que hacerlo!",revisar
 92040200,ｧx%2F円堂センパイ！　%1F助けてあげて！\nそうすれば　その%1F人たちから\n%2F御影の%2F情報を%1F聞けるかもしれませんよ！,"Mark, deberías ayudarle. Quizá de\npaso también te enteres de algo\nsobre el misterio del Brain.",revisar
@@ -19718,7 +19716,7 @@ escondidas desde casa.",auto-ia
 92040200,�パーティが２人,UNIT_RETURN: %2d x`,auto-dup
 92040200,ｺ$パーティの３番目にTunitがいた,Tunit estaba en tercera posición del grupo,auto-ia
 92040200,s8あ　%2F円堂くん\nこの%1F人が%1F話があるって…。,Mark\nEsta persona dice que quiere hablar contigo...,auto-ia
-92040200,sえんどう,Endo,auto-ia
+92040200,sえんどう,Evans,glosario
 92040200,sひと,persona,auto-ia
 92040200,sはなし,conversacion,auto-ia
 92040200,v%1F来たか　%2F円堂…。,"¿Has venido, Mark…?",auto-ia
@@ -19728,14 +19726,14 @@ escondidas desde casa.",auto-ia
 92040200,�がっこう,Me voy a casa.,auto-dup
 92040200,�せんのう,lavado de cerebro,auto-ia
 92040200,�がっこう,Me voy a casa.,auto-dup
-92040200,�みかげせんのう,lavado de cerebro de Mikage,auto-ia
+92040200,�みかげせんのう,Brain,glosario
 92040200,�ほんとう,de verdad,auto-ia
 92040200,�Hたっ　タイヘンですよ！\n%2F円堂センパイ！　これを%1F見てください！,"¡E… esto es grave!
 ¡Mark! ¡Mira esto!",auto-ia
 92040200,�えんどう,"¡nimo, Mark!",auto-dup
 92040200,�しょうねん,muchacho,auto-ia
 92040200,�しんぶん,¿Es este un número de hJóvenes\nfutbolerosh de hace 50 años?\fQue aún conserve esto es muy\nsignificativo.,auto-dup
-92040200,�みかげせんのう,lavado de cerebro de Mikage,auto-ia
+92040200,�みかげせんのう,Brain,glosario
 92040200,�あまのちゅう,Amano Chu,auto-ia
 92040200,�れんしゅうじあい,¿Eh? ¿De qué hablas?,auto-dup
 92040200,�かいしょう,victoria fácil,auto-ia
@@ -19743,7 +19741,7 @@ escondidas desde casa.",auto-ia
 92040200,"�
 ちょうせいばんぜん","
 perfectamente a punto",auto-ia
-92040200,�みかげせんのう,lavado de cerebro de Mikage,auto-ia
+92040200,�みかげせんのう,Brain,glosario
 92040200,�ぜんかい,edición anterior,auto-ia
 92040200,�ちくたいかい,"¡Eh, Raimon!",auto-dup
 92040200,�じゅんゆうしょう,subcampeonato,auto-ia
@@ -19946,9 +19944,9 @@ otros",auto-ia
 92040450,ﾅ帥Eう…　オレは　いったいなにを…\fそういえば　%2F御影とかいう\n%2F学校のヤツに　%2F無理やりこれを\nつけられてから%2F記憶がなくなって…。,Urgh... ¿Qué ha pasado?\fNo recuerdo bien lo que sucedió\ndespués de que los del Brain\nme pusieran esto.,revisar
 92040450,ﾇ うん…？\nなんだ　これ？,¿Eh? ¿Qué es eso?,revisar
 92040450,ﾕｰアタマに　これをつけられてから\nすごいパワーがでるように\nなったんだ…。\fそれだけじゃねえ。\n%1F頭の%1F中に%1F声が%1F聞こえてきて\nそれに%1F心をシハイされちまってた。,"Cuando me lo pusieron, empecé a\nsentirme más fuerte que nadie...\fY podía oír una voz en mi cabeza.\nEntonces fue cuando perdí el\ncontrol de mí mismo.",revisar
-92040450,ﾗﾄ%2F御影の%2F生徒も　これをつけてたぜ。\nたぶん　やつらの%2F異常なパワーも\nこれのせいなんだろう…。\fやつらと%2F試合をするっていうんなら\nこれが%1F何か　%1F調べてみた%1F方が\nいいかもな。,"Todos los jugadores del\nBrain tienen uno. Supongo\nque por eso son tan duros...\fSi vais a jugar contra ellos,\ntendréis que investigar más\nsobre este cacharro.",revisar
+92040450,ﾗﾄ%2F御影の%2F生徒も　これをつけてたぜ。\nたぶん　やつらの%2F異常なパワーも\nこれのせいなんだろう…。\fやつらと%2F試合をするっていうんなら\nこれが%1F何か　%1F調べてみた%1F方が\nいいかもな。,Los alumnos del Brain\ntambién lo llevaban.\nSu fuerza viene de\festo. Debemos\ninvestigarlo antes del\npartido.,glosario
 92040450,ﾙhとりあえず%3F理科室の%2F先生にでも\n%1F聞いてみたらどうだ？\nオレは　そんなのゴメンだけどな…。,"¿Por qué no le preguntáis al profe\nde ciencias? Aunque yo no os voy\na llevar hasta él, claro.",revisar
-92040450,ﾛhそうだな。　たしかに　このそうちを\nしらべれば　%2F御影の%1F強さのヒミツが\nわかるかもしれない…。,Hum... Si estudiamos este aparato\nquizá averigüemos el secreto\nde la fuerza del Brain.,revisar
+92040450,ﾛhそうだな。　たしかに　このそうちを\nしらべれば　%2F御影の%1F強さのヒミツが\nわかるかもしれない…。,Hum... Si estudiamos este aparato\nquizá averigüemos el secreto\nde la fuerza del Brain.,oficial
 92040450,ﾟxたのんだぜ。\nナメられっぱなしじゃ%1F終われねえ。\fやつらの%1F力のヒミツをあばいて\nひとあわふかせて　やってくれ！,Gracias.\nNo dejes que se salgan con la suya.\f¡Averigua el secreto para vencerles\ny dales su merecido!,revisar
 92040450,�Xここがスラム？\nウワサ%2F以上に　あれはてたところね。\nまったく　けがらわしい…。,"Esta debe de ser la guarida.\nEs peor de lo que decían,\nnunca había visto tanta mugre.",revisar
 92040450,�だ　だれだ？,¿Quién es esa?,revisar
@@ -19992,7 +19990,7 @@ se une a ti!",auto-ia
 92040450,�パーティが２人,UNIT_RETURN: %2d x`,auto-dup
 92040450,�パーティが１人,o[R}h 2009/7/14,auto-dup
 92040450,�ひでんしょ,manual secreto,auto-ia
-92040450,ﾅみかげ,Mikage,auto-ia
+92040450,ﾅみかげ,Brain,glosario
 92040450,ﾅがっこう,escuela,auto-ia
 92040450,ﾅむり,imposible,auto-ia
 92040450,ﾅきおく,recuerdo,auto-ia
@@ -20000,7 +19998,7 @@ se une a ti!",auto-ia
 92040450,ﾕなか,compañero,auto-ia
 92040450,ﾕこえ,voz,auto-ia
 92040450,ﾕこころ,corazón,auto-ia
-92040450,ﾗみかげ,Mikage,auto-ia
+92040450,ﾗみかげ,Brain,glosario
 92040450,ﾗせいと,alumno,auto-ia
 92040450,ﾗいじょう,más,auto-ia
 92040450,ﾗしあい,partido,auto-ia
@@ -20074,7 +20072,7 @@ se une a ti!",auto-ia
 92040600,bうっひょおぉ〜！,Esto... esto es...,revisar
 92040600,ﾊだ　%3F大丈夫ですか？,¿Estás... bien?,revisar
 92040600,ﾌ|イテテ…。\nなんだ　これは…？\fつけたとたんに　%1F頭の%1F中に\nきみょうな%1F声が%1F聞こえてきて\n%1F体が%2F勝手に…。,¡Ay!\n¿Pero qué es esto?\fAl ponérmelo empecé a oír una voz\nante la que no podía resistirme...,revisar
-92040600,ﾎ�%1F声…？\nスラムのヤツも%1F言っていた\n%1F心をシハイするってヤツか。\fしかもやっぱり　すごいパワーが\n%1F出てるみたいだな。\f%2F御影のやつらは\nおそらく%2F全員が　これにちかい%2F状態で\n%2F試合に　のぞんでくるはず…。,¿Una voz? El chico de la guarida\nnos dijo lo mismo.\fY está claro que también otorga\nuna fuerza descomunal.\fLo más seguro es que todos\nlos jugadores del Brain\nlleven uno igual.,revisar
+92040600,ﾎ�%1F声…？\nスラムのヤツも%1F言っていた\n%1F心をシハイするってヤツか。\fしかもやっぱり　すごいパワーが\n%1F出てるみたいだな。\f%2F御影のやつらは\nおそらく%2F全員が　これにちかい%2F状態で\n%2F試合に　のぞんでくるはず…。,¿Una voz? El gamberro\ndijo que controlaba su\nmente.\fTiene mucha fuerza.\nLos del Brain deben\nestar igual.,glosario
 92040600,ﾐ撃ｱれは　かなり%2F高度なそうちだ…。\fキミたち　こんな%2F技術を%1F持ったやつらと\n%2F試合をするなんて…\nこいつは　かなり%2F大変だぞ。,Desde luego este es un aparato\nde tecnología muy avanzada.\f¿Y vais a jugar contra todo\nun equipo que lleva puesto algo así?\nPues las vais a pasar canutas.,revisar
 92040600,ﾒ\たしかに　あの%2F不良も\nイナズマおとしを　うちこんで\nやっと%1F止まってくれたんだ…。,Gracias al Trampolín relámpago\nlogramos que el chico que lo llevaba\nantes volviera a la normalidad...,revisar
 92040600,"ﾔ,イナズマおとし…？\nなんだい　それは？",¿Un Trampolín relámpago?\n¿Y eso qué es?,revisar
@@ -20110,7 +20108,7 @@ se une a ti!",auto-ia
 92040600,ﾌかって,por su cuenta,auto-ia
 92040600,ﾎこえ,voz,auto-ia
 92040600,ﾎこころ,corazón,auto-ia
-92040600,ﾎみかげ,Mikage,auto-ia
+92040600,ﾎみかげ,Brain,glosario
 92040600,ﾎぜんいん,todos,auto-ia
 92040600,ﾎじょうたい,estado,auto-ia
 92040600,"ﾎ
@@ -20140,7 +20138,7 @@ se une a ti!",auto-ia
 92040600,ﾚいま,Ahora,auto-ia
 92040600,ﾚきょうりょく,Cooperación,auto-ia
 92040600,ﾚわざ,técnica,auto-ia
-92040600,ﾜみかげ,Mikage,auto-ia
+92040600,ﾜみかげ,Brain,glosario
 92040600,ﾜたたか,luchar,auto-ia
 92040600,ﾞがっこう,colegio,auto-ia
 92040600,ﾞとっくん,entrenamiento especial,auto-ia
@@ -20162,7 +20160,7 @@ se une a ti!",auto-ia
 92040900,=@す　すげえや！\nこれがイナズマイレブンの%2F特訓%1F場…！,Esto es... ¡la leche!\n¿Estas son las instalaciones donde\nse entrenaban los Inazuma Eleven?,revisar
 92040900,?<そうよ　もっと　%1F近づいて\nよく%1F見てみなさい…。,Así es. Echa un ojo a ver qué tal.,revisar
 92040900,v(うわっ！\fな　%1F何するんだ〜っ！,¡Aaaah!\f¿Pero qué haces?,revisar
-92040900,yﾔフフフ…。\n%2F練習がしたいんでしょう？\fそれならここで　いやというほど\nさせてあげる。\fこの%2F試練の%1F穴を%2F攻略できないようでは\n%2F帝国はもちろん　%2F御影%2F専農にも\n%1F勝ち%1F目はないのだから…。,"Je, je...\nQuieres entrenarte, ¿no?\f¡Ahora podréis hacerlo todo\nel tiempo que necesitéis!\fNi la Royal Academy ni el Brain\npodrán ver lo que hacéis metidos\nen este hoyo.",revisar
+92040900,yﾔフフフ…。\n%2F練習がしたいんでしょう？\fそれならここで　いやというほど\nさせてあげる。\fこの%2F試練の%1F穴を%2F攻略できないようでは\n%2F帝国はもちろん　%2F御影%2F専農にも\n%1F勝ち%1F目はないのだから…。,"¿Quieres entrenar?\nAquí podrás hacerlo\nhasta cansarte. Si no\fsuperas esta prueba,\nno vencerás a la Royal\nni al Brain.",glosario
 92040900,�d%1F彼が%2F円堂くんか…。\f%1F見せてもうらうよ　%2F夏未。\n%1F彼らが　どれほどのものなのか…。,"¿Ese es Mark?\fNelly, quiero presenciar lo que\nes capaz de hacer.",revisar
 92040900,/いま,ahora,auto-ia
 92040900,/ねん,año,auto-ia
@@ -20207,7 +20205,7 @@ se une a ti!",auto-ia
 92040900,yあな,agujero,auto-ia
 92040900,yこうりゃく,estrategia,auto-ia
 92040900,yていこく,imperio,auto-ia
-92040900,yみかげ,Mikage,auto-ia
+92040900,yみかげ,Brain,glosario
 92040900,yせんのう,lavado de cerebro,auto-ia
 92040900,}%2F夏未…。,Nelly….,auto-ia
 92040900,}なつみ,Nelly,auto-ia
@@ -20231,8 +20229,8 @@ se une a ti!",auto-ia
 92041000,"""ほう",dirección,auto-ia
 92041000,%たたか,luchar,auto-ia
 92041000,'そこし,ahí mismo,auto-ia
-92041000,'みかげ,Mikage,auto-ia
-92041000,'ていこくがくえん,Instituto Imperial,auto-ia
+92041000,'みかげ,Brain,glosario
+92041000,'ていこくがくえん,Royal Academy,glosario
 92041000,)なに,)que,auto-ia
 92041000,)しれん,)prueba,auto-ia
 92041000,)あな,)agujero,auto-ia
@@ -20441,8 +20439,7 @@ se une a ti!",auto-ia
 92041400,ｾひと,persona,auto-ia
 92041400,ｾらいもんちゅう,Instituto Raimon,auto-ia
 92041400,ｾりじちょう,presidente de la junta,auto-ia
-92041400,ﾂDああ　わたしは%2F雷門%3F総一郎。\nこの%2F学園の%3F理事長だ。,"Ah, yo soy Sonny Raimon.
-El presidente de esta academia.",auto-ia
+92041400,ﾂDああ　わたしは%2F雷門%3F総一郎。\nこの%2F学園の%3F理事長だ。,"Sí, soy Sonny Raimon, el presidente\nde la Junta escolar.",oficial
 92041400,ﾂらいもん,Raimon,auto-ia
 92041400,ﾂそういちろう,Sonny,auto-ia
 92041400,ﾂがくえん,academia,auto-ia
@@ -20541,7 +20538,7 @@ El presidente de esta academia.",auto-ia
 92041450,pパーティが２人,Grupo de 2 personas,auto-ia
 92041450,}パーティが１人,El grupo es de 1 persona,auto-ia
 92041450,ﾎひでんしょ,"Pos=%2d, UnitNo=%4d",auto-dup
-92041450,u帝国学園　通路,Instituto Imperial    pasillo,auto-ia
+92041450,u帝国学園　通路,Royal Academy    pasillo,glosario
 92041450,zきどう,Jude Sharp,auto-ia
 92041450,zさいきん,últimamente,auto-ia
 92041450,zはな,flor,auto-ia
@@ -20568,7 +20565,7 @@ El presidente de esta academia.",auto-ia
 92041500,ｭ パーティにTunitがいない,¡Jude Sharp se te ha unido!,revisar
 92041500,"ﾎ,%sの\n%3F秘伝書を%1F手に%1F入れた！",Has obtenido el cuaderno\nsecreto %s.,revisar
 92041500,ﾘ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
-92041500,ｷl%2F明日は　%2F御影との%2F試合だ！\nあいつらの%1F力が　どれほどなのか\nたしかなことは　わからない…。,Mañana jugamos contra el\nBrain y no sabemos lo que\nnos tienen reservado.,revisar
+92041500,ｷl%2F明日は　%2F御影との%2F試合だ！\nあいつらの%1F力が　どれほどなのか\nたしかなことは　わからない…。,Mañana jugamos contra el\nBrain y no sabemos lo que\nnos tienen reservado.,oficial
 92041500,ｹ�でも　%1F今のオレたちには\n「イナビカリ%3F修練場」と\n「イナズマ１%1F号」の%3F秘伝書がある！\fこれさえあれば　オレたちは\nどこまでも%1F強くなれるハズだ！,¡Pero ahora disponemos del Centro\nCentella y del Súper relámpago!\f¡Con estas armas podemos desafiar\na cualquier enemigo!,revisar
 92041500,ｼ激tン…　%2F当然よ。\nこれだけのものを%2F用意したんだから。\f%2F勝利が　たしかなものになるまで\n%2F練習をやめることは　ゆるさないわ！,A ver si es verdad y no echáis\na perder todo mi trabajo.\f¡No permitiré que dejéis de\nentrenaros hasta que esté\nmuy claro que podéis ganar!,revisar
 92041500,ﾃLああ！\nもちろんそのつもりだぜ！\n%2F今日は%2F限界まで%2F練習するぞ！,¡Por supuesto! ¡Eso era lo que\nteníamos pensado! Vamos a\nentrenarnos hasta no poder más.,revisar
@@ -20608,7 +20605,7 @@ El presidente de esta academia.",auto-ia
 92041500,}パーティが１人,El grupo es de 1 persona,auto-ia
 92041500,ﾎひでんしょ,"Pos=%2d, UnitNo=%4d",auto-dup
 92041500,ｷあした,mañana,auto-ia
-92041500,ｷみかげ,Mikage,auto-ia
+92041500,ｷみかげ,Brain,glosario
 92041500,ｷしあい,partido,auto-ia
 92041500,ｷちから,fuerza,auto-ia
 92041500,ｹいま,ahora,auto-ia
@@ -20669,7 +20666,7 @@ El presidente de esta academia.",auto-ia
 92041550,Hよーし！\nそれじゃ　%2F明日にそなえて\n%2F今日はもう%1F帰ろう！,¡Estupendo!\n¡Dejémoslo por hoy y esperemos\na mañana!,revisar
 92041550,ふふっ…。,"Ji, ji...",auto-dup
 92041550,おお！,¡Oh!,auto-ia
-92041600,lいよいよ%2F今日は%4F御影専農との\n%2F試合の%1F日だ！\f%2F準備が%1F終わったら%2F会場へ\n%2F出発するぞ！,¡Hoy por fin jugamos contra el\nInstituto Brain!\f¡Vayamos al lugar del partido\ncuando acabemos de entrenarnos!,revisar
+92041600,lいよいよ%2F今日は%4F御影専農との\n%2F試合の%1F日だ！\f%2F準備が%1F終わったら%2F会場へ\n%2F出発するぞ！,"¡Hoy jugamos contra el\nBrain! Cuando\nterminemos de\fprepararnos, iremos al\ncampo.",glosario
 92041600,駅に行こう！,¡Ve a la estación!,revisar
 92041700,$%4F御影専農へ%1F行きますか？,¿Quieres ir al Instituto Brain?,oficial
 92041700,%4F御影専農に%1F行きます。,Rumbo al Instituto Brain.,oficial
@@ -20771,7 +20768,7 @@ El presidente de esta academia.",auto-ia
 92050100,E\そういえば%2F円堂。　\n%3F準決勝の%2F相手は　もう　\n%4F尾刈斗中で%1F決まったのか？,"Oye, Mark, ¿es que el Occult ya\nha jugado su partido y ha pasado\na semifinales?",revisar
 92050100,Hｬいいや　%4F尾刈斗中の　\nトーナメント２%2F回戦での　\n%2F結果しだいなんだけどさ。\f…でも　あいつらとは\n%2F地区%2F大会でもう１%1F度\nバトルするって%2F約束したんだ。,"No, todavía no han jugado.\fPero...\fnos prometieron que nos\nvolveríamos a ver las caras\nen la eliminatoria regional.",revisar
 92050100,Jpきっと　もっと%1F強くなって　\n%3F準決勝まで%1F勝ち%1F上がってくるさ。\nオレたちも%1F負けていられないぜ！,Seguro que ahora son mucho más\nfuertes que antes y ganarán.\n¡No nos podemos quedar atrás!,revisar
-92050100,Lｼ%3F大丈夫ッスよ　キャプテン。\nオレたちだって　かーなーりっ　\nパワーアップしてるッス！\f%4F尾刈斗中の　ゴーストロックなんかじゃ\nもう　オレたちの%1F勢いは\n%1F止められないッスよ！,"Tranqui, capitán.\n¡Nosotros también hemos mejorado\nmucho!\fY ahora que conocemos el secreto\nde su Bloqueo espectral, ¡ya\nno podrán detenernos!",revisar
+92050100,Lｼ%3F大丈夫ッスよ　キャプテン。\nオレたちだって　かーなーりっ　\nパワーアップしてるッス！\f%4F尾刈斗中の　ゴーストロックなんかじゃ\nもう　オレたちの%1F勢いは\n%1F止められないッスよ！,"No te preocupes,\ncapitán. ¡Hemos\nmejorado muchísimo!\f¡El Bloqueo espectral\nde Occult no podrá\ndetenernos!",glosario
 92050100,N0あっ　%2F円堂くん\nやっぱりここにいた！,"¡Ah, Mark!\nSabía que estarías aquí.",revisar
 92050100,q�あのね　%2F冬海%2F先生が\n%1F急いで%2F部室に%1F来なさいって。\f…なんだか　%1F顔%1F色がまっサオで\nちょっとヘンな%1F感じなの。\nいったい　どうしたのかな。,Wintersea quiere que vayáis\na la caseta del club lo antes\nposible.\fEstaba un poco raro. ¿Habrá\npasado algo?...,revisar
 92050100,sL%2F冬海がヘンなのは\n%1F今に　はじまったことじゃ\nないでやんすがねぇ。,¿Raro? Wintersea nunca ha sido\nmuy normal que digamos...,revisar
@@ -21019,7 +21016,7 @@ principal",auto-ia
 92050500,� パーティにTunitがいない,¡Jude Sharp se te ha unido!,revisar
 92050500,"ｮ,%sの\n%3F秘伝書を%1F手に%1F入れた！",Has obtenido el cuaderno\nsecreto %s.,revisar
 92050500,ｸ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
-92050500,A0ええっ　サリーさん！\nそのカッコウは？？,¡Sam!\n¿Por qué vas vestida así?,revisar
+92050500,A0ええっ　サリーさん！\nそのカッコウは？？,¡Samantha! ¿Qué ropa\nes esa?,glosario
 92050500,Cсtフッ　おどろいた？\fわたし%1F達は「%3F一番街サリーズ」\n%3F一番街の%3F町内会メンバーで\n%2F結成しているサッカーチームよ。,"Ja, ja... ¿Sorprendidos?\fLa asociación de comerciantes \ntambién tiene un equipo de fútbol.\n¡Nos llaman Sallys!",revisar
 92050500,ELわたし%1F達に%1F勝てたら\nメイド%2F喫茶の%2F営業を\nみとめてあげるわ。,Permitiré la reapertura de la\ncafetería de doncellas...\n¡si nos ganáis!,revisar
 92050500,G\そっ　そんな！\nまさか　こんな%2F展開になるなんて…。\n%1F話が%1F違うでやんすよー。,¿Qué?\n¿Pretendéis que juguemos aquí?\nSerá una broma...,revisar
@@ -21265,7 +21262,7 @@ a la final de la fase regional.
 92051300,�`まあまあ　もちろん%1F大かんげいよ。\nさあ　あがってちょうだい。\nゆっくりしていってね。,"Ah, hola, Mark.\fPor la cara que tienes me imagino\nque hoy habéis ganado, ¿no?",revisar
 92051300,ｱだいしょうり,"¡Sí! Je, je.",revisar
 92051300,ｵ<そういえば　おじさんも　\nサッカーをやってたんですか？,¿Usted también jugaba\nal fútbol de joven?,revisar
-92051300,ｸxはは　いや　\nわたしは　あまり\nサッカーに%2F興味がなくてね。\f…%1F守にも　そうであって\nほしかったんだけどね…。,"Ja, ja... No, a mí nunca me ha\ninteresado mucho el fútbol...\fY esperaba que a Mark tampoco,\npero...",revisar
+92051300,ｸxはは　いや　\nわたしは　あまり\nサッカーに%2F興味がなくてね。\f…%1F守にも　そうであって\nほしかったんだけどね…。,"Ja, ja... No, a mí nunca me ha\ninteresado mucho el fútbol...\fY esperaba que a Mark tampoco,\npero...",oficial
 92051300,ｸまもる,"Venga, ¡a zampar todos!",revisar
 92051300,ｾ8さあ　えんりょしないで　\nたくさん%1F食べてね。,"¡Gracias!\fam, ñam...\n¡Glup!",revisar
 92051300,ﾂTいっただっきま〜スっ！\fんごふむゥモグばくッガフッんぐ\nもごングはぐバク……,"¡Ja, ja! ¡Jugar al fútbol tiene\nque daros mucha hambre!",revisar
@@ -21362,7 +21359,7 @@ a la final de la fase regional.
 92051350,T…って　ええっ！\fなんだよこれ！？\nオレたち%4F秋葉名戸に%1F勝ったんだぞ！？,¡¿Eeeh...?!\f¡Pero si ganamos al Otaku!,revisar
 92051350,撃ｻんなこと　わかっているわ！\fでも　%2F新聞にのってしまった%2F以上\nこれが%2F事実になっているのよ。\nハジさらしも　いいところだわ！,¡Ya lo sé!\fPero la gente da por hecho que lo\nque sale en los periódicos siempre\nes cierto. ¡Qué vergüenza!,revisar
 92051350,8そんな…。　　\nいったい　どうしたらいいの…！？,"Oh, no... Bueno, ¿podemos hacer\nalgo para arreglarlo?",revisar
-92051350,ｸセンパイ！　\nあのメイド%2F喫茶の　%2F店長って\n%2F秋葉の%2F監督だったんですよね！？\fそれは　ヒジョーにアヤしいです！\nきっと　あいつらがまた\n%1F何かしたに　%1F違いないですよ！,"¡Mark! El encargado de la cafetería\nde doncellas resultó ser el entrenador\ndel Otaku, ¿no?\f¡No me digas que no es muy\nsospechoso! ¡Seguro que este es\notro de sus trucos!",revisar
+92051350,ｸセンパイ！　\nあのメイド%2F喫茶の　%2F店長って\n%2F秋葉の%2F監督だったんですよね！？\fそれは　ヒジョーにアヤしいです！\nきっと　あいつらがまた\n%1F何かしたに　%1F違いないですよ！,¡Mark! ¡La dueña de la\ncafetería era la\nentrenadora de Otaku!\f¡Seguro que han\ntramado algo!,glosario
 92051350,lああ　こんなことで　%1F負けてたまるか。\nメイド%2F喫茶に%1F行って　あいつらを\n%1F問いつめてみよう！,Sí... ¡No pienso permitir algo\nasí! ¡Ahora mismo me voy a esa\ncafetería a pedirle explicaciones!,revisar
 92051350,メイド喫茶に行こう！,¡Ve a la cafetería de doncellas!,revisar
 92051350,おーっ！,¡Oooh!,auto-ia
@@ -21826,7 +21823,7 @@ a la final de la fase regional.
 92051900,��え？　\nう　うん　そうでしょ。　\nいつも　いっしょうけんめいなの。\fメンバー%1F思いだし…\nがんばり%1F屋だし…\n%2F本当に　サッカーが%1F好きなの。,"¿Eh?\nAh, sí, es verdad.\nSiempre está dándolo todo.\fPone a sus compañeros por delante\ny no deja nunca de entrenar.\nLe gusta el fútbol más que nada.",revisar
 92051900,�D%2F円堂くんを%1F見てると\nわたしも%2F元気が%1F出てくるんだ。,"Cuando veo a Mark, no puedo evitar\nalegrarme.",revisar
 92051900,��ああ　そうだな。\fほんと…\nもっと　%1F人をうたがうことを\n%1F知ればいいのに…。\fなあ　アキ\n%1F実は…　オレ\nオレが　%3F雷門中に%1F来たのは…。,"Es cierto.\fPero...\nQuizás es un poco ingenuo, ¿no?\nA veces se pasa de confiado...\fSilvia...\nLa verdad es que... yo...\nhe venido al Raimon porque...",revisar
-92051900,�x…いや　なんでもない。\fそれより　%2F冬海がさがしてたぜ。\nなんか　%1F次の%2F試合のことで\n%2F相談があるとかでさ。,"Nada, olvídalo...\fAh, Wintersea te estaba buscando.\nCreo que quiere hablar contigo\nsobre el próximo partido.",revisar
+92051900,�x…いや　なんでもない。\fそれより　%2F冬海がさがしてたぜ。\nなんか　%1F次の%2F試合のことで\n%2F相談があるとかでさ。,"Nada, olvídalo...\fAh, Wintersea te estaba buscando.\nCreo que quiere hablar contigo\nsobre el próximo partido.",oficial
 92051900,�4そうなの？　\n%1F教えてくれて　ありがとうね。,"¿Ah, sí?\nGracias por avisarme.",revisar
 92051900,�い　いや　べつに…。,De nada...,revisar
 92051900,� じゃあ　わたし%1F行くね。,"Bueno, entonces me voy ya.",revisar
@@ -21887,7 +21884,7 @@ Qué fuerte.",auto-ia
 92060100,",ええいっ！\n%1F通せ！　%1F通すんだ！",¡Fuera de mi camino! ¡FUERA!,revisar
 92060100,(%2F鬼道さま！　なっ　%1F何を…！,¡Jude! ¡¿Qué pasa?!,revisar
 92060100,ええい　うるさいっ！,¿A ti qué te importa?,revisar
-92060100,帝国学園　正面,Instituto Imperial · Entrada principal,auto-ia
+92060100,帝国学園　正面,Royal Academy · Entrada principal,glosario
 92060100,ミニマップ表示,Mostrar minimapa,auto-ia
 92060120,P%2F人脈ルートロック%2F解除！\n%2F音無に%1F話しかけて　%2F確認してみよう！,¡Se ha desbloqueado una ruta de\ncontactos! ¡Habla con Celia para\nacceder a ella!,revisar
 92060120,Hなにごとだ　%2F鬼道？\n%1F今は　まだ%2F練習の%2F時間のはずだ…。,"¿Qué haces aquí, Jude?\n¿No deberías estar entrenando?",revisar
@@ -21910,7 +21907,7 @@ Qué fuerte.",auto-ia
 92060150,P リタイア前:TEAM_NUMS = %d,^CAO:TEAM_NUMS = %d,revisar
 92060150,u リタイア後:TEAM_NUMS = %d,^CA:TEAM_NUMS = %d,revisar
 92060150,ﾘ本校舎２Ｆ　２年教室,UNIT_RETURN: %2d x`,revisar
-92060150,��%1F次は　いよいよ%2F帝国との%2F試合か…！\fこの%2F試合に%1F勝てば\n%4F全国大会に%1F行けるんだ！\fそうすれば　もっといろんなヤツらと\nサッカーができる！,"¡Al fin jugaremos contra la Royal!\f¡Si ganamos este partido,\nentraremos en el torneo nacional!\f¡Y podremos jugar contra montones\nde equipos!",revisar
+92060150,��%1F次は　いよいよ%2F帝国との%2F試合か…！\fこの%2F試合に%1F勝てば\n%4F全国大会に%1F行けるんだ！\fそうすれば　もっといろんなヤツらと\nサッカーができる！,"Mañana jugamos contra\nla Royal. ¡Si ganamos,\niremos al nacional!\f¡Entrenemos con ganas!",glosario
 92060150,�l%2F今度はこの%1F前のようには　いかないぞ！\n%1F待ってろよ　%2F鬼道！\f%2F全国へ%1F行くのはオレたちだ！,"¡Jude, esta vez será diferente!\f¡Nosotros seremos los que\npasaremos a la fase nacional!",revisar
 92060150,�ニュースだぜ　%2F円堂さん！\n%3F理事長が　オレたちのために\nバスを　%1F借りてくれたらしい！\f%4F地区大会の%2F決勝まで%1F行った\nお%1F祝いなんだってよ！,"¡Mark, tengo buenas noticias!\n¡El presidente de la Junta\nnos ha conseguido un autocar!\f¡Lo ha hecho para celebrar que\nhemos llegado a la final regional!",revisar
 92060150,Hへえ！\nバスなんて　そんなのはじめてだ！\nなんだかワクワクするな！,¿Eh?\n¡El club nunca había tenido\nun autocar! ¡Qué pasada!,revisar
@@ -22009,10 +22006,10 @@ Qué fuerte.",auto-ia
 92060250,.ひっさつわざ,tecnica especial,auto-ia
 92060250,.じゃくてん,punto debil,auto-ia
 92060250,.ぜんぜん,para nada,auto-ia
-92060250,3ふゆかいせんせい,profesor Fuyukai,auto-ia
+92060250,3ふゆかいせんせい,profesor Wintersea,glosario
 92060250,8おも,pensar,auto-ia
 92060250,Yおも,pensar,auto-ia
-92060250,Yていこく,Imperial,auto-ia
+92060250,Yていこく,Royal Academy,glosario
 92060250,^えんどう,^Mark,auto-ia
 92060250,^てつだ,^ayudar,auto-ia
 92060250,^ほう,^dirección,auto-ia
@@ -22203,7 +22200,7 @@ dómon",auto-ia
 92060800,ﾍそうこう,blindaje,auto-ia
 92060800,ﾍちゅう,medio,auto-ia
 92060800,ﾍらいもん,Raimon,auto-ia
-92060800,ﾍていこくがくえん,Instituto Imperial,auto-ia
+92060800,ﾍていこくがくえん,Royal Academy,glosario
 92060800,ﾍゆうしょう,campeonato,auto-ia
 92060800,ﾍこんかい,esta vez,auto-ia
 92060800,"ﾍ
@@ -22242,9 +22239,7 @@ por los aires?!",auto-ia
 92060900,-hくっ…！\f%2F土門！　オレはおまえを\n%1F信じてるからなっ！\f%1F必ず…　%1F必ずもどって%1F来いっ！,"Ugh...\f¡Bobby, sigo creyendo en ti!\f¡Prométeme que volverás!",revisar
 92060900,{部室に行こう！,¡Ve a la caseta del club!,revisar
 92060900,交代終了:pos=%d,Sustitución finalizada: pos=%d,auto-ia
-92060900,�h%2F今回はシッパイしましたが\nあなたたちが%2F帝国に%1F勝てると%1F思ったら\n%1F大マチガイですよ！,"Esta vez hemos fracasado,
-¡pero si creéis que podéis ganar al Imperial
-estáis muy equivocados!",auto-ia
+92060900,�h%2F今回はシッパイしましたが\nあなたたちが%2F帝国に%1F勝てると%1F思ったら\n%1F大マチガイですよ！,"Puede que esta vez haya fallado,\n¡pero no olvidéis que es imposible\nvencer a la Royal!",oficial
 92060900,ど　%2F土門！,¡B... Bobby!,auto-ia
 92060900,+えんどう,Mark Evans,auto-ia
 92060900,+どもん,Bobby Shearer,auto-ia
@@ -22267,7 +22262,7 @@ estáis muy equivocados!",auto-ia
 92061000,Tｸ%4F冬海先生の%1F机からノートは\nとりかえしたけれど　おそらく\nデータはすでに%2F帝国に%1F届いている…。\f%1F許してくれとは%1F言わない。\nただ%1F気をつけて%2F試合にのぞんでくれ。,"Os he devuelto el cuaderno que\nel profe tenía en su mesa, pero\nla Royal ya ha recibido los datos.\fNo sé si podréis perdonarme,\nasí que solo espero que tengáis\ncuidado en el próximo partido.",revisar
 92061000,V�%2F帝国がこのまま%1F引き%1F下がるとは\n%1F思えない。\nまだどんなワナがあるか…。\f%2F帝国は…　%2F影山%2F総帥は\n%2F本当に%1F恐ろしいやつらなんだ…。,No creo que la Royal se quede de\nbrazos cruzados. Seguro que os\nesperan muchas más trampas.\fEl entrenador Dark es un\noponente escalofriante en todos\nlos sentidos.,revisar
 92061000,](…%2F手紙は　これで%1F終わり…。,Ahí acaba la carta.,revisar
-92061000,i�でも…\n%2F情報は%2F帝国に%1F流れてしまったんだ。\fせっかく%1F身につけた\nイナズマおとしや　イナズマ１%1F号も\nこれじゃあ%2F通用するかどうか…。,Vaya... Ahora la Royal lo sabe\ntodo sobre nosotros...\fPuede que el Trampolín relámpago\no incluso el Súper relámpago ya\nno nos funcionen contra ellos.,revisar
+92061000,i�でも…\n%2F情報は%2F帝国に%1F流れてしまったんだ。\fせっかく%1F身につけた\nイナズマおとしや　イナズマ１%1F号も\nこれじゃあ%2F通用するかどうか…。,Pero la información ya\nha llegado a la Royal.\nNo sé si el Rayo Caído\fe Inazuma 1 servirán\ncontra ellos.,glosario
 92061000,kdそうでやんすよ…。\n%2F土門さんも　あのまま%2F冬海と%2F一緒に\n%1F逃げたのかもしれないし…。,Cierto...\nY puede que Bobby y Wintersea\nhayan huido juntos...,revisar
 92061000,m8そうッスよ！\nかっこいいこと%1F言っちゃって…！,Ya... ¡No me extrañaría!,revisar
 92061000,q そ　そんな%1F言いかた…！,¿Cómo podéis decir eso?,revisar
@@ -22276,7 +22271,7 @@ estáis muy equivocados!",auto-ia
 92061000,wｨだったら　%2F土門を%1F信じろよ！\nこれはアイツが%1F命がけで%1F残した\nメッセージなんだぞ！\fアイツはオレたちの%2F仲間なんだ！\nオレはアイツをさがしに%1F行くぞ！,¡Tenemos que creer en él!\n¡Eso es lo que quería decirnos\nen su mensaje!\f¡Quería hacernos saber que es\nnuestro amigo! ¡Y yo confío en él!\n¡Voy a buscarle!,revisar
 92061000,|pあいかわらず　%2F単純なんだから…。\nでも　これは　あなたたちが\n%1F思っている%2F以上にしんこくなことよ。,Ay... Siempre tan inocente...\nPero esto es mucho más grave de\nlo que parece...,revisar
 92061000,�$%2F夏未！　%1F聞いてたのか。,¡Nelly! ¿Ya te has enterado?,revisar
-92061000,�ﾄサッカー%1F部の%2F監督だった%4F冬海先生が\nいなくなったってことは\nどういうことか　わかっているの？\f%2F監督がいないチームは\nフットボールフロンティアの\n%2F試合に%1F出ることはできないの。,¿Sabéis lo que significa que\nWintersea haya desaparecido? Pues\nque ya no es vuestro entrenador.\fY no se puede participar\nen el Fútbol Frontier\nsin un entrenador...,revisar
+92061000,�ﾄサッカー%1F部の%2F監督だった%4F冬海先生が\nいなくなったってことは\nどういうことか　わかっているの？\f%2F監督がいないチームは\nフットボールフロンティアの\n%2F試合に%1F出ることはできないの。,¿Sabéis qué significa\nque Wintersea haya\ndesaparecido? ¡Sin\fentrenador no podemos\njugar el Fútbol\nFrontier!,glosario
 92061000,�Tつまり　このままでは\n%2F雷門サッカー%1F部は\n%3F決勝戦に%2F出場できないのよ！,"En otras palabras, ¡no podréis\njugar la final!",revisar
 92061000,�4なんだって？\nそれじゃ　いったいどうすれば…。,¿Qué? ¡No me fastidies!\n¿Y ahora qué hacemos?,revisar
 92061000,｢�%2F校長%1F室に%1F来なさい　%2F円堂くん。\f%1F今　お%1F父さまが%1F来ているから\n%1F知り%1F合いに%2F監督の%2F心当たりがないか\n%1F聞いておいてあげる。\f%1F急ぎなさいよ…。\nお%1F父さまは　あなたとちがって\nいそがしい%1F人なんだから。,"Ven al despacho del director,\nMark.\fLe preguntaré a mi padre si sabe\nde alguien que esté dispuesto a\nreemplazar a Wintersea.\f¡Venga! ¿A qué esperas? Mi padre\nes una persona muy ocupada,\nno como tú.",revisar
@@ -22293,13 +22288,13 @@ en la carta?",auto-ia
 92061000,Bてがみ,carta,auto-ia
 92061000,Nらいもんちゅう,Instituto Raimon,auto-ia
 92061000,Nふゆかいせんせい,profesor Wintersea,auto-ia
-92061000,Nていこく,Imperial,auto-ia
+92061000,Nていこく,Royal Academy,glosario
 92061000,Nじょうほう,información,auto-ia
-92061000,Nていこく,Imperial,auto-ia
+92061000,Nていこく,Royal Academy,glosario
 92061000,Nなが,largo,auto-ia
-92061000,Pふゆかいせんせい,profesor Fuyukai,auto-ia
+92061000,Pふゆかいせんせい,profesor Wintersea,glosario
 92061000,Pいま,ahora,auto-ia
-92061000,Pていこく,Imperial,auto-ia
+92061000,Pていこく,Royal Academy,glosario
 92061000,Pしゅだん,medio,auto-ia
 92061000,Pえら,elegir,auto-ia
 92061000,"P
@@ -22312,7 +22307,7 @@ en la carta?",auto-ia
 92061000,Rとも,amigo,auto-ia
 92061000,Tふゆかいせんせい,profesor Wintersea,auto-ia
 92061000,Tつくえ,pupitre,auto-ia
-92061000,Tていこく,Imperial,auto-ia
+92061000,Tていこく,Royal Academy,glosario
 92061000,Tとど,entregar,auto-ia
 92061000,Tゆる,perdonar,auto-ia
 92061000,"T
@@ -22330,7 +22325,7 @@ de verdad",auto-ia
 92061000,_%2F土門…。,_Bobby…,auto-ia
 92061000,_どもん,Shearer,auto-ia
 92061000,iじょうほう,información,auto-ia
-92061000,iていこく,Imperial,auto-ia
+92061000,iていこく,Royal Academy,glosario
 92061000,iなが,largo,auto-ia
 92061000,iごう,Gladstone,auto-ia
 92061000,iつうよう,paso,auto-ia
@@ -22385,7 +22380,7 @@ de verdad",auto-ia
 かんとく",entrenador,auto-ia
 92061000,ｨたす,ayudar,auto-ia
 92061000,ｰもくてき,objetivo,auto-ia
-92061100,�%2F円堂くん…。\n%1F今　%2F夏未から%1F話を%1F聞いていたところだ。\f%2F冬海くんのことは\nわたしの%2F責任でもある。\nメイワクをかけてしまったね…。,Mark... Nelly me lo acaba de\ncontar todo.\fMe siento responsable por lo que\nha ocurrido con Wintersea. Lamento\nque todo haya acabado así.,revisar
+92061100,�%2F円堂くん…。\n%1F今　%2F夏未から%1F話を%1F聞いていたところだ。\f%2F冬海くんのことは\nわたしの%2F責任でもある。\nメイワクをかけてしまったね…。,Mark... Nelly me lo ha\ncontado. Lo de\nWintersea también es\fresponsabilidad mía.,glosario
 92061100,ﾔしかし　この%2F事件は\n４０%1F年%1F前と%1F全く%1F同じだな。\fイナズマイレブンがとつぜん\n%1F姿を%1F消したあの%1F時と…。\f%2F円堂くん…。\nキミは%2F今度こそ%2F帝国と%2F試合をし\n%1F必ず%1F悪をたおすのだ！,"Esto fue lo mismo que\nocurrió hace 40 años.\fCuando desapareció el Inazuma\nEleven...\fMark... Esta vez tienes que jugar\ncontra la Royal, ¡y acabar con su\nnefasta hegemonía!",revisar
 92061100,…はい！,"¡Sí, señor!",revisar
 92061100,､そのためにわたしの%1F知るかぎり\nもっとも%2F監督にふさわしい%2F人物を\n%2F紹介しよう！\f%2F円堂くん\n%3F商店街のラーメン%1F屋\n「%3F雷雷軒」に%1F行きたまえ！,"Para tratar de ayudaros, te voy\na presentar a un entrenador\nque conozco.\fMark, pásate por el restaurante\nde fideos Rai Rai que hay en\nel barrio de tiendas.",revisar
@@ -22395,7 +22390,7 @@ de verdad",auto-ia
 92061100,&<そしてイナズマイレブンの\nキャプテンだった%1F男だ！,¡El antiguo capitán del Inazuma!,revisar
 92061100,(pイナズマイレブンのキャプテン…！\fす　すげえ…！\nついに　ホンモノの\nイナズマイレブンに%1F会えるのか！,¡El capitán del Inazuma!\f¡Increíble! ¡Y yo que me moría\nde ganas de conocer a algún\nmiembro del Inazuma Eleven!,revisar
 92061100,*Hたしかに　そんな%1F人なら\n%2F最高の%2F監督になってくれるハズだ！,¡Seguro que sería un entrenador\nexcelente!,revisar
-92061100,",lよーしっ！　%1F行くぜ　%3F雷雷軒！\n%1F待ってろよ　%2F土門！\nすぐにおまえのところへ%1F行けそうだぜ！","¡Sí! ¡Vamos al Rai Rai!\n¡Espérame, Bobby! ¡No tardaremos\nen ir a ayudarte!",revisar
+92061100,",lよーしっ！　%1F行くぜ　%3F雷雷軒！\n%1F待ってろよ　%2F土門！\nすぐにおまえのところへ%1F行けそうだぜ！","¡Sí! ¡Vamos al Rai Rai!\n¡Espérame, Bobby! ¡No tardaremos\nen ir a ayudarte!",oficial
 92061100,M|%2F円堂くん！\nああ　%1F行っちゃった…。\f４０%1F年%1F前…\nなんだかイヤな%2F予感がする…。\nわたしも%2F土門くんを…！,¡Mark! Vaya... Ya se ha ido.\fHace 40 años...\nAlgo de todo esto no me gusta...\n¡Tengo que ir a ayudar a Bobby!,revisar
 92061100,S<お%1F父さま…。\n%2F今度はみんな　%3F大丈夫よね…？,"Papá, ¿se las apañarán todos bien?",revisar
 92061100,Uhああ　%1F彼らなら%3F大丈夫だ…！\nわたしたちは　%1F彼を%1F信じて\n%1F待とうじゃないか　%2F夏未…。,Seguro que saldrán adelante.\nConfía en ellos. Ahora lo único\nque podemos hacer es esperar.,revisar
@@ -22460,7 +22455,7 @@ de verdad",auto-ia
 92061200,｡らいもんちゅう,Instituto Raimon,auto-ia
 92061200,｣サッカーを…！？,｣¿Al fútbol…?,auto-ia
 92061200,･かんとく,entrenador,auto-ia
-92061200,･ていこく,Imperial,auto-ia
+92061200,･ていこく,Royal Academy,glosario
 92061200,･しあい,partido,auto-ia
 92061200,ｬなに,qué,auto-ia
 92061200,ｮはなし,conversación,auto-ia
@@ -22756,7 +22751,7 @@ entrenador",auto-ia
 92061500,ﾔ パーティにTunitがいない,Pon a Bobby de titular.,revisar
 92061500,Xくくく　%2F土門くん！\nよくも%2F裏切ってくれましたね！\nオシオキの%2F時間ですよ！,"¡Bobby, me has traicionado!\n¡Y ahora pagarás tu deslealtad!",revisar
 92061500,ウラギリモノハ　ハイジョ！,¡Eliminaremos al traidor!,revisar
-92061500,ｨへっ\nオレはもう　%2F帝国にも%2F雷門にも\n%1F帰れないんだ…。\fオレはどうなったっていい…。\fでも　これ%2F以上\nみんなのジャマはさせないぜ！\nかかって%1F来いよ！,¡Ja! Ya no puedo volver al Raimon\nni a la Royal...\fMe da igual lo que pase conmigo...\f¡Pero no dejaré que sigáis causando\nproblemas a mis amigos! ¡Atacad\ncuando queráis! ¡No os tengo miedo!,revisar
+92061500,ｨへっ\nオレはもう　%2F帝国にも%2F雷門にも\n%1F帰れないんだ…。\fオレはどうなったっていい…。\fでも　これ%2F以上\nみんなのジャマはさせないぜ！\nかかって%1F来いよ！,"No puedo volver a la\nRoyal ni a Raimon. Me\nda igual, pero no\fpermitiré que\nperjudiquen a mis\namigos. ¡Venid!",glosario
 92061500,lいい%2F度胸です　%2F土門くん…！\nわれわれに　さからったこと…\nふかーく　%2F後悔させてあげますよ！,"¡Qué valiente, Bobby!\n¡Haré que te arrepientas de\nhabernos traicionado!",revisar
 92061500,アキ…！\nどうしてここに？,¡Silvia!\n¿Qué haces aquí?,revisar
 92061500,|どうなってもいいなんて　%1F言わないで！\fみんな%2F土門くんを　さがしてたんだよ！\n%2F土門くんを　%1F助けるために…！,¿Cómo puedes decir que no te\nimporta?\fTe hemos estado buscando por\ntodas partes... ¡para ayudarte!,revisar
@@ -22767,7 +22762,7 @@ entrenador",auto-ia
 92061500,g ウラギリモノハ　ハイジョ！,¡Eliminaremos al traidor!,revisar
 92061500,i\%2F土門は　%2F裏切り%1F者じゃない！\f%2F土門は…\nオレたちの%2F仲間になっただけだ！,¡Bobby no es ningún traidor!\fBobby es... ¡uno de nosotros!,revisar
 92061500,mD%2F今日こそ　ここでサッカー%1F部を\n%2F廃部にしてあげますよ！,¡Hoy voy a destruir el club\nde fútbol de una vez por todas!,revisar
-92061500,o\%1F来いよ！\nオレたちは%2F帝国なんかに\nゼッタイ%1F負けないぞ！\f%1F行くぜ　%2F土門！,"¡A ver si eres capaz!\n¡Yo no pienso perder ante\nun equipo como la Royal!\f¡Vamos, Bobby!",revisar
+92061500,o\%1F来いよ！\nオレたちは%2F帝国なんかに\nゼッタイ%1F負けないぞ！\f%1F行くぜ　%2F土門！,"¡A ver si eres capaz!\n¡Yo no pienso perder ante\nun equipo como la Royal!\f¡Vamos, Bobby!",oficial
 92061500,oていこく,Va... ¡vale!,revisar
 92061500,oどもん,o[R}h 2009/7/14,revisar
 92061500,qあ…　ああ！,Haz que Bobby pueda\nsalir a jugar.,revisar
@@ -22786,7 +22781,7 @@ entrenador",auto-ia
 92061500,E…あの%2F言葉は！,Ha sonado como...,revisar
 92061500,Qｨバカモン　%2F響木！\nキーパーのおまえが　フィールドの\nプレーヤーを%1F信じなくてどうする？\f%2F１人でするのはサッカーではない！\n%2F仲間とするのがサッカーなのだ！,"¡No seas tonto, Seymour! Si el\nportero no cree en su equipo,\n¿qué crees que va a pasar?\f¡El fútbol no es un deporte\nindividual! ¡El fútbol se juega\njunto con tus amigos!",revisar
 92061500,Slそれは%2F仲間を%1F信じるということ！\fそして　%1F信じるということは\n%2F相手を%1F信じぬくことなのだ！,"¡Y por eso debes confiar en\nlos demás!\fCuando un amigo dice que cree\nen ti, ¡quiere decir que lo hará\nsiempre!",revisar
-92061500,wxさあ　%2F学校にもどろうぜ！\n%2F帝国に%1F勝つための%2F練習だ！\fおまえにも\nゼッタイつきあってもらうぞ　%2F土門！,"Volvamos al instituto. ¡Tenemos\nque entrenar mucho si queremos\nganar a la Royal!\f¡Tú también, Bobby! ¡No creas que\nte vas a librar del entrenamiento!",revisar
+92061500,wxさあ　%2F学校にもどろうぜ！\n%2F帝国に%1F勝つための%2F練習だ！\fおまえにも\nゼッタイつきあってもらうぞ　%2F土門！,"¡Volvamos al\ninstituto!\n¡Entrenaremos para\fvencer a la Royal! ¡Tú\ntambién vienes, Bobby!",glosario
 92061500,wどもん,"¡Je, je!\f¡Sí! ¡Podéis contar conmigo!",revisar
 92061500,{<よし！\nそれじゃもどろうぜ！\nオレたちのグラウンドに！,¿A qué estamos esperando?\n¡Corramos hasta el campo!,revisar
 92061500,� おかえり…　%2F土門くん！,"¡Bienvenido, Bobby!",revisar
@@ -22820,7 +22815,7 @@ entrenador",auto-ia
 92061500,5 はい！\nのぞむところです！,"¡Sí, entrenador!\n¡Lo haremos!",revisar
 92061500,7Lワシらがイナズマイレブンとよばれた\nその%1F時と　%1F同じ%2F特訓をな！,¡Os someteréis al mismo\nentrenamiento que solía realizar\nel Inazuma Eleven!,revisar
 92061500,;h%2F影山をたおせるのは　おまえだけだ！\n%1F行くぞ　%3F円堂守！\nワシたちの%2F特訓について%1F来い！,¡Sois los únicos que podéis\nderrotar a Ray Dark! ¡Vamos!\n¿Resistiréis el entrenamiento?,revisar
-92061500,=Lはい！　%2F監督！\fそして…\nオレたちは　ゼッタイに%2F帝国をたおす！,"¡Sí, entrenador!\fGracias a ti, ¡venceremos\na la Royal Academy!",revisar
+92061500,=Lはい！　%2F監督！\fそして…\nオレたちは　ゼッタイに%2F帝国をたおす！,"¡Sí, entrenador!\fGracias a ti, ¡venceremos\na la Royal Academy!",oficial
 92061500,?ｰよーし！\nそれじゃあ%3F雷門中の\nサッカーグラウンドで%1F待ってるぞ！\f%2F準備ができたら　そこに%1F来い！\nワシたちが%2F限界ギリギリの\n%2F特訓ってものを%1F教えてやる！,¡Así me gusta! ¡Os espero en\nel campo del Raimon!\f¡Presentaos allí cuando estéis\nlistos! ¡Os entrenaremos hasta\nvuestro mismísimo límite!,revisar
 92061500,A0はい！\nそれじゃ　%1F行こうぜ　みんな！,"¡Vamos, chicos! ¡Adelante!",revisar
 92061500,Wdあ…　%2F電話だ…。\f…！\nこの%2F番号…！\fす　すいません…\n%1F先に%1F行っててもらえますか？,"Ah, me llaman...\fEste es el número de...\fLo siento, chicos... Id tirando,\nen seguida os alcanzo.",revisar
@@ -23218,7 +23213,7 @@ entrenador",auto-ia
 92062260,ﾔとき,momento,auto-ia
 92062260,"ﾔ
 ゆめみ",soñar,auto-ia
-92062260,ﾘていこくがくえん,Instituto Imperial,auto-ia
+92062260,ﾘていこくがくえん,Royal Academy,glosario
 92062260,ﾘない,interior,auto-ia
 92062260,ﾘとど,entregar,auto-ia
 92062260,ﾚていこく,imperio,auto-ia
@@ -23306,12 +23301,12 @@ entrenador",auto-ia
 92070200,�`それにしても\n%2F音無のヤツ　%2F帝国との%2F試合から\nずっと　%1F顔を%1F見せていないなあ。,"Ahora que lo pienso, desde que\njugamos con la Royal, Celia no\nha vuelto por el club.",revisar
 92070200,�пcきっと　%2F鬼道と%2F兄妹だってこと\n%1F気にしてるんだ。\fオレたちに　あわせる%1F顔がないって\n%1F思ってるんじゃないか…。,Seguro que está preocupada\nporque se ha descubierto que\nJude es su hermano.\fY se cree que no tiene derecho\na estar aquí.,revisar
 92070200,�､ちょっと　いつまで\nしゃべってるつもり？\fわたしは　あなたたちみたいに\nヒマじゃないのよ。\fこっちに%1F来て　%1F早く\nトーナメント%1F表を%1F見てちょうだい。,"¿Hasta cuándo pensáis estar\nhablando?\fYo no tengo tanto tiempo libre\ncomo vosotros, ¿sabéis?\fAcercaos y mirad la tabla de\nemparejamientos de una vez.",revisar
-92070200,�Tえーっと…。\nオレたちの　%1F次の%2F相手は…\n「%2F戦国%3F伊賀島%1F中」か。,A ver... Nuestro próximo rival\nes... el Instituto Shuriken.,revisar
+92070200,�Tえーっと…。\nオレたちの　%1F次の%2F相手は…\n「%2F戦国%3F伊賀島%1F中」か。,A ver... Nuestro próximo rival\nes... el Instituto Shuriken.,oficial
 92070200,Pなに　%4F伊賀島中だと？\nヘッ　なつかしい%2F名前が\n%1F出てきやがったな。,"¿Cómo? ¿Has dicho Shuriken?\nJe, ese nombre me trae muchos\nrecuerdos.",revisar
 92070200,Lえ？　なつかしいって\n%2F監督は　%4F伊賀島中を\n%1F知ってるんですか？,"¿Eh? ¿Recuerdos? ¿Es que conoces\nal equipo de ese instituto,\nentrenador?",revisar
 92070200,t%1F忘れもしねぇさ…。\f%4F伊賀島中は　ワシたちが\nイナズマイレブン%2F時代に\n%4F全国大会で%1F戦った%2F相手だ。,Siempre me acordaré de ellos.\fFue uno de los rivales del Inazuma\nEleven en el torneo nacional.,revisar
 92070200,ええっ　そうなんですか！？,¿Sí? ¡¿De verdad?!,revisar
-92070200,�%4F伊賀島中は　%1F山にこもって\n%2F忍術の%2F特訓を　うけている\n%2F選手たちの%1F集まりだ。\fその%1F風のようなスピードも\nさることながら,El Instituto Shuriken está oculto\nen las montañas y los miembros del\nequipo aprenden técnicas ninja.\fCorren a la velocidad del viento.,revisar
+92070200,�%4F伊賀島中は　%1F山にこもって\n%2F忍術の%2F特訓を　うけている\n%2F選手たちの%1F集まりだ。\fその%1F風のようなスピードも\nさることながら,El Shuriken entrena\nninjutsu en la\nmontaña. Son muy\frápidos y usan\ntécnicas extrañas.,glosario
 92070200,ｸなかなか　クセのある%1F技を\n%1F使うヤツらでな　ワシたちも\nずいぶん　%1F手こずったものだぜ。\f%1F今のおまえたちで…　\nそう　%1F勝てる%2F確率は\n５０パーセントってところだな。,"Y además, dominan técnicas muy\nbuenas. Incluso a nosotros nos\ncostó vencerles.\fEn vuestras condiciones actuales,\ncreo que tenéis un 50 por ciento\nde probabilidades de ganar.",revisar
 92070200,５０パーセント…。,Un 50 por ciento...,revisar
 92070200,�そんな%1F話は%1F聞きたくないわ。\n%1F次の%2F試合も　%1F必ず%1F勝ってください。\fそのために　あなたが\n%2F監督になったのでしょう？,"Eso no es lo que quiero escuchar.\nMás os vale que ganéis el próximo\npartido.\fPor eso aceptaste el puesto\nde entrenador, ¿no?",revisar
@@ -23536,19 +23531,19 @@ Hablar",auto-ia
 92070400,JD「%2F民山」「%1F碇」　そして\n「%3F備流田」の３%1F人らしい。,"Joseph Yosemite, Edward Gladstone \ny Constant Builder.",revisar
 92070400,LPまったく…　４０%1F年たっても\nガンコなところは\nあいかわらずのようだ。,"Hay que ver... Por mucho que\npasen los años, siguen siendo\nigual de tozudos.",revisar
 92070400,N@「%2F民山」さんに　「%1F碇」さん\n「%3F備流田」さん…。,"Joseph, Edward y Constant.",revisar
-92070400,Pd%1F特に「%3F備流田」だな。\nあいつは　イナズマイレブンの\nエースストライカーだった%1F男だ。,Y Constant el que más. Íl era\nel delantero estrella del Inazuma\nEleven.,revisar
+92070400,Pd%1F特に「%3F備流田」だな。\nあいつは　イナズマイレブンの\nエースストライカーだった%1F男だ。,Y Constant el que más. Él era\nel delantero estrella del Inazuma\nEleven.,oficial
 92070400,Rlあいつは　%1F人１%1F倍ガンコでなあ。\nキャプテンだった　%2F響木とは　\nよく　ケンカしていたものだよ。,"Era más tozudo que una mula y se\npeleaba con Hillman, el capitán,\nmuy a menudo.",revisar
 92070400,T\…だが　%3F備流田がいなければ\n%2F本当の　イナズマイレブンとは\n%1F言えないだろう。,"Aunque si no hubiera estado en\nel equipo, el Inazuma Eleven\nnunca habría existido de verdad.",revisar
 92070400,V(%2F本当の　イナズマイレブン…！,¡El auténtico Inazuma Eleven!...,revisar
 92070400,Xpそれに　%3F伊賀島が%2F相手となると　\nあいつが%1F使う「%1F炎の%3F風見鶏」が\nカギに　なってくるはずだ。,"Además, su técnica Pájaro de fuego\nes la clave para ganar al Instituto\nShuriken, vuestro próximo rival.",revisar
-92070400,Zh「%1F炎の%3F風見鶏」は　%2F円堂%2F監督が\n%3F伊賀島を　たおすために\n%2F完成させた%1F技なのだ。,El Pájaro de fuego es una técnica\ndefinitiva que el entrenador David\ndiseñó para vencer al Shuriken.,revisar
+92070400,Zh「%1F炎の%3F風見鶏」は　%2F円堂%2F監督が\n%3F伊賀島を　たおすために\n%2F完成させた%1F技なのだ。,El Pájaro de fuego es una técnica\ndefinitiva que el entrenador David\ndiseñó para vencer al Shuriken.,oficial
 92070400,\\おそらく　%2F響木のヤツは\nおまえさんたちに　この%1F技を\n%1F教えたかったのだろうよ。,Seguro que Hillman quería que\naprendierais esa técnica.,revisar
 92070400,^<%1F炎の%3F風見鶏！？\nそれは　どんな%1F技なんですか！,¡¿El Pájaro de fuego?!\n¿Qué clase de supertécnica es?,revisar
 92070400,^かざみどり,¿Quién anda ahí?,revisar
 92070400,�0…しっ　しまったでござる！\n%2F御免っ！,¡Ma...maldición!\n¡Lo lamento mucho!,revisar
 92070400,�おいっ　%1F待てっ！,"¡Oye, espera!",revisar
 92070400,�怩�あっ　センパイ！　\nあれ　%1F次の%2F対戦%2F相手の\n%3F伊賀島の%2F生徒ですよ！\fもしかして「%1F炎の%3F風見鶏」のこと　\n%1F聞かれちゃったんじゃ！？,¡Mark! ¡Es uno de los alumnos\ndel Instituto Shuriken!\f¿Habrá escuchado la historia\nsobre el Pájaro de fuego?,revisar
-92070400,��%3F伊賀島…　たしかに\nすごいスピードだぜ…。\f%1F気をつけろ%2F円堂。　\nあいつら　%1F何か　\nたくらんでるかもしれないぜ。,"La velocidad de los del Shuriken\nes impresionante...\fDeberíamos ir con cuidado, Mark.\nPuede que estén tramando algo.",revisar
+92070400,��%3F伊賀島…　たしかに\nすごいスピードだぜ…。\f%1F気をつけろ%2F円堂。　\nあいつら　%1F何か　\nたくらんでるかもしれないぜ。,"La velocidad de los del Shuriken\nes impresionante...\fDeberíamos ir con cuidado, Mark.\nPuede que estén tramando algo.",oficial
 92070400,�Pそうですね…。\nはやく　%3F備流田さんたちに\n%2F協力してもらわないと…。,Tienes razón. Debemos convencer\na Constant y al resto cuanto\nantes.,revisar
 92070400,�Xセンパイ　これ%2F本当は　\nこっそり　わたすつもり\nだったんですけど…　どうぞ！,"Mark, pensaba darte esto sin que\nme vieras, pero... Toma.",revisar
 92070400,､4%2F音無から\nマネージャーメモを　うけとった！,¡Celia te ha entregado sus notas!,revisar
@@ -23561,7 +23556,7 @@ Hablar",auto-ia
 92070400,ﾁだれ,Mark. ¿Qué haces por aquí?,revisar
 92070400,ﾅ8%2F円堂くん。\nこんなところで　どうしたのかね。,Detective Smith...\nLo cierto es que...,revisar
 92070400,ﾖ(あっ　%2F鬼瓦さん。\n%1F実は…。,Mark se lo explica todo.,revisar
-92070400,ﾛ(%2F円堂は%2F鬼瓦に%2F説明した。,Vaya... No me extraña.,revisar
+92070400,ﾛ(%2F円堂は%2F鬼瓦に%2F説明した。,Mark se lo explica todo.,oficial
 92070400,�なるほど　やはりな…。,¿Que no te extraña?,revisar
 92070400,�ｴキミには　%1F言おうかどうか\n%1F迷っていたのだが…。\fこの%1F間の%3F帝国戦で　%2F影山を%1F捕まえて\nこれで　サッカー%1F界から%2F悪事を\n%1F追いはらったと%1F思ったのだが…。,"No sabía si decíroslo o no...\fCuando arrestamos a Ray Dark en el\npartido contra la Royal, pensaba\nque habíamos eliminado el mal.",revisar
 92070400,�H%2F証拠が%1F足りず　%2F先日　%2F影山が\nしゃくほうされたらしい。,Pero le han soltado por falta\nde pruebas.,revisar
@@ -23570,7 +23565,7 @@ Hablar",auto-ia
 92070400,�T%2F影山を%1F恐れて？\n%2F会田さんたち　%2F影山のこと\n%1F知ってるんですか？,¿Tienen miedo de Ray Dark?\n¿Es que acaso le conocéis?,revisar
 92070400,�пcオレは　%2F影山の%1F動きを\n%1F追うつもりだ。\fかれらに%2F協力してもらうのは\n%2F大変だろうが…。\nがんばれよ　%2F円堂くん。,"Voy a vigilar todos\nlos movimientos de Ray Dark.\fSerá difícil convencer a\nesos tres para que colaboren.\nMucha suerte, Mark.",revisar
 92070400,�H%2F影山が…。\nいったい　%1F次は\n%1F何を　たくらんでいるんだ…。,Ray Dark...\n¿Qué estará planeando ahora?,revisar
-92070400,�%2F円堂　たしかに%1F気になるが\nこのことは　%2F鬼瓦さんに%1F任せよう。\fオレたちが　%1F今やるべきことは\nＯＢをさがすことだぜ。,"Mark, ya sé que es preocupante,\npero vamos a dejar que Smith se\nocupe de él.\fNosotros lo que tenemos que hacer\nes buscar a los veteranos.",revisar
+92070400,�%2F円堂　たしかに%1F気になるが\nこのことは　%2F鬼瓦さんに%1F任せよう。\fオレたちが　%1F今やるべきことは\nＯＢをさがすことだぜ。,"Mark, es preocupante,\npero dejemos esto en\nmanos de Smith.\fNuestro deber es\nbuscar a los\nveteranos.",glosario
 92070400,さあ　%1F行こう！,"¡Venga, vamos!",revisar
 92070400,ＯＢたちをさがそう！,¡Busca a los veteranos del Inazuma!,revisar
 92070400,'8%2F風丸　%3F一郎太\nがいっしょにいくことになった！,¡Nathan Swift\nse ha unido al grupo!,auto-ia
@@ -23738,9 +23733,9 @@ mala acción",auto-ia
 92070502,�|%1F勝てぬ%2F勝負に　いどむなど\nおろかものの　することでござる！\fたおせないのなら　%1F別の%1F道を\nさがすでござるよ！,"¡Es estúpido librar batallas\nque no se pueden ganar!\fSi no le pudiese vencer,\nbuscaría otro camino.",revisar
 92070502,�Lるーららら…\nなるほどねぇ。　それで　\nそっちのおまえは　どうなんだ？,"La, la, la. Muy bien.\n¿Y tú qué harías?",revisar
 92070502,�lオレは…　オレは\nたおすまで　あきらめない！\f１００%1F回でダメなら\n１０１%1F回　%2F挑戦するだけだ！,"Yo... ¡Yo no me rendiría hasta\nque lograse derrotarle!\f¡Aunque fracasara 100 veces,\nlo intentaría 101!",revisar
-92070502,� %2F民山　あきらめるな！,"¡No te rindas, Joseph!",revisar
+92070502,� %2F民山　あきらめるな！,"¡No te rindas, Joseph!",oficial
 92070502,� ！！\fか…　%2F監督…！？,i!j\f¡¿En... entrenador?!...,revisar
-92070502,�\こら！　%2F民山\nまた　こんなところでサボって！\n%3F試合中だぞ　グラウンドへもどれ！,"¡Ya te has vuelto a escaquear!\n¡Estamos jugando un partido, así\nque vuelve al campo!",revisar
+92070502,�\こら！　%2F民山\nまた　こんなところでサボって！\n%3F試合中だぞ　グラウンドへもどれ！,"¡Ya te has vuelto a escaquear!\n¡Estamos jugando un partido, así\nque vuelve al campo!",oficial
 92070502,�pるーららら　\nだってよ%2F監督　ムダだって。\fあのチームには　%1F今まで\n１%1F度も%1F勝てたことないんだぜ。,"La, la, la.\nNo serviría de nada.\fNo hemos conseguido ganar a ese\nequipo ni una vez.\n",revisar
 92070502,Xどうせ　%1F負けるんだから\nここでギターでも\n%1F弾いてたほうが　いいってもんさ。,"Si vamos a perder de todas formas,\nmejor me vengo aquí a tocar\nla guitarra.",revisar
 92070502,|%2F民山　あきらめるな！\f１００%1F回　%1F負けた%2F相手でも\n１０１%1F回%1F目には　%1F勝てるかも　　\nしれないだろう？,"¡No te rindas!\fAunque pierdas 100 veces contra\nun rival, puede que a la 101 ganes.",revisar
@@ -23749,7 +23744,7 @@ mala acción",auto-ia
 92070502,|<ああっ　ニセ%2F円堂は\n%3F伊賀島の%2F生徒だったのか！,¡La copia de Mark era un estudiante\ndel Instituto Shuriken!,revisar
 92070502,�0くそっ！\nバレたでござるか！　%2F御免！,¡Pardiez! ¡Me han descubierto!\n¡Perdón!,revisar
 92070502,�@おい　%2F円堂！\n%1F追わなくていいのか！？\f…%2F円堂？,"¡Eh, Mark! ¿No le vamos a seguir?\f¿Mark?...",revisar
-92070502,�p……すげえ…。\nすっげえシュートだ！！\fやっぱり　あなたは\n「%2F雷門のオオカミ」\n%2F民山さんなんですね！,Qué pasada...\n¡Ese chut ha sido genial!\f¡No hay duda de que eres\nhel lobo del Raimonh! ¡Joseph!,revisar
+92070502,�p……すげえ…。\nすっげえシュートだ！！\fやっぱり　あなたは\n「%2F雷門のオオカミ」\n%2F民山さんなんですね！,Qué pasada...\n¡Ese chut ha sido genial!\f¡No hay duda de que eres\nel lobo del Raimon! ¡Joseph!,oficial
 92070502,ｴpるーららら…\f…その%1F名で　よばれるのは\n%1F久しぶりだな…。\fあんた　もっとよく\n%1F顔をみせてくれ。,"La, la, la...\fHacía mucho tiempo que nadie me\nllamaba por ese nombre.\fDeja que te vea bien.",revisar
 92070502,ｶ|なるほど　その%1F目…\nその%1F口もと…　そして%1F何より\nさっきのセリフ…\f%2F監督と　%1F同じことを%1F言いやがった。,Ajá... Esos ojos... Esa boca...\nY la frase de antes...\fHas dicho exactamente lo que me\ndijo el entrenador.,revisar
 92070502,ｸじいちゃんと？,¿Lo mismo que mi abuelo?,revisar
@@ -23884,7 +23879,7 @@ hablar",auto-ia
 92070511,8%1F弱ったなあ。\n%1F話を　%1F聞いてくれないぞ。,"Vaya, no quiere escucharme.",revisar
 92070511,Tしかたないな…。\n%1F碇さんの%1F話が%1F終わるまで　\nあっちに%1F行ってようぜ。,Qué le vamos a hacer. Tendremos\nque esperar por ahí a que termine\nde hablar.,revisar
 92070511,98まったく！\nちかごろの%1F若ものは　けしからんっ！,Habrase visto... Vaya con\nla juventud de hoy en día...,revisar
-92070511,?8あれ？　%1F碇さんが\nどうして　ここにいるんだ？,¿Eh? ¿Por qué está Edward\naquí?,revisar
+92070511,?8あれ？　%1F碇さんが\nどうして　ここにいるんだ？,¿Eh? ¿Por qué está Edward\naquí?,oficial
 92070511,A8ヘンだな…。\nさっきのところに　もどってみようぜ。,Qué raro... Volvamos a donde\nantes.,revisar
 92070511,�うわぁっ　なんだコレ！,¿Qué? ¿Cómo es posible?...,revisar
 92070511,�dけしからんっ！　けしからんっ！\nけしからんっ！　けしからんっ！\nけしからんっ！　けしからんっ！,¡Habrase visto! ¡Habrase visto!\n¡Habrase visto! ¡Habrase visto!\n¡Habrase visto! ¡Habrase visto!,revisar
@@ -23892,22 +23887,22 @@ hablar",auto-ia
 92070511,ｾおい　%2F円堂！,"¡Eh, Mark!",revisar
 92070511,ﾁXこれって　もしかして\n%2F監督が%1F言っていた　\n%3F伊賀島の%2F忍術じゃないのか！？,"Esto tiene pinta de ser una de\nlas técnicas ninja de las que\nnos ha hablado el entrenador, ¿no?",revisar
 92070511,ﾆxフフフ　その%1F通り！\nこれぞ%2F忍法「%2F分身の%1F術」！\fさあ　どれがホンモノか\nキサマに　%1F見やぶれるかな！？,"Je, je. ¡Así es! ¡Se trata de la\ntécnica ninja de replicación!\f¿Crees que serás capaz de\ndistinguir cuál es el auténtico?",revisar
-92070511,ﾉ(ワシが%1F碇だ！　けしからんっ！,¡Yo soy Edward! ¡Habrase visto!,revisar
+92070511,ﾉ(ワシが%1F碇だ！　けしからんっ！,¡Yo soy Edward! ¡Habrase visto!,oficial
 92070511,ﾌ(ワシこそ%1F碇だ！　けしからんっ！,¡Edward soy yo! ¡Habrase visto!,revisar
-92070511,ﾎ4いったい　どれが%2F本物の\n%1F碇さんなんだ！？,¿Quién es el verdadero Edward?,revisar
-92070511,ﾐT%3F大丈夫！　%1F碇さんは\n「%2F雷門のハゲタカ」とまで\nよばれた%1F人なんだ！,Tengo una idea. A Edward lo\nllamaban hel buitre del Raimonh.,revisar
-92070511,ﾓP%2F本物の%1F碇さんなら　きっと　\nボールに%2F反応するはず！\n%1F行けー！！,Así que el verdadero seguro que\naún recuerda cómo controlar bien\nel balón. ¡Vamos!,revisar
+92070511,ﾎ4いったい　どれが%2F本物の\n%1F碇さんなんだ！？,¿Quién es el verdadero Edward?,oficial
+92070511,ﾐT%3F大丈夫！　%1F碇さんは\n「%2F雷門のハゲタカ」とまで\nよばれた%1F人なんだ！,Tengo una idea. A Edward lo\nllamaban el buitre del Raimon.,oficial
+92070511,ﾓP%2F本物の%1F碇さんなら　きっと　\nボールに%2F反応するはず！\n%1F行けー！！,Así que el verdadero seguro que\naún recuerda cómo controlar bien\nel balón. ¡Vamos!,oficial
 92070511,ああっ　しまった！,Aah... ¡Maldición!,revisar
 92070511,^ごめん,Ugh... ¡Lo lamento mucho!,revisar
 92070511,k8ニセ%1F碇さんは\n%4F伊賀島中の%2F生徒だったのか！,¡Los falsos Edwards eran \nestudiantes del Shuriken!,revisar
-92070511,nｰ%1F今のブロック…　すごいや！　\nやっぱり%1F碇さんは　\n%2F伝説のイナズマイレブンなんだ。\f%1F碇さん　おねがいです！\nオレたちといっしょに\nサッカーを　やってください！,"¡Ese bloqueo ha sido alucinante!\nSe nota que jugabas en el\nlegendario Inazuma Eleven!\fQueremos pedirte algo. ¡Juega\ncon nosotros al fútbol, por favor!",revisar
+92070511,nｰ%1F今のブロック…　すごいや！　\nやっぱり%1F碇さんは　\n%2F伝説のイナズマイレブンなんだ。\f%1F碇さん　おねがいです！\nオレたちといっしょに\nサッカーを　やってください！,¡Qué bloqueo! Edward\nes un Inazuma Eleven\nlegendario. ¡Únase a\fnosotros!,glosario
 92070511,s､よしてくれよ。\n…イナズマイレブンなんて　\nもう　%1F昔の%1F話さ…。\fあのころは　チームメイトと\n%1F泥だらけになって%2F練習して…\n%2F毎日が%1F楽しかった…。,Dejadlo correr. Lo del Inazuma\nEleven ocurrió hace ya muchos\naños.\fCada día entrenábamos todos\njuntos y acabábamos llenos de\nbarro. Nos divertíamos mucho...,revisar
 92070511,uだったら…！,¡Por eso mismo!...,revisar
 92070511,wﾜだが…。　\n%1F今は　もう%1F違う。\nワシは%1F年をとりすぎちまった。\fそれに　%2F影山にさからえば\nワシの%2F家族も　%2F危険な%1F目に\nあわせてしまうかもしれん…。\fワシは…　%1F今の%2F生活を\n%2F大事にしたいんだ。,"Pero ahora es diferente. Ya soy\nmayor para esas cosas.\fAdemás, si desafío a Ray Dark,\npuede que ponga a mi familia\nen peligro.\fQuiero proteger el estilo de vida\nque tengo ahora...",revisar
 92070511,y %2F円堂…　どうする…？,"¿Qué vamos a hacer, Mark?",revisar
 92070511,{�でも…　でも\nこのままで　いいハズない！\fさっきのブロックを%1F見れば\nわかります！\fあなただって　ホントはまだ\nサッカー%1F好きなんでしょう！？,"Pero... ¡Pero no puedes seguir\nasí!\f¡Me he dado cuenta cuando te he\nvisto con la pelota!\f¡A ti en realidad todavía te\ngusta el fútbol, ¿verdad?!",revisar
 92070511,"�,おまえ　サッカー%1F好きなんだろう？","Tú amas el fútbol, ¿no es así?",revisar
-92070511,�4%1F碇　どうした？\n%1F何を%1F悩んでいるんだ。,"¿Qué ocurre, Edward?\n¿Qué te preocupa?",revisar
+92070511,�4%1F碇　どうした？\n%1F何を%1F悩んでいるんだ。,"¿Qué ocurre, Edward?\n¿Qué te preocupa?",oficial
 92070511,�H%2F監督…　やっぱオレにはムリです。\nオレ　%2F才能がないんです…。,Entrenador... No puedo hacerlo.\nNo soy lo suficientemente bueno.,revisar
 92070511,��%1F碇　それは%1F違うぞ。\n%2F大切なのは%2F才能じゃない。\n%2F努力することなんだ。  だって\fおまえ　サッカー%1F好きなんだろう？,"Edward, lo importante no es la\ncalidad de un jugador, sino el\nesfuerzo.\fTe gusta el fútbol, ¿no?",revisar
 92070511,ｭ`お　おまえはまさか…？\n%2F円堂…　そうかおまえは\n%2F円堂%2F大介の…　%2F監督のマゴか…。,"¿Tú no serás...? Mark Evans, ¿eh?\nClaro... Eres el nieto de David\nEvans, nuestro entrenador...",revisar
@@ -23947,7 +23942,7 @@ hablar",auto-ia
 92070511,ﾓはんのう,reacción,auto-ia
 92070511,^くっ　%2F御免！,"^¡Uf, lo siento!",auto-ia
 92070511,kいかり,ira,auto-ia
-92070511,kいがじまちゅう,Instituto Igajima,auto-ia
+92070511,kいがじまちゅう,Instituto Shuriken,glosario
 92070511,kせいと,alumno,auto-ia
 92070511,nいま,ahora,auto-ia
 92070511,nいかり,ira,auto-ia
@@ -24051,7 +24046,7 @@ historia",auto-ia
 92070900,-@わかった。　できるかぎり\nきみたちに協力すると約束しよう。,Muy bien. Os prometo que haré\ntodo lo que esté en mis manos\npara ayudaros.,revisar
 92070900,/$ほんとですか！？　やったぁ！！,¡¿De verdad?! ¡Genial!,revisar
 92070900,1dそういえば　近ごろ鬼瓦さんが\nよくたずねてきていたが　それも\nなにかの知らせだったのかもな…。,"Ahora que lo pienso, Smith se\nha pasado a menudo por aquí.\f¿Qué querría?...",revisar
-92070900,3$鬼瓦警部を　しってるんですか？,¿Eh? ¿Conoces al detective Smith?,revisar
+92070900,3$鬼瓦警部を　しってるんですか？,¿Eh? ¿Conoces al detective Smith?,oficial
 92070900,5萩S瓦さんはね　円堂監督の\nきみのおじいさんの　\n親友だったんだよ。\fかれもまた　ある事件に\nながい間とらわれ\n影山を追いつづけているんだ…。,"Smith era el mejor amigo del\nentrenador Evans, o sea, de tu\nabuelo.\fDesde que ocurrió aquel incidente,\nno ha dejado de perseguir a\nRay Dark.",revisar
 92070900,7ある事件？,¿Un incidente?...,revisar
 92070900,9H…いずれわかるさ。\nでは　わたしは先に\nグラウンドで待っているよ,"Ya os lo contarán algún día.\nBueno, yo voy tirando para\nel campo.",revisar
@@ -24093,7 +24088,7 @@ historia",auto-ia
 92071100,｢…%1F守　これ。,"Toma, Mark.",revisar
 92071100,ｨ0あっ　これは！\fじいちゃんのグローブだ！,¡Pero si son...!\f¡Los guantes del abuelo!,revisar
 92071100,ｪT…%1F押し%1F入れの%1F奥に%1F落ちてたから\n%1F母ちゃんが　ひろっておいたのよ。,Los cogí porque los tenías tirados\nen el fondo del armario.,revisar
-92071100,ｬhやったあ！\nありがとう　%1F母ちゃん！\fこれで　%3F備流田さんを　\n%2F説得できるかもしれないぞ！,"¡Genial! ¡Gracias, mamá!\f¡Con esto puede que consigamos\nconvencer a Constant!",revisar
+92071100,ｬhやったあ！\nありがとう　%1F母ちゃん！\fこれで　%3F備流田さんを　\n%2F説得できるかもしれないぞ！,"¡Genial! ¡Gracias, mamá!\f¡Con esto puede que consigamos\nconvencer a Constant!",oficial
 92071100,ｿあぶ,"Por favor, no te metas en líos...",revisar
 92071100,ﾁ え？　%1F何か%1F言ったか？,¿Eh? ¿Has dicho algo?,revisar
 92071100,ﾄ@ううん　%3F晩御飯までには\nちゃんと%1F帰ってきなさいよ！,"No, nada. Vuelve antes de la hora\nde cenar, ¿vale?",revisar
@@ -24204,7 +24199,7 @@ historia",auto-ia
 92071300,ﾀ<なんだと？　%1F髪%1F村！\n%1F何か%1F言いやがったか！？,"¡Repite eso, Garret!\n¿Tienes algún problema?",revisar
 92071300,ﾂ$なっ　なんでもないでしゅ…。,¿Yo? Ninguno...,revisar
 92071300,ﾇﾄいいか　%2F円堂　%1F守！\n%1F今からオレと　この%1F髪%1F村が\n「%1F炎の%3F風見鶏」を%1F打つ！\fそしておまえが　その%1F体で\nみごと　%1F受け%1F止めてみせたら\nおまえたちに%2F協力してやるぜ！,"¡Escúchame bien, Mark Evans!\n¡Garret y yo te vamos a lanzar\nel Pájaro de fuego!\f¡Si ocurre un milagro y consigues\ndetener el tiro, colaboraré con\nvosotros!",revisar
-92071300,ﾊ4おい　%3F備流田…\nそりゃー　あまりにも…。,"Oye, Constant...\n¿No crees que te estás pasando?...",revisar
+92071300,ﾊ4おい　%3F備流田…\nそりゃー　あまりにも…。,"Oye, Constant...\n¿No crees que te estás pasando?...",oficial
 92071300,ﾐ戟cオレの「%1F炎の%3F風見鶏」\n%1F止めることが　できるのは　\n%2F監督だけだった…。\fあの%1F人のマゴなら\nそれくらい　できるはずだ！,"El único que podía parar mi\nPájaro de fuego era el entrenador.\f¡Si de verdad es su nieto,\ndebería ser capaz de superar\nuna prueba como esta!",revisar
 92071300,ﾔﾜるーららら\nボウズ…　この%3F備流田を\nマジにさせちまったか。\f%1F逃げるなら　%1F今のうちだぜ。\nなんせ　この「%1F炎の%3F風見鶏」は\f%2F響木ですら%1F止められずに\n%1F大ケガをしたという\nおそろしい%1F技だからな…。,"La, la, la. No está mal, chico.\nHas conseguido que hasta Constant\nse ponga a jugar en serio.\fYo que vosotros aprovecharía\npara salir corriendo ahora que\npodéis.\fNi siquiera Seymour podía parar\nnuestro Pájaro de fuego. ¡Es\nuna técnica terrorífica!",revisar
 92071300,ﾗ$おい%2F円堂　どうする…！？,"Mark, ¿qué quieres hacer?",revisar
@@ -24216,7 +24211,7 @@ historia",auto-ia
 92071300,9�どうだ！　しょせん　\nおまえたちのチカラなんて\nこんなものなんだ！\fイナズマイレブンの%1F技を\n%2F伝授してもらおうなんて\n１００%1F年%1F早い！\f%2F優勝なんて…　オレたちだって\nできなかったんだ！　\n%1F夢を%1F見るのは　あきらめろ！,¿Eso es todo lo que podéis hacer?\f¡Os quedan siglos de entrenamiento\nsi queréis aprender una técnica\ndel Inazuma Eleven!\f¡Ni siquiera nosotros logramos\nganar! ¡Dejad de soñar!,revisar
 92071300,< %3F備流田…　おまえ…。,¡Maldita sea!...,revisar
 92071300,C@…オレは　ゼッタイに…\nゼッタイに　あきらめないぞっ！！,No... ¡No pienso rendirme!\n¡Jamás!,revisar
-92071300,Q(%3F備流田　ゼッタイあきらめるな！,"¡Constant, no te rindas jamás!",revisar
+92071300,Q(%3F備流田　ゼッタイあきらめるな！,"¡Constant, no te rindas jamás!",oficial
 92071300,\<さあ　もう１%1F度だっ！\n%2F今度は%1F受け%1F止める！！,"¡Vamos, chuta otra vez!\n¡Seguro que ahora lo pararé!",revisar
 92071300,`おおおおっ！,Ugh... ¡Uaaaah!,revisar
 92071300,� ………と…\f%1F止めた…？,Lo ha...\f¿...parado?,revisar
@@ -24254,7 +24249,7 @@ historia",auto-ia
 92071300,ｷ�%2F心配するな。　\n%2F監督の%1F教えなら　オレたちの%1F体が　\nハッキリと　おぼえている！\f%1F炎の%3F風見鶏は　オレたちが　\nちゃんと%1F教えてやるぜ！,No os preocupéis. Nuestros cuerpos\nrecuerdan perfectamente todo lo\nque aprendimos con el entrenador.\f¡Nosotros os enseñaremos a\nrealizar el Pájaro de fuego!,revisar
 92071300,ｷかざみどり,¡Muchas gracias!,revisar
 92071300,ﾄﾀそれから　オレたちは\n%1F炎の%3F風見鶏を%2F完成させるため\nＯＢたちと%2F特訓を%1F続けたんだ。\f%2F特訓は　とてもキビしかったけど\n%2F伝説のイナズマイレブンと\nサッカーができるとあって,"Entrenamos con los veteranos\ntodos los días para dominar la\ntécnica del Pájaro de fuego.\fEl entrenamiento fue muy duro,\npero estábamos contentos de poder\njugar con el Inazuma Eleven.",revisar
-92071300,ﾆ�ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,Todos queríamos llegar hasta\nel final y entrenábamos hasta\nque se ponía el sol.\fY el día antes del partido con\nel Instituto Shuriken...,revisar
+92071300,ﾆ�ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,¡Nadie quiso\nabandonar!\nEntrenábamos cada día\fhasta el anochecer. Y\nla víspera del partido\ncontra el Shuriken...,glosario
 92071300,0さあ\nはやくその%3F秘伝書を　よこせ！！,¡Nos llevamos el cuaderno secreto!,revisar
 92071300,",さもないと　また\nイタイめに　あうぞ？",¿O os veis con fuerzas como\npara evitarlo?,revisar
 92071300,はやく　よこせ！,¡Eso está por ver!,revisar
@@ -24422,7 +24417,7 @@ historia",auto-ia
 92071400,��%2F心配するな。　\n%2F監督の%1F教えなら　オレたちの%1F体が　\nハッキリと　おぼえている！\f%1F炎の%3F風見鶏は　オレたちが　\nちゃんと%1F教えてやるぜ！,No os preocupéis. Nuestros cuerpos\nrecuerdan perfectamente todo lo\nque aprendimos con el entrenador.\f¡Nosotros os enseñaremos a\nrealizar el Pájaro de fuego!,revisar
 92071400,�かざみどり,¡Muchas gracias!,revisar
 92071400,�ﾀそれから　オレたちは\n%1F炎の%3F風見鶏を%2F完成させるため\nＯＢたちと%2F特訓を%1F続けたんだ。\f%2F特訓は　とてもキビしかったけど\n%2F伝説のイナズマイレブンと\nサッカーができるとあって,"Entrenamos con los veteranos\ntodos los días para dominar la\ntécnica del Pájaro de fuego.\fEl entrenamiento fue muy duro,\npero estábamos contentos de poder\njugar con el Inazuma Eleven.",revisar
-92071400,��ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,Todos queríamos llegar hasta el\nfinal y entrenábamos hasta que\nse ponía el sol.\fY el día antes del partido con\nel Instituto Shuriken...,revisar
+92071400,��ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,¡Nadie quiso\nabandonar!\nEntrenábamos cada día\fhasta el anochecer. Y\nla víspera del partido\ncontra el Shuriken...,glosario
 92071400,ﾜ しょせん　その%2F程度か。,¿Eso es todo lo que sabéis hacer?,revisar
 92071400,ﾞ8なんなら　もう１%1F度\n%2F勝負してやってもいいが？,No nos importaría enfrentarnos\nde nuevo a vosotros.,revisar
 92071400,�(さあ　うばい%1F返してみせろ！！,¡A ver si sois capaces de\nquitárnoslo!,revisar
@@ -24490,7 +24485,7 @@ historia",auto-ia
 92071400,�しょうぶ,¡Jude Sharp se te ha unido!,auto-dup
 92071400,�もくてき,¿Eh? Nada que yo sepa.\fVamos a la caseta a ver\nqué nos cuenta.,auto-dup
 92071500,0まったく\nちかごろの若者はけしからんっ！,de verdad\n¡Los jóvenes de hoy en día no tienen ningún respeto!,auto-ia
-92071500,0あれ？　碇さんが\nどうしてここにいるんだ？,¿Eh? ¿Qué hace aquí el señor Gladstone?,auto-ia
+92071500,0あれ？　碇さんが\nどうしてここにいるんだ？,¿Eh? ¿Qué hace Edward\naquí?,glosario
 92071500,4おかしいね。\nさっきのところに戻ってみよう。,Qué raro.\nVolvamos al sitio de antes.,auto-ia
 92071500,$碇さんと会った場所に戻ろう！,$¡Volvamos al lugar donde nos encontramos con Gladstone!,auto-ia
 92071600,$けしからんっ！　けしからんっ！,$¡Es indignante! ¡Indignante!,auto-ia
@@ -24499,14 +24494,14 @@ historia",auto-ia
 92071600,Pフフフ　これぞ忍法\n「分身の術」！　さあ　\nどれがホンモノかわかるかな！,"Jejeje... ¡este es el arte ninja
  del clon de sombra! Veamos... 
 ¡¿sabrás cuál es el auténtico?!",auto-ia
-92071600,$ワシが碇だ！　けしからんっ！,$¡Yo soy Gladstone! ¡Indignante!,auto-ia
-92071600,$ワシこそ碇だ！　けしからんっ！,$¡El verdadero Gladstone soy yo! ¡Indignante!,auto-ia
-92071600,",いったい　どれが本物の\n碇さんなの！？",¡¿Quién de todos es el auténtico\nEdward Gladstone?!,auto-ia
-92071600,､だいじょうぶ　\nオレにいい考えがある！\nサッカーボールを\f店のワゴンに向けてシュートするんだ！\n本物の碇さんなら\nダマって見ているハズはないぜ！\fくらえっ！,"tranquilo　\n¡tengo una buena idea!\n¡vamos a chutar el balón\fhacia el carrito de la tienda!\nsi es el verdadero Edward Gladstone,\n¡seguro que no se quedará mirando sin hacer nada!\n¡toma esto!",auto-ia
+92071600,$ワシが碇だ！　けしからんっ！,$¡Yo soy Edward! ¡Qué\nbarbaridad!,glosario
+92071600,$ワシこそ碇だ！　けしからんっ！,$¡Yo soy el verdadero\nEdward! ¡Qué\nbarbaridad!,glosario
+92071600,",いったい　どれが本物の\n碇さんなの！？",¿Cuál de todos es el\nverdadero Edward?,glosario
+92071600,､だいじょうぶ　\nオレにいい考えがある！\nサッカーボールを\f店のワゴンに向けてシュートするんだ！\n本物の碇さんなら\nダマって見ているハズはないぜ！\fくらえっ！,¡Tengo una idea!\n¡Chutaré el balón al\ncarro!\f¡El verdadero Edward\nno podrá quedarse\nquieto!\f¡Toma ya!,glosario
 92071600,さ　させるか！！,¡N... no os dejaré!,auto-ia
 92071600,ああっ　しまったでござる！,"¡Ay, la he fastidiado!",auto-ia
-92071600,0ニセ碇さんは\n伊賀島中の生徒だったんだ！,¡El falso Gladstone era un alumno del instituto Igajima!,auto-ia
-92071600,�今のブロック…　すごいや！　\nやっぱり碇さんは　\n伝説のイナズマイレブンなんだ。\f碇さん　おねがいです！\nオレたちといっしょに\nサッカーをやってください！,"¡Ese bloqueo de antes…\nha sido increíble!\nDesde luego, Edward Gladstone\nes el legendario Inazuma Eleven.\f¡Edward Gladstone, se lo suplico!\n¡Juegue al fútbol\ncon nosotros, por favor!",auto-ia
+92071600,0ニセ碇さんは\n伊賀島中の生徒だったんだ！,¡El falso Edward era\nun alumno del\nInstituto Shuriken!,glosario
+92071600,�今のブロック…　すごいや！　\nやっぱり碇さんは　\n伝説のイナズマイレブンなんだ。\f碇さん　おねがいです！\nオレたちといっしょに\nサッカーをやってください！,"¡Qué bloqueo! ¡Edward\nes una leyenda!\f¡Edward, por favor!\n¡Juegue al fútbol con\nnosotros!",glosario
 92071600,垂竄ﾟてくれ。\nイナズマイレブンなんて昔の話さ…。\fあのころは　たしかに良かった。\nチームメイトと　おそくまで練習して\n毎日が楽しかった…。,Déjame en p\naz.\nInazuma Eleven es cosa del pasado…\fLa verdad es que aquellos días fueron buenos.\nEntrenaba con mis compañeros hasta tarde\ny cada día me lo pasaba en grande….,auto-ia
 92071600,ｴだが　今はもうちがう。\nオレは年をとりすぎちまった。\nそれに　影山にさからえば\fこの商店街にもヤツの手下が\nおくりこまれるかもしれない…。\nオレは今の生活を大事にしたいんだ。,"Pero eso ya no es así.
 Me he hecho demasiado viejo.
@@ -24528,7 +24523,7 @@ todavía sientes esa pasión
 por el fútbol!¡Por la galería comercial no te preocupes,
 yo también te echaré una mano!",auto-ia
 92071600,Hぱぱー。　わたし　ぱぱが\nサッカーしてるところ\nみてみたいよー。,Papááá... Quiero verte\njugando al fútbol\nalguna vez.,auto-ia
-92071600,碇さん　おねがいします！,"¡Por favor, Edward!",auto-ia
+92071600,碇さん　おねがいします！,"¡Por favor, Edward!",glosario
 92071600,戟cそうだな。\nこのままじゃ本当に\n口だけの男になっちまうな…。\fこの碇ともあろう男が\nずいぶん小さく　まとまっちまう\nところだったぜ。,"Tienes razón, sí.\nComo siga así, voy a acabar siendo\nun hombre que solo sabe hablar…\fY yo, que soy Edward Gladstone,\nestaba a punto de quedarme\nhecho un don nadie.",auto-ia
 92071600,0わかった。\nおまえたちに協力してやるよ。,Entendido.\nOs echaré una mano.,auto-ia
 92071600,や　やったぁ！,¡L... lo logramos!,auto-ia
@@ -24545,7 +24540,7 @@ yo también te echaré una mano!",auto-ia
 92071800,��%2F心配するな。　\n%2F監督の%1F教えなら　オレたちの%1F体が　\nハッキリと　おぼえている！\f%1F炎の%3F風見鶏は　オレたちが　\nちゃんと%1F教えてやるぜ！,No os preocupéis. Nuestros cuerpos\nrecuerdan perfectamente todo lo\nque aprendimos con el entrenador.\f¡Nosotros os enseñaremos a\nrealizar el Pájaro de fuego!,revisar
 92071800,�かざみどり,¡Muchas gracias!,revisar
 92071800,�ﾀそれから　オレたちは\n%1F炎の%3F風見鶏を%2F完成させるため\nＯＢたちと%2F特訓を%1F続けたんだ。\f%2F特訓は　とてもキビしかったけど\n%2F伝説のイナズマイレブンと\nサッカーができるとあって,"Entrenamos con los veteranos\ntodos los días para dominar la\ntécnica del Pájaro de fuego.\fEl entrenamiento fue muy duro,\npero estábamos contentos de poder\njugar con el Inazuma Eleven.",revisar
-92071800,��ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,Todos queríamos llegar hasta el\nfinal y entrenábamos hasta que\nse ponía el sol.\fY el día antes del partido con\nel Instituto Shuriken...,revisar
+92071800,��ダレも　やめるなんて%1F言わずに\n%2F毎日　%1F日がくれるまで\n%2F必死にがんばったんだ！\fそして　%3F伊賀島との%2F試合の%2F前日…。,¡Nadie quiso\nabandonar!\nEntrenábamos cada día\fhasta el anochecer. Y\nla víspera del partido\ncontra el Shuriken...,glosario
 92071800,お%2F師匠さま！,¡Maestro!,auto-ia
 92071800,�かざみどり,¡Muchas gracias!,auto-dup
 92071800,�しんぱい,preocupación,auto-ia
@@ -24814,7 +24809,7 @@ Uf…",auto-ia
 92080200,ﾃ(%3F世宇子%1F中…　%1F気になるね。,No os preocupéis por el Zeus.,revisar
 92080200,ﾅ�でも　まあ…　\nまずは　%3F千羽山%1F中に\n%1F勝つことが%1F先ですよね！\f%3F世宇子%1F中については\nわたしが%2F調査をつづけます！\fだから　みなさんは　いっぱい%2F練習して\n「%2F無限の%1F壁」を　ゼッタイに\n%1F打ちやぶってくださいね！,"Bueno, claro...\n¡Primero hay que ganar al Farm!\f¡Yo voy a seguir buscando\ninformación sobre el Zeus!\fMientras, ¡seguid entrenando\npara romper la Muralla infinita!",revisar
 92080200,ﾉp…エラいね　%2F春奈ちゃん。\n%3F世宇子に%1F負けて%2F入院している\n%2F鬼道くんが　%2F心配なはずなのに…。,¡Qué optimista! ¿Y no le preocupa\nque la derrota contra el Zeus\nhaya mandado a Jude al hospital?,revisar
-92080200,ﾋ�ああ　そうだな。\n%2F音無も　がんばってるんだ。\nゼッタイに%3F千羽山をたおすぞ！\fよし　みんな！　\nさっそく%2F練習に%1F行こうぜ！,"Quizá, pero hay que ir paso a paso.\n¡Y ahora hay que derrotar al Farm!\f¡Venga, en marcha! ¡Ya estáis\ntardando en ir a entrenar!",revisar
+92080200,ﾋ�ああ　そうだな。\n%2F音無も　がんばってるんだ。\nゼッタイに%3F千羽山をたおすぞ！\fよし　みんな！　\nさっそく%2F練習に%1F行こうぜ！,Sí. Celia también se\nestá esforzando.\n¡Venceremos al Farm!\f¡Vamos a entrenar!,glosario
 92080200,ﾓ グラウンドで練習をしよう！,¡Ve a practicar al campo!,revisar
 92080200,'8%2F風丸　%3F一郎太\nがいっしょにいくことになった！,¡Nathan Swift\nse ha unido al grupo!,auto-ia
 92080200,'かぜまる,Nathan Swift,auto-ia
@@ -24846,9 +24841,9 @@ Uf…",auto-ia
 92080200,ｫさき,antes,auto-ia
 92080200,ｯかいせん,mar abierto,auto-ia
 92080200,ｯあいて,rival,auto-ia
-92080200,ｯせんばやまちゅう,Senbayama Sec.,auto-ia
+92080200,ｯせんばやまちゅう,Farm,glosario
 92080200,ｯじょうほう,información,auto-ia
-92080200,ｯせんばやま,Senbayama,auto-ia
+92080200,ｯせんばやま,Farm,glosario
 92080200,ｯやまおく,interior de la montaña,auto-ia
 92080200,ｯだいしぜん,gran naturaleza,auto-ia
 92080200,"ｯ
@@ -24900,7 +24895,7 @@ dentro",auto-ia
 92080200,ﾁあらわ,aparecer,auto-ia
 92080200,ﾃぜうす,Zeus,auto-ia
 92080200,ﾃちゅう,atención,auto-ia
-92080200,ﾅせんばやま,Senbayama,auto-ia
+92080200,ﾅせんばやま,Farm,glosario
 92080200,ﾅちゅう,secundaria,auto-ia
 92080200,ﾅさき,Saki,auto-ia
 92080200,ﾅぜうす,Zeus,auto-ia
@@ -25149,7 +25144,7 @@ completamente sola….",auto-ia
 92080600,p犯人をつかまえろ！,¡Atrapa al ladrón!,revisar
 92080600,"""おそ",tarde,auto-ia
 92080600,(あっ　%2F鬼瓦さん！,"¡Ah, Gregory Smith!",auto-ia
-92080600,(おにがわら,(Onigawara,auto-ia
+92080600,(おにがわら,(Smith,glosario
 92080600,3だいじょうぶ,tranquilo,auto-ia
 92080600,3しょるい,documentos,auto-ia
 92080600,3ぶじ,sano y salvo,auto-ia
@@ -25212,7 +25207,7 @@ completamente sola….",auto-ia
 92080800,4なんだ？\nこれが%2F都会の%2F犯罪ってやつだか？,¿Qué? ¿Esta es la pinta de los\nchorizos de ciudad?,revisar
 92080800,#(ドケッ　ガキドモ！\nジャマダ…ッ！,"¡Fuera de mi camino, palurdos!",revisar
 92080800,%hなんと？　%2F失礼な%1F人だっぺ！\nあんた　さては%1F悪い%1F人だっぺな！\nみんな　つかまえるっぺよ！,¿Qué? ¡Maleducao! ¡Estos de ciudad!\n¡Se va a enterar! ¡A por él!,revisar
-92080800,lPどうだ！\nオラたち%3F千羽山%1F中の%3F必殺技\n「%2F無限の%1F壁」だっぺ！,¿Qué te parece nuestra técnica\ndel campo? ¡Toma Muralla infinita!,revisar
+92080800,lPどうだ！\nオラたち%3F千羽山%1F中の%3F必殺技\n「%2F無限の%1F壁」だっぺ！,¿Qué te parece nuestra técnica\ndel campo? ¡Toma Muralla infinita!,oficial
 92080800,n0ええっ　\nあいつらが%3F千羽山だって！？,¿Eh? ¿Son del Instituto Farm?,revisar
 92080800,p0あのディフェンス\nまったくスキがない…！,¡No parece haber ninguna forma\nde atravesar esa defensa!,revisar
 92080800,"r,ウアアアア！\nクソッ　ニゲラレナイッ！",¡Aaah! ¡No hay forma de salir\nde aquí!,revisar
@@ -25225,7 +25220,7 @@ completamente sola….",auto-ia
 92080800,ﾁ8テイサツのつもりが\n%1F逆にばれちまったズラか！,¿Al beneficiar al prójimo nos\nhemos perjudicao a nosotros?,revisar
 92080800,ﾃTだからって　%2F無限の%1F壁が\n%1F越えられるわけねえだ！\n%2F心配いらんわい！,¿Y qué importa? ¡Nadie puede\natravesar la Muralla infinita!,revisar
 92080800,ﾅDそうじゃの。\nそのとおりズラ。\n%2F無限の%1F壁は%2F最強じゃ！,"Porras, ¡si es verdad!\nYa lo había olvidao...\n¡La Muralla infinita es invencible!",revisar
-92080800,ﾇpだっぺ！　だっぺ！\nじゃが　やっぱり%2F都会は\nぶっそうじゃのう。\fさっさと　%3F千羽山に%1F帰るっぺよ。,"¡Eso, eso! ¡Tienes toa la razón!\nPero la ciudad es mu' peligrosa\ncon tanto ladrón, ¿no?\fMejor nos volvemos a casa.",revisar
+92080800,ﾇpだっぺ！　だっぺ！\nじゃが　やっぱり%2F都会は\nぶっそうじゃのう。\fさっさと　%3F千羽山に%1F帰るっぺよ。,"¡Eso, eso! ¡Tienes toa la razón!\nPero la ciudad es mu peligrosa\ncon tanto ladrón, ¿no?\fMejor nos volvemos a casa.",oficial
 92080800,ﾉ0それじゃ　また%2F試合でな！\n%2F円堂どん！,"¡Nos vemos en el partido, Evans!",revisar
 92080800,ﾋああ！　またな！,"¡Venga, hasta luego!",revisar
 92080800,�@あのディフェンス…\n%2F本当に%1F越えられるのか…。\n…？,¿Creéis que... podremos atravesar\nesa defensa?,revisar
@@ -25246,12 +25241,12 @@ completamente sola….",auto-ia
 92080800,%ひと,persona,auto-ia
 92080800,+おうよ！,¡Claro!,auto-ia
 92080800,Lナ　ナンダ！？,¿¡Q-qué pasa!?,auto-ia
-92080800,lせんばやま,Senbayama,auto-ia
+92080800,lせんばやま,Farm,glosario
 92080800,lちゅう,medio,auto-ia
 92080800,lひっさつわざ,técnica especial,auto-ia
 92080800,lむげん,infinito,auto-ia
 92080800,lかべ,muro,auto-ia
-92080800,nせんばやま,Senbayama,auto-ia
+92080800,nせんばやま,Farm,glosario
 92080800,tむげん,infinito,auto-ia
 92080800,tかべ,muro,auto-ia
 92080800,tだれ,quien,auto-ia
@@ -25291,7 +25286,7 @@ completamente sola….",auto-ia
 92080800,-だいじょうぶ,tranquilo,auto-ia
 92080800,/しょるい,documentos,auto-ia
 92080800,1わる,malo,auto-ia
-92080800,3えんどう,Endo,auto-ia
+92080800,3えんどう,Evans,glosario
 92080800,3ぶしつ,club,auto-ia
 92080800,3ほうこく,informe,auto-ia
 92080800,3かんが,pensar,auto-ia
@@ -25340,7 +25335,7 @@ completamente sola….",auto-ia
 92081020,ﾀなるほど…　\nこれで%1F話が　つながったな。\f%2F影山は　ああ%1F見えて\nサッカー%2F協会の%3F副会長だ。\f%3F世宇子を　むりやり\nトーナメント%1F表に%1F入れるくらい\n%1F朝メシ%1F前だろう。,Ahora lo entiendo todo.\fRay Dark es el vicepresidente\nde la Federación.\fSeguro que no le ha costado nada\nmeter al Zeus en la competición.,revisar
 92081020,ｬ…%2F総帥が　かかわっている%2F以上\n%3F世宇子の%1F強さにも　\nかならず%1F裏があるはずだ。\fそのヒミツを　あばくために\nオレは　%3F世宇子と\nもう１%1F度　%1F戦いたい。,"Pero más que su presencia, lo\nimportante es que tiene que haber\nalgo especial en el poder del Zeus.\fPor eso debo enfrentarme a ellos\nuna vez más... ¡Quiero descubrir\nsu secreto!",revisar
 92081020,Xそこで…　おまえたち　\n%2F雷門サッカー%1F部に\n%2F入部してやろうと%1F思ってな。,Ese es el único motivo por el que\nme he unido al Raimon.,revisar
-92081020,р�っ　ああ。　\nちょっと　おどろいたけどさ。\fでも　いっしょにサッカーするなら\nオレは%1F大かんげいだぜ！\nそうだろ　みんな？,"Bueno, vale... Yo que ya había\ncreído que...\fDa igual. ¡Bienvenido al equipo\nde todas formas!\n¿A que sí, chicos?",revisar
+92081020,р�っ　ああ。　\nちょっと　おどろいたけどさ。\fでも　いっしょにサッカーするなら\nオレは%1F大かんげいだぜ！\nそうだろ　みんな？,¿Chicos?,oficial
 92081020,ﾜフッ　\nカン%1F違いするな　%2F円堂　%1F守。\nキサマらと　なれあうつもりは%1F無い。\fただ　%3F世宇子をたおすという\n%2F目的のために%2F利用しあう。　\n…それだけだ。\fせいぜい　オレの%1F足を\nひっぱらないようにな。,"Bah... No te hagas ilusiones,\nEvans. No pienso unirme a tu\npandilla.\fSolo sois mi forma de acabar\ncon el Zeus.\fEspero que no acabéis resultando\nun obstáculo.",revisar
 92081020,lやめんか バカモノッ！\fおまえたちは　これから\nチームメイトになるのだぞ！\nケンカして　どうするっ！,¡Tranquilos!\f¡Desde ahora sois compañeros\nde equipo! ¡No vais a ganar nada\nenfrentándoos!,revisar
 92081020,4…こいつとチームメイトに？\nおことわりだぜ…。,¿Nosotros y él? ¿Compañeros\nde equipo? Lo dudo muchísimo...,revisar
@@ -25369,7 +25364,7 @@ completamente sola….",auto-ia
 92081020,kていこくがくえん,¿La Royal Academy?,revisar
 92081020,mdその%1F時の%4F帝国学園は　　\nまだ　%3F準優勝%1F止まりの　\nふつうの%2F学校にすぎなかった。,"Por aquel entonces, la Royal\nAcademy no era lo bastante buena\nni para pasar la semifinal.",revisar
 92081020,otワシたちは　%2F試合に%1F向けて\n%1F心をひとつに\n%2F毎日　%2F必死に%2F練習したさ。\fそう　あいつ%2F以外は…。,Nos entrenábamos todos los días\npara darlo todo. Sabíamos lo que\nera entregarse a fondo.\fTodos... excepto él.,revisar
-92081020,s\%2F影山　%2F零治…　あいつは　\nワシたち%3F雷門中サッカー%1F部の\nメンバーだったんだ。,Ray Dark... también era miembro\ndel equipo del Instituto Raimon.,revisar
+92081020,s\%2F影山　%2F零治…　あいつは　\nワシたち%3F雷門中サッカー%1F部の\nメンバーだったんだ。,Ray Dark... también era miembro\ndel equipo del Instituto Raimon.,oficial
 92081020,sらいもんちゅう,¿Eh? ¡¿Qué?!,revisar
 92081020,w8%2F総帥が…　\n%3F雷門中のサッカー%2F部員だと！？,¿El comandante... jugaba en el\nequipo Raimon?,revisar
 92081020,y�%2F正確には　ひかえの%2F選手でな。\n%1F暗くて%2F目立たないヤツだった。\f…いや　%1F今%1F思えば\nワザと%2F目立たないように\nふるまっていたのかもしれない。,"En realidad solo era un reserva.\nEra sombrío y nunca destacaba.\fAhora que lo pienso, debía de\ntener un motivo para portarse así.",revisar
@@ -25412,7 +25407,7 @@ completamente sola….",auto-ia
 92081020,�t%2F円堂さん　ごめんよ。　\n%2F鬼道は　\nホントはいいヤツなんだ。\fもっと　みんなを%1F知れば\nオレのように…。,"Lo siento, Mark. Jude en realidad\nes buena persona.\fCuando os conozcáis mejor, seguro\nque le acogéis como a mí.",revisar
 92081020,��ああ　わかってるさ。\n%2F影山の%2F鉄骨のワナから\nオレたちを%1F救ってくれたのは%2F鬼道だ。\fさあ　%1F今はまず　\nＯＢたちのところへ%1F行こうぜ！,"Ya lo sé. Jude nos salvó de las\nvigas de Dark, y ahora está aquí\npara ayudarnos.\fBueno, ¿qué tal si vamos a\nreunirnos con los veteranos?",revisar
 92081020,�秘密の倉庫へいこう！,¡Ve al almacén secreto!,revisar
-92081020,みんな？,¿Chicos?,auto-ia
+92081020,みんな？,¿Chicos?,oficial
 92081020,%2F円堂くん…。,Mark…,auto-ia
 92081020,なっ　なんだと！,¡C... cómo dices!,auto-ia
 92081020,#なつみ,#Atsuko,auto-ia
@@ -25463,7 +25458,7 @@ completamente sola….",auto-ia
 92081020,"A
 かげやま",Kageyama,auto-ia
 92081020,Cころ,época,auto-ia
-92081020,Eていこくがくえん,Instituto Imperial,auto-ia
+92081020,Eていこくがくえん,Royal Academy,glosario
 92081020,Eねん,año,auto-ia
 92081020,Eかん,lata,auto-ia
 92081020,Eゆうしょう,victoria,auto-ia
@@ -25524,10 +25519,10 @@ Todo",auto-ia
 92081020,"i
 とき",momento,auto-ia
 92081020,iあいて,rival,auto-ia
-92081020,iていこくがくえん,Instituto Imperial,auto-ia
-92081020,k…%4F帝国学園！,…¡El Instituto Imperial!,auto-ia
+92081020,iていこくがくえん,Royal Academy,glosario
+92081020,k…%4F帝国学園！,…¡La Royal Academy!,glosario
 92081020,mとき,momento,auto-ia
-92081020,mていこくがくえん,Instituto Imperial,auto-ia
+92081020,mていこくがくえん,Royal Academy,glosario
 92081020,mじゅんゆうしょう,subcampeonato,auto-ia
 92081020,mがっこう,escuela,auto-ia
 92081020,oしあい,partido,auto-ia
@@ -25538,7 +25533,7 @@ Todo",auto-ia
 92081020,oいがい,imprevisto,auto-ia
 92081020,qあいつ？,¿Ése?,auto-ia
 92081020,sかげやま,Kageyama,auto-ia
-92081020,sれいじ,Reiji,auto-ia
+92081020,sれいじ,Ray,glosario
 92081020,uええっ　なんだって！？,Eh? Que pasa!?,auto-ia
 92081020,wそうすい,comandante,auto-ia
 92081020,wらいもんちゅう,Instituto Raimon,auto-ia
@@ -25574,7 +25569,7 @@ Todo",auto-ia
 じこ","
 yo mismo",auto-ia
 92081020,｢かいじょう,recinto,auto-ia
-92081020,｢ていこくがくえん,Instituto Imperial,auto-ia
+92081020,｢ていこくがくえん,Royal Academy,glosario
 92081020,｢ゆうしょう,｢victoria,auto-ia
 92081020,､だいすけ,David,auto-ia
 92081020,､きょうりょく,colaboración,auto-ia
@@ -25585,21 +25580,21 @@ yo mismo",auto-ia
 92081020,､すべ,todo,auto-ia
 92081020,"､
 ていこく","
-Imperial",auto-ia
+Royal Academy",glosario
 92081020,ｦていこく,imperio,auto-ia
 92081020,ｦたたか,luchar,auto-ia
 92081020,ｦとき,momento,auto-ia
 92081020,ｦおな,igual,auto-ia
 92081020,ｨかんとく,entrenador,auto-ia
 92081020,ｨとも,amigo,auto-ia
-92081020,ｨていこくがくえん,Instituto Imperial,auto-ia
+92081020,ｨていこくがくえん,Royal Academy,glosario
 92081020,ｨていこく,imperio,auto-ia
 92081020,ｨくんりん,reinar,auto-ia
 92081020,"ｨ
 かげやま",Ray Dark,auto-ia
 92081020,ｨすがた,figura,auto-ia
 92081020,ｪかげやま,Ray Dark,auto-ia
-92081020,ｪていこくがくえん,Instituto Imperial,auto-ia
+92081020,ｪていこくがくえん,Royal Academy,glosario
 92081020,ｪゆうしょう,victoria,auto-ia
 92081020,ｪじょうけん,condición,auto-ia
 92081020,"ｪ
@@ -25667,12 +25662,12 @@ investigar",auto-ia
 92081020,ﾂかげやま,Ray Dark,auto-ia
 92081020,ﾂぜうす,Zeus,auto-ia
 92081020,ﾂたたか,luchar,auto-ia
-92081020,ﾂせんばやま,Senbayama,auto-ia
+92081020,ﾂせんばやま,Farm,glosario
 92081020,"ﾂ
 むげん",infinito,auto-ia
 92081020,ﾂかべ,muro,auto-ia
 92081020,ﾄぜうす,Zeus,auto-ia
-92081020,ﾄせんばやま,Senbayama,auto-ia
+92081020,ﾄせんばやま,Farm,glosario
 92081020,ﾆそれは…。,eso es…,auto-ia
 92081020,ﾈひみつ,secreto,auto-ia
 92081020,ﾈそうこ,almacén,auto-ia
@@ -25687,7 +25682,7 @@ investigar",auto-ia
 92081020,ﾌれんしゅう,entrenamiento,auto-ia
 92081020,ﾌきどう,Jude,auto-ia
 92081020,ﾌれんしゅう,entrenamiento,auto-ia
-92081020,ﾎせんばやま,Senbayama,auto-ia
+92081020,ﾎせんばやま,Farm,glosario
 92081020,ﾎむげん,infinito,auto-ia
 92081020,ﾎかべ,muro,auto-ia
 92081020,ﾎくだ,bajar,auto-ia
@@ -25980,7 +25975,7 @@ una patada como un rayo.» …¿eh?",auto-ia
 92081400,Yうご,mover,auto-ia
 92081400,_なんだと…。,¿¿qué has dicho...?,auto-ia
 92081400,cたいせつ,importante,auto-ia
-92081400,cせんばやま,Senbayama,auto-ia
+92081400,cせんばやま,Farm,glosario
 92081400,cむげん,infinito,auto-ia
 92081400,cかべ,muro,auto-ia
 92081400,cたが,barrera,auto-ia
@@ -25990,7 +25985,7 @@ una patada como un rayo.» …¿eh?",auto-ia
 92081400,eたが,barrera,auto-ia
 92081400,eしんらい,confianza,auto-ia
 92081400,eこころ,corazón,auto-ia
-92081400,eせんばやま,Senbayama,auto-ia
+92081400,eせんばやま,Farm,glosario
 92081400,eおも,pesado,auto-ia
 92081400,rたが,mutuamente,auto-ia
 92081400,rしんらい,confianza,auto-ia
@@ -26034,7 +26029,7 @@ una patada como un rayo.» …¿eh?",auto-ia
 92081450,8だまって%1F聞いていれば\nなにを%1F甘いことを…。,¿De qué hablas?,revisar
 92081450,0チーム？　%2F信頼？\nフッ　%1F下らんな…。,¿Equipo? ¿Confianza?\n¡Anda ya! ¡Es ridículo!,revisar
 92081450,T%1F下らん…か。\nそれと%1F同じことを%1F言った%1F男が\n%2F過去にもいたな…。,¿Te parece ridículo? Me sé de uno\nque solía decir lo mismo.,revisar
-92081450,/\おい　%2F影山！\n%2F何度%1F言ったら　わかるんだ！\nちゃんと%3F備流田にパスをまわせ！,"¡Oye, Dark!\n¿Por qué no escuchas? ¡Tendrías\nque habérsela pasado a Constant!",revisar
+92081450,/\おい　%2F影山！\n%2F何度%1F言ったら　わかるんだ！\nちゃんと%3F備流田にパスをまわせ！,¡Ray Dark! ¿Cuántas\nveces tengo que\ndecirlo? ¡Pásale el\fbalón a Constant!,glosario
 92081450,1ｬでも　ゴールはしましたよ？\n%2F結局は　%1F勝てばいい…\n%1F違いますかキャプテン…？\fあんなザコにパスをまわすより\nこのオレが…　%2F１人で\nゴールした%1F方がいい。,"Pero he metido gol, ¿no? Ganar es\nimportante, ¿verdad, capitán?\f¿No es mejor que marque gol\nque permitir que ese inútil falle?",revisar
 92081450,5ｨ%2F影山！\nサッカーは%1F共にたたかう\nチームを%2F信頼することが%2F大事なんだ！\fおまえがやっているのは\nサッカーでは%1F無い！\nただの%2F自分%2F勝手なプレイだ！,¡Dark! ¡El fútbol no es nada si\nno confías en tu equipo!\f¡Eso a lo que juegas no es fútbol!\n¡Lo único que haces es perseguir\nel protagonismo!,revisar
 92081450,7hボソッ…　\nチーム…　%2F信頼…\nククク…　%1F下らん。\fチカラこそが…\n%2F勝利こそが%1F全て…。,"Mmm...\nEquipo... Confianza...\nJa, ja, ja... ¡Ridículo!\fEl poder... ¡Ganar lo es todo!",revisar
@@ -26275,7 +26270,7 @@ a entrenar todos juntos!",auto-ia
 92081510,ﾋきどう,Sharp,auto-ia
 92081510,ﾋれんらく,contacto,auto-ia
 92081510,ﾎしゅだん,medio,auto-ia
-92081510,ﾎていこくがくえん,Instituto Imperial,auto-ia
+92081510,ﾎていこくがくえん,Royal Academy,glosario
 92081510,ﾎとき,a veces,auto-ia
 92081510,ﾎにい,hermano mayor,auto-ia
 92081510,ﾎうら,reverso,auto-ia
@@ -26311,7 +26306,7 @@ a entrenar todos juntos!",auto-ia
 92081600,"�Hポジション変更失敗: ChangeStockUnitNo = %d, ReplaceUnitPos = %d","|WVXs: ChangeStockUnitNo = %d, ReplaceUnitPos = %d",revisar
 92081600,"�0ロック1:UnitNo = %d, ReplaceUnitLock = %d","bN1:UnitNo = %d, ReplaceUnitLock = %d",revisar
 92081600,"4ロック2:ChangeUnitNo = %d, ChangeUnitLock = %d","bN2:ChangeUnitNo = %d, ChangeUnitLock = %d",revisar
-92081600,",hいよいよ%2F試合の%1F日だ！\nオレたちの「イナズマブレイク」\n%3F千羽山のヤツらに%1F見せてやろうぜ！",¡Hoy tenemos partido! ¡Vamos a\nenseñarle al Farm lo que le hace\nla Ruptura relámpago a su defensa!,revisar
+92081600,",hいよいよ%2F試合の%1F日だ！\nオレたちの「イナズマブレイク」\n%3F千羽山のヤツらに%1F見せてやろうぜ！",¡Hoy tenemos partido! ¡Vamos a\nenseñarle al Farm lo que le hace\nla Ruptura relámpago a su defensa!,oficial
 92081600,.Hフッ　\nオレのいる%3F雷門中サッカー%1F部が\n%1F負けるはずがない。,Bah... El Raimon no puede perder\nconmigo en el equipo.,revisar
 92081600,0ヘッ　%1F言ってろよ。,¡Eso lo dices tú!,revisar
 92081600,2Tふふっ　なんだか\n%2F昨日より%2F仲良くなってるみたい。\nね　%2F春奈ちゃん。,"¡Je, je! ¿No crees que se llevan\nmejor que ayer?",revisar
@@ -26321,7 +26316,7 @@ a entrenar todos juntos!",auto-ia
 92081600,交代終了:pos=%d,Sustitución finalizada: pos=%d,auto-ia
 92081600,M(UNIT_RETURN:%dをパーティからはずす,M(UNIT_RETURN:Sacar a %d del grupo,auto-ia
 92081600,",しあい",partido,auto-ia
-92081600,",せんばやま",Senbayama,auto-ia
+92081600,",せんばやま",Farm,glosario
 92081600,.らいもんちゅう,Instituto Raimon,auto-ia
 92081600,2きのう,ayer,auto-ia
 92081600,2なかよ,amigo,auto-ia
@@ -26348,7 +26343,7 @@ a entrenar todos juntos!",auto-ia
 92081800,'�…%2F大介は　\nオレの%2F大切な%2F親友だった。\fおたがい　サッカーが%2F大好きで\n%1F若いころは　%2F全国%2F優勝しよう\nなんて%1F誓いあったものさ。,David era mi mejor amigo.\fCuando éramos jóvenes nos\nprometimos que ganaríamos\nla final nacional.,revisar
 92081800,)�そして　%2F大人になって\nあんたはスポーツ%2F記者になり\f%2F円堂%2F監督は　サッカー%2F選手を\n%2F引退したあと　この%3F雷門中で\nサッカーをおしえることで,Pero al hacerte mayor te hiciste\nperiodista deportivo...\fY el entrenador Evans se ocupó del\nequipo del Raimon tras retirarse\ncomo jugador.,revisar
 92081800,+Dそれぞれ　%1F次の%2F世代に\n%1F夢をたくすことにしたんだな。,Así que los dos confiasteis\nvuestro sueño a las nuevas\ngeneraciones.,revisar
-92081800,-ｼそう　そして%2F大介が%1F育てた\nおまえたちイナズマイレブンは\n%4F全国大会へすすんだ。\fオレは　うれしかったよ。\n…だが　%2F優勝を%1F目のまえにして\nオレたちの%1F夢はくずされたんだ！,Pues sí... Cuando Evans llevó\nal Inazuma Eleven al torneo\nnacional...\fPara mí era como estar soñando.\n¡Pero ese sueño se esfumó\ndelante de nuestros ojos!,revisar
+92081800,-ｼそう　そして%2F大介が%1F育てた\nおまえたちイナズマイレブンは\n%4F全国大会へすすんだ。\fオレは　うれしかったよ。\n…だが　%2F優勝を%1F目のまえにして\nオレたちの%1F夢はくずされたんだ！,"Los Inazuma Eleven de\nDavid llegaron al\ncampeonato nacional.\fMe alegré, pero\nnuestro sueño se\nrompió antes de ganar.",glosario
 92081800,/�%2F大介の%2F死後　オレは%2F記者をやめ\n%1F死の%2F原因をさぐるため\n%2F刑事になった。\fそして　%2F影山の%2F悪事に\n%1F気づいたんだ…。,Dejé de ser reportero y me uní\na la policía para averiguar\nla causa de la muerte de David.\fEntonces descubrí el rastro\nde los crímenes de Dark.,revisar
 92081800,1Lオレは　%2F影山をゆるせない！\n%1F必ず　あの%1F男を%2F逮捕してみせる！,¡No permitiré que salga impune!\n¡Conseguiré que Ray Dark pague\npor lo que ha hecho!,revisar
 92081800,3�%2F全国で%2F優勝…か。\fあのバスでの%2F事故の%1F後\nワシたちが４０%1F年%1F間　ずっと\n%1F忘れようとしてきたキモチだ…。\fだが　あいつらなら\nきっと…！,Campeones nacionales...\fPerdimos toda la esperanza\ncon aquel accidente de\nautobús hace 40 años...\f¡Pero ahora creo que ellos\nsí pueden conseguirlo!,revisar
@@ -26521,7 +26516,7 @@ medio",auto-ia
 92090200,そうッスねー。,Pues sí.,revisar
 92090200,なっ　なんだよ　おまえら！,Pero ¿de qué vais?,revisar
 92090200,�%3F準決勝の%2F相手が　\nどんなものかなーと%1F思って\n%1F見に%1F来てやったけど。\fなーんか　まわりにいるのも\nヌケてる%1F感じのヤツばっかだし。,Teníamos curiosidad por ver contra\nquién nos tocaba jugar la semi\ny por eso hemos venido.\fAlgo me dice que los que están\naquí contigo son también unos\npatanes.,revisar
-92090200,�こりゃー　もう\nオレたち「%2F武方３%2F兄弟」のいる\n「%3F木戸川%3F清修中」の%1F勝ちで\f%1F決まったもトーゼン\nみたいな？,"Cada vez tengo menos dudas de que\nnuestro equipo, el Kirkwood,\npasará a la final.\f¡Y será gracias a nosotros,\nlos trillizos Murdock!",revisar
+92090200,�こりゃー　もう\nオレたち「%2F武方３%2F兄弟」のいる\n「%3F木戸川%3F清修中」の%1F勝ちで\f%1F決まったもトーゼン\nみたいな？,La victoria será\nnuestra. ¡Somos los\ntres hermanos Murdock\fdel Instituto\nKirkwood!,glosario
 92090200,そうッスねー。,Pues sí.,revisar
 92090200,8…そうか　%3F準決勝の%2F相手は\nおまえらなのか。,De modo que la semifinal\nla jugaremos contra vosotros...,revisar
 92090200,4え　%3F木戸川%2F清修？　\nそれって　たしか…。,¿Kirkwood? ¿No era ahí donde...?,revisar
@@ -26540,7 +26535,7 @@ medio",auto-ia
 92090200,ねー。,Oye.,auto-ia
 92090200,…そうッスねー。,"…Pues sí, supongo.",auto-ia
 92090300,pうわー　もうお%1F終いかよ。\nマジ%1F弱すぎっしょ。\f%2F帝国もさー　こんなチームに\n%1F負けちゃったわけ？,¿Ya está? Vaya panda de\naficionados.\f¿Y estos son los que ganaron\na la Royal Academy?,revisar
-92090300,､ま　その%2F帝国も%3F世宇子とかいう　\n%1F聞いたことないチームに\nボロ%1F負けしたっていうし。\fこのようすじゃ　%2F今年は\nもー　ぜんぜん%2F楽勝　\nみたいな？,"Bah, esos de la Royal salieron\nescaldados del partido contra el\nZeus, y eso que nadie los conoce.\fSi seguimos así, me parece que\nllevarnos el campeonato este\naño será coser y cantar.",revisar
+92090300,､ま　その%2F帝国も%3F世宇子とかいう　\n%1F聞いたことないチームに\nボロ%1F負けしたっていうし。\fこのようすじゃ　%2F今年は\nもー　ぜんぜん%2F楽勝　\nみたいな？,Incluso la Royal\nperdió contra un\nequipo desconocido\fllamado Zeus. Este año\nserá pan comido.,glosario
 92090300,xあーあ\nなんかマジ　つまんねー。\fこーんな%1F弱いヤツらに　\nかまってるヒマは%1F無いし　\nさっさと%1F帰ろうぜ。,"Y que lo digas. Qué poco futuro\nle veo a esta gente...\fVámonos a casa, que es tontería\nperder el tiempo con estos\nmatados.",revisar
 92090300,HトライアングルＺ…！\nあいつら　いつの%1F間に\nあんな%1F技を…。,¡El Triángulo Z!\n¿Cuándo han aprendido\nesa técnica?...,revisar
 92090300,(これは　いったい%1F何ごとなの…！,¿Qué ha pasado aquí?...,revisar
@@ -26701,7 +26696,7 @@ medio",auto-ia
 92090700,ｭ パーティにTunitがいない,¡Jude Sharp se te ha unido!,revisar
 92090700,"ﾎ,%sの\n%3F秘伝書を%1F手に%1F入れた！",Has obtenido el cuaderno\nsecreto %s.,revisar
 92090700,ﾘ %s\nを%1F手に%1F入れた！,Has obtenido: %s,revisar
-92090700,�h…きれいだな。\fあの%1F日…　　\n%2F帝国との%2F試合が%1F決まった%1F日に\nながめた%1F空みたいだ。,Qué bonito. El cielo está como\naquel día...\fEl día en que nos dijeron que\njugaríamos contra la Royal.,revisar
+92090700,�h…きれいだな。\fあの%1F日…　　\n%2F帝国との%2F試合が%1F決まった%1F日に\nながめた%1F空みたいだ。,Qué bonito. El cielo está como\naquel día...\fEl día en que nos dijeron que\njugaríamos contra la Royal.,oficial
 92090700,�Tこーんな%1F弱いヤツらに　\nかまってるヒマは%1F無いし　\nさっさと%1F帰ろうぜ。,Qué poco futuro\nle veo a esta gente...\nVámonos a casa.,revisar
 92090700,�P%4F全国大会で%2F優勝する　…か。\fじいちゃん　オレには\nムリなのかな…。,Abuelo... Creo que será\nimposible ganar el torneo nacional.,revisar
 92090700,､0あら\nめずらしいところで%1F会うものね。,"Hala, ¡en qué lugar te encuentro!",revisar
@@ -26858,7 +26853,7 @@ Raimon",auto-ia
 92090900,1きどかわ,Kidokawa,auto-ia
 92090900,1ひとり,una persona,auto-ia
 92090900,1とっくん,entrenamiento especial,auto-ia
-92090900,3えんどう,Endo,auto-ia
+92090900,3えんどう,Evans,glosario
 92090900,3にん,persona,auto-ia
 92090900,3かんとく,entrenador,auto-ia
 92090900,3はな,historia,auto-ia
@@ -26868,7 +26863,7 @@ Raimon",auto-ia
 92090900,Dもくてき,objetivo,auto-ia
 92091000,ﾔよお　%2F円堂。\nまさか　オレたちが%1F逃げたなんて\n%1F思っちゃいなかったろうな。\f…なーんてな。\nちょっと%1F弱%1F気になったのは\nみとめるぜ。\fあんな　すごいシュートを\n%1F目の%1F前で%1F見せられちゃな…。,"Buenas, Mark. No habrás ido a\npensar que habíamos huido,\n¿verdad? Anda que...\fBueno, reconozco que un poco\nalicaídos sí que estábamos.\fDespués de ver un disparo tan\nsensacional como ese...",revisar
 92091000,<でもよ…　%3F豪炎寺のヤツに\n%1F怒られちまったんだ。,"De todos modos, Axel se ha\nmosqueado con nosotros.",revisar
-92091000,%2F風丸…。,Nathan…,auto-ia
+92091000,%2F風丸…。,Nathan...,oficial
 92091000,%3F豪炎寺に？,¿A Axel?,auto-ia
 92091000,※シナリオフラグ：%d,*Bandera de escenario: %d,auto-ia
 92091010,8どうせムリでやんすよ\nもう　%1F帰るでやんす…。,Es imposible. Me largo...,revisar
@@ -27115,7 +27110,7 @@ libro de técnicas secretas",auto-ia
 92091700,$おまえ　%1F何しにきたんだ！,¿Qué has venido a hacer aquí?,revisar
 92091700,�%2F安心しろよ。\n%2F今日は　イヤミを\n%1F言いにきたんじゃない。\fただ…　%3F豪炎寺。\n%2F試合の%1F前に　おまえに\n%1F言っておきたいことがあってな。,"Tranquilos, hoy no he venido a\nreírme de vosotros.\fSolo quería decirte una cosa antes\ndel partido, Axel.\n",revisar
 92091700,ｼ%3F豪炎寺　おまえが\nサッカーをやめたとか\nつまらないこと%1F言ってる%1F間\fオレたちは　%2F必死で%2F練習した！\n%2F全国で%2F優勝するために\nトライアングルＺだって%1F編み%1F出した！,"Axel, mientras tú decías que ibas\na dejar el fútbol, nosotros hemos\nestado entrenando a muerte.\f¡Incluso hemos creado una técnica\ncon la que ganaremos el torneo\nnacional, el Triángulo Z!",revisar
-92091700,�%1F今は　おまえにだって\nゼッタイに%1F負けない！\fおまえがいなくても　%3F木戸川は　\nこの%2F武方３%2F兄弟がいるってこと\n%1F見せてやる…！,"¡No vamos a perder contra ti\nde ninguna de las maneras!\fTe demostraremos que el Kirkwood,\ncon sus hermanos Murdock, no te\nnecesita para nada.",revisar
+92091700,�%1F今は　おまえにだって\nゼッタイに%1F負けない！\fおまえがいなくても　%3F木戸川は　\nこの%2F武方３%2F兄弟がいるってこと\n%1F見せてやる…！,"¡Ahora no perderé ni\ncontra ti! Aunque tú\nno estés, los tres\fhermanos Murdock\nvenceremos a Kirkwood.",glosario
 92091700,H…じゃあな　\n%2F試合で%1F会おう。\n%2F明日は…　%1F逃げるなよ！,"Bueno, nos vemos en el partido.\n¡Que no se te ocurra escapar\nmañana!",revisar
 92091700,…ああ。,…Sí.,auto-ia
 92091800,☆★☆パーティロック☆★☆,"Pos=%2d, UnitNo=%4d",revisar
@@ -27144,7 +27139,7 @@ libro de técnicas secretas",auto-ia
 92091800,$☆★☆ポジションロック☆★☆,$☆★☆Posición bloqueada☆★☆,auto-ia
 92091800,I交代終了:pos=%d,Fin del cambio:pos=%d,auto-ia
 92091800,ﾗ(UNIT_RETURN:%dをパーティからはずす,(UNIT_RETURN:saca a %d del grupo,auto-ia
-92091800,Hxついにこの%1F日がきたな…！\n%1F見てろよ　%2F武方３%2F兄弟！\f%2F今度こそ　シュートを\n%1F受け%1F止めてやるぜ！,"¡Por fin ha llegado este día...!\n¡Mirad bien, hermanos Murdock!\f¡Esta vez sí que voy a\nparar vuestro tiro!",auto-ia
+92091800,Hxついにこの%1F日がきたな…！\n%1F見てろよ　%2F武方３%2F兄弟！\f%2F今度こそ　シュートを\n%1F受け%1F止めてやるぜ！,"¡Por fin ha llegado el\ndía! ¡Mirad, hermanos\nMurdock! ¡Esta vez\fdetendré vuestro tiro!",glosario
 92091850,$…なるほど　ごくろうだった。,Entiendo... Buen trabajo.,revisar
 92091850,#@%2F鬼道　%1F今のは%2F帝国の…\n%1F何か%1F用だったのか？,"Jude, ese... ¿no era de la Royal?\n¿Quería algo?...",revisar
 92091850,&フッ　すぐにわかるさ。,Pronto lo sabrás.,revisar
@@ -27509,7 +27504,7 @@ partido contra el Instituto Zeus…",auto-ia
 92100400,@えっ？\nど　どうしてですか？\nせっかく%2F脱出できたのに？,"¿Eh? ¿Por qué? Ahora que ha\nconseguido escapar, ¿se ha\nmetido en un follón?",revisar
 92100400,ｸはい…。\f「どうしても　%2F円堂くんに\n　ちょくせつ　%1F伝えねばならんことが\n　ある」　とおっしゃられ…\f%3F稲妻町の%2F鉄塔にて　%2F円堂さまを\nお%1F待ちになられているのです！,"Sí... Dijo: hTengo que hablar\ncon Mark, y he de hacerlo a\ncualquier precio.h\f¡Te está esperando en la torre!",revisar
 92100400,",%2F鉄塔…？\nどうしてそんなところで？",¿En la torre? ¿Y por qué ahí?,revisar
-92100400,､くわしい%1F話は　%3F総一郎さまから\nちょくせつ　お%1F聞きできるでしょう。\fしかし%1F今　%1F町はこのような%2F状況です。\nどうか　できるだけお%1F急ぎください。,"Eso se lo puedes preguntar a\nél directamente.\fNo lo dejes correr demasiado,\nespecialmente ahora que la ciudad\nestá como está.",revisar
+92100400,､くわしい%1F話は　%3F総一郎さまから\nちょくせつ　お%1F聞きできるでしょう。\fしかし%1F今　%1F町はこのような%2F状況です。\nどうか　できるだけお%1F急ぎください。,"El señor Raimon te\ncontará los detalles\nen persona.\fPero la ciudad está\nasí ahora. Por favor,\ndate prisa.",glosario
 92100400,xあそこは%2F人目につく%2F場所です…。\fまわりでは%2F警備に　あたっていますが\n%2F鉄塔には%3F総一郎さま%2F１人…。,"Es un lugar donde hay más gente...\nAlrededor de la torre han puesto\nvigilancia, pero...\fHa subido a ella él solo.",revisar
 92100400,"""撃ﾇうしても　あの%2F場所で\n%2F円堂さまに　お%1F伝えしたいことが\nあるということなのです！\fどうか　お%1F急ぎ%1F下さい　%2F円堂さま…。","¡Quiere hablar contigo pase\nlo que pase en lo alto de\naquel lugar!\f¡Por favor, Mark, no tardes!",revisar
 92100400,&@%3F総一郎のヤツ…\nまさか　あの%1F話をするつもりか？\f…。,Este Sonny...\n¿No irá a contarle aquello?...,revisar
@@ -27557,7 +27552,7 @@ partido contra el Instituto Zeus…",auto-ia
 92100400,ｭかげやま,Ray Dark,auto-ia
 92100400,ｭそうすい,comandante en jefe,auto-ia
 92100400,ｰまちが,error,auto-ia
-92100400,ｰみかげ,Mikage,auto-ia
+92100400,ｰみかげ,Brain,glosario
 92100400,ｰつか,atrapar,auto-ia
 92100400,ｰせんのう,lavado de cerebro,auto-ia
 92100400,ｴ@ああ…\n%2F影山のヤツめ　とんでもないことを\nしやがる…。,Ah...\nese Ray Dark va a hacer\nalgo terrible...,auto-ia
@@ -27735,7 +27730,7 @@ partido contra el Instituto Zeus…",auto-ia
 92100900,ﾝdしかし　イナズマイレブンが%1F姿を%1F消し\nこのシンボルから%1F光が%1F消えて\nずいぶんたつ…。,"Sin embargo, los Inazuma Eleven\ndesaparecieron, y con ellos se\napagó la luz de la torre.",revisar
 92100900,ﾟ狽ｱのシンボルに%1F再び%1F光をともし\n%3F稲妻町に%1F真の%2F平和をとりもどす%1F者…\fそれがこの%1F町にとっての\n%2F本当のイナズマイレブンなのだ！,"Han pasado muchos años, pero al\nfin han aparecido unos chicos\ncapaces de volver a encenderla.\f¡Para esta ciudad, vosotros sois\nlos auténticos Inazuma Eleven!",revisar
 92100900,�(%2F本当の　イナズマイレブン…。,Los auténticos Inazuma Eleven...,revisar
-92100900,��%2F円堂くん！\n%2F影山をたおし　このシンボルに\n%1F再び%1F光をともしてくれ！\fそれは　%2F大介さんの%1F魂を%1F受けつぐ\nキミにしか　できないことなのだ！,"¡Derrota a Ray Dark y vuelve a\ndar luz a este símbolo, Mark!\f¡Solo tú, que has heredado\nla pasión de tu abuelo, eres\ncapaz de hacerlo!",revisar
+92100900,��%2F円堂くん！\n%2F影山をたおし　このシンボルに\n%1F再び%1F光をともしてくれ！\fそれは　%2F大介さんの%1F魂を%1F受けつぐ\nキミにしか　できないことなのだ！,"¡Mark, derrota a Ray\nDark y vuelve a\nencender este símbolo!\fSolo tú puedes heredar\nel alma del señor\nEvans.",glosario
 92100900,�ｸ%1F今までキミたちは　この%3F稲妻町で\nさまざまな%2F練習をしてきたはずだ…！\fこれから　%3F世宇子との%2F試合まで…\nこの%1F町をまわって　%2F限界まで\n%2F最後の%2F練習をしたまえ！,Os habéis enfrentado a todo tipo\nde pruebas para poder llegar por\nfin a disputar el partido del Zeus.\f¡Recorred la ciudad y entrenaos\nal límite por última vez!,revisar
 92100900,�Lもちろん%2F協力はおしまない！\n%2F必要なものがあれば%1F言ってくれ…！,"¡Por supuesto, os apoyaremos en\ntodo lo que necesitéis!\fSolo tienes que decirme en\nqué os podemos ayudar.",revisar
 92100900,�pありがとうございます。\n%3F理事長！\nオレたち　ゼッタイなってみせます！\f%2F本当の…　イナズマイレブンに！,"¡Muchas gracias, Sr. Raimon!\f¡Nos esforzaremos al máximo...\npara convertirnos en\nlos auténticos Inazuma Eleven!",revisar
@@ -28596,24 +28591,24 @@ Tienes toda la razón…",auto-ia
 93800001,"�,なあ　いっしょに\nサッカーやろうぜ！","¡Venga, juega al fútbol conmigo!",revisar
 93800001,�%2F無理ですよ…。,No puedo...,revisar
 93800001,�0%2F五郎！　サッカーやる%1F気になったか？,¿Te han entrado ganas ya?,revisar
-93800001,"�,%2F五郎！　サッカーはサイコーだぞ！",¡El fútbol es una pasada!,revisar
+93800001,"�,%2F五郎！　サッカーはサイコーだぞ！",¡El fútbol es una pasada!,oficial
 93800001,�そうなんですかねえ…。,Si tú lo dices...,revisar
 93800001,･<%2F五郎！　サッカー%2F以外に\nやることなんてあるのか？,¿Es que tienes otras cosas que\nhacer que te impidan jugar?,revisar
 93800001,ｧ8こう%1F見えても　いろいろ\nいそがしいんですよ…。,"Aunque no lo parezca, estoy\nbastante ocupado...",revisar
 93800001,ｯ\%2F五郎！　%2F心配しなくても\nおまえをボールとまちがえて\nけっとばしたりはしないぞ！,"¡No te preocupes! Tranquilo, que\nno le daré patadas a tu cabeza\ncreyendo que es un balón.",revisar
 93800001,ｱ(%2F本当ですか？　%2F不安だなあ…。,¿De verdad? No sé yo...,revisar
-93800001,ｹD%2F五郎！　クッキーフレーバーを\nおごってやるから！　なっ！？,"¡Venga, que te invito a unas\ngalletas! ¿Qué dices?",revisar
+93800001,ｹD%2F五郎！　クッキーフレーバーを\nおごってやるから！　なっ！？,"¡Venga, que te invito a unas\ngalletas! ¿Qué dices?",oficial
 93800001,ｻ$そんなの　いらないですよ…。,No me apetecen...,revisar
 93800001,ﾅ(%1F別に　%1F何もいらないですよ…。,¿Qué es lo que quieres?,revisar
 93800001,ﾍ<%2F五郎！　%2F五郎！\nたのむから　サッカーやろうぜ！？,"¡Venga, no seas así! ¡Juega\nal fútbol conmigo, porfa!",revisar
 93800001,ﾏ`もうっ！　９%1F回も%1F誘ってくるなんて\nしつこいですよ！\nボクに　かまわないでください！！,"¡Ya está bien! ¡Qué cansino!\n9 veces me lo ha pedido el tío...\n¡Por favor, déjame en paz!",revisar
-93800001,ﾚ %1F見つけたぞ！　%2F五郎！,¡Te encontré!,revisar
+93800001,ﾚ %1F見つけたぞ！　%2F五郎！,¡Te encontré!,oficial
 93800001,ﾜ(うわっ！\nなんという%2F執念…。,"¡Uah! Eres de ideas fijas, ¿eh?",revisar
 93800001,� サッカーだ！　サッカー！！,¡Vamos a jugar al fútbol! ¡Fútbol!,revisar
 93800001,�0%2F無理って%1F言ってるじゃないですか…。,Te estoy diciendo que no...,revisar
 93800001,�H%1F走ったり　ボールをけったりする\nスポーツは　なんだと%1F思う？,¿Qué deporte es aquel en el\nque se corre y se le dan patadas\na un balón?,revisar
 93800001,� サッカーしかないだろ！？,"¡El fútbol, claro!",revisar
-93800001,$「ちゃん」はやめてください！,¡No me llames así!,revisar
+93800001,$「ちゃん」はやめてください！,¡No me llames así!,oficial
 93800001,$…%1F何も%1F言わないんですか？,¿No vas a decir nada?,revisar
 93800001,Hお%1F前から　サッカーがやりたいって\n%1F言うのを　まっているんだ。,Estoy esperando a que me\ndigas que quieres jugar al fútbol.,revisar
 93800001,*4…どうだ？\nサッカーやりたくなってこないか？,¿Y bien? ¿No te entran ganas\nde jugar al fútbol?,revisar
@@ -28677,21 +28672,21 @@ Tienes toda la razón…",auto-ia
 93800001,ｯしんぱい,preocupación,auto-ia
 93800001,ｱほんとう,de verdad,auto-ia
 93800001,ｱふあん,inquietud,auto-ia
-93800001,ｹごろう,Goro,auto-ia
+93800001,ｹごろう,Paul,glosario
 93800001,ﾃ0%2F五郎！　じゃあ　%1F何がほしいんだ！？,"¡Gregory! Entonces, ¿qué es lo que quieres?",auto-ia
-93800001,ﾃごろう,Goro,auto-ia
+93800001,ﾃごろう,Paul,glosario
 93800001,ﾃなに,qué,auto-ia
 93800001,ﾅべつ,aparte,auto-ia
 93800001,ﾅなに,qué,auto-ia
-93800001,ﾍごろう,Goro,auto-ia
+93800001,ﾍごろう,Paul,glosario
 93800001,ﾏかい,vez,auto-ia
 93800001,ﾏさそ,tentar,auto-ia
-93800001,ﾚごろう,Goro,auto-ia
+93800001,ﾚごろう,Paul,glosario
 93800001,ﾜしゅうねん,obstinación,auto-ia
-93800001,%2F五郎ちゃん！,¡Goro!,auto-ia
+93800001,%2F五郎ちゃん！,¡Paul!,glosario
 93800001,",かい",encuentro,auto-ia
 93800001,",さそ",invitar,auto-ia
-93800001,7ごろう,Goro,auto-ia
+93800001,7ごろう,Paul,glosario
 93800001,9しゅうねん,aniversario,auto-ia
 93800001,Aまえ,antes,auto-ia
 93800001,Aきら,brillante,auto-ia
@@ -29085,12 +29080,12 @@ se ha unido al equipo!",auto-ia
 97000004,"ﾘ0ロック1:UnitNo = %d, ReplaceUnitLock = %d","0ロック1:UnitNo = %d, ReplaceUnitLock = %d",auto-ia
 97000004,"�4ロック2:ChangeUnitNo = %d, ChangeUnitLock = %d","bN2:ChangeUnitNo = %d, ChangeUnitLock = %d",auto-dup
 97000004,",%3F野生中へのキップを%1F買いますか？",¿Quieres comprar el pase para la zona salvaje?,auto-ia
-97000004,"$,%4F御影専農へのキップを%1F買いますか？","$,¿Quieres comprar un billete para la Granja Mikage?",auto-ia
+97000004,"$,%4F御影専農へのキップを%1F買いますか？","$,¿Quieres comprar un billete\npara ir al Instituto Brain?",oficial
 97000004,:たいちょう,estado físico,auto-ia
 97000004,:しんぱい,preocupación,auto-ia
 97000004,:とき,momento,auto-ia
-97000004,"F,%4F帝国学園へのキップを%1F買いますか？",",¿Quieres comprar un billete para el Instituto Imperial?",auto-ia
-97000004,^せんばやま,^Senbayama,auto-ia
+97000004,"F,%4F帝国学園へのキップを%1F買いますか？",",¿Quieres comprar un billete para la Royal Academy?",glosario
+97000004,^せんばやま,^Farm,glosario
 97000004,jきどかわせいしゅう,Jude Sharp,auto-ia
 97000004,tきどかわ,Kidokawa,auto-ia
 97000004,tせいしゅう,Seishu,auto-ia
