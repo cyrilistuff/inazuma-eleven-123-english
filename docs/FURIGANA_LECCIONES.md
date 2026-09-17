@@ -361,3 +361,18 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - **Límites técnicos al usar la NDS:** las comillas (`?h`) y el apóstrofo no tienen glifo; el guion no
   se codifica en shift_jis («9-0» → «9 a 0»). Los menús de depuración (90000000, opciones «Sí :»)
   tienen su propio maquetado: se cambia el nombre sin reajustar.
+
+## ⚠️ Ancho de diálogo en el IE2: dos límites parcheables y un tope por página que no lo es (v14–v15, 2026-09-17)
+
+- **Límite 1: reajuste de líneas.** `ina_main2.cro` fija el ancho en 0xF0 en 0x66a24 (0x301a) y en 0x4cabc
+  (valor por defecto). Cambiarlo en su sitio a 0x1A0 funciona: el reajuste pasa a 37 caracteres.
+- **Límite 2: dibujo de la página.** 0x4d6a0 carga `mov r2,#0x120` (288 px, 24 caracteres). Cambiarlo a
+  0x1C0 funciona. El carácter que no cabe se dibuja al principio de la línea siguiente (de ahí el espacio
+  inicial que se veía en la v14).
+- **Tope 3: búfer de página de 132 B en la pila** (0x4d638, `sp+0x40`). No se puede ampliar en su sitio:
+  el marco de pila no tiene hueco. Si una página pasa de 131 B, el texto se corta; si se corta a mitad de
+  un carácter de 2 bytes, sale «?». Las páginas muy largas **sobrescriben registros guardados y la
+  dirección de retorno**, con riesgo de cuelgue.
+- **Regla:** cada página debe cumplir `2 × caracteres + (líneas − 1) ≤ 131`, con líneas de hasta 37
+  caracteres. Esto también afecta al reparto de 22 × 3: en la v10 hay 122 páginas de 132–134 B.
+- **Cómo cumplirla sin tocar el texto:** repartir el texto en más páginas, nunca recortarlo.
