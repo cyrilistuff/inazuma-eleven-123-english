@@ -47,6 +47,8 @@ solo "en la cabeza" o en el chat. En concreto:
 - El código Python vive en el paquete `tools/src/ie123kit`; en `tools/` quedan shims con los
   nombres antiguos y los 5 ficheros congelados del bloqueo v20.
 
+- **Los diálogos no se reescriben para que quepan.** Se usa el texto oficial íntegro (el port europeo de 3DS para el IE1, la NDS española para el IE2). Si una frase no cabe en la ventana, se reparte en más cajas o páginas, o se amplía la ventana, pero nunca se condensa ni se le quitan palabras.
+
 ## Norma 4 — NO repetir errores ya detectados
 
 Antes de tocar la **reinserción de diálogo / furigana** (`tools/reinsert.py`, código real en `ie123kit._legado.reinsert`), lee
