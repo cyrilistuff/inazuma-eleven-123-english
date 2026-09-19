@@ -49,19 +49,51 @@ work/                         (git lo ignora)
   ie1/
     fuentes/nds_es            ROM NDS española extraída. No se borra.
     fuentes/3ds_eu            IE1 3DS europeo extraído (es/, voces, cinemáticas, code_dec.bin). No se borra.
-    capas/vNN/<linea>/        capa de cada tanda: apply.py, validate.py, extra/, events/, previews/, informes
+    capas/<tema>/<linea>/     capa vigente de cada línea: apply.py, validate.py, extra/, events/, previews/
+    capas/historial/<tema>/vNN_<linea>/   versiones anteriores sustituidas (solo consulta)
     qa/                       capturas y registros de pruebas en juego
     legacy/                   carpetas de trabajo anteriores a esta organización (siguen leídas por algún script)
   ie2/{tormenta_de_fuego,ventisca_eterna,shared}/
   ie3/{rayo_celeste,fuego_explosivo,amenaza_del_ogro,shared}/
 ```
 
-Al empezar IE2/IE3 se repite el patrón de `ie1/`: `fuentes/`, `capas/vNN/`, `qa/`, dentro de la versión
+Al empezar IE2/IE3 se repite el patrón de `ie1/`: `fuentes/`, `capas/<tema>/`, `qa/`, dentro de la versión
 cuando el recurso es propio de ella o en `ieN/shared/` cuando es común a las versiones.
+
+## Capas: por juego y tema
+
+Las capas no se agrupan por número de versión (`v01`…`v94`) sino por juego y tema. `<juego>` es `ie1`,
+`ie2/shared`, `ie2/tormenta_de_fuego`, `ie2/ventisca_eterna`, `ie3/...` o `shared` (lo común a la recopilación):
+
+```
+work/<juego>/capas/
+  dialogo/            volcado, emparejado, reparto de cajas, páginas
+  nombres/            unitbase, pestañas, descripciones, letras dobles de nombres
+  rotulos_objetivos/  rótulos de lugar y objetivos
+  menus_cro/          literales y parches del código (CRO)
+  graficos/           texturas, sprites, ayuda, logos
+  media/              voces, bancos de sonido, subtítulos, vídeos
+  fuentes/            FONT12/8/12T y registro de letras dobles
+  teclado/            teclado de nombre
+  candidata/          scripts de montaje de candidatas
+  historial/<tema>/vNN_<linea>/   versiones anteriores sustituidas, solo para consulta
+```
+
+- La versión **vigente** de cada línea está directamente en su tema, con nombre y sin número:
+  `ie2/shared/capas/dialogo/saltos37`, `ie2/shared/capas/menus_cro/ancho_dialogo`,
+  `ie1/capas/dialogo/motor_unificado`.
+- **Una tanda nueva actualiza la carpeta del tema; la versión anterior pasa a
+  `historial/<tema>/vNN_<linea>/`** (NN = tanda en que se hizo). Nada se borra.
+- Al mover una capa se reescriben todas sus referencias (`spec_from_file_location`, `sys.path`, BASE,
+  rutas de candidatas y rutas cruzadas entre capas) y se ajustan los `parents[N]`: una capa de `historial/`
+  está un nivel más honda que una vigente. Después se busca con `grep -rE "capas[/\\]v[0-9]"` que no quede
+  ninguna ruta vieja y se ejecuta el `validate.py` de las capas vigentes.
+- El número vNN sigue identificando las candidatas (`work/shared/candidatas/probe_ie2_vNN`) y los issues.
+- La reorganización del 2026-09-19 dejó la tabla origen → destino en `work/shared/reorganizacion_capas.json`.
 
 ## Reglas
 
-1. **Nada nuevo en la raíz de `work/`**. Lo nuevo va en `work/ieN/capas/vNN/<linea>/` o, si es de la
+1. **Nada nuevo en la raíz de `work/`**. Lo nuevo va en `work/<juego>/capas/<tema>/<linea>/` o, si es de la
    recopilación entera, en `work/shared/`. Pruebas e imágenes sueltas: scratchpad de la sesión.
 2. Las candidatas se llaman `probe_ie1_vNN` y viven en `work/shared/candidatas/`, porque un `archive.fa`
    contiene los tres juegos.
