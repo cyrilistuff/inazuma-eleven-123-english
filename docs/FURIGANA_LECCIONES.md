@@ -376,3 +376,16 @@ entrar.»). **Emparejar siempre por ID de cadena alineando el patrón de saltos*
 - **Regla:** cada página debe cumplir `2 × caracteres + (líneas − 1) ≤ 131`, con líneas de hasta 37
   caracteres. Esto también afecta al reparto de 22 × 3: en la v10 hay 122 páginas de 132–134 B.
 - **Cómo cumplirla sin tocar el texto:** repartir el texto en más páginas, nunca recortarlo.
+
+## ⚠️ IE2: tres cosas que parecían texto y no lo eran (v20–v23, 2026-09-19)
+
+- **Los menús de opciones de los eventos** (Mapa/Caravana/Volver, Comprar/Vender/Salir…) son **sprites**:
+  la instrucción 0x308e solo cambia el fotograma. Están en `a_data_replace/field_board/data/`.
+- **Los argumentos del diálogo se usan en orden.** En japonés, el marcador de furigana consume antes su
+  lectura. Si se quita la furigana, el `%s` se queda con la lectura («fichar a いま»). Hay que reordenar
+  los argumentos de esas instrucciones.
+- **El menú de campo dibuja las letras según su anchura real, no con un paso fijo de 15 px** (al revés que
+  los rótulos). Tres rondas fallaron por usar el modelo de paso fijo. **Regla:** antes de dar por bueno un
+  cambio de texto, comprobar que la simulación reproduce la captura del usuario con el fallo tal cual.
+- El nombre de técnica del recuadro de partido es un gráfico (el cartel de la técnica), no `command.STR`:
+  solo se ven 86 px.
