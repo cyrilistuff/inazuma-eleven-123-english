@@ -8,7 +8,7 @@
 # > valores por defecto.
 
 [proyecto]
-idioma = "es-ES"
+idioma = "en-GB"
 nombres_europeos = true
 
 [candidatas]

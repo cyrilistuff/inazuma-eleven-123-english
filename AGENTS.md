@@ -1,3 +1,13 @@
+# English fork
+
+This branch is an English localization project (`en-GB`) based on the Spanish
+upstream. The Spanish translation files, release assets, and build outputs are
+reference material; do not publish them as an English patch or copy Spanish
+dialogue into `en_final`. Keep English work under `translation/en/` until an
+English build path has been validated. The technical, copyright, typography,
+and QA constraints below still apply. When a Spanish terminology instruction
+conflicts with English localization, use official English names and terms.
+
 # Retoma del proyecto
 
 ## Terminología confirmada por el usuario

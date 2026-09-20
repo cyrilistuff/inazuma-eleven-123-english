@@ -1,67 +1,32 @@
-# Inazuma Eleven 1·2·3!! Endō Mamoru Densetsu — traducción al español
+# Inazuma Eleven 1·2·3!! Endō Mamoru Densetsu — English patch project
 
-Traducción de aficionados, sin ánimo de lucro, de la recopilación de Nintendo 3DS que
-solo salió en Japón.
+This is an **early English localization fork** of
+[luishidalgoa/inazuma-eleven-123-spanish](https://github.com/luishidalgoa/inazuma-eleven-123-spanish)
+for the Japanese Nintendo 3DS compilation. The upstream project's tools,
+research, and Spanish patch are credited to its original contributors.
 
-**Aquí no hay ROMs.** Solo el parche y las herramientas. Pones tu copia, que debe ser
-legal. Ver [`LEGAL.md`](LEGAL.md).
+**There is no English patch to download yet.** The inherited `.xdelta` files,
+release packages, and most translation data are Spanish. Do not apply or
+redistribute them as an English release. The current work begins with an English
+translation workspace for Inazuma Eleven 1.
 
-## Qué está traducido
+## Status and plan
 
-- **Inazuma Eleven 1**: historia, menús, objetos, técnicas y jugadores, con nombres
-  europeos oficiales (Mark Evans, Axel Blaze, Raimon…).
-- **Voces y cinemáticas** en español.
-- **Interfaz de la recopilación**.
-- Los juegos **2 y 3 siguen en japonés**.
+1. Build an English text corpus using official English terminology where
+   available. Keep Japanese identifiers and control codes intact.
+2. Connect the English corpus to a separate build path. Remove Spanish text,
+   textures, voice, and video from any candidate that claims to be English.
+3. Verify text layout and play from a new save through the first practice match,
+   then expand coverage and test further chapters.
+4. Publish only a tested patch, never a ROM or extracted game assets.
 
-Detalle en [`docs/PROGRESO.md`](docs/PROGRESO.md).
+See [the English work guide](docs/ENGLISH_PATCH.md) for the first translation
+steps and current blockers. The upstream [development guide](docs/DESARROLLO.md)
+and [format notes](docs/FORMATOS.md) describe the inherited tools and game data.
 
-## Cómo jugarlo
+## Credits and legal note
 
-> **Por ahora solo emulador.** El `.3ds` que genera IE-repack funciona en Azahar y Lime3DS,
-> pero no pasa la verificación en una 3DS real. Es un fallo de la herramienta, ya comunicado.
-
-**Necesitas:** tu copia de *Inazuma Eleven 1·2·3!!* (3DS, `CTR-P-AETJ`) volcada y
-**descifrada**, en `.3ds` o `.cia`; el paquete `inazuma123-es-v1.0-pack.zip` de [Releases](../../releases); la herramienta [IE-repack](https://github.com/Javiju555/IE-repack)
-de Javiju555; y unos 12 GB libres.
-
-1. Descomprime IE-repack entero (necesita su carpeta `sidecars` al lado) y el paquete en
-   otra carpeta.
-2. Abre IE-repack y elige el modo **Pack (manifiesto)**.
-3. Base: tu copia japonesa. Pack: la carpeta `pack` (la que trae `manifiesto.json`).
-   Elige dónde guardar y pulsa el botón.
-4. Abre el `.3ds` resultante en **Azahar** o **Lime3DS**: Archivo → Cargar archivo.
-
-La herramienta verifica el hash de cada archivo antes y después de parchear. Si sale
-**«ningún origen cuadra con el manifiesto»**, tu copia no es la ROM japonesa original:
-no vale una ya traducida, ni una cifrada, ni otra región.
-
-Si usas la carpeta de mods de Azahar (`load/mods/<TitleID>/romfs/`), desactívala para
-probar el `.3ds`: sus archivos tienen prioridad sobre cualquier ROM que cargues.
-
-> Las releases **v1 y v1.1** siguen publicadas para DeltaPatcher, pero exigen un volcado
-> byte a byte idéntico al nuestro. Ver [`docs/DISTRIBUCION_DELTAPATCHER.md`](docs/DISTRIBUCION_DELTAPATCHER.md).
-
-## Límites conocidos
-
-Parchear el código del juego es inviable, los eventos de sistema y de intro no pueden
-crecer, y parte del diálogo no tiene datos de traducción. No es un fallo del motor: es el
-techo de lo que hay. Cada intento fallido está documentado en
-[`docs/FURIGANA_LECCIONES.md`](docs/FURIGANA_LECCIONES.md); léelo antes de reintentar nada.
-
-## Colaborar
-
-- **Desarrollo** (clonar, requisitos, build): [`docs/DESARROLLO.md`](docs/DESARROLLO.md)
-- **Traducir texto** (estilo, glosario): [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)
-- **Formatos técnicos**: [`docs/FORMATOS.md`](docs/FORMATOS.md) ·
-  [`docs/EVENT_SCRIPT_FORMAT.md`](docs/EVENT_SCRIPT_FORMAT.md)
-- **Herramientas** (paquete `ie123kit`): [`tools/README.md`](tools/README.md)
-
-## Créditos
-
-- Dirección y traducción: **luishidalgoa**
-- Colaboración: **TitoGalan**
-- Herramienta de parcheo [IE-repack](https://github.com/Javiju555/IE-repack): **Javiju555**
-- Terceros: ver [`tools/README.md`](tools/README.md)
-
-No asociado a LEVEL-5. Las marcas y el contenido del juego pertenecen a sus dueños.
+Original Spanish project: **luishidalgoa** and **TitoGalan**. IE-repack:
+**Javiju555**. This fan project is unaffiliated with LEVEL-5 or Nintendo.
+You must provide your own lawful copy of the Japanese game to build or use a
+future patch. No ROMs or extracted game assets belong in this repository.
