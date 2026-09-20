@@ -54,6 +54,20 @@ candidate to inspect, not an approved translation; `check_event_alignment`,
 The inherited DS character table was developed for Spanish and may need
 checking against English punctuation. Some 3DS lines have no DS equivalent.
 
+The first ten opening-scene lines (`92010100`) have been adapted into the IE1
+English CSV with `review` status. To stage only those lines as a local SSD file:
+
+```powershell
+$env:PYTHONPATH = 'tools/src'
+python -m ie123kit.ie1.texto.english_stage --event 92010100 --include-review
+```
+
+The output in `work/ie1/english_probe/` is ignored by Git. The stage command
+uses the frozen dialogue wrapping and fullwidth encoder, rejects unsupported
+characters and oversized records, and checks that SSD instructions are unchanged.
+It is not a playable archive. A later build must still pass the approved font
+hash lock and the in-game QA protocol.
+
 ### IE2 Firestorm and Blizzard
 
 `translation/en/ie2/dialogo.csv` is an empty English workspace with 87,432

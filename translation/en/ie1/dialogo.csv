@@ -12111,17 +12111,17 @@ Pああ！　%1F見てろよ！\nこの%3F必殺技はムチャクチャ\nかっ
 91200000,Aざんねん,,pending
 91200000,mこんかい,,pending
 91200000,mけっか,,pending
-92010100,$なぁ！　やろうぜ　%2F練習！,,pending
-92010100,$ああ！　%2F試合にそなえてさ！,,pending
-92010100,@%2F円堂さん　この%2F人数で%2F試合なんか\nできるんですか？,,pending
-92010100,`サッカー%1F部だからって　サッカーだけを\nやんなきゃいけないって%2F理屈は\nないでやんしょ？,,pending
-92010100,$そうそう　ビデオ%1F見ようぜ！,,pending
-92010100,8%2F円堂のヤツ　なに%2F１人で\nあつくなってるんだ？,,pending
-92010100,",%1F悪いものでも\n%1F食べたんスかねえ？",,pending
-92010100,T%2F練習っていっても\nサッカー%1F部がグラウンドを%1F使えるか\nわからないし…。,,pending
-92010100,`もうすぐ%2F廃部ってうわさもあるしな。\n%1F今さらあせっても\nどうしようもないってのに…。,,pending
+92010100,$なぁ！　やろうぜ　%2F練習！,Come on! Time to practise!,review
+92010100,$ああ！　%2F試合にそなえてさ！,Yeah! We need to be ready for a match!,review
+92010100,@%2F円堂さん　この%2F人数で%2F試合なんか\nできるんですか？,"Mark, can we play a match\nwith so few people?",review
+92010100,`サッカー%1F部だからって　サッカーだけを\nやんなきゃいけないって%2F理屈は\nないでやんしょ？,"We are a football club, but who says\nwe must play football all the time?",review
+92010100,$そうそう　ビデオ%1F見ようぜ！,How about watching a video instead?,review
+92010100,8%2F円堂のヤツ　なに%2F１人で\nあつくなってるんだ？,Why is Mark the only one\ngetting so worked up?,review
+92010100,",%1F悪いものでも\n%1F食べたんスかねえ？",Maybe he ate something bad?,review
+92010100,T%2F練習っていっても\nサッカー%1F部がグラウンドを%1F使えるか\nわからないし…。,"Even if we practise, I cannot tell\nif we can use the school pitch...",review
+92010100,`もうすぐ%2F廃部ってうわさもあるしな。\n%1F今さらあせっても\nどうしようもないってのに…。,I hear the club could be shut down.\nWhy rush to practise now?,review
 92010100,サッカー部室,,pending
-92010100,%2F練習スかぁ〜。,,pending
+92010100,%2F練習スかぁ〜。,Practise?,review
 92010200,ﾄやっぱりこのままじゃダメだ。\nとにかくオレ%2F１人でも\n%2F練習を%1F始めなきゃ。\f%2F今日ぐらいは　グラウンドが\nあいているといいんだけどな…。\fとりあえず　ようすを\n%1F見に%1F行ってみるか。,,pending
 92010200,グラウンドに行って練習だ！,,pending
 92010250,рｻんなに%1F急いで　ドコに%1F行くのさ？\fボクが　この%2F学園での\n%2F生活のコツを%1F教えてあげるから\nまあ　%1F聞いていきなよ。,,pending
