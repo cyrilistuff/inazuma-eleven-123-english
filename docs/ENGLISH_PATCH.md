@@ -34,6 +34,37 @@ English game copy, keep extracted sources under ignored `work/` and commit only
 reviewed translation entries. The upstream `ds_official.py` alignment is known
 to mispair lines; see issue #36 in the upstream repository before adapting it.
 
+### IE1 English DS reference
+
+With a personal European English IE1 DS dump, the extracted `script/en/evet.pkb`
+and `.pkh` can be kept in
+`work/ie1/english_references/data_iz/script/en/`. Extract the Japanese 3DS
+RomFS with `tools/extract_romfs.ps1`, then run:
+
+```powershell
+python tools/english_reference.py
+```
+
+This writes an ignored `work/ie1/english_references/alignment/ie1_ds_pairs.csv`
+and `summary.json`. The tool matches event IDs and string IDs, accounting for
+instruction shifts documented in `EVENT_SCRIPT_FORMAT.md`. It never copies
+official English text into `translation/en/ie1/dialogo.csv`. `review` means a
+candidate to inspect, not an approved translation; `check_event_alignment`,
+`ambiguous_same_japanese`, and `placeholder_mismatch` need particular care.
+The inherited DS character table was developed for Spanish and may need
+checking against English punctuation. Some 3DS lines have no DS equivalent.
+
+### IE2 Firestorm and Blizzard
+
+`translation/en/ie2/dialogo.csv` is an empty English workspace with 87,432
+unique Japanese keys. The European DS Firestorm and Blizzard copies supplied
+for local reference have byte-identical `script/en/evet.pkb` and `.pkh` files.
+Unlike IE1, these IE2 `evet` files contain mostly script metadata in the format
+parsed above; applying the IE1 event/string ID matcher gives almost no usable
+dialogue pairs. IE2 needs its own text-source investigation before importing
+English lines. The two 3DS editions also have distinct `eve.pkb` scripts, so
+version-specific dialogue must be checked separately.
+
 ## Before a first candidate
 
 - Add an English-only build path. The inherited reinserters and release
